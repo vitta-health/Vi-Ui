@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    title: 'Vitta Styleguid',
+    title: 'Vitta Styleguide',
     components: 'src/components/**/[A-Z]*.vue',
     navigation: true,
     // Override Styleguidist components
