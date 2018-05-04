@@ -9,7 +9,7 @@
     "url": "https://bitbucket.org/vittapros/styleguide.git"
   },
   "license": "MIT",
-  "main": "scripts/index.js",
+  "main": "src/index.js",
   "bin": {
     "vue-styleguidist": "bin/styleguidist.js"
   },
