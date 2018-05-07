@@ -14,7 +14,6 @@
 
 <script>
 import loggerMixin from "../../mixins/loggerMixin";
-import { setTimeout, clearTimeout } from 'timers';
 
 /**
  * Barra de progresso circular.
