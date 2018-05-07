@@ -36,13 +36,13 @@ export default {
       type: [Number, String],
       default: 4,
 		},
-		/**
-		 * Define o percentual do carregamento (Sem valor definido o circulo apenas gira infinitamente)
-		 */
-		percentValue: {
-			type: [Number, String],
-			default: null,
-		}
+    /**
+     * Define o percentual do carregamento (Sem valor definido o circulo apenas gira infinitamente)
+     */
+    percentValue: {
+      type: [Number, String],
+      default: null,
+    }
   },
   data () {
     return {
