@@ -29,7 +29,7 @@ export default {
   props: {
     /**
      * 
-     * Define o tamanho do progress os tamanhos permitidos são [mini | small | medium | large]
+     * Define o size do progress os sizes permitidos são [mini | small | medium | large]
      */
     size: {
       type: String,
@@ -45,23 +45,23 @@ export default {
   },
   methods: {
     getSize () {
-      let tamanhoCalculado;
+      let sizeCalculate;
       switch(this.size) {
         case 'mini':
-          tamanhoCalculado = 20;
+          sizeCalculate = 20;
         break;
         case 'small':
-          tamanhoCalculado = 50;        
+          sizeCalculate = 50;        
         break;
         case 'medium':
-          tamanhoCalculado = 100;        
+          sizeCalculate = 100;        
         break;
         case 'large':
-          tamanhoCalculado = 300;
+          sizeCalculate = 300;
         break;
       }
-      this.borderSize = (tamanhoCalculado * 0.1);
-      return tamanhoCalculado;
+      this.borderSize = (sizeCalculate * 0.1);
+      return sizeCalculate;
     }
   },
   computed: {
@@ -73,11 +73,11 @@ export default {
       return this.percentValue != null ? 'progress-dynamic': 'progress-loop';
     },
     changeStyleProgress() {
-      const tamanho = `${this.getSize()}px`;
+      const size = `${this.getSize()}px`;
       return this.percentValue != null ? 
-      `height: ${ tamanho }; width: ${ tamanho }; background: linear-gradient(to top, #3581BC ${ this.percentValue }%, #f3f3f3 0%);`
+      `height: ${ size }; width: ${ size }; background: linear-gradient(to top, #3581BC ${ this.percentValue }%, #f3f3f3 0%);`
       :
-      `height: ${ tamanho }; width: ${ tamanho };`;
+      `height: ${ size }; width: ${ size };`;
     },
     changeStyleBorder() {
       return `height: ${ this.borderSizeComputed }px; width: ${ this.borderSizeComputed }px;`;
@@ -98,6 +98,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
 }
 
 .progress-dynamic {
