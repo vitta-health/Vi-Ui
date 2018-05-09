@@ -47,6 +47,7 @@
     "styleguide:init": "sudo npm install && cd styleguide && sudo npm install && npm run styleguide",
     "styleguide": "cd styleguide && npm run styleguide",
     "styleguide:build": "cd styleguide && npm run styleguide:build",
-    "build": "rimraf ./dist && webpack --mode production --progress"
+    "build": "rimraf ./dist && webpack --mode production --progress",
+    "postinstall": "node postinstall.js"
   }
 }
