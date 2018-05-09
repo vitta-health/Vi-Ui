@@ -1,6 +1,6 @@
 {
   "name": "vitta-visual-components",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Biblioteca de componentes vitta",
   "main": "/dist/vitta-visual-components.min.js",
   "license": "Apache-2.0",
@@ -47,6 +47,6 @@
     "styleguide:init": "sudo npm install && cd styleguide && sudo npm install && npm run styleguide",
     "styleguide": "cd styleguide && npm run styleguide",
     "styleguide:build": "cd styleguide && npm run styleguide:build",
-    "build": "rimraf ./dist && cross-env NODE_ENV=production webpack --progress"
+    "build": "rimraf ./dist && webpack --mode production --progress"
   }
 }
