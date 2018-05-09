@@ -1,7 +1,7 @@
 Progress circular em loop:
 
 ```jsx
-<Progress />
+<Progress size="small" />
 ``` 
 
 Progress circular dinamico:
@@ -15,7 +15,7 @@ Veja como é facil utilizar
 ```vue
 <template>
     <div>
-        <Progress :size="size" :borderSize="border" />
+        <Progress :size="size"/>
     </div>
 </template>
 <script>
@@ -23,8 +23,7 @@ Veja como é facil utilizar
 export default {
     data () {
         return {
-            border: 12,
-            size: 64,
+            size: "medium",
         }
     }
 }

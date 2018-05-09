@@ -1,14 +1,12 @@
 <template>
   <div class="container">
     <div
-      ref="progress"
       :class="changeClass"
       :style="changeStyleProgress">
       <div
-        ref="content"
         class="content"
         :style="changeStyleBorder">
-        <span v-if="percentValueComputed" :style="styleTextPercent">{{ percentValueComputed }}%</span>
+        <span v-if="percentValue" :style="styleTextPercent">{{ percentValue }}%</span>
       </div>
     </div>
   </div>
@@ -23,20 +21,19 @@ import loggerMixin from "../../mixins/loggerMixin";
 export default {
   name: "Progress",
   mixins: [loggerMixin],
+  data () {
+    return {
+      borderSize: 4,
+    }
+  },
   props: {
     /**
-     * Define o tamanho do progress
+     * 
+     * Define o tamanho do progress os tamanhos permitidos são [mini | small | medium | large]
      */
     size: {
-      type: [Number, String],
-      default: 32,
-    },
-    /**
-     * Define o tamanho da borda
-     */
-    borderSize: {
-      type: Number,
-      default: 4,
+      type: String,
+      default: 'small',
     },
     /**
      * Define o percentual do carregamento (Sem valor definido o circulo apenas gira infinitamente)
@@ -44,23 +41,41 @@ export default {
     percentValue: {
       type: [Number, String],
       default: null,
+    },
+  },
+  methods: {
+    getSize () {
+      let tamanhoCalculado;
+      switch(this.size) {
+        case 'mini':
+          tamanhoCalculado = 20;
+        break;
+        case 'small':
+          tamanhoCalculado = 50;        
+        break;
+        case 'medium':
+          tamanhoCalculado = 100;        
+        break;
+        case 'large':
+          tamanhoCalculado = 300;
+        break;
+      }
+      this.borderSize = (tamanhoCalculado * 0.1);
+      return tamanhoCalculado;
     }
   },
   computed: {
     borderSizeComputed() {
-      let espessuraBorda = parseInt(this.borderSize) >= parseInt(this.size) ? 1 : parseInt(this.size) - parseInt(this.borderSize);
+      const espessuraBorda = parseInt(this.borderSize) >= this.getSize() ? 1 : this.getSize() - this.borderSize;
       return espessuraBorda;
     },
-    percentValueComputed() {
-      return this.percentValue === null ? null : this.percentValue;
-    },
     changeClass(){
-      return this.percentValueComputed != null ? 'progress-dynamic': 'progress-loop';
+      return this.percentValue != null ? 'progress-dynamic': 'progress-loop';
     },
     changeStyleProgress() {
-      const tamanho = `${parseInt(this.size)}px`;
-      return this.percentValueComputed != null ? 
-      `height: ${ tamanho }; width: ${ tamanho }; background: linear-gradient(to top, #3581BC ${ this.percentValueComputed }%, #f3f3f3 0%);`
+      const tamanho = `${this.getSize()}px`;
+      return this.percentValue != null ? 
+      `height: ${ tamanho }; width: ${ tamanho }; background: linear-gradient(to top, #3581BC ${ this.percentValue }%, #f3f3f3 0%);`
       :
       `height: ${ tamanho }; width: ${ tamanho };`;
     },
@@ -68,7 +83,7 @@ export default {
       return `height: ${ this.borderSizeComputed }px; width: ${ this.borderSizeComputed }px;`;
     },
     styleTextPercent() {
-      return `font-size:${(parseInt(this.size) / 2.8)}px`;
+      return `font-size:${(this.getSize() / 2.8)}px`;
     }
   },
 };
