@@ -1,6 +1,6 @@
 {
   "name": "vitta-visual-components",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Biblioteca de componentes vitta",
   "main": "/dist/vitta-visual-components.min.js",
   "license": "Apache-2.0",
