@@ -14,18 +14,19 @@ Veja como é facil utilizar
 
 ```vue
 <template>
-    <div class="wrapper">
-        <Progress size="64" borderSize="12" />
+    <div>
+        <Progress :size="size" :borderSize="border" />
     </div>
 </template>
 <script>
 
 export default {
-    methods: {
-        // your code here
+    data () {
+        return {
+            border: 12,
+            size: 64,
+        }
     }
 }
 </script>
-<style scoped>
-</style>
 ```
