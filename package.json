@@ -1,6 +1,6 @@
 {
   "name": "vitta-visual-components",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "Biblioteca de componentes vitta",
   "main": "/dist/vitta-visual-components.min.js",
   "license": "Apache-2.0",
@@ -28,6 +28,7 @@
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "dog-names": "^1.0.2",
+    "extract-text-webpack-plugin": "^3.0.2",
     "react": "^16.3.2",
     "rimraf": "^2.6.2",
     "stylus-loader": "^3.0.2",
