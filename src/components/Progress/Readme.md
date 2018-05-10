@@ -15,17 +15,12 @@ Veja como é facil utilizar
 ```vue
 <template>
     <div>
-        <Progress :size="size"/>
+        <Progress size="medium" percentValue="85"/>
     </div>
 </template>
 <script>
 
 export default {
-    data () {
-        return {
-            size: "medium",
-        }
-    }
 }
 </script>
 ```

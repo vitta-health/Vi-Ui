@@ -13,30 +13,32 @@
 </template>
 
 <script>
-import loggerMixin from "../../mixins/loggerMixin";
 
 /**
  * Barra de progresso circular.
  */
 export default {
   name: "Progress",
-  mixins: [loggerMixin],
   data () {
     return {
-      borderSize: 4,
+      availableSizes: {
+        mini: 20,
+        small: 50,
+        medium: 100,
+        large: 300
+      }
     }
   },
   props: {
     /**
-     * 
-     * Define o size do progress os sizes permitidos são [mini | small | medium | large]
+     * Define o tamanho do progresso os tamanhos permitidos são [mini | small | medium | large].
      */
     size: {
       type: String,
       default: 'small',
     },
     /**
-     * Define o percentual do carregamento (Sem valor definido o circulo apenas gira infinitamente)
+     * [0 - 100] Define o percentual do carregamento (Sem valor definido o circulo apenas gira infinitamente).
      */
     percentValue: {
       type: [Number, String],
@@ -44,43 +46,34 @@ export default {
     },
   },
   methods: {
-    getSize () {
-      let sizeCalculate;
-      switch(this.size) {
-        case 'mini':
-          sizeCalculate = 20;
-        break;
-        case 'small':
-          sizeCalculate = 50;        
-        break;
-        case 'medium':
-          sizeCalculate = 100;        
-        break;
-        case 'large':
-          sizeCalculate = 300;
-        break;
+    getSize() {
+      let teste = ['mini', 'small', 'medium', 'large'].includes(this.size)? this.availableSizes[this.size] : this.availableSizes['small']
+      return teste;
+    },
+    percentValid() {
+      if(this.percentValue != null ){
+        return parseInt(this.percentValue) >= 0 && parseInt(this.percentValue) <= 100? parseInt(this.percentValue) : 100;
+      } else {
+        return null;
       }
-      this.borderSize = (sizeCalculate * 0.1);
-      return sizeCalculate;
     }
   },
   computed: {
-    borderSizeComputed() {
-      const espessuraBorda = parseInt(this.borderSize) >= this.getSize() ? 1 : this.getSize() - this.borderSize;
-      return espessuraBorda;
+    borderSize() {
+      return this.getSize() * 0.85; 
     },
     changeClass(){
-      return this.percentValue != null ? 'progress-dynamic': 'progress-loop';
+      return this.percentValid() != null? 'progress-dynamic': 'progress-loop';
     },
     changeStyleProgress() {
       const size = `${this.getSize()}px`;
-      return this.percentValue != null ? 
-      `height: ${ size }; width: ${ size }; background: linear-gradient(to top, #3581BC ${ this.percentValue }%, #f3f3f3 0%);`
+      return this.percentValid() != null? 
+      `height: ${ size }; width: ${ size }; background: linear-gradient(to top, #3581BC ${ this.percentValid() }%, #f3f3f3 0%);`
       :
       `height: ${ size }; width: ${ size };`;
     },
     changeStyleBorder() {
-      return `height: ${ this.borderSizeComputed }px; width: ${ this.borderSizeComputed }px;`;
+      return `height: ${ this.borderSize }px; width: ${ this.borderSize }px;`;
     },
     styleTextPercent() {
       return `font-size:${(this.getSize() / 2.8)}px`;
