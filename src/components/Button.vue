@@ -1,8 +1,7 @@
 <template>
 <div class="Button">
 	<button class="button"
-		@click.prevent="onClick"
-		:style="{ color: color, fontSize: fontSize }">
+		@click.prevent="onClick">
 		<slot></slot>
 	</button>
 </div>
@@ -10,14 +9,11 @@
 
 <script>
 
-import loggerMixin from '../../mixins/loggerMixin';
-
 /**
  * The only true button.
  */
 export default {
 	name: 'Button',
-	mixins: [loggerMixin],
 	props: {
 		/**
 		 * The color for the button.
@@ -82,28 +78,61 @@ export default {
 	background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
 }
 </style>
-<docs>
-You can add a custom classes to an example wrapper (```` ```js { "className": "checks" }````):
 
-```js { "className": "checks" }
-<Button>I’m transparent!</Button>
+<docs>
+Basic button:
+
+```jsx
+<Button>Push  e Me</Button>
 ```
 
-Or disable an editor by passing a `noeditor` modifier (```` ```js noeditor````):
+Big pink button:
 
-```jsx noeditor
+```jsx
+<Button size="large" color="deeppink">Lick Me</Button>
+```
+
+And you *can* **use** `any` [Markdown](http://daringfireball.net/projects/markdown/) here.
+
+Fenced code blocks with `vue`, `js`, `jsx` or `javascript` languages are rendered as a interactive playgrounds:
+
+```jsx
 <Button>Push Me</Button>
 ```
 
-To render an example as highlighted source code add a `static` modifier: (```` ```js static````):
+You can also use the Single File Component Format
 
-```js static
-import Vue from 'vue';
-```
+```vue
+<template>
+    <div class="wrapper">
+        <Button @click.native="pushButton">Push Me</Button>
+        <hr />
+        <p class="text-name">Next Dog Name: {{ dogName }}</p>
+    </div>
+</template>
+<script>
+const dogNames = require('dog-names').all;
 
-Fenced blocks with other languages are rendered as highlighted code:
-
-```html
-<h1>Hello world</h1>
+// You can also use 'exports.default = {}' style module exports.
+export default {
+	data() {
+		return { numClicks: 0, dogName: dogNames[0] };
+	},
+	methods: {
+		pushButton() {
+			this.numClicks += 1;
+			this.dogName = dogNames[this.numClicks];
+		}
+	}
+}
+</script>
+<style scoped>
+    .wrapper {
+      padding: 10px;
+    }
+    .text-name {
+      color: red;
+    }
+</style>
 ```
 </docs>
