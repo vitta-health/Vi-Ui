@@ -1,13 +1,11 @@
 <template>
-  <div class="container">
+  <div
+    :class="changeClass"
+    :style="changeStyleProgress">
     <div
-      :class="changeClass"
-      :style="changeStyleProgress">
-      <div
-        class="content"
-        :style="changeStyleBorder">
-        <span v-if="percentValue" :style="styleTextPercent">{{ percentValue }}%</span>
-      </div>
+      class="content"
+      :style="changeStyleBorder">
+      <span v-if="percentValue" :style="styleTextPercent">{{ percentValue }}%</span>
     </div>
   </div>
 </template>
@@ -17,18 +15,14 @@
 /**
  * Barra de progresso circular.
  */
+ const availableSizes = {
+  mini: 20,
+  small: 50,
+  medium: 100,
+  large: 300
+}
 export default {
   name: "Progress",
-  data () {
-    return {
-      availableSizes: {
-        mini: 20,
-        small: 50,
-        medium: 100,
-        large: 300
-      }
-    }
-  },
   props: {
     /**
      * Define o tamanho do progresso os tamanhos permitidos são [mini | small | medium | large].
@@ -36,6 +30,9 @@ export default {
     size: {
       type: String,
       default: 'small',
+      validator: (size) => {
+        return size in availableSizes
+      }
     },
     /**
      * [0 - 100] Define o percentual do carregamento (Sem valor definido o circulo apenas gira infinitamente).
@@ -47,8 +44,7 @@ export default {
   },
   methods: {
     getSize() {
-      let teste = ['mini', 'small', 'medium', 'large'].includes(this.size)? this.availableSizes[this.size] : this.availableSizes['small']
-      return teste;
+      return availableSizes[this.size];
     },
     percentValid() {
       if(this.percentValue != null ){
