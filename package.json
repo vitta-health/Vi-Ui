@@ -1,6 +1,6 @@
 {
   "name": "vitta-visual-components",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "description": "Biblioteca de componentes vitta",
   "main": "/dist/vitta-visual-components.min.js",
   "license": "Apache-2.0",
@@ -23,6 +23,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-wildcard": "^5.0.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.1.4",
