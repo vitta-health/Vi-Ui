@@ -3,7 +3,7 @@
     :class="changeClass"
     :style="changeStyleProgress">
     <div
-      class="content"
+      class="vi-progress-content"
       :style="changeStyleBorder">
       <span v-if="percentValue" :style="styleTextPercent">{{ percentValue }}%</span>
     </div>
@@ -22,7 +22,7 @@
   large: 300
 }
 export default {
-  name: "Progress",
+  name: "vi-progress",
   props: {
     /**
      * Define o tamanho do progresso os tamanhos permitidos são [mini | small | medium | large].
@@ -59,7 +59,7 @@ export default {
       return this.getSize() * 0.85; 
     },
     changeClass(){
-      return this.percentValid() != null? 'progress-dynamic': 'progress-loop';
+      return this.percentValid() != null? 'vi-progress-dynamic': 'vi-progress-loop';
     },
     changeStyleProgress() {
       const size = `${this.getSize()}px`;
@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style scoped>
-.content {
+.vi-progress-content {
   align-items: center;
   background-color: white;
   border-radius: 50%;
@@ -90,7 +90,7 @@ export default {
   position: relative;
 }
 
-.progress-dynamic {
+.vi-progress-dynamic {
   align-items: center;
   border-radius: 50%;
   display: flex;
@@ -99,7 +99,7 @@ export default {
   justify-content: center;
 }
 
-.progress-loop {
+.vi-progress-loop {
   align-items: center;
   animation: spin 1s linear infinite;
   background: linear-gradient(#3581BC 30%, #f3f3f3 40%);
