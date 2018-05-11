@@ -78,7 +78,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .vi-progress-content {
   align-items: center;
   background-color: white;
