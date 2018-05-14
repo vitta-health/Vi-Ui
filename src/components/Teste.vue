@@ -13,52 +13,52 @@
  * The only true teste.
  */
 export default {
-	name: 'teste',
-	props: {
-		/**
+  name: 'teste',
+  props: {
+    /**
 		 * The color for the teste.
 		 */
-		color: {
-			type: String,
-			default: 'ff0000'
-		},
-		/**
+    color: {
+      type: String,
+      default: 'ff0000',
+    },
+    /**
 		 * The size of the teste
 		 * `small, normal, large`
 		 */
-		size: {
-			type: String,
-			default: 'normal'
-		},
-		/**
+    size: {
+      type: String,
+      default: 'normal',
+    },
+    /**
 		 * Gets called when the user clicks on the teste
 		 * @ignore
 		 */
-		onClick: {
-			type:Function,
-			default: (event) => {
-				console.log('You have clicked me!', event.target);
-			}
-		}
-	},
-	computed: {
-		fontSize(){
-			let size;
-			switch (this.size) {
-				case 'small':
-					size = '10px';
-					break;
-				case 'normal':
-					size = '14px';
-					break;
-				case 'large':
-					size = '18px';
-					break;
-			}
-			return size;
-		}
-	}
-}
+    onClick: {
+      type: Function,
+      default: (event) => {
+        console.log('You have clicked me!', event.target);
+      },
+    },
+  },
+  computed: {
+    fontSize() {
+      let size;
+      switch (this.size) {
+        case 'small':
+          size = '10px';
+          break;
+        case 'normal':
+          size = '14px';
+          break;
+        case 'large':
+          size = '18px';
+          break;
+      }
+      return size;
+    },
+  },
+};
 </script>
 
 <style scope>

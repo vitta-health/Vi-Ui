@@ -4,4 +4,4 @@ import Teste from './components/Teste.vue';
 export default {
   Button,
   Teste,
-}
+};

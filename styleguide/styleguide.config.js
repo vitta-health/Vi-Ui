@@ -8,13 +8,13 @@ module.exports = {
   styleguideComponents: {
     LogoRenderer: path.join(__dirname, '/layout/components/Logo')
   },
-  webpackConfig: webpackConfig,
+  webpackConfig,
   showUsage: true,
   showCode: true,
   require: [
     'babel-polyfill',
-    path.join(__dirname, './layout/style.css')
+    path.join(__dirname, './layout/style.css'),
   ],
-  sections: sectionsMenu
-}
+  sections: sectionsMenu,
+};
 
