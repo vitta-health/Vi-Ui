@@ -28,7 +28,7 @@ export default {
 		 */
     size: {
       type: String,
-      default: 'normal',
+      default: 'normal'
     },
     /**
 		 * Gets called when the user clicks on the button
