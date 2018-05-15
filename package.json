@@ -61,7 +61,6 @@
     "precommit": "npm run lint:quiet-fix && find ./src/ -name -prune -o -mmin -1 -type f -print | xargs git add --no-ignore-removal",
     "prepush": "npm run lint",
     "prepublishOnly": "npm version patch -f & npm run build",
-    "styleguide:init": "sudo npm install && cd styleguide && sudo npm install && npm run styleguide",
     "styleguide": "cd styleguide && npm run styleguide",
     "styleguide:build": "cd styleguide && npm run styleguide:build",
     "build": "rimraf ./dist && webpack --mode production --progress && node postinstall.js",

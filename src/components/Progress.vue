@@ -164,6 +164,7 @@ Veja como é facil utilizar
 <script>
 
 export default {
+
 }
 </script>
 ```
