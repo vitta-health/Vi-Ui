@@ -55,7 +55,10 @@
     "webpack-merge": "^4.1.2"
   },
   "scripts": {
-    "lint": "eslint \"src/**/*.{js,vue}\" --cache --fix",
+    "lint": "eslint \"src/**/*.{js,vue}\"",
+    "lint:quiet-fix": "eslint \"src/**/*.{js,vue}\" --quiet --fix",
+    "lint:fix": "eslint \"src/**/*.{js,vue}\" --fix",
+    "precommit": "npm run lint:quiet-fix && find ./src/ -type d -name -prune -o -mmin -1 -type f -print | xargs git add --no-ignore-removal",
     "prepush": "npm run lint",
     "prepublishOnly": "npm version patch -f & npm run build",
     "styleguide:init": "sudo npm install && cd styleguide && sudo npm install && npm run styleguide",
