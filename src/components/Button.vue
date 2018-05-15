@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'Button',
+  name: 'ViButton',
   props: {
     color: {
       type: String,
