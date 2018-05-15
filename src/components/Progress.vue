@@ -70,10 +70,9 @@ export default {
       const size = `${this.getSize()}px`;
       let css = `height: ${size}; width: ${size};`;
 
-      css +=
-        this.percentValid() != null
-          ? ` background: linear-gradient(to top, #3581BC ${this.percentValid()}%, #f3f3f3 0%);`
-          : `height: ${size}; width: ${size};`;
+      css += this.percentValid() != null
+        ? ` background: linear-gradient(to top, #3581BC ${this.percentValid()}%, #f3f3f3 0%);`
+        : `height: ${size}; width: ${size};`;
 
       return css;
     },

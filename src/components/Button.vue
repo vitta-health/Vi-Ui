@@ -22,7 +22,7 @@ export default {
     },
     onClick: {
       type: Function,
-      default: event => {
+      default: (event) => {
         console.log('You have clicked me!', event.target); // eslint-disable-line no-console
       },
     },
