@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'Button',
+  name: 'ViButton',
   props: {
     color: {
       type: String,
@@ -22,7 +22,7 @@ export default {
     },
     onClick: {
       type: Function,
-      default: event => {
+      default: (event) => {
         console.log('You have clicked me!', event.target); // eslint-disable-line no-console
       },
     },
