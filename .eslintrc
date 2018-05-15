@@ -16,8 +16,5 @@
       "jsxBracketSameLine": false
     }],
     "arrow-parens": ["error", "as-needed"]
-
   }
-
-
 }
