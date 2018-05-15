@@ -56,8 +56,7 @@
   },
   "scripts": {
     "lint": "eslint \"src/**/*.{js,vue}\" --cache --fix",
-    "precommit": "npm run lint",
-    "prepush": "cd ../../ && npm run lint",
+    "prepush": "npm run lint",
     "prepublishOnly": "npm version patch -f & npm run build",
     "styleguide:init": "sudo npm install && cd styleguide && sudo npm install && npm run styleguide",
     "styleguide": "cd styleguide && npm run styleguide",
