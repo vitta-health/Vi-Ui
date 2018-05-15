@@ -29,3 +29,9 @@ body .rsg--sidebar-4 a:hover {
 body .rsg--logo-5 {
 	border-bottom: rgba(255, 255, 255, .2) 1px solid;
 }
+
+body .rsg--root-9 {
+	min-height: 100vh;
+	padding-bottom: 100px;
+	margin-bottom: 0;
+}

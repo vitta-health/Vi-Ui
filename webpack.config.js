@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
+// eslint-disable-next-line arrow-body-style
 module.exports = (env, argv) => {
   return {
     entry: path.join(__dirname, '/src/index.js'),
@@ -57,6 +58,7 @@ module.exports = (env, argv) => {
         },
       ],
     },
+    /* eslint-disable */
     plugins: argv && argv.mode === 'production' ? [
       new webpack.LoaderOptionsPlugin({
         minimize: true,
@@ -69,6 +71,7 @@ module.exports = (env, argv) => {
         },
       }),
     ] : [],
+    /* eslint-enable */
     devtool: 'source-map',
     devServer: {
       noInfo: true,
