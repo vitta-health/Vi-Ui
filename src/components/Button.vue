@@ -18,7 +18,7 @@ export default {
     },
     size: {
       type: String,
-      default: 'normal',
+      default: 'normal'
     },
     onClick: {
       type: Function,
