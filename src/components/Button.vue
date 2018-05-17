@@ -1,5 +1,6 @@
 <template>
   <button
+    ref="button"
     class="ViButton"
     :class="[
       {
@@ -10,11 +11,12 @@
       },
       colorClass({ background: !outlined, border: outlined, hover: true }),
     ]"
+    :href="this.href"
     :style="{
       width: buttonWidth,
       justifyContent,
     }"
-    @click.prevent="onClick">
+    @click="onClick">
     <vi-wrapper
       :justify-content="justifyContent"
       spacing="10"><slot /></vi-wrapper>
@@ -55,23 +57,47 @@ export default {
       type: [String, Number],
       default: 'auto',
     },
+    /**
+     * Caso o botão seja um link
+     */
+    href: {
+      type: [String],
+      default: null,
+    },
+    /**
+     * Caso o elemento root não possar ser nem um botão nem num link
+     */
+    tag: {
+      type: [String],
+      default: null,
+    },
   },
   computed: {
     buttonWidth() {
-      if (Number.isNaN(Number.isNaN(this.spacing - 0))) return this.width;
+      if (Number.isNaN(this.width - 0)) return this.width;
       return `${this.width}px`;
     },
   },
   methods: {
+    changeTag() {
+      const tagName = this.$refs.button.outerHTML;
+      const regex = /^<button/;
+      if (this.href || this.tag) {
+        this.$refs.button.outerHTML = `<${tagName.replace(regex, this.tag || 'a')}`;
+      }
+    },
     onClick() {
       /**
        * Evento de clique.
        *
-       * @event ONCLICK
+       * @event onClick
        * @type {object}
        */
-      this.$emit('ONCLICK');
+      this.$emit('onClick');
     },
+  },
+  mounted() {
+    this.changeTag();
   },
 };
 </script>
@@ -81,15 +107,15 @@ export default {
   @import '../themes/colors';
 
   .ViButton
-    font-size 0.95em
     border-width 0.09em
     border-style solid
     border-radius 0.5em
     cursor pointer
+    display inline-block
+    font-size 0.95em
     text-align center
-    display flex
-    justify-content center
     padding 0.5em 0.8em
+    text-decoration none
     outline none
     transition: all 0.09s
     > *
@@ -118,7 +144,7 @@ export default {
 </style>
 
 <docs>
-Botão basico:
+Botão básico:
 
 ```jsx
 <vi-button>Me aperte</vi-button>
@@ -127,6 +153,19 @@ Botão com loading:
 
 ```jsx
 <vi-button success :width="200"><vi-loading light mini /></vi-button>
+```
+Botão com submit:
+
+```jsx
+<form action="/#!/ViButton">
+  <vi-button type="submit" success>Form submit</vi-button>
+</form>
+```
+
+Botão com link:
+
+```jsx
+<vi-button href="https://google.com/" primary small>Link</vi-button>
 ```
 
 Outras props:
@@ -149,23 +188,19 @@ Exemplo de utilização:
 ```vue
 <template>
     <div class="wrapper">
-        <vi-button @click.native="pushButton">Nomeie um cachorro</vi-button>
+        <vi-button @click.native="pushButton">+1</vi-button>
         <hr />
-        <p class="text-name">Next Dog Name: {{ dogName }}</p>
+        <p class="text-name">Contando: {{ numClicks }}</p>
     </div>
 </template>
 <script>
-const dogNames = require('dog-names').all;
-
-// You can also use 'exports.default = {}' style module exports.
 export default {
   data() {
-    return { numClicks: 0, dogName: dogNames[0] };
+    return { numClicks: 0 };
   },
   methods: {
     pushButton() {
       this.numClicks += 1;
-      this.dogName = dogNames[this.numClicks];
     },
   },
 };

@@ -58,67 +58,71 @@ export default {
       border-radius 0
 
       &:first-child
-        border-top-left-radius 5px
         border-bottom-left-radius 5px
+        border-top-left-radius 5px
 
       &:last-child
-        border-top-right-radius 5px
         border-bottom-right-radius 5px
+        border-top-right-radius 5px
 
     &--pill
       .ViButton
         &:first-child
-          border-top-left-radius 50px
           border-bottom-left-radius 50px
+          border-top-left-radius 50px
           padding-left 1.5em
 
         &:last-child
-          border-top-right-radius 50px
           border-bottom-right-radius 50px
+          border-top-right-radius 50px
           padding-right 1em
 
     &--border
       .ViButton
+        border-color #9AA2B4
         border-left-width 0
         background transparent
         color: #333
-        padding-left 1.09em
         margin-right -0.09em
-
-        &:hover
-        &:focus
-          background #3581BC
-          border-color #3581BC
-          color #fff
+        padding-left 1.09em
 
         &[disabled]:hover
         &[disabled]:focus
           background transparent
-          border-color #9AA2B4
-          color #333
 
         &:first-child
           border-left-width 0.09em
 </style>
 
 <docs>
-Botão Grupo basico:
+Botão grupo básico:
 
 ```jsx
 <vi-button-group>
   <vi-button>Thanos</vi-button>
   <vi-button>did</vi-button>
-  <vi-button disabled>nothing</vi-button>
+  <vi-button>nothing</vi-button>
   <vi-button>wrong</vi-button>
 </vi-button-group>
 ```
-Botão Grupo dinamico:
+Botão grupo dinâmico:
 
 ```jsx
 <vi-button-group pill outlined>
-  <vi-button>◃</vi-button>
+  <vi-button sucess>◂</vi-button>
   <vi-button v-for="n in 10">{{ n }}</vi-button>
-  <vi-button>▹</vi-button>
+  <vi-button>▸</vi-button>
+</vi-button-group>
+```
+
+```jsx
+<vi-button-group>
+  <vi-button primary>Primary</vi-button>
+  <vi-button secondary>Secondary</vi-button>
+  <vi-button success>Success</vi-button>
+  <vi-button warning>Warning</vi-button>
+  <vi-button danger>Danger</vi-button>
+  <vi-button disabled>Disabled</vi-button>
 </vi-button-group>
 ```
 
@@ -126,7 +130,7 @@ Botão Grupo dinamico:
 <vi-button-group outlined large>
   <vi-button>◃</vi-button>
   <vi-button v-for="n in 5">{{ n }}</vi-button>
-  <vi-button>▹</vi-button>
+  <vi-button>▸</vi-button>
 </vi-button-group>
 ```
 </docs>

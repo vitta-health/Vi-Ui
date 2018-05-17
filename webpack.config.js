@@ -73,6 +73,10 @@ module.exports = (env, argv) => {
             name: '/assets/images/[name].[ext]',
           },
         },
+        {
+          test: /\.json$/,
+          loader: 'json-loader',
+        },
       ],
     },
     /* eslint-disable */

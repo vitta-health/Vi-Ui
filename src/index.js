@@ -8,5 +8,4 @@ export default {
   ViLoading,
   ViWrapper,
   ViButtonGroup,
-
 };

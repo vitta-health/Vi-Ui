@@ -29,7 +29,7 @@ export default {
   /**
    * Arrow function quebra se usado aqui
    */
-  render: function render(createElement) {
+  render(createElement) {
     const self = this;
     const wrapped = [];
     this.$slots.default.forEach((child) => {

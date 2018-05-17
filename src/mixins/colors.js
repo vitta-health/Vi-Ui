@@ -1,5 +1,8 @@
 const colours = [
+  'defaultVariant',
   'primary',
+  'primaryVariant',
+  'secondary',
   'secondary',
   'success',
   'warning',
@@ -13,43 +16,56 @@ const colours = [
 export default {
   props: {
     /**
-     * _Cor:_ Define cor do botão primaria
+     * _Cor:_ Define cor a variante da cor padrão
+     */
+    defaultVariant: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Cor:_ Define a cor primaria
      */
     primary: {
       type: Boolean,
       default: false,
     },
     /**
-    * _Cor:_ Define cor do botão secundaria
-
+     * _Cor:_ Define a variante da cor primaria
+     */
+    primaryVariant: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+    * _Cor:_ Define a cor secundaria
     */
     secondary: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Cor:_ Define botão como a cor de successo
+     * _Cor:_ Define a cor de successo
      */
     success: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Cor:_ Define botão como a cor de alerta
+     * _Cor:_ Define a cor de alerta
      */
     warning: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Cor:_ Define botão como a cor de erro
+     * _Cor:_ Define a cor de erro
      */
     danger: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Cor:_ Define botão como a branco
+     * _Cor:_ Define a cor branco
      */
     light: {
       type: Boolean,
