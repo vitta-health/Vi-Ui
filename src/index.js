@@ -1,7 +1,12 @@
 import ViButton from './components/Button.vue';
-import ViProgress from './components/Progress.vue';
+import ViLoading from './components/Loading.vue';
+import ViWrapper from './components/Wrapper.vue';
+import ViButtonGroup from './components/ButtonGroup.vue';
 
 export default {
   ViButton,
-  ViProgress,
+  ViLoading,
+  ViWrapper,
+  ViButtonGroup,
+
 };

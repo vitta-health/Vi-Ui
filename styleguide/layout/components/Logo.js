@@ -16,8 +16,9 @@ const styles = ({ fontFamily, color }) => ({
 		margin: '15px auto'
 	},
 	title: {
-        fontSize: 12,
-        textAlign: 'center'
+    fontSize: 12,
+    textAlign: 'center',
+    color: '#fff'
 	}
 });
 

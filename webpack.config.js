@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 // eslint-disable-next-line arrow-body-style
 module.exports = (env, argv) => {
@@ -23,8 +24,24 @@ module.exports = (env, argv) => {
           options: {
             presets: ['env'],
             loaders: {
-              stylus: 'vue-style-loader!css-loader!stylus-loader',
+              stylus: argv && argv.mode === 'production'
+                ? 'vue-style-loader!css-loader!postcss-loader!stylus-loader'
+                : 'vue-style-loader!css-loader!stylus-loader',
+              postcss: argv && argv.mode === 'production'
+                ? [(autoprefixer)({ browsers: ['> 3% in BR'] })]
+                : [],
             },
+          },
+        },
+        {
+          test: /\.styl$/,
+          loader: argv && argv.mode === 'production'
+            ? 'vue-style-loader!css-loader!postcss-loader!stylus-loader'
+            : 'vue-style-loader!css-loader!stylus-loader',
+          options: {
+            postcss: argv && argv.mode === 'production'
+              ? [(autoprefixer)({ browsers: ['> 3% in BR'] })]
+              : [],
           },
         },
         {

@@ -1,0 +1,38 @@
+$colors = {
+  default: #9AA2B4,
+  primary: #3581BC,
+  secondary: #1C415E,
+  success: #5AC2A0,
+  warning: #ffd972,
+  danger: #FF6161,
+  light: #FFF
+}
+
+for $key, $val in $colors
+  $contrastRatio = contrast($val).ratio
+
+  if $val == '#fff'
+    $text-color = #fff
+  else if contrastRatio < 4
+    $text-color = rgba(#000, .9)
+  else if contrastRatio < 6
+    $text-color = #fff
+  else
+    $text-color = rgba(#fff, .9)
+
+  .color-{$key}
+    &--background
+      border-color $val
+      background-color $val
+      color $text-color
+
+    &--border
+      border-color $val
+      background-color transparent
+      color $val
+
+    &--hover:focus:enabled
+    &--hover:hover:enabled
+      background-color darken($val, 10)
+      border-color darken($val, 10)
+      color $text-color
