@@ -17,14 +17,3 @@ export {
 ### Documente o componente
 
 No seu componente, user **markdown** dentro da tag `<docs></docs>` para descrever sua documentação.
-
-````vue
-<docs>
-Exemplo:
-
-Componente descrito:
-```js
-<exemplo></exemplo>
-```
-</docs>
-````

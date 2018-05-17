@@ -1,123 +1,206 @@
 <template>
-  <div class="Button">
-    <button
-      class="button"
-      @click.prevent="onClick">
-      <slot/>
-    </button>
-  </div>
+  <button
+    ref="button"
+    class="ViButton"
+    :class="[
+      {
+        'ViButton--mini': mini,
+        'ViButton--small': small,
+        'ViButton--large': large,
+        'ViButton--pill': pill,
+      },
+      colorClass({ background: !outlined, border: outlined, hover: true }),
+    ]"
+    :href="this.href"
+    :style="{
+      width: buttonWidth,
+      justifyContent,
+    }"
+    @click="onClick">
+    <vi-wrapper
+      :justify-content="justifyContent"
+      spacing="10"><slot /></vi-wrapper>
+  </button>
 </template>
 
 <script>
+import ViWrapper from './Wrapper.vue';
+import sizeMixin from '../mixins/sizes';
+import colosMixin from '../mixins/colors';
+import extrasMixin from '../mixins/extras';
+
 export default {
   name: 'ViButton',
+  components: {
+    ViWrapper,
+  },
+  mixins: [sizeMixin, colosMixin, extrasMixin],
   props: {
-    color: {
-      type: String,
-      default: '#333',
+    /**
+     * Fundo transparente com apenas borda e texto colorido
+     */
+    outlined: {
+      type: Boolean,
+      default: false,
     },
-    size: {
-      type: String,
-      default: 'normal',
+    /**
+     * Define botão pilula
+     */
+    pill: {
+      type: Boolean,
+      default: false,
     },
-    onClick: {
-      type: Function,
-      default: (event) => {
-        console.log('You have clicked me!', event.target); // eslint-disable-line no-console
-      },
+    /**
+     * Largura do botão (Passe numero fazendo bind da prop)
+     */
+    width: {
+      type: [String, Number],
+      default: 'auto',
+    },
+    /**
+     * Caso o botão seja um link
+     */
+    href: {
+      type: [String],
+      default: null,
+    },
+    /**
+     * Caso o elemento root não possar ser nem um botão nem num link
+     */
+    tag: {
+      type: [String],
+      default: null,
     },
   },
   computed: {
-    fontSize() {
-      let size;
-      switch (this.size) {
-        case 'mini': {
-          size = '10px';
-          break;
-        }
-        case 'small': {
-          size = '12px';
-          break;
-        }
-        case 'large': {
-          size = '21px';
-          break;
-        }
-        default: {
-          size = '16px';
-          break;
-        }
-      }
-
-      return size;
+    buttonWidth() {
+      if (Number.isNaN(this.width - 0)) return this.width;
+      return `${this.width}px`;
     },
+  },
+  methods: {
+    changeTag() {
+      const tagName = this.$refs.button.outerHTML;
+      const regex = /^<button/;
+      if (this.href || this.tag) {
+        this.$refs.button.outerHTML = `<${tagName.replace(regex, this.tag || 'a')}`;
+      }
+    },
+    onClick() {
+      /**
+       * Evento de clique.
+       *
+       * @event onClick
+       * @type {object}
+       */
+      this.$emit('onClick');
+    },
+  },
+  mounted() {
+    this.changeTag();
   },
 };
 </script>
-<style lang="stylus" scope>
-  .button
-    background-color #fff
-    border 1px solid currentColor
-    border-radius 0.3em
-    color #666
-    cursor pointer
-    text-align center
-    vertical-align middle
-    padding 0.5em 1.5em
 
-  .checks
-    background-image linear-gradient(45deg, #f5f5f5 25%, transparent 25%),
-      linear-gradient(-45deg, #f5f5f5 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, #f5f5f5 75%),
-      linear-gradient(-45deg, transparent 75%, #f5f5f5 75%)
-    background-size 16px 16px
-    background-position 0 0, 0 8px, 8px -8px, -8px 0px
+<style lang="stylus" scope>
+  @import '../themes/main';
+  @import '../themes/colors';
+
+  .ViButton
+    border-width 0.09em
+    border-style solid
+    border-radius 0.5em
+    cursor pointer
+    display inline-block
+    font-size 0.95em
+    text-align center
+    padding 0.5em 0.8em
+    text-decoration none
+    outline none
+    transition: all 0.09s
+    > *
+      margin-right 0.25em
+
+    &[disabled]
+      opacity 0.45
+      cursor default
+
+    .ViLoading
+      margin -4px 0
+
+  .ViButton--pill
+    border-radius 100px
+
+  .ViButton--mini
+    font-size 0.8em
+    padding 0.3em 0.5em
+
+  .ViButton--small
+    font-size 0.8em
+    padding 0.5em 0.8em
+
+  .ViButton--large
+    font-size 1.2em
 </style>
 
 <docs>
-Basic button:
+Botão básico:
 
 ```jsx
-<Button>Push e Me</Button>
+<vi-button>Me aperte</vi-button>
 ```
-
-Big pink button:
+Botão com loading:
 
 ```jsx
-<Button size="large" color="deeppink">Lick Me</Button>
+<vi-button success :width="200"><vi-loading light mini /></vi-button>
 ```
-
-And you _can_ **use** `any` [Markdown](http://daringfireball.net/projects/markdown/) here.
-
-Fenced code blocks with `vue`, `js`, `jsx` or `javascript`
-languages are rendered as a interactive playgrounds:
+Botão com submit:
 
 ```jsx
-<Button>Push Me</Button>
+<form action="/#!/ViButton">
+  <vi-button type="submit" success>Form submit</vi-button>
+</form>
 ```
 
-You can also use the Single File Component Format
+Botão com link:
+
+```jsx
+<vi-button href="https://google.com/" primary small>Link</vi-button>
+```
+
+Outras props:
+
+```jsx
+<vi-button pill large success outlined
+  justify-content="space-between"
+  :width="200"
+><span>▸</span> Me aperte</vi-button>
+```
+
+
+```jsx
+<vi-button disabled small danger
+><span>▸</span> Me aperte</vi-button>
+```
+
+Exemplo de utilização:
 
 ```vue
 <template>
     <div class="wrapper">
-        <Button @click.native="pushButton">Push Me</Button>
+        <vi-button @click.native="pushButton">+1</vi-button>
         <hr />
-        <p class="text-name">Next Dog Name: {{ dogName }}</p>
+        <p class="text-name">Contando: {{ numClicks }}</p>
     </div>
 </template>
 <script>
-const dogNames = require('dog-names').all;
-
-// You can also use 'exports.default = {}' style module exports.
 export default {
   data() {
-    return { numClicks: 0, dogName: dogNames[0] };
+    return { numClicks: 0 };
   },
   methods: {
     pushButton() {
       this.numClicks += 1;
-      this.dogName = dogNames[this.numClicks];
     },
   },
 };
