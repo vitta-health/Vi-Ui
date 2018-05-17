@@ -6,3 +6,8 @@ body {
 	font-family: "Roboto", "Helvetica", sans-serif;
 	color:rgba(0,0,0,.8);
 }
+
+
+#rsg-root .rsg--sidebar-4 a {
+	color: white !important;
+}
