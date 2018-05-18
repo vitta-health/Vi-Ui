@@ -5,11 +5,11 @@
       :class="[{
         'ViTable--BorderHorizontal': borderHorizontal,
         'ViTable--BorderVertical': borderVertical,
-        'ViTable__Rows--Striped': striped }]">
+        'ViTable--StripedRows': striped }]">
       <thead>
         <tr class="ViTable__Rows">
           <th
-            v-if="enabledCheckbox"
+            v-if="checkboxEnabled"
             class="ViTable__Checkbox">
             <input
               ref="selectedAllCheckbox"
@@ -24,12 +24,12 @@
             <div class="ViTable__Arrows">
               <div
                 v-if="column.sortable"
-                class="ViTable__ArrowsUp"
+                class="ViTable__ArrowUp"
                 :class="{ 'ViTable__Arrows--Active':
                 verifySort(sortedColumn, column.id, sortedDirection, 'asc')}"/>
               <div
                 v-if="column.sortable"
-                class="ViTable__ArrowsDown"
+                class="ViTable__ArrowDown"
                 :class="{ 'ViTable__Arrows--Active':
                 verifySort(sortedColumn, column.id, sortedDirection, 'desc')}"/>
             </div>
@@ -40,11 +40,12 @@
         <tr
           v-for="(item, index) in items"
           :key="index"
-          class="ViTable__Rows"
-          :class="[{ 'ViTable--Center': textCenter,
-                     'ViTable--Left': textLeft,
-                     'ViTable--Right': textRight }]">
-          <td v-if="enabledCheckbox">
+          class="ViTable__Rows">
+          <td
+            v-if="checkboxEnabled"
+            :class="[{ 'ViTable--Center': textCenter,
+                       'ViTable--Left': textLeft,
+                       'ViTable--Right': textRight }]">
             <input
               ref="selectedCheckbox"
               @click="onSelect(index, item)"
@@ -130,7 +131,7 @@ export default {
     /**
      * Habilita os checkbox para seleção de linhas
      */
-    enabledCheckbox: {
+    checkboxEnabled: {
       type: Boolean,
       default: false,
     },
@@ -195,71 +196,68 @@ export default {
     border-spacing 0
     width 100%
     border-collapse collapse
-    &.ViTable td
-    &.ViTable th
+    text-align left
+
+    &--BorderVertical
+    &--BorderHorizontal
+      td
+      th
+        border-bottom 1px solid #ddd
+        border-top 1px solid #ddd
+
+    &--BorderVertical
+      td
+      th
+        border-left 1px solid #ddd
+        border-right 1px solid #ddd
+
+    &--StripedRows
+      tr:nth-child(even)
+        td
+          background-color rgba(0, 0, 0, 0.03)
+
+    thead
+      th
+        height 38px
+        background-color rgba(0, 0, 0, 0.1)
+        &:hover
+          cursor pointer
+          background-color rgba(0, 0, 0, 0.05)
+
+    td
+    th
       padding 1em
-    &.ViTable--BorderVertical
-    &.ViTable--BorderHorizontal td
-    &.ViTable--BorderHorizontal th
-      border-bottom 1px solid #ddd
-      border-top 1px solid #ddd
-    &.ViTable--BorderVertical td
-    &.ViTable--BorderVertical th
-      border-left 1px solid #ddd
-      border-right 1px solid #ddd
-    &.ViTable__Rows--Striped tr:nth-child(even) td
-      background-color rgba(0, 0, 0, 0.03)
 
-  .ViTable thead th
-    padding 0 24px 0 0
-    height 38px
-    background-color rgba(0, 0, 0, 0.1)
+    &--Center
+      text-align center
+    &--Left
+      text-align left
+    &--Right
+      text-align right
 
-    &:hover
-      cursor pointer
-      background-color rgba(0, 0, 0, 0.05)
+    .ViTable__Checkbox
+      width: 1%
 
-  .ViTable__Checkbox
-    width: 1%
+    .ViTable__ArrowDown
+    .ViTable__ArrowUp
+      width 0
+      height 0
+      border-left 5px solid transparent
+      border-right 5px solid transparent
+      border-bottom 5px solid rgba(0,0,0,0.2)
+      margin 3px 2px 0px 5px
+      &.ViTable__Arrows--Active
+        border-bottom 5px solid black
 
-  .ViTable__ArrowsUp
-    width 0
-    height 0
-    border-left 5px solid transparent
-    border-right 5px solid transparent
-    border-bottom 5px solid rgba(0,0,0,0.2)
-    margin 3px 2px 0px 5px
-    &.ViTable__Arrows--Active
-      border-bottom 5px solid black
+    .ViTable__ArrowDown
+      transform rotate(180deg)
 
-  .ViTable__ArrowsDown
-    @extend .ViTable__ArrowsUp
-    transform rotate(180deg)
+    .ViTable__Arrows
+      margin-left 5px
+      float right
 
-  .ViTable__Arrows
-    margin-left 5px
-    float right
-
-  .ViTable__Rows
-    height 38px
-
-  .ViTable thead th:first-child
-    padding 0 24px
-
-  .ViTable thead tr
-    text-align left
-
-  .ViTable tbody td:first-child
-    @extend .ViTable thead th:first-child
-
-  .ViTable--Center
-    text-align center
-
-  .ViTable--Left
-    text-align left
-
-  .ViTable--Right
-    text-align right
+    .ViTable__Rows
+      height 38px
 
 </style>
 
@@ -309,6 +307,7 @@ export default {
   },
   methods: {
     getOrder(val) {
+      this.data.reverse();
       this.orderColumn = val.split('-').pop();
       this.order = this.order === 'desc' ? 'asc': 'desc';
     },
