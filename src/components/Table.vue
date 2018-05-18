@@ -3,11 +3,14 @@
     <table
       class="ViTable"
       :class="[{
-        'ViTable__Borders--Active': border,
+        'ViTable--BorderHorizontal': borderHorizontal,
+        'ViTable--BorderVertical': borderVertical,
         'ViTable__Rows--Striped': striped }]">
       <thead>
-        <tr>
-          <th v-if="enabledMultiselect">
+        <tr class="ViTable__Rows">
+          <th
+            v-if="enabledCheckbox"
+            class="ViTable__Checkbox">
             <input
               ref="selectedAllCheckbox"
               type="checkbox"
@@ -21,12 +24,12 @@
             <div class="ViTable__Arrows">
               <div
                 v-if="column.sortable"
-                class="ViTable__Arrows--Up"
+                class="ViTable__ArrowsUp"
                 :class="{ 'ViTable__Arrows--Active':
                 verifySort(sortedColumn, column.id, sortedDirection, 'asc')}"/>
               <div
                 v-if="column.sortable"
-                class="ViTable__Arrows--Down"
+                class="ViTable__ArrowsDown"
                 :class="{ 'ViTable__Arrows--Active':
                 verifySort(sortedColumn, column.id, sortedDirection, 'desc')}"/>
             </div>
@@ -37,10 +40,11 @@
         <tr
           v-for="(item, index) in items"
           :key="index"
+          class="ViTable__Rows"
           :class="[{ 'ViTable--Center': textCenter,
                      'ViTable--Left': textLeft,
                      'ViTable--Right': textRight }]">
-          <td v-if="enabledMultiselect">
+          <td v-if="enabledCheckbox">
             <input
               ref="selectedCheckbox"
               @click="onSelect(index, item)"
@@ -65,6 +69,7 @@ const iterated = {
   lines: [],
   select: false,
 };
+
 export default {
   name: 'ViTable',
   mixins: [textAlignMixin],
@@ -109,16 +114,23 @@ export default {
       default: false,
     },
     /**
-     * Habilita bordas na tabela
+     * Habilita bordas vertical na tabela
      */
-    border: {
+    borderVertical: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Habilita bordas horizontais na tabela
+     */
+    borderHorizontal: {
       type: Boolean,
       default: false,
     },
     /**
      * Habilita os checkbox para seleção de linhas
      */
-    enabledMultiselect: {
+    enabledCheckbox: {
       type: Boolean,
       default: false,
     },
@@ -176,24 +188,41 @@ export default {
 </script>
 
 <style lang="stylus">
+  @import '../themes/main'
+  @import '../themes/colors'
 
   .ViTable
     border-spacing 0
-    &.ViTable__Borders--Active td
-      border: 1px solid #ddd;
-    &.ViTable__Rows--Striped tr:nth-child(even)
-      background-color rgba(224,224,224,0.3)
+    width 100%
+    border-collapse collapse
+    &.ViTable td
+    &.ViTable th
+      padding 1em
+    &.ViTable--BorderVertical
+    &.ViTable--BorderHorizontal td
+    &.ViTable--BorderHorizontal th
+      border-bottom 1px solid #ddd
+      border-top 1px solid #ddd
+    &.ViTable--BorderVertical td
+    &.ViTable--BorderVertical th
+      border-left 1px solid #ddd
+      border-right 1px solid #ddd
+    &.ViTable__Rows--Striped tr:nth-child(even) td
+      background-color rgba(0, 0, 0, 0.03)
 
   .ViTable thead th
-    padding 0 24px
+    padding 0 24px 0 0
     height 38px
-    background-color #e0e0e0
+    background-color rgba(0, 0, 0, 0.1)
 
     &:hover
       cursor pointer
-      background-color rgba(224,224,224,0.3)
+      background-color rgba(0, 0, 0, 0.05)
 
-  .ViTable__Arrows--Up
+  .ViTable__Checkbox
+    width: 1%
+
+  .ViTable__ArrowsUp
     width 0
     height 0
     border-left 5px solid transparent
@@ -203,16 +232,22 @@ export default {
     &.ViTable__Arrows--Active
       border-bottom 5px solid black
 
-  .ViTable__Arrows--Down
-    @extend .ViTable__Arrows--Up
+  .ViTable__ArrowsDown
+    @extend .ViTable__ArrowsUp
     transform rotate(180deg)
 
   .ViTable__Arrows
     margin-left 5px
     float right
 
+  .ViTable__Rows
+    height 38px
+
   .ViTable thead th:first-child
     padding 0 24px
+
+  .ViTable thead tr
+    text-align left
 
   .ViTable tbody td:first-child
     @extend .ViTable thead th:first-child
@@ -236,9 +271,8 @@ Basic Table
   <vi-table
     :sortedColumn="orderColumn"
     :sortedDirection="order"
-    textCenter
     striped
-    enabledMultiselect
+    enabledCheckbox
     @onSort="order => getOrder(order)"
     @onSelectAll="data => getSelectedAll(data)"
     @onSelect="data => getSelectedItem(data)"
@@ -258,14 +292,14 @@ export default {
   data() {
     return {
       cols: [
-        { id:'codCompany', label:'col1', sortable: true },
-        { id:'name', label:'col2', sortable: true },
-        { id:'company', label:'col3', sortable: true },
+        { id:'codCompany', label:'ID', sortable: true },
+        { id:'name', label:'Name', sortable: true },
+        { id:'company', label:'Company', sortable: true },
       ],
       data: [
-        { id: 1, name:'data1', company:'vitta'},
-        { id: 2, name:'data2', company:'katu'},
-        { id: 3, name:'data3', company:'hcor'},
+        { id: 1, name:'data1', company:'Vitta'},
+        { id: 2, name:'data2', company:'Katu'},
+        { id: 3, name:'data3', company:'HCOR'},
         { id: 4, name:'data4', company:'Einsten'},
         { id: 5, name:'data5', company:'Instituto'},
       ],
