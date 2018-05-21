@@ -1,6 +1,6 @@
 {
   "name": "vitta-visual-components",
-  "version": "0.1.35",
+  "version": "0.1.36",
   "description": "A simple but consistent user interface",
   "main": "/dist/vitta-visual-components.min.js",
   "license": "Apache-2.0",
@@ -11,7 +11,6 @@
     "url": "git+https://bitbucket.org/vittapros/styleguide.git"
   },
   "dependencies": {
-    "lodash": "^4.17.10",
     "normalize.css": "^8.0.0",
     "stylus": "^0.54.5",
     "vue": "^2.5.16"
@@ -41,6 +40,7 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-vue": "^4.5.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
     "husky": "^0.14.3",
     "json-loader": "^0.5.7",
     "postcss": "^6.0.22",
