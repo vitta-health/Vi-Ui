@@ -48,7 +48,8 @@
       <tr
         v-for="(item, index) in items"
         :key="index"
-        class="ViTable__Row">
+        class="ViTable__Row"
+        :class="[{'ViTable__Row--Selected': item.selected}]">
         <td
           v-if="checkbox">
           <input
@@ -291,6 +292,10 @@ export default {
 
   .ViTable__Row
     height 38px
+
+.ViTable__Row--Selected
+  background-color rgba(#DDC880, 0.2) !important
+
 </style>
 
 <docs>
