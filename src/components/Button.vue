@@ -90,10 +90,10 @@ export default {
       /**
        * Evento de clique.
        *
-       * @event onClick
+       * @event on-click
        * @type {object}
        */
-      this.$emit('onClick');
+      this.$emit('on-click');
     },
   },
   mounted() {
@@ -147,7 +147,11 @@ export default {
 Botão básico:
 
 ```jsx
-<vi-button>Me aperte</vi-button>
+<div>
+  <vi-button>Me aperte</vi-button>
+  <vi-button success>Me aperte</vi-button>
+  <vi-button danger>Me aperte</vi-button>
+</div>
 ```
 Botão com loading:
 

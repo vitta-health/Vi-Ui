@@ -2,9 +2,13 @@ const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 // eslint-disable-next-line arrow-body-style
 module.exports = (env, argv) => {
+  /*
+    const prod = argv && argv.mode === 'production';
+  */
   return {
     entry: path.join(__dirname, '/src/index.js'),
     output: {
@@ -22,39 +26,46 @@ module.exports = (env, argv) => {
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {
+            extractCSS: true,
             presets: ['env'],
             loaders: {
-              stylus: argv && argv.mode === 'production'
-                ? 'vue-style-loader!css-loader!postcss-loader!stylus-loader'
-                : 'vue-style-loader!css-loader!stylus-loader',
-              postcss: argv && argv.mode === 'production'
-                ? [(autoprefixer)({ browsers: ['> 3% in BR'] })]
-                : [],
+              loader: ExtractTextPlugin.extract({
+                fallback: 'vue-style-loader',
+                use: [
+                  'stylus-loader',
+                  {
+                    loader: 'css-loader',
+                    options: {
+                      importLoaders: 1,
+                    },
+                  },
+                  {
+                    loader: 'postcss-loader',
+                    options: {
+                      ident: 'postcss',
+                      plugins: () => [autoprefixer],
+                    },
+                  },
+                ],
+              }),
             },
           },
         },
         {
-          test: /\.styl$/,
-          loader: argv && argv.mode === 'production'
-            ? 'vue-style-loader!css-loader!postcss-loader!stylus-loader'
-            : 'vue-style-loader!css-loader!stylus-loader',
-          options: {
-            postcss: argv && argv.mode === 'production'
-              ? [(autoprefixer)({ browsers: ['> 3% in BR'] })]
-              : [],
-          },
-        },
-        {
-          test: /\.css$/,
-          loader: 'vue-style-loader!css-loader',
-        },
-        {
-          test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
-          exclude: path.resolve(__dirname, './src'),
-          loader: 'url-loader?limit=100000',
-          options: {
-            name: path.posix.join('/assets', 'fonts/[name].[ext]'),
-          },
+          test: /\.(css|styl)$/,
+          exclude: /node_modules/,
+          use: [
+            'stylus-loader',
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                ident: 'postcss',
+                plugins: () => [autoprefixer],
+              },
+            },
+
+          ],
         },
         {
           test: /\.js$/,
@@ -66,16 +77,12 @@ module.exports = (env, argv) => {
           },
         },
         {
-          test: /\.(png|woff|woff2|jpg|gif|svg)(\?v=.*)?$/,
+          test: /\.(png|woff|woff2|ttf|jpg|gif|svg)(\?v=.*)?$/,
           exclude: /node_modules/,
           loader: 'url-loader?limit=100000',
           options: {
-            name: '/assets/images/[name].[ext]',
+            name: path.posix.join('/assets', 'fonts/[name].[ext]'),
           },
-        },
-        {
-          test: /\.json$/,
-          loader: 'json-loader',
         },
       ],
     },
@@ -83,6 +90,9 @@ module.exports = (env, argv) => {
     plugins: argv && argv.mode === 'production' ? [
       new webpack.LoaderOptionsPlugin({
         minimize: true,
+      }),
+      new ExtractTextPlugin({
+        filename: "vi-ui.css",
       }),
       new UglifyJsPlugin({
         sourceMap: true,

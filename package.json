@@ -1,7 +1,7 @@
 {
   "name": "vitta-visual-components",
   "version": "0.1.35",
-  "description": "Biblioteca de componentes vitta",
+  "description": "A simple but consistent user interface",
   "main": "/dist/vitta-visual-components.min.js",
   "license": "Apache-2.0",
   "private": false,
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.0",
+    "stylus": "^0.54.5",
     "vue": "^2.5.16"
   },
   "devDependencies": {
@@ -29,6 +30,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "compression-webpack-plugin": "^1.1.11",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "dog-names": "^1.0.2",
@@ -37,7 +39,7 @@
     "eslint-loader": "^2.0.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-vue": "^4.5.0",
-    "extract-text-webpack-plugin": "^3.0.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "husky": "^0.14.3",
     "json-loader": "^0.5.7",
     "postcss": "^6.0.22",
@@ -45,7 +47,6 @@
     "poststylus": "^1.0.0",
     "react": "^16.3.2",
     "rimraf": "^2.6.2",
-    "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "uglify-js": "^3.3.24",
     "uglifyjs-webpack-plugin": "1.2.4",
@@ -59,13 +60,13 @@
     "webpack-merge": "^4.1.2"
   },
   "scripts": {
-    "install": "cd styleguide && yarn install || sudo npm install",
+    "install": "cd docs && yarn install || sudo npm install",
     "lint": "eslint \"src/**/*.{js,vue}\"",
     "lint:fix": "eslint \"src/**/*.{js,vue}\" --fix",
     "prepush": "npm run lint",
     "prepublishOnly": "npm version patch -f & npm run build",
-    "styleguide": "cd styleguide && npm run styleguide",
-    "styleguide:build": "cd styleguide && npm run styleguide:build",
+    "styleguide": "cd docs && npm run styleguide",
+    "styleguide:build": "cd docs && npm run styleguide:build",
     "build": "rimraf ./dist && webpack --mode production --progress && node postinstall.js",
     "postinstall": "node postinstall.js"
   }
