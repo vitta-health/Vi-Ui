@@ -327,7 +327,7 @@ export default {
         <td>{{ item.company }}</td>
     </template>
     <template slot="tfoot">
-        <td>Sum</td>
+        <td center>Sum</td>
         <td colspan="2">Sum2</td>
     </template>
   </vi-table>
