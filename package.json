@@ -11,6 +11,7 @@
     "url": "git+https://bitbucket.org/vittapros/styleguide.git"
   },
   "dependencies": {
+    "lodash": "^4.17.10",
     "normalize.css": "^8.0.0",
     "vue": "^2.5.16"
   },

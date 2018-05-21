@@ -1,92 +1,92 @@
 <template>
-  <div>
-    <table
-      class="ViTable"
-      :class="[{
-        'ViTable--BorderHorizontal': borderHorizontal,
-        'ViTable--BorderVertical': borderVertical,
-        'ViTable--StripedRows': striped }]">
-      <thead>
-        <tr class="ViTable__Rows">
-          <th
-            v-if="checkboxEnabled"
-            class="ViTable__Checkbox">
-            <input
-              ref="selectedAllCheckbox"
-              type="checkbox"
-              @click="onSelectAll(items)">
-          </th>
-          <th
-            v-for="(column, index) in columns"
-            :key="index"
-            @click="column.sortable ? onSort(column.id) : null">
-            {{ column.label }}
-            <div class="ViTable__Arrows">
-              <div
-                v-if="column.sortable"
-                class="ViTable__ArrowUp"
-                :class="{ 'ViTable__Arrows--Active':
-                verifySort(sortedColumn, column.id, sortedDirection, 'asc')}"/>
-              <div
-                v-if="column.sortable"
-                class="ViTable__ArrowDown"
-                :class="{ 'ViTable__Arrows--Active':
-                verifySort(sortedColumn, column.id, sortedDirection, 'desc')}"/>
-            </div>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(item, index) in items"
+  <table
+    class="ViTable"
+    :class="[{
+      'ViTable--HorizontalBordered': horizontalBordered,
+      'ViTable--VerticalBordered': verticalBordered,
+      'ViTable--StripedRows': striped }]">
+    <thead>
+      <tr class="ViTable__Row">
+        <th
+          v-if="checkbox"
+          class="ViTable--NoSortable ViTable__Checkbox">
+          <input
+            ref="checkboxAllSelected"
+            type="checkbox"
+            @click="onSelectAll">
+        </th>
+        <th
+          v-for="(column, index) in columns"
           :key="index"
-          class="ViTable__Rows">
-          <td
-            v-if="checkboxEnabled"
-            :class="[{ 'ViTable--Center': textCenter,
-                       'ViTable--Left': textLeft,
-                       'ViTable--Right': textRight }]">
-            <input
-              ref="selectedCheckbox"
-              @click="onSelect(index, item)"
-              type="checkbox">
-          </td>
-          <slot :item="item"/>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          @click="column.sortable ? onSort(column.id) : null"
+          :class="[{'ViTable--NoSortable': !column.sortable}]">
+          {{ column.label }}
+          <div class="ViTable__Arrows">
+            <div
+              ref="arrowUp"
+              v-if="column.sortable"
+              class="ViTable__ArrowUp"
+              :class="{ 'ViTable__Arrows--Active':
+              verifySort(column.id, 'asc')}"/>
+            <div
+              ref="arrowDown"
+              v-if="column.sortable"
+              class="ViTable__ArrowDown"
+              :class="{ 'ViTable__Arrows--Active':
+              verifySort(column.id, 'desc')}"/>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tfoot v-if="tFoot">
+      <tr>
+        <td v-if="checkbox"/>
+        <slot name="tfoot"/>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr
+        v-for="(item, index) in items"
+        :key="index"
+        class="ViTable__Row">
+        <td
+          v-if="checkbox">
+          <input
+            ref="selectedCheckbox"
+            @click="onSelect(index, item)"
+            type="checkbox"
+            :checked="item.selected">
+        </td>
+        <slot :item="item"/>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
-import textAlignMixin from '../mixins/textAlign';
+import { filter } from 'lodash';
 
 const availableOrders = {
   desc: 'desc',
   asc: 'asc',
 };
 
-const iterated = {
-  lines: [],
-  select: false,
-};
-
 export default {
   name: 'ViTable',
-  mixins: [textAlignMixin],
   props: {
     /**
-     * Array de objetos contendo os dados do cabeçalho da tabela.<br>
-     * id:string será enviado ao evento @onSort para ordenação<br>
-     * label:string texto apresentado na coluna<br>
-     * sortable:boolean define se a coluna podera ser ordenada<br>
+     * Array de objetos contendo os dados do cabeçalho da tabela.
+     * id:string será enviado ao evento @onSort para ordenação
+     * label:string texto apresentado na coluna
+     * sortable:boolean define se a coluna podera ser ordenada
      */
     columns: {
       type: Array,
       default: () => [],
     },
     /**
-     * Array de objetos contendo os dados das linhas na tabela
+     * Array de objetos contendo os dados das linhas na tabela, caso esteja com checkbox
+     * habilitado, usar o atributo selected <boolean> para definir seu estado
      */
     items: {
       type: Array,
@@ -115,154 +115,196 @@ export default {
       default: false,
     },
     /**
-     * Habilita bordas vertical na tabela
+     * Habilita bordas verticais na tabela
      */
-    borderVertical: {
+    verticalBordered: {
       type: Boolean,
       default: false,
     },
     /**
      * Habilita bordas horizontais na tabela
      */
-    borderHorizontal: {
+    horizontalBordered: {
       type: Boolean,
       default: false,
     },
     /**
      * Habilita os checkbox para seleção de linhas
      */
-    checkboxEnabled: {
+    checkbox: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Habilita o tfoot na tabela
+     */
+    tFoot: {
       type: Boolean,
       default: false,
     },
   },
   methods: {
     /**
-    * Evento disparado ao clicar em um cabeçalho da tabela para ordenação.
-    * @event onSort
-    * @type {string}
-    * @returns {string} retorna uma string da coluna de ordenação e o tipo
-    */
+     * Evento disparado ao clicar em um cabeçalho da tabela para ordenação.
+     * @event onSort
+     * @type {string}
+     * @returns {string} retorna uma string da coluna de ordenação e o tipo
+     */
     onSort(value) {
-      this.$emit('onSort', this.sortedDirection === availableOrders.desc ? `-${value}` : value);
-    },
-    /**
-    * Evento disparado ao selecionar todos os registros no checkbox.
-    * @event onSelectAll
-    * @type {object}
-    * @returns {object} objeto contendo todos os registros selecionados
-    */
-    onSelectAll(values) {
-      iterated.lines = [];
-      this.$refs.selectedCheckbox.map((row, index) => {
-        if (this.$refs.selectedAllCheckbox.checked) {
-          iterated.lines.push(values);
-          iterated.select = true;
-          this.$refs.selectedCheckbox[index].checked = true;
-          return null;
+      const orderBy = {
+        sortedColumn: value,
+        sortedDirection: 'asc',
+      };
+      if (this.sortedColumn === value) {
+        if (this.sortedDirection === availableOrders.desc) {
+          orderBy.sortedDirection = availableOrders.asc;
+        } else {
+          orderBy.sortedDirection = availableOrders.desc;
         }
-        iterated.lines.push(values);
-        iterated.select = false;
-        this.$refs.selectedCheckbox[index].checked = false;
-        return null;
-      });
-      this.$emit('onSelectAll', iterated);
+      }
+      this.$emit('on-sort', orderBy);
     },
     /**
-    * Evento disparado ao selecionar <b>um</b> registro da linha.
-    *
-    * @event onSelect
-    * @type {object}
-    * @returns {object} retorna um objeto contendo os dados da linha selecionada
-    */
-    onSelect(field, data) {
-      iterated.lines = [];
-      iterated.select = this.$refs.selectedCheckbox[field].checked;
-      iterated.lines.push(data);
-      this.$emit('onSelect', iterated);
+     * Evento disparado ao selecionar todos os registros no checkbox.
+     * @event onSelectAll
+     * @type {object}
+     * @returns {object} objeto contendo todos os registros selecionados
+     */
+    onSelectAll(input) {
+      const iterated = {
+        lines: null,
+        selected: false,
+      };
+      iterated.lines = this.items;
+      iterated.selected = input.currentTarget.checked;
+      this.$emit('on-select-all', iterated);
     },
-    verifySort(sortedColumn, id, sortedDirection, orderType) {
-      return sortedColumn === id && sortedDirection === orderType;
+    /**
+     * Evento disparado ao selecionar um registro.
+     *
+     * @event onSelect
+     * @type {object}
+     * @returns {object} retorna um objeto contendo os dados do registro selecionado
+     */
+    onSelect(field, data) {
+      const iterated = {
+        lines: null,
+        selected: false,
+      };
+      iterated.selected = this.$refs.selectedCheckbox[field].checked;
+      iterated.lines = data;
+      this.$emit('on-select', iterated);
+    },
+    verifySort(key, order) {
+      return this.sortedColumn === key && this.sortedDirection === order;
+    },
+    selectedCheckboxAllVerify() {
+      const selectedItems = filter(this.items, ['selected', true]).length;
+      if (selectedItems !== this.items.length && selectedItems !== 0) {
+        this.$refs.checkboxAllSelected.indeterminate =
+          filter(this.items, ['selected', true]).length < this.items.length;
+        return null;
+      } else if (selectedItems === this.items.length) {
+        this.$refs.checkboxAllSelected.checked = true;
+        this.$refs.checkboxAllSelected.indeterminate = false;
+        return null;
+      }
+      this.$refs.checkboxAllSelected.checked = false;
+      this.$refs.checkboxAllSelected.indeterminate = false;
+      return null;
+    },
+  },
+  mounted() {
+    this.selectedCheckboxAllVerify();
+  },
+  watch: {
+    items() {
+      this.selectedCheckboxAllVerify();
     },
   },
 };
 </script>
 
 <style lang="stylus">
-  @import '../themes/main'
-  @import '../themes/colors'
+@import '../themes/main';
+@import '../themes/colors';
 
-  .ViTable
-    border-spacing 0
-    width 100%
-    border-collapse collapse
-    text-align left
+.ViTable
+  border-spacing 0
+  width 100%
+  border-collapse collapse
+  text-align left
 
-    &--BorderVertical
-    &--BorderHorizontal
-      td
-      th
-        border-bottom 1px solid #ddd
-        border-top 1px solid #ddd
-
-    &--BorderVertical
-      td
-      th
-        border-left 1px solid #ddd
-        border-right 1px solid #ddd
-
-    &--StripedRows
-      tr:nth-child(even)
-        td
-          background-color rgba(0, 0, 0, 0.03)
-
-    thead
-      th
-        height 38px
-        background-color rgba(0, 0, 0, 0.1)
-        &:hover
-          cursor pointer
-          background-color rgba(0, 0, 0, 0.05)
-
+  &--VerticalBordered, &--HorizontalBordered
     td
     th
-      padding 1em
+      border-bottom 1px solid #ddd
+      border-top 1px solid #ddd
 
-    &--Center
+  &--VerticalBordered
+    td
+    th
+      border-left 1px solid #ddd
+      border-right 1px solid #ddd
+
+  &--StripedRows
+    tr:nth-child(even)
+      td
+        background-color rgba(0, 0, 0, 0.03)
+
+  thead
+    th
+      height 38px
+      background-color rgba(0, 0, 0, 0.1)
+
+      &:hover
+        cursor pointer
+        background-color rgba(0, 0, 0, 0.05)
+
+  &--NoSortable
+    background-color rgba(0, 0, 0, 0.1) !important
+    &:hover
+      cursor default !important
+
+  td
+  th
+    padding 1em
+    &[center]
       text-align center
-    &--Left
-      text-align left
-    &--Right
+    &[right]
       text-align right
 
-    .ViTable__Checkbox
-      width: 1%
+  .ViTable__Checkbox
+    width 1%
 
-    .ViTable__ArrowDown
-    .ViTable__ArrowUp
-      width 0
-      height 0
-      border-left 5px solid transparent
-      border-right 5px solid transparent
-      border-bottom 5px solid rgba(0,0,0,0.2)
-      margin 3px 2px 0px 5px
-      &.ViTable__Arrows--Active
-        border-bottom 5px solid black
+  .ViTable__ArrowDown
+  .ViTable__ArrowUp
+    width 0
+    height 0
+    border-left 5px solid transparent
+    border-right 5px solid transparent
+    border-bottom 5px solid rgba(0, 0, 0, 0.2)
+    margin 3px 2px 0px 5px
 
-    .ViTable__ArrowDown
-      transform rotate(180deg)
+    &.ViTable__Arrows--Active
+      border-bottom 5px solid black
 
-    .ViTable__Arrows
-      margin-left 5px
-      float right
+  .ViTable__ArrowDown
+    transform rotate(180deg)
 
-    .ViTable__Rows
-      height 38px
+  .ViTable__Arrows
+    margin-left 5px
+    float right
 
+  .ViTable__Row
+    height 38px
 </style>
 
 <docs>
-Basic Table
+#### Basic Table:
+
+> Para alinha o conteudo das colunas numa direção, adicione [center|right] como uma
+> propriedade na coluna.
 
 ```vue
 <template>
@@ -270,36 +312,42 @@ Basic Table
     :sortedColumn="orderColumn"
     :sortedDirection="order"
     striped
-    enabledCheckbox
-    @onSort="order => getOrder(order)"
-    @onSelectAll="data => getSelectedAll(data)"
-    @onSelect="data => getSelectedItem(data)"
+    checkbox
+    horizontalBordered
+    verticalBordered
+    tFoot
+    @on-sort="order => getOrder(order)"
+    @on-select-all="data => getSelectedAll(data)"
+    @on-select="data => getSelectedItem(data)"
     :columns="cols"
     :items="data">
     <template slot-scope="{ item }">
-        <td>{{ item.id }}</td>
+        <td center>{{ item.id }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.company }}</td>
+    </template>
+    <template slot="tfoot">
+        <td>Sum</td>
+        <td colspan="2">Sum2</td>
     </template>
   </vi-table>
 </template>
 
 <script>
-
 export default {
   data() {
     return {
       cols: [
         { id:'codCompany', label:'ID', sortable: true },
-        { id:'name', label:'Name', sortable: true },
+        { id:'name', label:'Name', sortable: false },
         { id:'company', label:'Company', sortable: true },
       ],
       data: [
-        { id: 1, name:'data1', company:'Vitta'},
-        { id: 2, name:'data2', company:'Katu'},
-        { id: 3, name:'data3', company:'HCOR'},
-        { id: 4, name:'data4', company:'Einsten'},
-        { id: 5, name:'data5', company:'Instituto'},
+        { id: 1, name:'name1', company:'company1', selected: false},
+        { id: 2, name:'name2', company:'company2', selected: true},
+        { id: 3, name:'name3', company:'company3', selected: true},
+        { id: 4, name:'name4', company:'company4', selected: true},
+        { id: 5, name:'name5', company:'company5', selected: true},
       ],
       order: 'desc',
       orderColumn: 'company',
@@ -308,15 +356,29 @@ export default {
   methods: {
     getOrder(val) {
       this.data.reverse();
-      this.orderColumn = val.split('-').pop();
-      this.order = this.order === 'desc' ? 'asc': 'desc';
+      this.order = val.sortedDirection;
+      this.orderColumn = val.sortedColumn;
     },
     getSelectedAll(val) {
+      const lines = this.data.map((row) => {
+        row.selected = val.selected;
+        return row;
+      });
+      this.data = lines;
     },
     getSelectedItem(val) {
-    }
+      const line = this.data.map((row) => {
+        if(row.id === val.lines.id) {
+          row.selected = val.selected;
+          return row;
+        }
+        return row;
+      });
+      this.data = line;
+    },
   }
 };
+
 </script>
 ```
 </docs>
