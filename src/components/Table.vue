@@ -76,9 +76,9 @@ export default {
   props: {
     /**
      * Array de objetos contendo os dados do cabeçalho da tabela.
-     * id:string será enviado ao evento @onSort para ordenação
+     * id:string será enviado ao evento @on-sort para ordenação
      * label:string texto apresentado na coluna
-     * sortable:boolean define se a coluna podera ser ordenada
+     * sortable:boolean define se a coluna poderá ser ordenada
      */
     columns: {
       type: Array,
@@ -86,14 +86,14 @@ export default {
     },
     /**
      * Array de objetos contendo os dados das linhas na tabela, caso esteja com checkbox
-     * habilitado, usar o atributo selected <boolean> para definir seu estado
+     * habilitado, usar o atributo selected <boolean> para definir seu estado.
      */
     items: {
       type: Array,
       default: () => [],
     },
     /**
-     * Indica qual coluna esta ordenada atualmente, normalmente este campo é o id da columns
+     * Indica o ID da coluna pela qual os dados estão ordenados.
      */
     sortedColumn: {
       type: String,
@@ -115,14 +115,14 @@ export default {
       default: false,
     },
     /**
-     * Habilita bordas verticais na tabela
+     * Habilita bordas verticais
      */
     verticalBordered: {
       type: Boolean,
       default: false,
     },
     /**
-     * Habilita bordas horizontais na tabela
+     * Habilita bordas horizontais
      */
     horizontalBordered: {
       type: Boolean,
@@ -136,7 +136,7 @@ export default {
       default: false,
     },
     /**
-     * Habilita o tfoot na tabela
+     * Habilita o tfoot
      */
     tFoot: {
       type: Boolean,
@@ -148,24 +148,18 @@ export default {
      * Evento disparado ao clicar em um cabeçalho da tabela para ordenação.
      * @event onSort
      * @type {string}
-     * @returns {string} retorna uma string da coluna de ordenação e o tipo
+     * @returns {object} retorna um objeto com os dados de ordenação
      */
     onSort(value) {
       const orderBy = {
         sortedColumn: value,
         sortedDirection: 'asc',
       };
-      if (this.sortedColumn === value) {
-        if (this.sortedDirection === availableOrders.desc) {
-          orderBy.sortedDirection = availableOrders.asc;
-        } else {
-          orderBy.sortedDirection = availableOrders.desc;
-        }
-      }
+      orderBy.sortedDirection = this.sortedColumn === value && this.sortedDirection === 'asc' ? 'desc' : 'asc';
       this.$emit('on-sort', orderBy);
     },
     /**
-     * Evento disparado ao selecionar todos os registros no checkbox.
+     * Evento disparado ao selecionar todos os registros da tabela.
      * @event onSelectAll
      * @type {object}
      * @returns {object} objeto contendo todos os registros selecionados
@@ -198,11 +192,10 @@ export default {
     verifySort(key, order) {
       return this.sortedColumn === key && this.sortedDirection === order;
     },
-    selectedCheckboxAllVerify() {
+    updateSelectAllCheckbox() {
       const selectedItems = filter(this.items, ['selected', true]).length;
       if (selectedItems !== this.items.length && selectedItems !== 0) {
-        this.$refs.checkboxAllSelected.indeterminate =
-          filter(this.items, ['selected', true]).length < this.items.length;
+        this.$refs.checkboxAllSelected.indeterminate = selectedItems < this.items.length;
         return null;
       } else if (selectedItems === this.items.length) {
         this.$refs.checkboxAllSelected.checked = true;
@@ -215,11 +208,11 @@ export default {
     },
   },
   mounted() {
-    this.selectedCheckboxAllVerify();
+    this.updateSelectAllCheckbox();
   },
   watch: {
     items() {
-      this.selectedCheckboxAllVerify();
+      this.updateSelectAllCheckbox();
     },
   },
 };
@@ -303,7 +296,7 @@ export default {
 <docs>
 #### Basic Table:
 
-> Para alinha o conteudo das colunas numa direção, adicione [center|right] como uma
+> Para alinhar o conteúdo das colunas em uma direção, adicione [center|right] como uma
 > propriedade na coluna.
 
 ```vue
