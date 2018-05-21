@@ -48,7 +48,7 @@
       <tr
         v-for="(item, index) in items"
         :key="index"
-        class="ViTable__Row"
+        class="ViTable__Row ViTable--Hover"
         :class="[{'ViTable__Row--Selected': item.selected}]">
         <td
           v-if="checkbox">
@@ -295,6 +295,9 @@ export default {
 
 .ViTable__Row--Selected
   background-color rgba(#DDC880, 0.2) !important
+.ViTable--Hover
+  &:hover
+    background-color rgba(#24AEE4,0.2) !important
 
 </style>
 
