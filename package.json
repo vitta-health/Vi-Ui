@@ -1,6 +1,6 @@
 {
   "name": "vitta-visual-components",
-  "version": "0.1.37",
+  "version": "0.1.38",
   "description": "A simple but consistent user interface",
   "main": "/dist/vitta-visual-components.min.js",
   "license": "Apache-2.0",
