@@ -93,7 +93,7 @@ export default {
        * @event onClick
        * @type {object}
        */
-      this.$emit('onClick');
+      this.$emit('on-click');
     },
   },
   mounted() {
