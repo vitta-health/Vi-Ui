@@ -37,8 +37,13 @@
         'ViButton--small': small,
         'ViButton--large': large,
         'ViButton--pill': pill,
+        'ViButton--active': active,
       },
-      colorClass({ background: !outlined, border: outlined, hover: true }),
+      colorClass({
+        background: !outlined,
+        border: outlined,
+        hover: true && !active
+      }),
     ]"
     :style="{
       width: buttonWidth,
