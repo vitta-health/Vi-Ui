@@ -80,19 +80,21 @@ export default {
 
     &--border
       .ViButton
-        border-color #9AA2B4
-        border-left-width 0
-        background transparent
-        color: #333
-        margin-right -0.09em
-        padding-left 1.09em
-
-        &[disabled]:hover
-        &[disabled]:focus
+        min-width 3.4em
+        &:not(.ViButton--active)
+          border-color #9AA2B4
+          border-left-width 0
           background transparent
+          color: #333
+          margin-right -0.09em
+          padding-left 1.09em
 
-        &:first-child
-          border-left-width 0.09em
+          &[disabled]:hover
+          &[disabled]:focus
+            background transparent
+
+          &:first-child
+            border-left-width 0.09em
 </style>
 
 <docs>
