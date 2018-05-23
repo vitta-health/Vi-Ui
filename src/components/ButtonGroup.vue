@@ -49,10 +49,11 @@ export default {
 </script>
 
 <style lang="stylus" scope>
-  @import '../themes/main';
+  @import '../themes/main'
 
   .ViButtonGroup
     display flex
+    flex-flow row wrap
 
     .ViButton
       border-radius 0
@@ -70,7 +71,7 @@ export default {
         &:first-child
           border-bottom-left-radius 50px
           border-top-left-radius 50px
-          padding-left 1.5em
+          padding-left 1em
 
         &:last-child
           border-bottom-right-radius 50px
