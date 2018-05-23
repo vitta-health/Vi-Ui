@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,700,700i');
+
+@font-face {
+  font-family: 'RobotoFallback';
+  font-style: normal;
+  font-weight: 300;
+	src: url('../assets/fonts/roboto-v18-latin-300italic.woff2') format('woff2'),
+	     url('../assets/fonts/roboto-v18-latin-300.woff') format('woff'),
+			 url('../assets/fonts/roboto-v18-latin-300.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'RobotoFallback';
+  font-style: italic;
+  font-weight: 300;
+  src: url('../assets/fonts/roboto-v18-latin-300italic.woff2') format('woff2'),
+       url('../assets/fonts/roboto-v18-latin-300italic.woff') format('woff'),
+       url('../assets/fonts/roboto-v18-latin-300italic.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'RobotoFallback';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/roboto-v18-latin-700.woff2') format('woff2'),
+       url('../assets/fonts/roboto-v18-latin-700.woff') format('woff'),
+       url('../assets/fonts/roboto-v18-latin-700.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'RobotoFallback';
+  font-style: italic;
+  font-weight: 700;
+  src: url('../assets/fonts/roboto-v18-latin-700italic.woff2') format('woff2'),
+       url('../assets/fonts/roboto-v18-latin-700italic.woff') format('woff'),
+       url('../assets/fonts/roboto-v18-latin-700italic.ttf') format('truetype');
+}
+
+
+@font-face {
+	font-family: "vitta-icons";
+	font-weight: normal;
+	font-style: normal;
+	src: url('../assets/fonts/n-a.woff2') format('woff2'),
+	url('../assets/fonts/n-a.woff') format('woff'),
+	url('../assets/fonts/n-a.ttf') format('truetype');
+}
+
+[class^="vi-icon-"],[class*="vi-icon-"] {
+	font-family: "vitta-icons";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.vi-icon-arrow:before { content: "\e926"; }
+.vi-icon-arrow-left:before { content: "\e925"; }
+.vi-icon-birthday-cake:before { content: "\e900"; }
+.vi-icon-box:before { content: "\e93a"; }
+.vi-icon-calendar-thin:before { content: "\e901"; }
+.vi-icon-calendar:before { content: "\e915"; }
+.vi-icon-chat:before { content: "\e903"; }
+.vi-icon-chat-active:before { content: "\e902"; }
+.vi-icon-check:before { content: "\e904"; }
+.vi-icon-checklist:before { content: "\e905"; }
+.vi-icon-chevron-down:before { content: "\e906"; }
+.vi-icon-chevron-next:before { content: "\e907"; }
+.vi-icon-chevron-prev:before { content: "\e908"; }
+.vi-icon-chevron-small-down:before { content: "\e909"; }
+.vi-icon-clock:before { content: "\e90b"; }
+.vi-icon-cross:before { content: "\e90d"; }
+.vi-icon-danger-symbol:before { content: "\e90e"; }
+.vi-icon-download:before { content: "\e931"; }
+.vi-icon-excel:before { content: "\e916"; }
+.vi-icon-exit:before { content: "\e816"; }
+.vi-icon-double-chevron-left:before { content: "\e822"; }
+.vi-icon-double-chevron-right:before { content: "\e823"; }
+.vi-icon-flag:before { content: "\e828"; }
+.vi-icon-heart-beats:before { content: "\e91b"; }
+.vi-icon-interface:before { content: "\e91c"; }
+.vi-icon-line-chart:before { content: "\e91d"; }
+.vi-icon-list:before { content: "\e91e"; }
+.vi-icon-mail:before { content: "\e840"; }
+.vi-icon-magnifying-glass:before { content: "\e91f"; }
+.vi-icon-mananger-panel:before { content: "\e922"; }
+.vi-icon-money:before { content: "\e92a"; }
+.vi-icon-message:before { content: "\e920"; }
+.vi-icon-others:before { content: "\e815"; }
+.vi-icon-padlock:before { content: "\e921"; }
+.vi-icon-paper:before { content: "\e923"; }
+.vi-icon-passage-time:before { content: "\e924"; }
+.vi-icon-people:before { content: "\e90c"; }
+.vi-icon-person:before { content: "\e83f"; }
+.vi-icon-card:before { content: "\e927"; }
+.vi-icon-exclamation:before { content: "\e928"; }
+.vi-icon-print:before { content: "\e92b"; }
+.vi-icon-pen:before { content: "\e92d"; }
+.vi-icon-plus:before { content: "\e92e"; }
+.vi-icon-question:before { content: "\e930"; }
+.vi-icon-question-circle:before { content: "\e92f"; }
+.vi-icon-refresh:before { content: "\e932"; }
+.vi-icon-document:before { content: "\e933"; }
+.vi-icon-rounded-minus:before { content: "\e92c"; }
+.vi-icon-rounded-x:before { content: "\e934"; }
+.vi-icon-rounded-plus:before { content: "\e935"; }
+.vi-icon-rounded-money:before { content: "\e914"; }
+.vi-icon-search-file:before { content: "\e936"; }
+.vi-icon-settings:before { content: "\e937"; }
+.vi-icon-shopping-basket:before { content: "\e938"; }
+.vi-icon-stethoscope:before { content: "\e910"; }
+.vi-icon-trash:before { content: "\e919"; }
+.vi-icon-upload:before { content: "\e90f"; }
+.vi-icon-user-add:before { content: "\e93b"; }
+.vi-icon-write-document:before { content: "\e939"; }
+.vi-icon-vitta:before { content: "\e93c"; }

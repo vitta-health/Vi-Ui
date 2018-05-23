@@ -127,7 +127,7 @@ export default {
 };
 </script>
 
-<style lang="stylus" scope>
+<style lang="stylus">
   @import '../themes/main';
   @import '../themes/colors';
 
@@ -172,7 +172,12 @@ export default {
 Botão básico:
 
 ```jsx
-<vi-button>Me aperte</vi-button>
+<div>
+  <vi-button default-variant large>Me aperte</vi-button>
+  <vi-button primary>Me aperte</vi-button>
+  <vi-button success small>Me aperte</vi-button>
+  <vi-button danger mini>Me aperte</vi-button>
+</div>
 ```
 Botão com loading:
 
@@ -198,13 +203,7 @@ Outras props:
 ```jsx
 <vi-button pill large success outlined
   justify-content="space-between"
-  :width="200"
-><span>▸</span> Me aperte</vi-button>
-```
-
-
-```jsx
-<vi-button disabled small danger
+  :width="220"
 ><span>▸</span> Me aperte</vi-button>
 ```
 
@@ -230,13 +229,5 @@ export default {
   },
 };
 </script>
-<style scoped>
-    .wrapper {
-      padding: 10px;
-    }
-    .text-name {
-      color: red;
-    }
-</style>
 ```
 </docs>
