@@ -88,10 +88,14 @@ export default {
           color: #333
           margin-right -0.09em
           padding-left 1.09em
+          box-shadow: none
 
           &[disabled]:hover
           &[disabled]:focus
-            background transparent
+            border-color #9AA2B4
+            background inherit
+            color: inherit
+            box-shadow: inherit
 
           &:first-child
             border-left-width 0.09em
