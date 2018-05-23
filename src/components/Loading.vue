@@ -1,12 +1,16 @@
 <template>
   <div
     class="ViLoading"
-    :class="{
-      'ViLoading--loop': !hasPercent,
-      'ViLoading--mini': mini,
-      'ViLoading--small': small,
-      'ViLoading--large': large,
-    }"
+    ref="loading"
+    :class="[
+      {
+        'ViLoading--loop': !hasPercent,
+        'ViLoading--mini': mini,
+        'ViLoading--small': small,
+        'ViLoading--large': large,
+      },
+      colorClass({ border: true })
+    ]"
     :style="{
       height: `${getSize}px`,
       width: `${getSize}px`,
@@ -21,7 +25,6 @@
     <span
       class="ViLoading__value"
       ref="text"
-      :class="colorClass({ border: true })"
       :style="{
         borderWidth: `${borderSize}px`,
         fontSize: `${(getSize / 3.4)}px`,
@@ -97,7 +100,7 @@ export default {
       context.arc(size, size, sizeBorderLess, offSetRadius * Math.PI, radius * Math.PI);
       context.lineWidth = this.borderSize;
 
-      context.strokeStyle = getComputedStyle(this.$refs.text).color;
+      context.strokeStyle = getComputedStyle(this.$refs.loading).color;
       context.stroke();
     },
   },

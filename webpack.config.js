@@ -2,19 +2,16 @@ const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // eslint-disable-next-line arrow-body-style
 module.exports = (env, argv) => {
-  /*
-    const prod = argv && argv.mode === 'production';
-  */
   return {
     entry: path.join(__dirname, '/src/index.js'),
     output: {
       path: path.join(__dirname, '/dist/'),
       publicPath: '/dist/',
-      filename: 'vitta-visual-components.min.js',
+      filename: 'vi-ui.min.js',
       libraryTarget: 'umd',
       libraryExport: 'default',
       library: 'VittaVisualComponents',
@@ -26,10 +23,27 @@ module.exports = (env, argv) => {
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {
-            extractCSS: true,
+            extractCSS: argv && argv.mode === 'production',
             presets: ['env'],
-            loaders: {
-              loader: ExtractTextPlugin.extract({
+            loaders: argv && argv.mode !== 'production'
+              ? [
+                'vue-style-loader',
+                'stylus-loader',
+                {
+                  loader: 'css-loader',
+                  options: {
+                    importLoaders: 1,
+                  },
+                },
+                {
+                  loader: 'postcss-loader',
+                  options: {
+                    ident: 'postcss',
+                    plugins: () => [autoprefixer],
+                  },
+                },
+              ]
+              : ExtractTextPlugin.extract({
                 fallback: 'vue-style-loader',
                 use: [
                   'stylus-loader',
@@ -48,15 +62,18 @@ module.exports = (env, argv) => {
                   },
                 ],
               }),
-            },
           },
         },
         {
-          test: /\.(css|styl)$/,
+          test: /\.(css)$/,
           exclude: /node_modules/,
           use: [
-            'stylus-loader',
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+              },
+            },
             {
               loader: 'postcss-loader',
               options: {
@@ -64,7 +81,26 @@ module.exports = (env, argv) => {
                 plugins: () => [autoprefixer],
               },
             },
-
+          ],
+        },
+        {
+          test: /\.styl$/,
+          exclude: /node_modules/,
+          use: [
+            'stylus-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                ident: 'postcss',
+                plugins: () => [autoprefixer],
+              },
+            },
           ],
         },
         {
@@ -77,31 +113,35 @@ module.exports = (env, argv) => {
           },
         },
         {
-          test: /\.(png|woff|woff2|ttf|jpg|gif|svg)(\?v=.*)?$/,
+          test: /\.(eot|ttf|woff(2)?)(\?[a-z0-9]+)?$/,
           exclude: /node_modules/,
-          loader: 'url-loader?limit=100000',
-          options: {
-            name: path.posix.join('/assets', 'fonts/[name].[ext]'),
-          },
+          loader: 'file-loader?name=fonts/[name].[ext]',
+        },
+        {
+          test: /\.(svg|png|jpg|gif)(\?[a-z0-9]+)?$/,
+          exclude: /node_modules/,
+          loader: 'file-loader?name=images/[name].[ext]',
         },
       ],
     },
     /* eslint-disable */
-    plugins: argv && argv.mode === 'production' ? [
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-      }),
-      new ExtractTextPlugin({
-        filename: "vi-ui.css",
-      }),
-      new UglifyJsPlugin({
-        sourceMap: true,
-        uglifyOptions: {
-          compress: true,
-          mangle: true,
-        },
-      }),
-    ] : [],
+    plugins: argv && argv.mode !== 'production'
+      ? []
+      : [
+        new webpack.LoaderOptionsPlugin({
+          minimize: true,
+        }),
+        new ExtractTextPlugin({
+          filename: "vi-ui.min.css",
+        }),
+        new UglifyJsPlugin({
+          sourceMap: true,
+          uglifyOptions: {
+            compress: true,
+            mangle: true,
+          },
+        }),
+      ],
     /* eslint-enable */
     devtool: 'source-map',
     devServer: {

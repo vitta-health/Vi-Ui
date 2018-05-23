@@ -1,9 +1,9 @@
 {
-  "name": "vitta-visual-components",
-  "version": "0.1.38",
-  "description": "A simple but consistent user interface",
-  "main": "/dist/vitta-visual-components.min.js",
-  "license": "Apache-2.0",
+  "name": "vi-ui",
+  "version": "0.0.0",
+  "description": "A simple but consistent Vue user interface",
+  "main": "/dist/vi-ui.min.js",
+  "license": "MIT",
   "private": false,
   "homepage": "https://styleguide.vitta.me",
   "repository": {
