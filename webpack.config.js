@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // eslint-disable-next-line arrow-body-style
 module.exports = (env, argv) => {
@@ -10,7 +11,7 @@ module.exports = (env, argv) => {
     output: {
       path: path.join(__dirname, '/dist/'),
       publicPath: '/dist/',
-      filename: 'vitta-visual-components.min.js',
+      filename: 'vi-ui.min.js',
       libraryTarget: 'umd',
       libraryExport: 'default',
       library: 'VittaVisualComponents',
@@ -22,39 +23,85 @@ module.exports = (env, argv) => {
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {
+            extractCSS: argv && argv.mode === 'production',
             presets: ['env'],
-            loaders: {
-              stylus: argv && argv.mode === 'production'
-                ? 'vue-style-loader!css-loader!postcss-loader!stylus-loader'
-                : 'vue-style-loader!css-loader!stylus-loader',
-              postcss: argv && argv.mode === 'production'
-                ? [(autoprefixer)({ browsers: ['> 3% in BR'] })]
-                : [],
-            },
+            loaders: argv && argv.mode !== 'production'
+              ? [
+                'vue-style-loader',
+                'stylus-loader',
+                {
+                  loader: 'css-loader',
+                  options: {
+                    importLoaders: 1,
+                  },
+                },
+                {
+                  loader: 'postcss-loader',
+                  options: {
+                    ident: 'postcss',
+                    plugins: () => [autoprefixer],
+                  },
+                },
+              ]
+              : ExtractTextPlugin.extract({
+                fallback: 'vue-style-loader',
+                use: [
+                  'stylus-loader',
+                  {
+                    loader: 'css-loader',
+                    options: {
+                      importLoaders: 1,
+                    },
+                  },
+                  {
+                    loader: 'postcss-loader',
+                    options: {
+                      ident: 'postcss',
+                      plugins: () => [autoprefixer],
+                    },
+                  },
+                ],
+              }),
           },
+        },
+        {
+          test: /\.(css)$/,
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                ident: 'postcss',
+                plugins: () => [autoprefixer],
+              },
+            },
+          ],
         },
         {
           test: /\.styl$/,
-          loader: argv && argv.mode === 'production'
-            ? 'vue-style-loader!css-loader!postcss-loader!stylus-loader'
-            : 'vue-style-loader!css-loader!stylus-loader',
-          options: {
-            postcss: argv && argv.mode === 'production'
-              ? [(autoprefixer)({ browsers: ['> 3% in BR'] })]
-              : [],
-          },
-        },
-        {
-          test: /\.css$/,
-          loader: 'vue-style-loader!css-loader',
-        },
-        {
-          test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
-          exclude: path.resolve(__dirname, './src'),
-          loader: 'url-loader?limit=100000',
-          options: {
-            name: path.posix.join('/assets', 'fonts/[name].[ext]'),
-          },
+          exclude: /node_modules/,
+          use: [
+            'stylus-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                ident: 'postcss',
+                plugins: () => [autoprefixer],
+              },
+            },
+          ],
         },
         {
           test: /\.js$/,
@@ -66,32 +113,35 @@ module.exports = (env, argv) => {
           },
         },
         {
-          test: /\.(png|woff|woff2|jpg|gif|svg)(\?v=.*)?$/,
+          test: /\.(eot|ttf|woff(2)?)(\?[a-z0-9]+)?$/,
           exclude: /node_modules/,
-          loader: 'url-loader?limit=100000',
-          options: {
-            name: '/assets/images/[name].[ext]',
-          },
+          loader: 'file-loader?name=fonts/[name].[ext]',
         },
         {
-          test: /\.json$/,
-          loader: 'json-loader',
+          test: /\.(svg|png|jpg|gif)(\?[a-z0-9]+)?$/,
+          exclude: /node_modules/,
+          loader: 'file-loader?name=images/[name].[ext]',
         },
       ],
     },
     /* eslint-disable */
-    plugins: argv && argv.mode === 'production' ? [
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-      }),
-      new UglifyJsPlugin({
-        sourceMap: true,
-        uglifyOptions: {
-          compress: true,
-          mangle: true,
-        },
-      }),
-    ] : [],
+    plugins: argv && argv.mode !== 'production'
+      ? []
+      : [
+        new webpack.LoaderOptionsPlugin({
+          minimize: true,
+        }),
+        new ExtractTextPlugin({
+          filename: "vi-ui.min.css",
+        }),
+        new UglifyJsPlugin({
+          sourceMap: true,
+          uglifyOptions: {
+            compress: true,
+            mangle: true,
+          },
+        }),
+      ],
     /* eslint-enable */
     devtool: 'source-map',
     devServer: {

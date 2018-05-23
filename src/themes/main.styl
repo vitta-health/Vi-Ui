@@ -1,6 +1,15 @@
 @import '../../node_modules/normalize.css';
+@import '../themes/fonts.css';
 
-$Roboto = "Roboto", Arial, sans-serif
+$Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
+
+html
+  box-sizing border-box
+  font-family $Roboto
+  font-size 16px
+  font-weight 300
 
 *
-  box-sizing: border-box
+*:before
+*:after
+  box-sizing inherit

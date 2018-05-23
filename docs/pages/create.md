@@ -1,4 +1,4 @@
-Seu primeiro componente?
+Falta algo nesse algo na biblioteca? Crie uma issue ou faça você mesmo:
 
 ### Crie o componente
 Coloque o componente colocado na pasta `/src/components`.

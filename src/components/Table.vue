@@ -65,8 +65,6 @@
 </template>
 
 <script>
-import { filter } from 'lodash';
-
 const availableOrders = {
   desc: 'desc',
   asc: 'asc',
@@ -194,7 +192,7 @@ export default {
       return this.sortedColumn === key && this.sortedDirection === order;
     },
     updateSelectAllCheckbox() {
-      const selectedItems = filter(this.items, ['selected', true]).length;
+      const selectedItems = this.items.filter(item => item.selected).length;
       if (selectedItems !== this.items.length && selectedItems !== 0) {
         this.$refs.checkboxAllSelected.indeterminate = selectedItems < this.items.length;
         return null;
@@ -229,7 +227,11 @@ export default {
   border-collapse collapse
   text-align left
 
-  &--VerticalBordered, &--HorizontalBordered
+  &--VerticalBordered
+    border-bottom 1px solid #ddd
+    border-top 1px solid #ddd
+
+  &--HorizontalBordered
     td
     th
       border-bottom 1px solid #ddd
@@ -263,6 +265,7 @@ export default {
   td
   th
     padding 1em
+    text-align left
     &[center]
       text-align center
     &[right]
