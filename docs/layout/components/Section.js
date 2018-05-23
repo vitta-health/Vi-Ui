@@ -16,7 +16,7 @@ export function SectionRenderer(allProps) {
   return (
     <section className={classes.root}>
       {name && (
-        <SectionHeading depth={depth} id={slug} slotName="sectionToolbar" slotProps={allProps}>
+        <SectionHeading name={name} depth={depth} id={slug} slotProps={allProps}>
           {name}
         </SectionHeading>
       )}
