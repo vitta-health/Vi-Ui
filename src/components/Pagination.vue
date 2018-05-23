@@ -16,7 +16,7 @@
     <vi-button
       primary
       :href="getURL(page)"
-      @on-click="handleNavitation(page, true)"
+      @on-click="handleNavitation(page)"
       :active="isCurrentPage(page)"
       v-for="(page) in getPages"
       :key="page">{{ page }}
@@ -159,7 +159,7 @@ export default {
   <vi-pagination
     :currentPage="currentPage"
     :baseURL="baseURL"
-
+    :totalPages="totalPages"
     :totalShowed="totalShowed"
     @on-change-page="page => mudaPagina(page)"/>
 </template>
