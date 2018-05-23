@@ -90,7 +90,7 @@ export default {
       /**
        * Evento de clique.
        *
-       * @event on-click
+       * @event onClick
        * @type {object}
        */
       this.$emit('on-click');
