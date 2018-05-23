@@ -1,5 +1,34 @@
 <template>
+  <a
+    v-if="href"
+    ref="button"
+    class="ViButton"
+    :class="[
+      {
+        'ViButton--mini': mini,
+        'ViButton--small': small,
+        'ViButton--large': large,
+        'ViButton--pill': pill,
+        'ViButton--active': active,
+      },
+      colorClass({
+        background: !outlined,
+        border: outlined,
+        hover: true && !active
+      }),
+    ]"
+    :href="this.href"
+    :style="{
+      width: buttonWidth,
+      justifyContent,
+    }"
+    @click="onClick">
+    <vi-wrapper
+      :justify-content="justifyContent"
+      spacing="10"><slot /></vi-wrapper>
+  </a>
   <button
+    v-else
     ref="button"
     class="ViButton"
     :class="[
@@ -11,7 +40,6 @@
       },
       colorClass({ background: !outlined, border: outlined, hover: true }),
     ]"
-    :href="this.href"
     :style="{
       width: buttonWidth,
       justifyContent,
@@ -40,6 +68,13 @@ export default {
      * Fundo transparente com apenas borda e texto colorido
      */
     outlined: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Define se o botão esta selecionado
+     */
+    active: {
       type: Boolean,
       default: false,
     },
@@ -79,13 +114,6 @@ export default {
     },
   },
   methods: {
-    changeTag() {
-      const tagName = this.$refs.button.outerHTML;
-      const regex = /^<button/;
-      if (this.href || this.tag) {
-        this.$refs.button.outerHTML = `<${tagName.replace(regex, this.tag || 'a')}`;
-      }
-    },
     onClick() {
       /**
        * Evento de clique.
@@ -95,9 +123,6 @@ export default {
        */
       this.$emit('on-click');
     },
-  },
-  mounted() {
-    this.changeTag();
   },
 };
 </script>
