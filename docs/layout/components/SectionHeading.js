@@ -4,7 +4,7 @@ import cx from 'classnames';
 import Heading from 'rsg-components/Heading';
 import Styled from 'rsg-components/Styled';
 
-function SectionHeadingRenderer({ classes, children, toolbar, id, href, depth, deprecated }) {
+function SectionHeadingRenderer({ classes, children, id, href, depth, deprecated }) {
   const headingLevel = Math.min(6, depth);
   const sectionNameClasses = cx(classes.sectionName, {
     [classes.isDeprecated]: deprecated,

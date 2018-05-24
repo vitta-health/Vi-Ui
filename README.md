@@ -1,17 +1,19 @@
-# Vitta Visual Components
+# Vi-Ui
+#### A simple but consistent
 
-[![npm package](https://nodei.co/npm/vitta-visual-components.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/vitta-visual-components/)
+[![npm package](https://nodei.co/npm/vue-vi-ui.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/vue-vi-ui/)
 
 ---
 
 ## Usage
 ```js
-import { Button } from 'vitta-visual-components';
+import 'src/node_modules/vue-vi-ui/dist/vi-ui.min.css';
+import { ViButton } from 'vue-vi-ui';
 
 export default {
   name: 'app',
   components: {
-    Button
+    ViButton,
   }
 }
 ```

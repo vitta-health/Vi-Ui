@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="ViButtonGroup"
+    class="ViComponent ViButtonGroup"
     :class="[
       {
         'ViButtonGroup--mini': mini,
@@ -48,7 +48,7 @@ export default {
 };
 </script>
 
-<style lang="stylus" scope>
+<style lang="stylus" >
   @import '../themes/main'
 
   .ViButtonGroup
@@ -135,7 +135,7 @@ Botão grupo dinâmico:
 
 ```jsx
 <vi-button-group outlined large>
-  <vi-button>◃</vi-button>
+  <vi-button>◂</vi-button>
   <vi-button v-for="n in 5">{{ n }}</vi-button>
   <vi-button>▸</vi-button>
 </vi-button-group>

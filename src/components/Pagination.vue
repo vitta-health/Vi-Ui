@@ -7,12 +7,12 @@
       @on-click="handleNavitation('FIRST_PAGE')"
       :href="getURL('FIRST_PAGE')"
       primary
-      :disabled="!buttonEnabled('FIRST_PAGE')">◂◂</vi-button>
+      :disabled="!buttonEnabled('FIRST_PAGE')">⏮</vi-button>
     <vi-button
       @on-click="handleNavitation('PREVIOUS_PAGE')"
       primary
       :href="getURL('PREVIOUS_PAGE')"
-      :disabled="!buttonEnabled('PREVIOUS_PAGE')">◂</vi-button>
+      :disabled="!buttonEnabled('PREVIOUS_PAGE')">⏴</vi-button>
     <vi-button
       primary
       :href="getURL(page)"
@@ -25,13 +25,13 @@
       @on-click="handleNavitation('NEXT_PAGE')"
       primary
       :href="getURL('NEXT_PAGE')"
-      :disabled="!buttonEnabled('NEXT_PAGE')">▸</vi-button>
+      :disabled="!buttonEnabled('NEXT_PAGE')">⏵</vi-button>
     <vi-button
       primary
       title="Última Página"
       @on-click="handleNavitation('LAST_PAGE')"
       :href="getURL('LAST_PAGE')"
-      :disabled="!buttonEnabled('LAST_PAGE')">▸▸</vi-button>
+      :disabled="!buttonEnabled('LAST_PAGE')">⏭</vi-button>
   </vi-button-group>
 </template>
 

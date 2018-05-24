@@ -1,6 +1,6 @@
 <template>
   <table
-    class="ViTable"
+    class="ViComponent ViTable"
     :class="[{
       'ViTable--HorizontalBordered': horizontalBordered,
       'ViTable--VerticalBordered': verticalBordered,

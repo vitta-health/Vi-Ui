@@ -1,6 +1,6 @@
 <template>
   <div
-    class="ViLoading"
+    class="ViComponent ViLoading"
     ref="loading"
     :class="[
       {

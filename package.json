@@ -1,6 +1,6 @@
 {
-  "name": "vitta-vi-ui",
-  "version": "0.0.4",
+  "name": "vue-vi-ui",
+  "version": "0.0.3",
   "description": "A simple but consistent Vue user interface",
   "main": "/dist/vi-ui.min.js",
   "license": "MIT",
@@ -11,7 +11,6 @@
     "url": "git+https://bitbucket.org/vittapros/styleguide.git"
   },
   "dependencies": {
-    "normalize.css": "^8.0.0",
     "stylus": "^0.54.5",
     "vue": "^2.5.16"
   },
@@ -26,14 +25,12 @@
     "babel-plugin-system-import-transformer": "^3.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-wildcard": "^5.0.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "compression-webpack-plugin": "^1.1.11",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
-    "dog-names": "^1.0.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-loader": "^2.0.0",
@@ -51,7 +48,6 @@
     "stylus-loader": "^3.0.2",
     "uglify-js": "^3.3.24",
     "uglifyjs-webpack-plugin": "1.2.4",
-    "url-loader": "^1.0.1",
     "vue-loader": "^14.2.2",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.4.2",
@@ -61,14 +57,13 @@
     "webpack-merge": "^4.1.2"
   },
   "scripts": {
-    "install": "cd docs && yarn install || sudo npm install",
     "lint": "eslint \"src/**/*.{js,vue}\"",
     "lint:fix": "eslint \"src/**/*.{js,vue}\" --fix",
     "prepush": "npm run lint",
-    "prepublishOnly": "npm version patch -f & npm run build",
+    "prepublishOnly": "npm run build",
     "styleguide": "cd docs && npm run styleguide",
     "styleguide:build": "cd docs && npm run styleguide:build",
-    "build": "rimraf ./dist && webpack --mode production --progress && node postinstall.js",
+    "build": "rimraf ./dist && webpack --mode production --progress670501",
     "postinstall": "node postinstall.js"
   }
 }
