@@ -2,30 +2,72 @@
   <div
     class="ViCard"
     :style="{'width': cardWidth}">
-    <div class="card-header">
-      <!-- @slot Use this slot header -->
-      <slot name="Header"/>
+    <div
+      class="ViCard__Title"
+      @style="{ backgroundColor }">
+      <h1
+        v-if="sizeTitle === 1"
+        class="ViCard__Title--Text"> {{ title }} </h1>
+      <h2
+        v-if="sizeTitle === 2"
+        class="ViCard__Title--Text"> {{ title }} </h2>
+      <h3
+        v-if="sizeTitle === 3"
+        class="ViCard__Title--Text"> {{ title }} </h3>
+      <h4
+        v-if="sizeTitle === 4"
+        class="ViCard__Title--Text"> {{ title }} </h4>
+      <h5
+        v-if="sizeTitle === 5"
+        class="ViCard__Title--Text"> {{ title }} </h5>
+      <h6
+        v-if="sizeTitle === 6"
+        class="ViCard__Title--Text"> {{ title }} </h6>
     </div>
     <div class="card-body">
       <!-- @slot Use this slot body -->
-      <slot name="Body"/>
+      <slot name="body"/>
     </div>
     <div class="card-footer">
       <!-- @slot Use this slot footer -->
-      <slot name="Footer"/>
+      <slot name="footer"/>
     </div>
   </div>
 </template>
 <script>
+import colorsMixin from '../mixins/colors';
+
 export default {
   name: 'ViCard',
+  mixins: [colorsMixin],
   props: {
     /**
-     * Largura do card (Passe numero fazendo bind da prop)
+     * Define a cor de background do título
+     */
+    backgroundColor: {
+      type: String,
+      default: '#fff',
+    },
+    /**
+     * Largura do card
      */
     width: {
       type: [String, Number],
       default: 'auto',
+    },
+    /**
+    * Texto que será exibido no título
+    */
+    title: {
+      type: String,
+      default: '',
+    },
+    /**
+    * Tamanho do texto do título, de 1 a 6
+    */
+    sizeTitle: {
+      type: Number,
+      default: 1,
     },
   },
   computed: {
@@ -36,11 +78,24 @@ export default {
   },
 };
 </script>
-<style lang="stylus" scoped>
+<style lang="stylus">
+  @import '../themes/main';
+  @import '../themes/colors';
+
   .ViCard
     background-color #fff
     border-radius 0.3em
-    box-shadow 0 5px 9px 0 rgba(0,0,0,0.04)
+    box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
+    margin 16px 23px
+
+  .ViCard__Title
+    color #3e3e3e
+    margin-left 30px
+
+  .ViCard__Title--Text
+    font-weight 300
+
+  .ViCard__Body
     padding 20px
 </style>
 
@@ -48,10 +103,9 @@ export default {
 Card Básico
 ```vue
 <template>
-  <div class="greyBox">
-    <vi-card v-for="(character, index) in characters" width="300" class="ViCard-Element">
-      <h1 slot="Header" class="title-example textTitle">Desaparecido</h1>
-      <div slot="Body">
+  <vi-wrapper justify-content="space-between" class="greyBox">
+    <vi-card v-for="(character, index) in characters" width="300">
+      <div slot="body">
         <img class="avatar" :src="character.avatar"/>
         <div class="descrition">
           <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
@@ -59,11 +113,11 @@ Card Básico
           <span>{{character.gender}}</span>
         </div>
       </div>
-      <div slot="Footer">
+      <div slot="footer">
         <vi-button success large width="100%">Avançar!</vi-button>
       </div>
     </vi-card>
-  </div>
+  </vi-wrapper>
 </template>
 <script>
 export default {
@@ -100,19 +154,9 @@ export default {
 }
 </script>
 <style>
-  h1 {
-    font-size: 1.4em;
-  }
-  .title-example {
-    margin-top: 0;
-    text-align: left;
-  }
   .greyBox{
     background: #EAEAEA;
     padding: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
   }
   .avatar {
     border-radius: 70px;
@@ -126,30 +170,6 @@ export default {
   }
   .birth-day {
     white-space: nowrap;
-  }
-  .ViCard {
-    position: relative;
-    padding: 38px 20px 63px;
-    line-height: 1em;
-    overflow: hidden;
-  }
-  .ViButton {
-    border-radius: 0.2em;
-    bottom: 0;
-    position: absolute;
-    left: 0;
-  }
-  .textTitle {
-    background-color: #798F98;
-    height: 40px;
-    line-height: 40px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    color: #fff;
-    padding-left: 21px;
-    font-weight: 400;
   }
 </style>
 ```
