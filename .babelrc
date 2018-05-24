@@ -12,7 +12,6 @@
     ["react"]
   ],
   "plugins": [
-    "wildcard",
     "transform-class-properties",
     "transform-object-rest-spread",
     "syntax-dynamic-import"

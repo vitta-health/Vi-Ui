@@ -27,11 +27,11 @@ const styles = ({ color, fontFamily, fontSize, space, mq }) => ({
   heading: {
     color: color.base,
     fontFamily: fontFamily.base,
-    padding: '7px 0!important',
+    padding: '10px 0!important',
     display: 'block!important',
   },
   linkMenu: {
-    padding: '7px 0!important',
+    padding: '10px 0!important',
     display: 'block!important',
   },
 });

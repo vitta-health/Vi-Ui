@@ -88,7 +88,7 @@ export default {
 
       const variations = [];
       Object.keys(args).map((arg) => {
-        variations.push(args[arg] ? `color-${colorName}--${arg}` : '');
+        variations.push(args[arg] ? `ViColor-${colorName}--${arg}` : '');
 
         return false;
       });

@@ -73,6 +73,7 @@ const styles = ({ color, fontFamily, fontSize, sidebarWidth, mq, space, maxWidth
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    fontFamily: fontFamily.base,
   },
   call: {
     color: '#3e595d',
@@ -142,7 +143,7 @@ export function StyleGuideRenderer({ classes, title, homepageUrl, children, toc,
               });
             }
           }
-          className="ViButton ViButton--large color-primary--background color-primary--hover"
+          className="ViComponent ViButton ViButton--large ViColor-primary--background ViColor-primary--hover"
         >Documentação</button>
       </header>
       <article id="documetacao-bloco" className={classes.article}>
