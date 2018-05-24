@@ -63,7 +63,7 @@
     "prepublishOnly": "npm run build",
     "styleguide": "cd docs && npm run styleguide",
     "styleguide:build": "cd docs && npm run styleguide:build",
-    "build": "rimraf ./dist && webpack --mode production --progress670501",
+    "build": "rimraf ./dist && webpack --mode production --progress",
     "postinstall": "node postinstall.js"
   }
 }
