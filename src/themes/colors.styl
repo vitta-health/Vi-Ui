@@ -14,13 +14,13 @@ for $key, $val in $colors
   $contrastRatio = contrast($val).ratio
 
   if $val == '#FFFFFF'
-    $text-color = #FFFFFF
+    $text-color = #333
   else if contrastRatio < 4
-    $text-color = rgba(#000, 0.9)
+    $text-color = rgba(0, 0, 0, 0.85)
   else if contrastRatio < 6
     $text-color = #FFFFFF
   else
-    $text-color = rgba(#FFFFFF, 0.9)
+    $text-color = rgba(255, 255, 255, 0.9)
 
   .ViColor-{$key}
     &--background
