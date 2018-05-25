@@ -1,53 +1,63 @@
 <template>
   <div
-    class="ViCard"
+    class="ViComponent ViCard"
+    :class="[
+      {
+        'ViCard--mini': mini,
+        'ViCard--small': small,
+        'ViCard--large': large,
+      },
+      colorClass({ background: true, default: 'light' }),
+    ]"
     :style="{'width': cardWidth}">
-    <div
-      class="ViCard__Title"
-      @style="{ backgroundColor }">
-      <h1
-        v-if="sizeTitle === 1"
-        class="ViCard__Title--Text"> {{ title }} </h1>
-      <h2
-        v-if="sizeTitle === 2"
-        class="ViCard__Title--Text"> {{ title }} </h2>
-      <h3
-        v-if="sizeTitle === 3"
-        class="ViCard__Title--Text"> {{ title }} </h3>
-      <h4
-        v-if="sizeTitle === 4"
-        class="ViCard__Title--Text"> {{ title }} </h4>
-      <h5
-        v-if="sizeTitle === 5"
-        class="ViCard__Title--Text"> {{ title }} </h5>
-      <h6
-        v-if="sizeTitle === 6"
-        class="ViCard__Title--Text"> {{ title }} </h6>
-    </div>
-    <div class="card-body">
-      <!-- @slot Use this slot body -->
+    <h1
+      v-if="sizeTitle === 1"
+      class="ViCard__Title--Text
+      ViCard__Title"> {{ title }} </h1>
+    <h2
+      v-if="sizeTitle === 2"
+      class="ViCard__Title--Text
+      ViCard__Title"
+      @style="{ backgroundColor }"> {{ title }} </h2>
+    <h3
+      v-if="sizeTitle === 3"
+      class="ViCard__Title--Text
+      ViCard__Title"
+      @style="{ backgroundColor }"> {{ title }} </h3>
+    <h4
+      v-if="sizeTitle === 4"
+      class="ViCard__Title--Text
+      ViCard__Title"
+      @style="{ backgroundColor }"> {{ title }} </h4>
+    <h5
+      v-if="sizeTitle === 5"
+      class="ViCard__Title--Text
+      ViCard__Title"
+      @style="{ backgroundColor }"> {{ title }} </h5>
+    <h6
+      v-if="sizeTitle === 6"
+      class="ViCard__Title--Text
+      ViCard__Title"
+      @style="{ backgroundColor }"> {{ title }} </h6>
+    <div class="ViCard__Body">
+      <!-- @slot Use este slot para definir o contéudo que estara presente dentro do corpo do card -->
       <slot name="body"/>
     </div>
-    <div class="card-footer">
-      <!-- @slot Use this slot footer -->
+    <div
+      class="ViCard__Footer">
+      <!-- @slot Use este slot para definir o contéudo que estara presente dentro do rodapé -->
       <slot name="footer"/>
     </div>
   </div>
 </template>
 <script>
+import sizeMixin from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
 
 export default {
   name: 'ViCard',
-  mixins: [colorsMixin],
+  mixins: [sizeMixin, colorsMixin],
   props: {
-    /**
-     * Define a cor de background do título
-     */
-    backgroundColor: {
-      type: String,
-      default: '#fff',
-    },
     /**
      * Largura do card
      */
@@ -86,7 +96,6 @@ export default {
     background-color #fff
     border-radius 0.3em
     box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
-    margin 16px 23px
 
   .ViCard__Title
     color #3e3e3e
@@ -99,8 +108,29 @@ export default {
     padding 20px
 </style>
 
+```
+
 <docs>
+
 Card Básico
+```vue
+<template>
+  <vi-card width="300" title="Este é um título do card tamanho 1" :sizeTitle="1">
+    <p slot="body">Este é um parágrafo contido no slot do body</p>
+    <p slot="footer">Este é o rodapé</p>
+  </vi-card>
+</template>
+<script>
+export default {
+
+}
+</script>
+<style>
+
+</style>
+```
+
+Card Mais complexo
 ```vue
 <template>
   <vi-wrapper justify-content="space-between" class="greyBox">

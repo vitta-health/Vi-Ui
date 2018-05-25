@@ -80,7 +80,7 @@ export default {
      * @public
      */
     colorClass(args = {}) {
-      let colorName = 'default';
+      let colorName = args.default || 'default';
       colours.some((color) => {
         if (this[color]) colorName = color;
         return this[color];
