@@ -2,7 +2,7 @@
   <a
     v-if="href"
     ref="button"
-    class="ViButton"
+    class="ViComponent ViButton"
     :class="[
       {
         'ViButton--mini': mini,
@@ -30,15 +30,20 @@
   <button
     v-else
     ref="button"
-    class="ViButton"
+    class="ViComponent ViButton"
     :class="[
       {
         'ViButton--mini': mini,
         'ViButton--small': small,
         'ViButton--large': large,
         'ViButton--pill': pill,
+        'ViButton--active': active,
       },
-      colorClass({ background: !outlined, border: outlined, hover: true }),
+      colorClass({
+        background: !outlined,
+        border: outlined,
+        hover: true && !active
+      }),
     ]"
     :style="{
       width: buttonWidth,
@@ -182,7 +187,7 @@ Botão básico:
 Botão com loading:
 
 ```jsx
-<vi-button success :width="200"><vi-loading light mini /></vi-button>
+<vi-button success width="200"><vi-loading light mini /></vi-button>
 ```
 Botão com submit:
 

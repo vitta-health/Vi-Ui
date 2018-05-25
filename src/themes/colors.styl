@@ -14,15 +14,15 @@ for $key, $val in $colors
   $contrastRatio = contrast($val).ratio
 
   if $val == '#FFFFFF'
-    $text-color = #FFFFFF
+    $text-color = #333
   else if contrastRatio < 4
-    $text-color = rgba(#000, .9)
+    $text-color = rgba(0, 0, 0, 0.85)
   else if contrastRatio < 6
     $text-color = #FFFFFF
   else
-    $text-color = rgba(#FFFFFF, .9)
+    $text-color = rgba(255, 255, 255, 0.9)
 
-  .color-{$key}
+  .ViColor-{$key}
     &--background
       border-color $val
       background-color $val
@@ -34,10 +34,10 @@ for $key, $val in $colors
       color $val
 
     &--hover:focus:enabled
-      box-shadow 0 0 10px rgba($val, .5)
+      box-shadow 0 0 10px rgba($val, 0.5)
 
     &--hover:hover:enabled
-      box-shadow 0
+      box-shadow 0 0 0 rgba($val, 0)
       background-color shade($val, 20%)
       border-color shade($val, 25%)
       color $text-color
