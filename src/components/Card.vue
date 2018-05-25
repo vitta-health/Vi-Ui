@@ -10,42 +10,13 @@
       colorClass({ background: true, default: 'light' }),
     ]"
     :style="{'width': cardWidth}">
-    <h1
-      v-if="sizeTitle === 1"
-      class="ViCard__Title
-      ViCard__Title"> {{ title }} </h1>
-    <h2
-      v-else-if="sizeTitle === 2"
-      class="ViCard__Title
-      ViCard__Title"
-      @style="{ backgroundColor }"> {{ title }} </h2>
-    <h3
-      v-else-if="sizeTitle === 3"
-      class="ViCard__Title
-      ViCard__Title"
-      @style="{ backgroundColor }"> {{ title }} </h3>
-    <h4
-      v-else-if="sizeTitle === 4"
-      class="ViCard__Title
-      ViCard__Title"
-      @style="{ backgroundColor }"> {{ title }} </h4>
-    <h5
-      v-else-if="sizeTitle === 5"
-      class="ViCard__Title
-      ViCard__Title"
-      @style="{ backgroundColor }"> {{ title }} </h5>
-    <h6
-      v-else-if="sizeTitle === 6"
-      class="ViCard__Title
-      ViCard__Title"
-      @style="{ backgroundColor }"> {{ title }} </h6>
-    <p
-      v-else-if="title"
-      class="ViCard__Title
-      ViCard__Title"
-      @style="{ backgroundColor }"> {{ title }} </p>
+    <component
+      v-if="title"
+      :is="generateType"
+      class="ViCard__Title">{{ title }}</component>
     <div class="ViCard__Body">
-      <!-- @slot Use este slot para definir o contéudo que estara presente dentro do corpo do card -->
+      <!-- @slot Use este slot para definir o contéudo que estara presente
+      dentro do corpo do card -->
       <slot name="body"/>
     </div>
 
@@ -76,7 +47,7 @@ export default {
     */
     title: {
       type: String,
-      default: '',
+      default: null,
     },
     /**
     * Tamanho do texto do título, de 1 a 6
@@ -90,6 +61,13 @@ export default {
     cardWidth() {
       if (Number.isNaN(this.width - 0)) return this.width;
       return `${this.width}px`;
+    },
+    generateType() {
+      if (!this.sizeTitle) {
+        return 'p';
+      }
+
+      return `h${this.sizeTitle}`;
     },
   },
 };
@@ -179,21 +157,21 @@ export default {
           superHeroName: 'Spider-Man',
           birthDate: '08/01/1989',
           age: '(29a e 7m)',
-          avatar: 'https://i.imgur.com/LuyN22o.jpg?1',
+          avatar: '/assets/img/spider.png'
         },
         {
           name: 'James Howlett logan',
           superHeroName: 'Wolverine',
           birthDate: '??/??/1880',
           age: '(128a)',
-          avatar: 'https://i.imgur.com/g6nGMDv.jpg',
+          avatar: '/assets/img/wolverine.jpg',
         },
         {
           name: 'Steven "Steve" Rogers',
           superHeroName: 'Capitão América',
           birthDate: '??/??/1941',
           age: '(128a)',
-          avatar: 'https://i.imgur.com/S6Jfkqa.jpg',
+          avatar: '/assets/img/capitao.jpeg',
         },
       ],
     }
