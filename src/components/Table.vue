@@ -20,20 +20,22 @@
           :key="index"
           @click="column.sortable ? onSort(column.id) : null"
           :class="[{'ViTable--NoSortable': !column.sortable}]">
-          {{ column.label }}
-          <div class="ViTable__Arrows">
-            <div
-              ref="arrowUp"
-              v-if="column.sortable"
-              class="ViTable__ArrowUp"
-              :class="{ 'ViTable__Arrows--Active':
-              verifySort(column.id, 'asc')}"/>
-            <div
-              ref="arrowDown"
-              v-if="column.sortable"
-              class="ViTable__ArrowDown"
-              :class="{ 'ViTable__Arrows--Active':
-              verifySort(column.id, 'desc')}"/>
+          <div class="ViTable__Collumns">
+            {{ column.label }}
+            <div class="ViTable__Arrows">
+              <div
+                ref="arrowUp"
+                v-if="column.sortable"
+                class="ViTable__ArrowUp"
+                :class="{ 'ViTable__Arrows--Active':
+                verifySort(column.id, 'asc')}"/>
+              <div
+                ref="arrowDown"
+                v-if="column.sortable"
+                class="ViTable__ArrowDown"
+                :class="{ 'ViTable__Arrows--Active':
+                verifySort(column.id, 'desc')}"/>
+            </div>
           </div>
         </th>
       </tr>
@@ -192,17 +194,20 @@ export default {
       return this.sortedColumn === key && this.sortedDirection === order;
     },
     updateSelectAllCheckbox() {
-      const selectedItems = this.items.filter(item => item.selected).length;
-      if (selectedItems !== this.items.length && selectedItems !== 0) {
-        this.$refs.checkboxAllSelected.indeterminate = selectedItems < this.items.length;
-        return null;
-      } else if (selectedItems === this.items.length) {
-        this.$refs.checkboxAllSelected.checked = true;
+      if (this.checkbox) {
+        const selectedItems = this.items.filter(item => item.selected).length;
+        if (selectedItems !== this.items.length && selectedItems !== 0) {
+          this.$refs.checkboxAllSelected.indeterminate = selectedItems < this.items.length;
+          return null;
+        } else if (selectedItems === this.items.length) {
+          this.$refs.checkboxAllSelected.checked = true;
+          this.$refs.checkboxAllSelected.indeterminate = false;
+          return null;
+        }
+        this.$refs.checkboxAllSelected.checked = false;
         this.$refs.checkboxAllSelected.indeterminate = false;
         return null;
       }
-      this.$refs.checkboxAllSelected.checked = false;
-      this.$refs.checkboxAllSelected.indeterminate = false;
       return null;
     },
   },
@@ -292,6 +297,9 @@ export default {
   .ViTable__Arrows
     margin-left 5px
     float right
+
+  .ViTable__Collumns
+    display: flex
 
   .ViTable__Row
     height 38px
