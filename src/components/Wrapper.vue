@@ -34,7 +34,7 @@ export default {
     const wrapped = [];
     this.$slots.default.forEach((child) => {
       const newProps = {
-        class: 'boxWrapper',
+        class: 'contentWrapper',
         style: {
           marginLeft: self.spacingComp,
         },
@@ -55,11 +55,16 @@ export default {
 
 <style lang="stylus" scoped>
 .flexWraper
+  align-items stretch
   display flex
   width 100%
 
-  .boxWrapper:first-child
-    margin:0!important
+  .contentWrapper
+    align-items stretch
+    display flex
+
+    &:first-child
+      margin 0!important
 </style>
 
 <docs>

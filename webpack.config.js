@@ -14,7 +14,7 @@ module.exports = (env, argv) => {
       filename: 'vi-ui.min.js',
       libraryTarget: 'umd',
       libraryExport: 'default',
-      library: 'VittaVisualComponents',
+      library: 'VueViUi',
       umdNamedDefine: true,
     },
     module: {

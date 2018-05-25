@@ -1,5 +1,5 @@
 <template>
-  <span :class="icon"/>
+  <span :class="icon" />
 </template>
 
 <script>

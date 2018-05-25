@@ -12,42 +12,48 @@
     :style="{'width': cardWidth}">
     <h1
       v-if="sizeTitle === 1"
-      class="ViCard__Title--Text
+      class="ViCard__Title
       ViCard__Title"> {{ title }} </h1>
     <h2
-      v-if="sizeTitle === 2"
-      class="ViCard__Title--Text
+      v-else-if="sizeTitle === 2"
+      class="ViCard__Title
       ViCard__Title"
       @style="{ backgroundColor }"> {{ title }} </h2>
     <h3
-      v-if="sizeTitle === 3"
-      class="ViCard__Title--Text
+      v-else-if="sizeTitle === 3"
+      class="ViCard__Title
       ViCard__Title"
       @style="{ backgroundColor }"> {{ title }} </h3>
     <h4
-      v-if="sizeTitle === 4"
-      class="ViCard__Title--Text
+      v-else-if="sizeTitle === 4"
+      class="ViCard__Title
       ViCard__Title"
       @style="{ backgroundColor }"> {{ title }} </h4>
     <h5
-      v-if="sizeTitle === 5"
-      class="ViCard__Title--Text
+      v-else-if="sizeTitle === 5"
+      class="ViCard__Title
       ViCard__Title"
       @style="{ backgroundColor }"> {{ title }} </h5>
     <h6
-      v-if="sizeTitle === 6"
-      class="ViCard__Title--Text
+      v-else-if="sizeTitle === 6"
+      class="ViCard__Title
       ViCard__Title"
       @style="{ backgroundColor }"> {{ title }} </h6>
+    <p
+      v-else-if="title"
+      class="ViCard__Title
+      ViCard__Title"
+      @style="{ backgroundColor }"> {{ title }} </p>
     <div class="ViCard__Body">
       <!-- @slot Use este slot para definir o contéudo que estara presente dentro do corpo do card -->
       <slot name="body"/>
     </div>
-    <div
-      class="ViCard__Footer">
-      <!-- @slot Use este slot para definir o contéudo que estara presente dentro do rodapé -->
-      <slot name="footer"/>
-    </div>
+
+    <!-- @slot Use este slot para definir o contéudo que estara presente dentro do rodapé -->
+    <slot
+      class="ViCard__Footer"
+      name="footer"
+    />
   </div>
 </template>
 <script>
@@ -63,7 +69,7 @@ export default {
      */
     width: {
       type: [String, Number],
-      default: 'auto',
+      default: '100%',
     },
     /**
     * Texto que será exibido no título
@@ -77,7 +83,7 @@ export default {
     */
     sizeTitle: {
       type: Number,
-      default: 1,
+      default: null,
     },
   },
   computed: {
@@ -96,16 +102,41 @@ export default {
     background-color #fff
     border-radius 0.3em
     box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
+    display flex
+    flex-direction column
+    justify-content space-between
+    padding 40px
+    width 100%
 
-  .ViCard__Title
-    color #3e3e3e
-    margin-left 30px
+    &__Title
+    &__Body
+      margin-bottom 20px
 
-  .ViCard__Title--Text
-    font-weight 300
+    &--mini
+      padding 10px
 
-  .ViCard__Body
-    padding 20px
+      &__Title
+      &__Body
+        margin-bottom 5px
+
+    &--small
+      padding 20px
+
+      &__Title
+      &__Body
+        margin-bottom 10px
+
+    &--large
+      padding 60px
+
+      &__Title
+      &__Body
+        margin-bottom 30px
+
+    &__Title
+      color #3e3e3e
+      font-weight 300
+
 </style>
 
 ```
@@ -113,34 +144,23 @@ export default {
 <docs>
 
 Card Básico
-```vue
-<template>
-  <vi-card width="300" title="Este é um título do card tamanho 1" :sizeTitle="1">
+```jsx
+  <vi-card title="Este é um título do card tamanho 1" :sizeTitle="3">
     <p slot="body">Este é um parágrafo contido no slot do body</p>
-    <p slot="footer">Este é o rodapé</p>
+    <p slot="footer"><vi-button>Botão do footer</vi-button></p>
   </vi-card>
-</template>
-<script>
-export default {
-
-}
-</script>
-<style>
-
-</style>
 ```
 
 Card Mais complexo
 ```vue
 <template>
-  <vi-wrapper justify-content="space-between" class="greyBox">
-    <vi-card v-for="(character, index) in characters" width="300">
+  <vi-wrapper justify-content="space-between" :spacing="10" class="ViComponent greyBox">
+    <vi-card v-for="(character, index) in characters" mini>
       <div slot="body">
         <img class="avatar" :src="character.avatar"/>
         <div class="descrition">
           <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
           <span class="birth-day">{{character.birthDate}} {{character.age}}</span>
-          <span>{{character.gender}}</span>
         </div>
       </div>
       <div slot="footer">
@@ -160,7 +180,6 @@ export default {
           birthDate: '08/01/1989',
           age: '(29a e 7m)',
           avatar: 'https://i.imgur.com/LuyN22o.jpg?1',
-          gender: 'Masculino'
         },
         {
           name: 'James Howlett logan',
@@ -168,7 +187,6 @@ export default {
           birthDate: '??/??/1880',
           age: '(128a)',
           avatar: 'https://i.imgur.com/g6nGMDv.jpg',
-          gender: 'Masculino',
         },
         {
           name: 'Steven "Steve" Rogers',
@@ -176,7 +194,6 @@ export default {
           birthDate: '??/??/1941',
           age: '(128a)',
           avatar: 'https://i.imgur.com/S6Jfkqa.jpg',
-          gender: 'Masculino',
         },
       ],
     }
@@ -190,16 +207,13 @@ export default {
   }
   .avatar {
     border-radius: 70px;
-    width:70px;
+    float: left;
     height: 70px;
     margin-right: 20px;
-    float: left;
+    width:70px;
   }
   .name {
-    margin-bottom: 6px;
-  }
-  .birth-day {
-    white-space: nowrap;
+    margin: 0 0 6px;
   }
 </style>
 ```
