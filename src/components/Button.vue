@@ -57,10 +57,10 @@
 </template>
 
 <script>
-import ViWrapper from './Wrapper.vue';
-import sizeMixin from '../mixins/sizes';
-import colosMixin from '../mixins/colors';
-import extrasMixin from '../mixins/extras';
+import ViWrapper from '@/components/Wrapper';
+import sizeMixin from '@/mixins/size';
+import colosMixin from '@/mixins/colors';
+import extrasMixin from '@/mixins/extras';
 
 export default {
   name: 'ViButton',

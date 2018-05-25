@@ -14,5 +14,4 @@ export default {
   ViPagination,
   ViTable,
   ViWrapper,
-
 };

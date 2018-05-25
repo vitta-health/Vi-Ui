@@ -5,5 +5,19 @@
   ],
   "plugins": [
     "vue"
-  ]
+  ],
+  "rules": {
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ['@']
+      }
+    ],
+    "import/extensions": [
+      "error",
+      {
+        "ignore": ['.js']
+      }
+    ]
+  }
 }

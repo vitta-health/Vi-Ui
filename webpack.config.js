@@ -10,13 +10,19 @@ module.exports = (env, argv) => {
     entry: path.join(__dirname, '/src/index.js'),
     output: {
       path: path.join(__dirname, '/dist/'),
-      publicPath: '/dist/',
+      publicPath: './',
       filename: 'vi-ui.min.js',
       libraryTarget: 'umd',
       libraryExport: 'default',
       library: 'VueViUi',
       umdNamedDefine: true,
     },
+    resolve: {
+      alias: {
+        'vue$': 'vue/dist/vue.esm.js',
+        '@': resolve('src'),
+      }
+    }
     module: {
       rules: [
         {

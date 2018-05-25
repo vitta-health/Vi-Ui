@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import ViWrapper from './Wrapper.vue';
-import sizeMixin from '../mixins/sizes';
-import extrasMixin from '../mixins/extras';
+import ViWrapper from '@/components/Wrapper';
+import sizeMixin from '@/mixins/sizes';
+import extrasMixin from '@/mixins/extras';
 
 export default {
   name: 'ViButtonGroup',

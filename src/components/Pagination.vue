@@ -37,7 +37,7 @@
 
 <script>
 
-import ButtonGroup from './ButtonGroup.vue';
+import ButtonGroup from '@/components/ButtonGroup';
 
 export default {
   name: 'ViPagination',
