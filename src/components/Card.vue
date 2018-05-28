@@ -116,6 +116,8 @@ export default {
       color #3e3e3e
       font-weight 300
 
+    > :last-child
+      margin-bottom 0
 </style>
 
 ```
