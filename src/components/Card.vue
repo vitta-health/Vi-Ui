@@ -148,7 +148,7 @@ Card Mais complexo
           <img class="avatar" :src="character.avatar"/>
           <vi-wrapper vertical noChildWrapper class="descrition">
             <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
-            <p class="birth-day">{{character.birhDate}} {{character.age}}</p>
+            <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
             <vi-button success mini outlined pill>Avançar!</vi-button>>
           </vi-wrapper>
         </vi-wrapper>
