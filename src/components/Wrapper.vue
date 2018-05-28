@@ -20,14 +20,14 @@ export default {
       default: false,
     },
     /**
-     * definal se direção do wrap é vertical
+     * define se direção do wrap é vertical
      */
     vertical: {
       type: Boolean,
       default: false,
     },
     /**
-     * definal se filhos são ser encapsulados
+     * define se filhos vão ser encapsulados em uma tag
      */
     noChildWrapper: {
       type: Boolean,
@@ -47,9 +47,6 @@ export default {
       return `${this.spacing}px`;
     },
   },
-  /**
-   * Arrow function quebra se usado aqui
-   */
   render(createElement) {
     const self = this;
     const wrapped = [];
