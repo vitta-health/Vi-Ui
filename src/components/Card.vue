@@ -142,7 +142,7 @@ Card Mais complexo
     justify-content="space-between"
     :spacing="20"
   >
-    <vi-card v-for="(character, index) in characters" mini>
+    <vi-card v-for="(character, index) in characters" small>
       <div slot="body">
         <vi-wrapper noChildWrapper :spacing="20">
           <img class="avatar" :src="character.avatar"/>
