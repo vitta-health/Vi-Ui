@@ -79,7 +79,6 @@ export default {
           newChild.data.staticClass = child.data.staticClass || '';
           newChild.data.staticClass = `${newChild.data.staticClass} ${blockClassName.join(' ')}`;
           newChild.data.style = { marginLeft: self.spacingComp };
-          console.log(newChild.data);
         }
 
         return newChild;
