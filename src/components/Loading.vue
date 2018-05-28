@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import sizeMixin from '@/components/mixins/sizes';
-import colosMixin from '@/components/mixins/colors';
+import sizeMixin from '../mixins/sizes';
+import colosMixin from '../mixins/colors';
 
 /**
  * Barra de loading circular.

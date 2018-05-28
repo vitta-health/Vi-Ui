@@ -7,17 +7,7 @@
     "vue"
   ],
   "rules": {
-    "import/no-unresolved": [
-      "error",
-      {
-        "ignore": ['@']
-      }
-    ],
-    "import/extensions": [
-      "error",
-      {
-        "ignore": ['.js']
-      }
-    ]
+    "import/no-unresolved":  [ "error", "never" ],
+    "import/extensions": [ "error", "never" ]
   }
 }

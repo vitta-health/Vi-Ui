@@ -1,8 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 // eslint-disable-next-line arrow-body-style
 module.exports = (env, argv) => {
@@ -19,61 +21,23 @@ module.exports = (env, argv) => {
     },
     resolve: {
       alias: {
-        'vue$': 'vue/dist/vue.esm.js',
-        '@': resolve('src'),
-      }
-    }
+        vue$: 'vue/dist/vue.esm.js',
+      },
+    },
     module: {
       rules: [
         {
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {
-            extractCSS: argv && argv.mode === 'production',
             presets: ['env'],
-            loaders: argv && argv.mode !== 'production'
-              ? [
-                'vue-style-loader',
-                'stylus-loader',
-                {
-                  loader: 'css-loader',
-                  options: {
-                    importLoaders: 1,
-                  },
-                },
-                {
-                  loader: 'postcss-loader',
-                  options: {
-                    ident: 'postcss',
-                    plugins: () => [autoprefixer],
-                  },
-                },
-              ]
-              : ExtractTextPlugin.extract({
-                fallback: 'vue-style-loader',
-                use: [
-                  'stylus-loader',
-                  {
-                    loader: 'css-loader',
-                    options: {
-                      importLoaders: 1,
-                    },
-                  },
-                  {
-                    loader: 'postcss-loader',
-                    options: {
-                      ident: 'postcss',
-                      plugins: () => [autoprefixer],
-                    },
-                  },
-                ],
-              }),
           },
         },
         {
-          test: /\.(css)$/,
+          test: /\.(css|styl(us)?)$/,
           exclude: /node_modules/,
           use: [
+            MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader',
               options: {
@@ -87,26 +51,7 @@ module.exports = (env, argv) => {
                 plugins: () => [autoprefixer],
               },
             },
-          ],
-        },
-        {
-          test: /\.styl$/,
-          exclude: /node_modules/,
-          use: [
             'stylus-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-              },
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                ident: 'postcss',
-                plugins: () => [autoprefixer],
-              },
-            },
           ],
         },
         {
@@ -134,12 +79,11 @@ module.exports = (env, argv) => {
     plugins: argv && argv.mode !== 'production'
       ? []
       : [
-        new webpack.LoaderOptionsPlugin({
-          minimize: true,
-        }),
-        new ExtractTextPlugin({
+        new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
           filename: "vi-ui.min.css",
         }),
+        new OptimizeCSSAssetsPlugin({}),
         new UglifyJsPlugin({
           sourceMap: true,
           uglifyOptions: {

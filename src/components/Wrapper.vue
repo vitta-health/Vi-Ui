@@ -1,5 +1,5 @@
 <script>
-import extrasMixin from '@/mixins/extras';
+import extrasMixin from '../mixins/extras';
 
 export default {
   name: 'ViWrapper',

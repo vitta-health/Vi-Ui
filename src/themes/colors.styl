@@ -13,20 +13,32 @@ $colors = {
 for $key, $val in $colors
   $contrastRatio = contrast($val).ratio
 
-  if $val == '#FFFFFF'
-    $text-color = #333
+  if $val == #FFFFFF
+    $text-color = rgba(0, 0, 0, 0.75)
+    $link-color = $colors.primary
   else if contrastRatio < 4
     $text-color = rgba(0, 0, 0, 0.85)
+    $link-color = $colors.primary
   else if contrastRatio < 6
     $text-color = #FFFFFF
+    $link-color = $text-color
   else
     $text-color = rgba(255, 255, 255, 0.9)
+    $link-color = $text-color
 
+  a.ViColor-{$key}
+  .ViComponent.ViColor-{$key}
   .ViColor-{$key}
     &--background
       border-color $val
       background-color $val
       color $text-color
+
+      a
+        color $link-color
+      a:focus
+      a:hover
+        color darken($link-color, 30%)
 
     &--border
       border-color $val
