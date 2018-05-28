@@ -110,7 +110,7 @@ export default {
     display flex
 
     &:first-child
-      margin 0!important
+      margin-left 0!important
 
     &--proportional
       flex 1 1
