@@ -12,7 +12,7 @@
     :style="{'width': cardWidth}">
     <component
       v-if="title"
-      :is="generateType"
+      :is="titleTag"
       class="ViCard__Title">{{ title }}</component>
     <div class="ViCard__Body">
       <!-- @slot Use este slot para definir o contéudo que estará presente
@@ -62,7 +62,7 @@ export default {
       if (Number.isNaN(this.width - 0)) return this.width;
       return `${this.width}px`;
     },
-    generateType() {
+    titleTag() {
       if (!this.sizeTitle) {
         return 'p';
       }
@@ -132,14 +132,22 @@ Card Básico
 Card Mais complexo
 ```vue
 <template>
-  <vi-wrapper justify-content="space-between" :spacing="10" class="ViComponent greyBox">
+  <vi-wrapper
+    proportinal
+    noChildWrapper
+    class="ViComponent greyBox"
+    justify-content="space-between"
+    :spacing="20"
+  >
     <vi-card v-for="(character, index) in characters" mini>
       <div slot="body">
-        <img class="avatar" :src="character.avatar"/>
-        <div class="descrition">
-          <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
-          <span class="birth-day">{{character.birthDate}} {{character.age}}</span>
-        </div>
+        <vi-wrapper noChildWrapper :spacing="20">
+          <img class="avatar" :src="character.avatar"/>
+          <vi-wrapper vertical noChildWrapper class="descrition">
+            <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
+            <span class="birth-day">{{character.birthDate}} {{character.age}}</span>
+          </vi-wrapper>
+        </vi-wrapper>
       </div>
       <div slot="footer">
         <vi-button success large width="100%">Avançar!</vi-button>
@@ -166,13 +174,6 @@ export default {
           age: '(128a)',
           avatar: '/assets/img/wolverine.jpg',
         },
-        {
-          name: 'Steven "Steve" Rogers',
-          superHeroName: 'Capitão América',
-          birthDate: '??/??/1941',
-          age: '(128a)',
-          avatar: '/assets/img/capitao.jpeg',
-        },
       ],
     }
   }
@@ -185,13 +186,17 @@ export default {
   }
   .avatar {
     border-radius: 70px;
-    float: left;
     height: 70px;
-    margin-right: 20px;
     width:70px;
   }
   .name {
+    font-size: 1em;
+    font-weight: 700;
     margin: 0 0 6px;
+  }
+  .birth-day {
+    font-size: 0.9;
+    color: rgba(0, 0, 0, 0.6);
   }
 </style>
 ```

@@ -13,6 +13,27 @@ export default {
       default: 'span',
     },
     /**
+     * define se blocos precisam ter o mesmo tamanho entre eles
+     */
+    proportionalBlock: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * definal se direção do wrap é vertical
+     */
+    vertical: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * definal se filhos são ser encapsulados
+     */
+    noChildWrapper: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Espaço entre elementos
      */
     spacing: {
@@ -32,23 +53,45 @@ export default {
   render(createElement) {
     const self = this;
     const wrapped = [];
-    this.$slots.default.forEach((child) => {
-      const newProps = {
-        class: 'contentWrapper',
-        style: {
-          marginLeft: self.spacingComp,
-        },
-      };
+    const node = this.$slots.default;
+    const wrapperClassName = ['flexWraper'];
+    const blockClassName = ['contentWrapper'];
 
-      wrapped.push(createElement(self.tag, newProps, [child]));
-    });
+    if (this.vertical) wrapperClassName.push(' flexWraper--vertical');
+    if (this.proportionalBlock) blockClassName.push(' contentWrapper--proportional');
+
+    if (!this.noChildWrapper) {
+      node.forEach((child) => {
+        if (!child.text && !child.tag) return;
+        const newProps = {
+          class: blockClassName.join(' '),
+          style: {
+            marginLeft: self.spacingComp,
+          },
+        };
+
+        wrapped.push(createElement(self.tag, newProps, [child]));
+      });
+    } else {
+      node.map((child) => {
+        const newChild = child;
+        if (child.data) {
+          newChild.data.staticClass = child.data.staticClass || '';
+          newChild.data.staticClass = `${newChild.data.staticClass} ${blockClassName.join(' ')}`;
+          newChild.data.style = { marginLeft: self.spacingComp };
+          console.log(newChild.data);
+        }
+
+        return newChild;
+      });
+    }
 
     return createElement(self.tag, {
-      class: 'flexWraper',
+      class: wrapperClassName.join(' '),
       style: {
         justifyContent: self.justifyContent,
       },
-    }, wrapped);
+    }, wrapped.length ? wrapped : node);
   },
 };
 </script>
@@ -59,12 +102,18 @@ export default {
   display flex
   width 100%
 
-  .contentWrapper
+  &--vertical
+    flex-direction column
+
+  & > .contentWrapper
     align-items stretch
     display flex
 
     &:first-child
       margin 0!important
+
+    &--proportional
+      flex 1 1
 </style>
 
 <docs>
