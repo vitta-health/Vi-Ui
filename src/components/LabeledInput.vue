@@ -26,38 +26,10 @@ export default {
       default: 'text',
     },
     /**
-     * Define se o botão esta selecionado
+     * Valor do campo
      */
     value: {
       type: [String, Number, Object, Array],
-      default: false,
-    },
-    /**
-     * Define botão pilula
-     */
-    pill: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Largura do botão (Passe numero fazendo bind da prop)
-     */
-    width: {
-      type: [String, Number],
-      default: 'auto',
-    },
-    /**
-     * Caso o botão seja um link
-     */
-    href: {
-      type: [String],
-      default: null,
-    },
-    /**
-     * Caso o elemento root não possar ser nem um botão nem num link
-     */
-    tag: {
-      type: [String],
       default: null,
     },
   },
@@ -69,17 +41,6 @@ export default {
     tagButton() {
       if (this.href) return 'a';
       return 'button';
-    },
-  },
-  methods: {
-    onClick() {
-      /**
-       * Evento de clique.
-       *
-       * @event onClick
-       * @type {object}
-       */
-      this.$emit('on-click');
     },
   },
 };
@@ -131,7 +92,7 @@ Botão básico:
 
 ```jsx
 <vi-wrapper>
-  <vi-la danger mini>Me aperte</vi-button>
+  <vi-labeled-input value="" />
 </vi-wrapper>
 ```
 Botão com loading:
