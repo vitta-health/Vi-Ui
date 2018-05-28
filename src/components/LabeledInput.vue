@@ -1,6 +1,6 @@
 <template>
   <div class="ViComponent ViInput">
-    <label> <small><small></label>
+    <label>Exemplo <small>(0)</small></label>
     <input :type="inputType">
   </div>
 </template>
@@ -130,12 +130,9 @@ export default {
 Botão básico:
 
 ```jsx
-<div>
-  <vi-button default-variant large>Me aperte</vi-button>
-  <vi-button primary>Me aperte</vi-button>
-  <vi-button success small>Me aperte</vi-button>
-  <vi-button danger mini>Me aperte</vi-button>
-</div>
+<vi-wrapper>
+  <vi-la danger mini>Me aperte</vi-button>
+</vi-wrapper>
 ```
 Botão com loading:
 
