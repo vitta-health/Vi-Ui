@@ -19,15 +19,11 @@
 </template>
 
 <script>
-import ViWrapper from './Wrapper.vue';
 import sizeMixin from '../mixins/sizes';
 import extrasMixin from '../mixins/extras';
 
 export default {
   name: 'ViButtonGroup',
-  components: {
-    ViWrapper,
-  },
   mixins: [sizeMixin, extrasMixin],
   props: {
     /**
@@ -51,54 +47,55 @@ export default {
 <style lang="stylus" >
   @import '../themes/main'
 
-  .ViButtonGroup
-    display flex
-    flex-flow row wrap
+.ViComponent.ViButtonGroup
+  display flex
+  flex-flow row wrap
 
+  .ViButton
+    border-radius 0
+
+    &:first-child
+      border-bottom-left-radius 5px
+      border-top-left-radius 5px
+
+    &:last-child
+      border-bottom-right-radius 5px
+      border-top-right-radius 5px
+
+  &--pill
     .ViButton
-      border-radius 0
-
       &:first-child
-        border-bottom-left-radius 5px
-        border-top-left-radius 5px
+        border-bottom-left-radius 50px
+        border-top-left-radius 50px
+        padding-left 1em
 
       &:last-child
-        border-bottom-right-radius 5px
-        border-top-right-radius 5px
+        border-bottom-right-radius 50px
+        border-top-right-radius 50px
+        padding-right 1em
 
-    &--pill
-      .ViButton
-        &:first-child
-          border-bottom-left-radius 50px
-          border-top-left-radius 50px
-          padding-left 1em
+  &--border
+    .ViButton
+      min-width 3.4em
+      text-decoration none
+      &:not(.ViButton--active)
+        border-color #9AA2B4
+        border-left-width 0
+        background transparent
+        color: #333
+        margin-right -0.09em
+        padding-left 1.09em
+        box-shadow: none
 
-        &:last-child
-          border-bottom-right-radius 50px
-          border-top-right-radius 50px
-          padding-right 1em
-
-    &--border
-      .ViButton
-        min-width 3.4em
-        &:not(.ViButton--active)
+        &[disabled]:hover
+        &[disabled]:focus
           border-color #9AA2B4
-          border-left-width 0
-          background transparent
-          color: #333
-          margin-right -0.09em
-          padding-left 1.09em
-          box-shadow: none
+          background inherit
+          color: inherit
+          box-shadow: inherit
 
-          &[disabled]:hover
-          &[disabled]:focus
-            border-color #9AA2B4
-            background inherit
-            color: inherit
-            box-shadow: inherit
-
-          &:first-child
-            border-left-width 0.09em
+        &:first-child
+          border-left-width 0.09em
 </style>
 
 <docs>
