@@ -1,12 +1,11 @@
 const colours = [
-  'defaultVariant',
   'primary',
-  'primaryVariant',
-  'secondary',
   'secondary',
   'success',
   'warning',
   'danger',
+  'info',
+  'dark',
   'light',
 ];
 
@@ -16,23 +15,9 @@ const colours = [
 export default {
   props: {
     /**
-     * _Cor:_ Define cor a variante da cor padrão
-     */
-    defaultVariant: {
-      type: Boolean,
-      default: false,
-    },
-    /**
      * _Cor:_ Define a cor primaria
      */
     primary: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * _Cor:_ Define a variante da cor primaria
-     */
-    primaryVariant: {
       type: Boolean,
       default: false,
     },
@@ -65,6 +50,20 @@ export default {
       default: false,
     },
     /**
+     * _Cor:_ Define cor a variante da cor padrão
+     */
+    info: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Cor:_ Define um cinza escuro
+     */
+    dark: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * _Cor:_ Define a cor branco
      */
     light: {
@@ -80,7 +79,7 @@ export default {
      * @public
      */
     colorClass(args = {}) {
-      let colorName = 'default';
+      let colorName = args.default || 'default';
       colours.some((color) => {
         if (this[color]) colorName = color;
         return this[color];

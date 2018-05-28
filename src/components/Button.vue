@@ -32,7 +32,7 @@
 <script>
 import ViWrapper from './Wrapper.vue';
 import sizeMixin from '../mixins/sizes';
-import colosMixin from '../mixins/colors';
+import colorsMixin from '../mixins/colors';
 import extrasMixin from '../mixins/extras';
 
 export default {
@@ -40,7 +40,7 @@ export default {
   components: {
     ViWrapper,
   },
-  mixins: [sizeMixin, colosMixin, extrasMixin],
+  mixins: [sizeMixin, colorsMixin, extrasMixin],
   props: {
     /**
      * Fundo transparente com apenas borda e texto colorido
