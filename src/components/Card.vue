@@ -55,7 +55,7 @@ export default {
     sizeTitle: {
       type: Number,
       default: null,
-      validator: size => size >= 1 && size <= 7,
+      validator: size => size >= 1 && size <= 6,
     },
   },
   computed: {
