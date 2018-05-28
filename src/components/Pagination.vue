@@ -1,16 +1,17 @@
 <template>
   <vi-button-group
     pill
+    primary
     outlined>
     <vi-button
       title="Primeira Página"
+      primary
       @on-click="handleNavitation('FIRST_PAGE')"
       :href="getURL('FIRST_PAGE')"
-      primary
       :disabled="!buttonEnabled('FIRST_PAGE')">⏮</vi-button>
     <vi-button
-      @on-click="handleNavitation('PREVIOUS_PAGE')"
       primary
+      @on-click="handleNavitation('PREVIOUS_PAGE')"
       :href="getURL('PREVIOUS_PAGE')"
       :disabled="!buttonEnabled('PREVIOUS_PAGE')">⏴</vi-button>
     <vi-button
@@ -22,8 +23,8 @@
       :key="page">{{ page }}
     </vi-button>
     <vi-button
-      @on-click="handleNavitation('NEXT_PAGE')"
       primary
+      @on-click="handleNavitation('NEXT_PAGE')"
       :href="getURL('NEXT_PAGE')"
       :disabled="!buttonEnabled('NEXT_PAGE')">⏵</vi-button>
     <vi-button
@@ -36,13 +37,14 @@
 </template>
 
 <script>
-
-import ButtonGroup from './ButtonGroup.vue';
+import ViButtonGroup from './ButtonGroup.vue';
+import ViButton from './Button.vue';
 
 export default {
   name: 'ViPagination',
   components: {
-    ButtonGroup,
+    ViButtonGroup,
+    ViButton,
   },
   props: {
     /**

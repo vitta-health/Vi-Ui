@@ -5,5 +5,9 @@
   ],
   "plugins": [
     "vue"
-  ]
+  ],
+  "rules": {
+    "import/no-unresolved":  [ "error", "never" ],
+    "import/extensions": [ "error", "never" ]
+  }
 }

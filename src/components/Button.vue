@@ -1,6 +1,6 @@
 <template>
-  <a
-    v-if="href"
+  <component
+    :is="tagButton"
     ref="button"
     class="ViComponent ViButton"
     :class="[
@@ -26,34 +26,7 @@
     <vi-wrapper
       :justify-content="justifyContent"
       spacing="10"><slot /></vi-wrapper>
-  </a>
-  <button
-    v-else
-    ref="button"
-    class="ViComponent ViButton"
-    :class="[
-      {
-        'ViButton--mini': mini,
-        'ViButton--small': small,
-        'ViButton--large': large,
-        'ViButton--pill': pill,
-        'ViButton--active': active,
-      },
-      colorClass({
-        background: !outlined,
-        border: outlined,
-        hover: true && !active
-      }),
-    ]"
-    :style="{
-      width: buttonWidth,
-      justifyContent,
-    }"
-    @click="onClick">
-    <vi-wrapper
-      :justify-content="justifyContent"
-      spacing="10"><slot /></vi-wrapper>
-  </button>
+  </component>
 </template>
 
 <script>
@@ -116,6 +89,10 @@ export default {
     buttonWidth() {
       if (Number.isNaN(this.width - 0)) return this.width;
       return `${this.width}px`;
+    },
+    tagButton() {
+      if (this.href) return 'a';
+      return 'button';
     },
   },
   methods: {
