@@ -126,9 +126,17 @@ export default {
 
 Card Básico
 ```jsx
-  <vi-card title="Este é um título do card tamanho 1" :sizeTitle="3">
-    <p slot="body">Este é um parágrafo contido no slot do body</p>
-    <p slot="footer"><vi-button>Botão do footer</vi-button></p>
+  <vi-card title="Este é um título do card tamanho 1" :sizeTitle="2">
+    <div slot="body">Este é um parágrafo contido no slot do body</div>
+    <div slot="footer"><vi-button primary>Botão no footer</vi-button></div>
+  </vi-card>
+```
+
+Card colorido
+```jsx
+  <vi-card success small>
+    <div slot="body">Card com fundo colorido</div>
+    <div slot="footer"><vi-button primary>Botão no footer</vi-button></div>
   </vi-card>
 ```
 
@@ -146,10 +154,10 @@ Card Mais complexo
       <div slot="body">
         <vi-wrapper noChildWrapper :spacing="20">
           <img class="avatar" :src="character.avatar"/>
-          <vi-wrapper vertical noChildWrapper class="descrition">
+          <vi-wrapper vertical class="descrition">
             <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
-            <vi-button success mini outlined pill>Avançar!</vi-button>>
+            <vi-button success mini outlined pill>Avançar!</vi-button>
           </vi-wrapper>
         </vi-wrapper>
       </div>
