@@ -132,7 +132,7 @@ Card Básico
   </vi-card>
 ```
 
-Card colorido
+Card Colorido
 ```jsx
   <vi-card success small>
     <div slot="body">Card com fundo colorido</div>
@@ -140,7 +140,7 @@ Card colorido
   </vi-card>
 ```
 
-Card Mais complexo
+Exemplo Complexo de Card
 ```vue
 <template>
   <vi-wrapper
