@@ -148,12 +148,10 @@ Card Mais complexo
           <img class="avatar" :src="character.avatar"/>
           <vi-wrapper vertical noChildWrapper class="descrition">
             <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
-            <span class="birth-day">{{character.birthDate}} {{character.age}}</span>
+            <p class="birth-day">{{character.birhDate}} {{character.age}}</p>
+            <vi-button success mini outlined pill>Avançar!</vi-button>>
           </vi-wrapper>
         </vi-wrapper>
-      </div>
-      <div slot="footer">
-        <vi-button success large width="100%">Avançar!</vi-button>
       </div>
     </vi-card>
   </vi-wrapper>
@@ -188,9 +186,9 @@ export default {
     padding: 30px;
   }
   .avatar {
-    border-radius: 70px;
-    height: 70px;
-    width:70px;
+    border-radius: 100px;
+    height: 100px;
+    width: 100px;
   }
   .name {
     font-size: 1em;
