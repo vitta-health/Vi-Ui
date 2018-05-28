@@ -15,12 +15,12 @@
       :is="generateType"
       class="ViCard__Title">{{ title }}</component>
     <div class="ViCard__Body">
-      <!-- @slot Use este slot para definir o contéudo que estara presente
+      <!-- @slot Use este slot para definir o contéudo que estará presente
       dentro do corpo do card -->
       <slot name="body"/>
     </div>
 
-    <!-- @slot Use este slot para definir o contéudo que estara presente dentro do rodapé -->
+    <!-- @slot Use este slot para definir o contéudo que estará presente dentro do rodapé -->
     <slot
       class="ViCard__Footer"
       name="footer"
