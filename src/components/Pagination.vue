@@ -1,5 +1,6 @@
 <template>
   <vi-button-group
+    pill
     primary
     outlined>
     <vi-button
