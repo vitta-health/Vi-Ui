@@ -224,7 +224,6 @@ export default {
 
 <style lang="stylus">
 @import '../themes/main';
-@import '../themes/colors';
 
 .ViTable
   border-spacing 0

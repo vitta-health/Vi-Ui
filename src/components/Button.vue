@@ -25,7 +25,9 @@
     @click="onClick">
     <vi-wrapper
       :justify-content="justifyContent"
-      spacing="10"><slot /></vi-wrapper>
+      small
+      child-wrapper
+    ><slot /></vi-wrapper>
   </component>
 </template>
 
@@ -111,7 +113,6 @@ export default {
 
 <style lang="stylus">
   @import '../themes/main';
-  @import '../themes/colors';
 
   .ViButton
     border-width 0.09em
@@ -155,7 +156,7 @@ Botão básico:
 
 ```jsx
 <div>
-  <vi-button default-variant large>Me aperte</vi-button>
+  <vi-button dark large>Me aperte</vi-button>
   <vi-button primary>Me aperte</vi-button>
   <vi-button success small>Me aperte</vi-button>
   <vi-button danger mini>Me aperte</vi-button>
@@ -169,7 +170,7 @@ Botão com loading:
 Botão com submit:
 
 ```jsx
-<form action="/#!/ViButton">
+<form action="/#button">
   <vi-button type="submit" success>Form submit</vi-button>
 </form>
 ```

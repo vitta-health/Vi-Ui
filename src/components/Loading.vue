@@ -112,7 +112,6 @@ export default {
 
 <style lang="stylus">
 @import '../themes/main';
-@import '../themes/colors';
 
 .ViLoading
   position relative

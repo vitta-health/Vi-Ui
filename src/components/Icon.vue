@@ -33,7 +33,7 @@ export default {
 
 ```vue noeditor
 <template>
-  <vi-wrapper class="ViIconWrapperDemo">
+  <vi-wrapper no-margin class="ViIconWrapperDemo">
     <span class="ViIconDemo"><vi-icon name="arrow" /> arrow</span>
     <span class="ViIconDemo"><vi-icon name="arrow-left" /> arrow-left</span>
     <span class="ViIconDemo"><vi-icon name="birthday-cake" /> birthday-cake</span>
@@ -111,7 +111,7 @@ export default {};
     height: 90px;
     display: block;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 0 0 20px;
   }
 
   .vi-icon  {

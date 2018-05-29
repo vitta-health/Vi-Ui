@@ -2,7 +2,7 @@ import ViButton from './components/Button.vue';
 import ViButtonGroup from './components/ButtonGroup.vue';
 import ViCard from './components/Card.vue';
 import ViIcon from './components/Icon.vue';
-import ViLabeledInput from './components/LabeledInput.vue';
+import ViInput from './components/Input.vue';
 import ViLoading from './components/Loading.vue';
 import ViPagination from './components/Pagination.vue';
 import ViTable from './components/Table.vue';
@@ -13,7 +13,7 @@ export default {
   ViButtonGroup,
   ViCard,
   ViIcon,
-  ViLabeledInput,
+  ViInput,
   ViLoading,
   ViPagination,
   ViTable,

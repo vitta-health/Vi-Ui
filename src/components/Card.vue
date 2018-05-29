@@ -1,5 +1,7 @@
 <template>
-  <div
+  <vi-wrapper
+    vertical
+    :tag="tag"
     class="ViComponent ViCard"
     :class="[
       {
@@ -25,15 +27,19 @@
       class="ViCard__Footer"
       name="footer"
     />
-  </div>
+  </vi-wrapper>
 </template>
 <script>
+import ViWrapper from './Wrapper.vue';
 import sizeMixin from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
 
 export default {
   name: 'ViCard',
   mixins: [sizeMixin, colorsMixin],
+  components: {
+    ViWrapper,
+  },
   props: {
     /**
      * Largura do card
@@ -41,6 +47,13 @@ export default {
     width: {
       type: [String, Number],
       default: '100%',
+    },
+    /**
+     * Tag do card
+     */
+    tag: {
+      type: String,
+      default: 'div',
     },
     /**
     * Texto que será exibido no título
@@ -75,10 +88,11 @@ export default {
 </script>
 <style lang="stylus">
   @import '../themes/main';
-  @import '../themes/colors';
 
-  .ViCard
-    background-color #fff
+  $background-card = $isDark ? $colors.dark : $colors.light
+
+  .ViComponent.ViCard
+    background-color $background-card
     border-radius 0.3em
     box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
     display flex
@@ -87,36 +101,7 @@ export default {
     padding 40px
     width 100%
 
-    &__Title
-    &__Body
-      margin-bottom 20px
-
-    &--mini
-      padding 10px
-
-      &__Title
-      &__Body
-        margin-bottom 5px
-
-    &--small
-      padding 20px
-
-      &__Title
-      &__Body
-        margin-bottom 10px
-
-    &--large
-      padding 60px
-
-      &__Title
-      &__Body
-        margin-bottom 30px
-
-    &__Title
-      color #3e3e3e
-      font-weight 300
-
-    > :last-child
+    .ViCard__Title
       margin-bottom 0
 </style>
 
@@ -136,7 +121,7 @@ Card Colorido
 ```jsx
   <vi-card success small>
     <div slot="body">Card com fundo colorido</div>
-    <div slot="footer"><vi-button primary>Botão no footer</vi-button></div>
+    <div slot="footer"><vi-button light>Botão no footer</vi-button></div>
   </vi-card>
 ```
 
@@ -145,16 +130,14 @@ Exemplo Complexo de Card
 <template>
   <vi-wrapper
     proportinal
-    noChildWrapper
     class="ViComponent greyBox"
     justify-content="space-between"
-    :spacing="20"
   >
     <vi-card v-for="(character, index) in characters" small>
       <div slot="body">
-        <vi-wrapper noChildWrapper :spacing="20">
+        <vi-wrapper>
           <img class="avatar" :src="character.avatar"/>
-          <vi-wrapper vertical class="descrition">
+          <vi-wrapper vertical child-wrapper no-margin class="descrition">
             <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
             <vi-button success mini outlined pill>Avançar!</vi-button>
