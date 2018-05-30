@@ -87,7 +87,7 @@ export default {
     },
     /**
      * Array de objetos contendo os dados das linhas na tabela, caso esteja com checkbox
-     * habilitado, usar o atributo selected <boolean> para definir seu estado.
+     * habilitado, usar o atributo selected `boolean` para definir seu estado.
      */
     items: {
       type: Array,
@@ -225,6 +225,7 @@ export default {
 <style lang="stylus">
 @import '../themes/main';
 
+.ViComponent .ViTable
 .ViTable
   border-spacing 0
   width 100%

@@ -87,22 +87,32 @@ export default {
 };
 </script>
 <style lang="stylus">
-  @import '../themes/main';
+@import '../themes/main';
 
-  $background-card = $isDark ? $colors.dark : $colors.light
+$background-card = $isDark ? $colors.dark : $colors.light
 
-  .ViComponent.ViCard
-    background-color $background-card
-    border-radius 0.3em
-    box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
-    display flex
-    flex-direction column
-    justify-content space-between
-    padding 40px
-    width 100%
+.ViComponent .ViCard
+.ViComponent.ViCard
+  background-color $background-card
+  border-radius 0.3em
+  box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
+  display flex
+  flex-direction column
+  justify-content space-between
+  padding 40px
+  width 100%
 
-    .ViCard__Title
-      margin-bottom 0
+  &--mini
+    padding 10px
+
+  &--small
+    padding 20px
+
+  &--large
+    padding 60px
+
+  &__Title
+    margin-bottom 0
 </style>
 
 ```
@@ -119,7 +129,7 @@ Card Básico
 
 Card Colorido
 ```jsx
-  <vi-card success small>
+  <vi-card success>
     <div slot="body">Card com fundo colorido</div>
     <div slot="footer"><vi-button light>Botão no footer</vi-button></div>
   </vi-card>

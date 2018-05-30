@@ -17,10 +17,13 @@ $isDark = !(contrast($colors.light, $background-main).ratio < 3)
 $textIsDark = contrast($colors.light, $text-color-main).ratio > 3
 
 $link-color-main = $colors.primary
-$border-color-main = $isDark ? rgba(255, 255, 255, 0.2) : rgba(0, 0, 0, 0.2);
+$border-color-main = $isDark ? rgba(255, 255, 255, 0.2) : rgba(0, 0, 0, 0.2)
 $border-color-main-focus = $colors.primary
 $input-background-main = $isDark ? $colors.dark : $colors.light
-$block-background-main = $isDark ? rgba(255, 255, 255, 0.04) : rgba(0, 0, 0, 0.04);
+$block-background-main = $isDark ? rgba(255, 255, 255, 0.04) : rgba(0, 0, 0, 0.04)
+$error-color = $colors.danger
+$primary = $colors.primary
+$default = $colors.default
 
 for $key, $val in $colors
   $contrast-ratio-light = contrast($val, $colors.light).ratio

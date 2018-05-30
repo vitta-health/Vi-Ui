@@ -46,6 +46,7 @@ $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
   a
     text-decoration underline
     background-color transparent
+    color $link-color
 
   b,
   strong
@@ -90,8 +91,6 @@ $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
 
   code
     background $block-background-main
-    padding 0.5em 0.9em
-    white-space pre
 
   pre
   code
@@ -99,6 +98,11 @@ $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
   samp
     font-family monospace
     font-size 1em
+
+  pre
+    code
+      display block
+      padding 0.5em 0.9em
 
   sub
   sup
@@ -123,7 +127,17 @@ $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
     overflow auto
 
   fieldset
-    padding 0.35em 0.75em 0.625em
+    border 0
+    padding 0
+    margin 0 0 2.4em
+    &:last-child
+      margin 0
+    legend
+      border-bottom $link-color-main 2px solid
+      font-size 1.1em
+      margin 0 0 1em
+      padding 0 0 0.3em
+      text-transform uppercase
 
   button
   input
@@ -177,8 +191,3 @@ $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
 
   [type="search"]::-webkit-search-decoration
     -webkit-appearance none
-
-  fieldset
-    border 1px solid $border-color-main
-    border-radius 0.3em
-    padding 1em

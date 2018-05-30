@@ -35,6 +35,20 @@ export default {
       default: false,
     },
     /**
+     * define se ordem dos filhos é invertida
+     */
+    inverted: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * quando definido, pode quebra linha
+     */
+    breakLine: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * define se filhos vão ser embrulhados em um wrapper filho
      */
     childWrapper: {
@@ -56,6 +70,7 @@ export default {
     },
   },
   render(createElement) {
+    if (!this.$slots.default) return null;
     const self = this;
     const wrapped = [];
     const node = this.$slots.default;
@@ -63,6 +78,8 @@ export default {
     const blockClassName = ['contentWrapper'];
 
     if (this.vertical) wrapperClassName.push('flexWraper--vertical');
+    if (this.inverted) wrapperClassName.push('flexWraper--inverted');
+    if (this.breakLine) wrapperClassName.push('flexWraper--breakLine');
     if (this.proportionalBlock) blockClassName.push('contentWrapper--proportional');
 
     if (this.mini) {
@@ -110,6 +127,7 @@ export default {
       class: wrapperClassName.join(' '),
       style: {
         justifyContent: self.justifyContent,
+        alignItems: self.alignItems,
       },
     }, wrapped.length ? wrapped : node);
   },
@@ -117,6 +135,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.ViComponent .flexWraper
 .flexWraper
   align-items stretch
   display flex
@@ -128,64 +147,80 @@ export default {
       display flex
 
   & > .contentWrapper
-    margin-left 20px
+    margin 0 20px 0 0
 
-    &:first-child
-      margin-left 0
+    &:last-child
+      margin 0
 
     &--proportional
       flex 1 1
 
+  &--breakLine
+    flex-wrap wrap
+    & > .contentWrapper
+      margin-bottom 20px
+
   &--vertical
     flex-direction column
     & > .contentWrapper
-      margin-left 0
-      margin-top 20px
-    & > .contentWrapper:first-child
-      margin-top 0
+      margin 0 0 20px
+    & > .contentWrapper:last-child:not(.flexWrape--breakLine)
+      margin 0
+
+  &--inverted
+    flex-direction row-reverse
+    &.flexWraper--vertical
+      flex-direction column-reverse
 
   &--mini
     & > .contentWrapper
-      margin-left 5px
-      &:first-child
-        margin-left 0
+      margin 0 5px 0 0
+      &:last-child:not(.flexWrape--breakLine)
+        margin 0
+    &.flexWrape--breakLine
+      & > .contentWrapper
+        margin-bottom 5px
     &.flexWraper--vertical
       & > .contentWrapper
-        margin-left 0
-        margin-top 5px
-      & > .contentWrapper:first-child
-        margin-top 0
+        margin 0 0 5px
+        &:last-child
+          margin 0
 
   &--small
     & > .contentWrapper
-      margin-left 10px
-      &:first-child
-        margin-left 0
+       margin 0 10px 0 0
+      &:last-child:not(.flexWrape--breakLine)
+        margin 0
+    &.flexWrape--breakLine
+      & > .contentWrapper
+        margin-bottom 10px
     &.flexWraper--vertical
       & > .contentWrapper
-        margin-left 0
-        margin-top 10px
-      & > .contentWrapper:first-child
-        margin-top 0
+        margin 0 0 10px
+        &:last-child
+          margin 0
 
   &--large
     & > .contentWrapper
-      margin-left 30px
-      &:first-child
-        margin-left 0
+      margin 0 30px 0 0
+      &:last-child:not(.flexWrape--breakLine)
+        margin 0
+    &.flexWrape--breakLine
+      & > .contentWrapper
+        margin-bottom 30px
     &.flexWraper--vertical
       & > .contentWrapper
-        margin-left 0
-        margin-top 30px
-      & > .contentWrapper:first-child
-        margin-top 0
+        margin 0 0 30px
+        &:last-child
+          margin 0
 
   &--noMargin
     & > .contentWrapper
-      margin-left 0
+      margin 0
+    &.flexWrape--breakLine
     &.flexWraper--vertical
       & > .contentWrapper
-        margin-top 0
+        margin 0
 </style>
 
 <docs>

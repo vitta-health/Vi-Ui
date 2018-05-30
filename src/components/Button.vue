@@ -112,42 +112,43 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../themes/main';
+@import '../themes/main';
 
-  .ViButton
-    border-width 0.09em
-    border-style solid
-    border-radius 0.5em
-    cursor pointer
-    display inline-block
-    font-size 0.95em
-    text-align center
-    padding 0.5em 0.8em
-    text-decoration none
-    outline none
-    transition: all 0.09s
-    > *
-      margin-right 0.25em
+.ViComponent .ViButton
+.ViButton
+  border-width 0.09em
+  border-style solid
+  border-radius 0.5em
+  cursor pointer
+  display inline-block
+  font-size 0.95em
+  text-align center
+  padding 0.5em 0.8em
+  text-decoration none
+  outline none
+  transition: all 0.09s
+  > *
+    margin-right 0.25em
 
-    &[disabled]
-      opacity 0.45
-      cursor default
+  &[disabled]
+    opacity 0.45
+    cursor default
 
-    .ViLoading
-      margin -4px 0
+  .ViLoading
+    margin -4px 0
 
-  .ViButton--pill
+  &--pill
     border-radius 100px
 
-  .ViButton--mini
+  &--mini
     font-size 0.8em
     padding 0.3em 0.5em
 
-  .ViButton--small
+  &--small
     font-size 0.8em
     padding 0.5em 0.8em
 
-  .ViButton--large
+  &--large
     font-size 1.2em
 </style>
 

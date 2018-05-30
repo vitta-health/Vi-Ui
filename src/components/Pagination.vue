@@ -146,11 +146,6 @@ export default {
 };
 </script>
 
-<style lang="stylus">
-@import '../themes/main';
-
-</style>
-
 <docs>
 #### Basic Pagination:
 

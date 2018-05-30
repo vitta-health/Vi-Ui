@@ -11,12 +11,31 @@ const styles = ({ space }) => ({
 });
 
 export function SectionRenderer(allProps) {
-  const { classes, name, slug, content, components, sections, depth, description } = allProps;
+  const {
+    classes,
+    level,
+    name,
+    slug,
+    content,
+    components,
+    sections,
+    depth,
+    description,
+  } = allProps;
+
 
   return (
     <section className={classes.root}>
       {name && (
-        <SectionHeading depth={depth} id={slug} slotProps={allProps}>
+        <SectionHeading
+          name={name}
+          level={level}
+          nameParent={'nameParent'}
+          depth={depth}
+          id={slug}
+          slotProps={allProps}
+          slotName={name}
+        >
           {name}
         </SectionHeading>
       )}
