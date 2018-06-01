@@ -1,61 +1,55 @@
 <template>
   <vi-wrapper
     mini
-    :vertical="isVertical"
+    vertical
     justify-content="flex-start"
     tag="div"
     class="ViComponent ViInput"
     :style="{ width: inputWidth }"
   >
-    <template v-for="order in inputLabelOrder">
-      <label
-        :key="order"
-        v-if="label && order === 0"
-        :for="fieldID"
-        class="ViInput__Label"
-      >{{ label }}
-        <small
-          v-if="instruction"
-          class="ViInput__Instruction"
-        >{{ instruction }}</small>
-      </label>
-      <component
-        ref="input"
-        v-if="order === 1"
-        @valid="validate($event.target)"
-        @invalid="validate($event.target)"
-        @input="inputChange($event.target)"
-        @change="inputChange($event.target)"
-        class="ViInput__Input"
-        :class="{
-          'ViInput__Input--validated': validated || forceValidation,
-          'ViInput__Input--invalid': invalid,
-        }"
-        v-bind="{
-          autocomplete: autoCompleteHandler,
-          autofocus: autoFocus,
-          checked: checked || isChecked,
-          disabled,
-          hidden: type === 'file',
-          id: fieldID,
-          max,
-          maxlength: maxLength,
-          min,
-          minlength: minLength,
-          multiple,
-          name: name || fieldID,
-          pattern,
-          placeholder,
-          required,
-          readOnly,
-          rows,
-          type: inputType,
-          value,
-        }"
-        :is="fieldType"
-        :key="order"
-      />
-    </template>
+    <label
+      :for="fieldID"
+      class="ViInput__Label"
+      v-if="label"
+    >{{ label }}
+      <small
+        v-if="instruction"
+        class="ViInput__Instruction"
+      >{{ instruction }}</small>
+    </label>
+    <component
+      ref="input"
+      @valid="validate($event.target)"
+      @invalid="validate($event.target)"
+      @input="inputChange($event.target)"
+      @change="inputChange($event.target)"
+      class="ViInput__Input"
+      :class="{
+        'ViInput__Input--validated': validated || forceValidation,
+        'ViInput__Input--invalid': invalid,
+      }"
+      v-bind="{
+        autocomplete: autoCompleteHandler,
+        autofocus: autoFocus,
+        disabled,
+        hidden: type === 'file',
+        id: fieldID,
+        max,
+        maxlength: maxLength,
+        min,
+        minlength: minLength,
+        multiple,
+        name: name || fieldID,
+        pattern,
+        placeholder,
+        required,
+        readOnly,
+        rows,
+        type: inputType,
+        value,
+      }"
+      :is="fieldType"
+    />
     <vi-button
       dark
       type="button"
@@ -118,25 +112,11 @@ export default {
       default: null,
     },
     /**
-     * Lista de opções usado para (Select, Radio e Checkbox)
-     */
-    options: {
-      type: Array,
-      default: null,
-    },
-    /**
      * Usado para comparar quando options é um array de objetos
      */
     trackBy: {
       type: String,
       default: null,
-    },
-    /**
-     * Checkbox ou radiobutton marcados?
-     */
-    checked: {
-      type: Boolean,
-      default: false,
     },
     /**
      * Auto-complete [opções de autocomplete](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute).
@@ -296,9 +276,7 @@ export default {
           this.filesValue = this.fileButtonTextSetter(target);
           return target.files;
         default:
-          return typeof this.value === 'boolean'
-            ? target.checked
-            : target.value;
+          return target.value;
       }
     },
     validate(target) {
@@ -329,7 +307,7 @@ export default {
       this.$emit('invalid', this.invalid);
     },
     fileButtonTrigger() {
-      this.$refs.input[0].click();
+      this.$refs.input.click();
     },
     fileButtonTextSetter(target) {
       if (target.files.length > 1) {
@@ -344,15 +322,6 @@ export default {
         return this.placeholder || 'Selecione arquivos';
       }
       return this.filesValue;
-    },
-    inputLabelOrder() {
-      switch (this.type) {
-        case 'checkbox':
-        case 'radio':
-          return [1, 0];
-        default:
-          return [0, 1];
-      }
     },
     inputWidth() {
       if (this.width === null) return false;
@@ -370,24 +339,6 @@ export default {
     },
     inputType() {
       return this.fieldType === 'input' ? this.type : false;
-    },
-    isVertical() {
-      switch (this.type) {
-        case 'checkbox':
-        case 'radio':
-          return false;
-        default:
-          return true;
-      }
-    },
-    isChecked() {
-      switch (this.type) {
-        case 'checkbox':
-        case 'radio':
-          return typeof this.value === 'boolean' && this.value;
-        default:
-          return false;
-      }
     },
     autoCompleteHandler() {
       if (this.autoComplete !== 'off') return this.autoComplete;
@@ -429,68 +380,6 @@ export default {
     &--invalid
     &--validated:invalid
       border 1px solid $error-color
-
-    &[type="checkbox"]:focus
-    &[type="radio"]:focus
-      & + label:before
-        box-shadow 0 0 10px rgba($primary, 0.2)
-
-    &[type="checkbox"]
-    &[type="radio"]
-      opacity 0
-      margin-left 0.5em
-      position relative
-      transform scale(2)
-      z-index 1
-      & + label
-        position relative
-        padding 0 0 0 1em
-        z-index 0
-        &:after
-        &:before
-          background lighten($default, 50%)
-          border-radius 0.3em
-          content ''
-          height 1.5em
-          left -1.5em
-          position absolute
-          top -0.2em
-          width 1.5em
-          transition all 0.06s ease-out
-
-      &.ViInput__Input--invalid + label:before
-      &.ViInput__Input--validated:invalid + label:before
-        box-shadow 0px 0px 0px 1px rgba($error-color, 1)
-
-      &[type="checkbox"]
-        & + label:after
-          background transparent
-          border 0.27em solid $primary
-          border-right-width 0.5em
-          border-left 0
-          border-top 0
-          border-radius 0
-          opacity 0
-          transform rotate(40deg) scale(0) translate(-0.3em, -0.15em)
-
-    &[type="checkbox"]:checked
-      & + label:after
-        opacity 1
-        transform rotate(40deg) scale(0.4, 0.7) translate(-0.3em, -0.15em)
-
-    &[type="radio"]
-      & + label
-        &:after
-          display none
-        &:before
-          background $primary
-          border 0.75em solid lighten($default, 50%)
-          border-radius 1.5em
-
-    &[type="radio"]:checked
-      & + label:before
-        border-width 0.35em
-        box-shadow inset 0 -0.4em 0.35em rgba(0, 0, 0, 0.1)
 </style>
 
 <docs>
@@ -527,13 +416,11 @@ Exemplo de formulario.
       tag="fieldset"
     >
       <legend>Relationship Status</legend>
-      <vi-input
+      <vi-inputCheckbox
+        radio
         v-for="(valueRel, index) in relationshipStatusOptions"
         :key="index"
-        type="radio"
-        name="relationshipStatus"
         :label="valueRel"
-        :value="valueRel"
         :checked="valueRel === relationshipStatus"
         @input="relationshipStatus = valueRel"
       />
@@ -658,11 +545,10 @@ Exemplo de validação de formulário.
       tag="div"
     >
       <vi-button type="submit" success>Try!</vi-button>
-      <vi-input
+      <vi-inputCheckbox
         required
         label="I read the EULA"
         v-model="terms"
-        type="checkbox"
       />
     </vi-wrapper>
   </form>
