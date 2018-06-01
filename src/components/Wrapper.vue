@@ -224,5 +224,6 @@ export default {
 </style>
 
 <docs>
-Wrapper aplica flexbox entre os filhos. Ele também pode embrulhar .
+Wrapper aplica flexbox entre os filhos.
+Ele também pode embrulhar os filhos em uma tag caso necessario.
 </docs>

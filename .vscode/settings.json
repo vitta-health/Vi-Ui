@@ -6,7 +6,7 @@
       "plugin:vue/strongly-recommended",
       {
         "language": "vue",
-        "autoFix": true
+        "autoFix": false
       }
     ]
   }

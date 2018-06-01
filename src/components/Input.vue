@@ -11,13 +11,13 @@
       <label
         :key="order"
         v-if="label && order === 0"
-        :for="idField"
+        :for="fieldID"
         class="ViInput__Label"
       >{{ label }}
         <small
-          v-if="labelExtra"
-          class="ViInput__LabelExtra"
-        >{{ labelExtra }}</small>
+          v-if="instruction"
+          class="ViInput__Instruction"
+        >{{ instruction }}</small>
       </label>
       <component
         ref="input"
@@ -32,18 +32,18 @@
           'ViInput__Input--invalid': invalid,
         }"
         v-bind="{
-          autocomplete: autocompleteComp,
-          autofocus,
+          autocomplete: autoCompleteHandler,
+          autofocus: autoFocus,
           checked: checked || isChecked,
           disabled,
           hidden: type === 'file',
-          id: idField,
+          id: fieldID,
           max,
-          maxlength,
+          maxlength: maxLength,
           min,
-          minlength,
+          minlength: minLength,
           multiple,
-          name: name || idField,
+          name: name || fieldID,
           pattern,
           placeholder,
           required,
@@ -98,7 +98,7 @@ export default {
     /**
      * Label extra ex: "(obrigatório)"
      */
-    labelExtra: {
+    instruction: {
       type: String,
       default: null,
     },
@@ -132,13 +132,6 @@ export default {
       default: null,
     },
     /**
-     * Descrição da quando options é um array de objetos
-     */
-    optionsLabel: {
-      type: String,
-      default: null,
-    },
-    /**
      * Checkbox ou radiobutton marcados?
      */
     checked: {
@@ -149,28 +142,28 @@ export default {
      * Auto-complete [opções de autocomplete](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute).
      * Obs: Chrome ignora a opção "off" (ou "false") e tenta decidir por conta propria
      */
-    autocomplete: {
+    autoComplete: {
       type: String,
       default: 'on',
     },
     /**
-     * Identificador do campo (caso não definido retorna uma id auto gerada)
+     * Identificador do campo. Caso não definido, será um valor gerado automaticamente.
      */
-    idField: {
+    fieldID: {
       type: String,
       default: () => {
-        if ('ViInputCounter' in window) {
-          window.ViInputCounter += 1;
-        } else {
-          window.ViInputCounter = 0;
-        }
-        return `ViInput__Field${window.ViInputCounter}`;
+        const crypto = window.crypto.getRandomValues(new Uint8Array(6));
+        const uId = Object.keys(crypto)
+          .map(key => crypto[key].toString(16))
+          .join('');
+
+        return `ViInput__Field${uId}`;
       },
     },
     /**
-     * Define se o elemento recebo o foco ao entrar a pagina
+     * Define se o elemento recebe o foco ao entrar a página
      */
-    autofocus: {
+    autoFocus: {
       type: Boolean,
       default: false,
     },
@@ -219,14 +212,14 @@ export default {
       default: false,
     },
     /**
-     * _Validação:_ Numero maximo no campo
+     * _Validação:_ Número minimo no valor do campo
      */
     min: {
       type: [String, Number],
       default: null,
     },
     /**
-     * _Validação:_ Numero maximo no campo
+     * _Validação:_ Número máximo no valor do campo
      */
     max: {
       type: [String, Number],
@@ -235,14 +228,14 @@ export default {
     /**
      * _Validação:_ Máximo de caracteres no campo
      */
-    maxlength: {
+    maxLength: {
       type: [String, Number],
       default: null,
     },
     /**
-     * _Validação:_ MisVerticalinimo de caracteres no campo
+     * _Validação:_ Mínimo de caracteres no campo
      */
-    minlength: {
+    minLength: {
       type: [String, Number],
       default: null,
     },
@@ -254,21 +247,21 @@ export default {
       default: null,
     },
     /**
-    * @ignore
+    * Numero de linha quando usando textarea
     */
     rows: {
       type: [String, Number],
       default: null,
     },
     /**
-    * @ignore
+    * Nome do campo (usa o mesmo que fieldID se não definido)
     */
     name: {
       type: String,
       default: null,
     },
     /**
-    * @ignore
+    * Multiplo
     */
     multiple: {
       type: Boolean,
@@ -396,8 +389,8 @@ export default {
           return false;
       }
     },
-    autocompleteComp() {
-      if (this.autocomplete !== 'off') return this.autocomplete;
+    autoCompleteHandler() {
+      if (this.autoComplete !== 'off') return this.autoComplete;
 
       switch (this.type) {
         case 'email':
@@ -407,7 +400,7 @@ export default {
         case 'password':
           return 'off';
         default:
-          return this.autocomplete;
+          return this.autoComplete;
       }
     },
   },
@@ -519,7 +512,7 @@ Exemplo de formulario.
       <legend>About you</legend>
       <vi-input
         label="Name"
-        autocomplete="name"
+        auto-complete="name"
         v-model="name"
       />
       <vi-input
@@ -636,27 +629,27 @@ Exemplo de validação de formulário.
       <legend>Login</legend>
       <vi-input
         label="Email"
-        labelExtra="(Required)"
+        instruction="(Required)"
         type="email"
         v-model="email"
         required
-        autocomplete="email"
+        auto-complete="email"
         placeholder="exemple@gmail.com"
       />
       <vi-input
         label="Password"
         required
-        labelExtra="(Required)"
+        instruction="(Required)"
         v-model="password"
         type="password"
-        maxlength="8"
-        minlength="4"
+        max-length="8"
+        min-length="4"
       />
       <vi-input
         label="Você é um robo?"
         required
         pattern="[Nn]ão"
-        labelExtra="(responda: Não)"
+        instruction="(responda: Não)"
         v-model="robot"
       />
     </vi-wrapper>
