@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import sizeMixin from '../mixins/sizes';
+import { scaleMixin } from '../mixins/sizes';
 import extrasMixin from '../mixins/extras';
 
 export default {
   name: 'ViButtonGroup',
-  mixins: [sizeMixin, extrasMixin],
+  mixins: [scaleMixin, extrasMixin],
   props: {
     /**
      * Fundo transparente com apenas borda e texto colorido

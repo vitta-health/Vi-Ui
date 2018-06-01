@@ -11,7 +11,8 @@
       },
       colorClass({ background: true, default: 'light' }),
     ]"
-    :style="{'width': cardWidth}">
+    :style="{ width: componentWidth }"
+  >
     <component
       v-if="title"
       :is="titleTag"
@@ -31,23 +32,16 @@
 </template>
 <script>
 import ViWrapper from './Wrapper.vue';
-import sizeMixin from '../mixins/sizes';
+import { scaleMixin, widthMixin } from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
 
 export default {
   name: 'ViCard',
-  mixins: [sizeMixin, colorsMixin],
+  mixins: [scaleMixin, widthMixin, colorsMixin],
   components: {
     ViWrapper,
   },
   props: {
-    /**
-     * Largura do card
-     */
-    width: {
-      type: [String, Number],
-      default: '100%',
-    },
     /**
      * Tag do card
      */
@@ -72,10 +66,6 @@ export default {
     },
   },
   computed: {
-    cardWidth() {
-      if (Number.isNaN(this.width - 0)) return this.width;
-      return `${this.width}px`;
-    },
     titleTag() {
       if (!this.sizeTitle) {
         return 'p';

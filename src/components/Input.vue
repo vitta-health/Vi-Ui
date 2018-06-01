@@ -5,7 +5,7 @@
     justify-content="flex-start"
     tag="div"
     class="ViComponent ViInput"
-    :style="{ width: inputWidth }"
+    :style="{ width: componentWidth }"
   >
     <label
       :for="fieldID"
@@ -64,7 +64,7 @@
 /* eslint-disable max-len */
 import ViWrapper from './Wrapper.vue';
 import ViButton from './Button.vue';
-import sizeMixin from '../mixins/sizes';
+import { scaleMixin, widthMixin } from '../mixins/sizes';
 import extrasMixin from '../mixins/extras';
 
 export default {
@@ -73,7 +73,7 @@ export default {
     ViWrapper,
     ViButton,
   },
-  mixins: [sizeMixin, extrasMixin],
+  mixins: [scaleMixin, widthMixin, extrasMixin],
   props: {
     /**
      * Tipo de campo
@@ -160,13 +160,6 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
-    },
-    /**
-     * width do input
-     */
-    width: {
-      type: [String, Number],
-      default: null,
     },
     /**
      * _Validação:_ Obrigatório
@@ -322,11 +315,6 @@ export default {
         return this.placeholder || 'Selecione arquivos';
       }
       return this.filesValue;
-    },
-    inputWidth() {
-      if (this.width === null) return false;
-      if (Number.isNaN(this.width - 0)) return this.width;
-      return `${this.width}px`;
     },
     fieldType() {
       switch (this.type) {

@@ -1,10 +1,10 @@
 <script>
 import extrasMixin from '../mixins/extras';
-import sizesMixin from '../mixins/sizes';
+import { scaleMixin } from '../mixins/sizes';
 
 export default {
   name: 'ViWrapper',
-  mixins: [extrasMixin, sizesMixin],
+  mixins: [extrasMixin, scaleMixin],
   props: {
     /**
      * _Tamanho:_ Remove margens dos filhos.

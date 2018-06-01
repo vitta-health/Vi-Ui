@@ -4,7 +4,7 @@
     justify-content="flex-start"
     tag="div"
     class="ViComponent ViInputCheckbox"
-    :style="{ width: inputWidth }"
+    :style="{ width: componentWidth }"
   >
 
     <input
@@ -46,7 +46,7 @@
 <script>
 /* eslint-disable max-len */
 import ViWrapper from './Wrapper.vue';
-import sizeMixin from '../mixins/sizes';
+import { scaleMixin, widthMixin } from '../mixins/sizes';
 import extrasMixin from '../mixins/extras';
 
 export default {
@@ -54,7 +54,7 @@ export default {
   components: {
     ViWrapper,
   },
-  mixins: [sizeMixin, extrasMixin],
+  mixins: [scaleMixin, widthMixin, extrasMixin],
   props: {
     /**
      * Tipo checkbox ou radio button
@@ -142,13 +142,6 @@ export default {
       default: false,
     },
     /**
-     * width do input
-     */
-    width: {
-      type: [String, Number],
-      default: null,
-    },
-    /**
      * _Validação:_ Obrigatório
      */
     required: {
@@ -231,11 +224,6 @@ export default {
     },
   },
   computed: {
-    inputWidth() {
-      if (this.width === null) return false;
-      if (Number.isNaN(this.width - 0)) return this.width;
-      return `${this.width}px`;
-    },
     isChecked() {
       return typeof this.value === 'boolean' && this.value;
     },

@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import sizeMixin from '../mixins/sizes';
+import { scaleMixin } from '../mixins/sizes';
 import colosMixin from '../mixins/colors';
 
 /**
@@ -54,7 +54,7 @@ const defaultPercent = 40;
 
 export default {
   name: 'ViLoading',
-  mixins: [sizeMixin, colosMixin],
+  mixins: [scaleMixin, colosMixin],
   props: {
     /**
      * [0 - 100] Define o percentual do carregamento

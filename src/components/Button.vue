@@ -19,7 +19,7 @@
     ]"
     :href="this.href"
     :style="{
-      width: buttonWidth,
+      width: componentWidth,
       justifyContent,
     }"
     @click="onClick">
@@ -33,7 +33,7 @@
 
 <script>
 import ViWrapper from './Wrapper.vue';
-import sizeMixin from '../mixins/sizes';
+import { scaleMixin, widthMixin } from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
 import extrasMixin from '../mixins/extras';
 
@@ -42,7 +42,7 @@ export default {
   components: {
     ViWrapper,
   },
-  mixins: [sizeMixin, colorsMixin, extrasMixin],
+  mixins: [scaleMixin, widthMixin, colorsMixin, extrasMixin],
   props: {
     /**
      * Fundo transparente com apenas borda e texto colorido
@@ -66,13 +66,6 @@ export default {
       default: false,
     },
     /**
-     * Largura do botão (Passe numero fazendo bind da prop)
-     */
-    width: {
-      type: [String, Number],
-      default: 'auto',
-    },
-    /**
      * Caso o botão seja um link
      */
     href: {
@@ -88,10 +81,6 @@ export default {
     },
   },
   computed: {
-    buttonWidth() {
-      if (Number.isNaN(this.width - 0)) return this.width;
-      return `${this.width}px`;
-    },
     tagButton() {
       if (this.href) return 'a';
       return 'button';

@@ -1,9 +1,7 @@
-/* eslint-disable no-console */
-
 /**
  * @mixin
  */
-export default {
+export const scaleMixin = {
   props: {
     /**
      * _Tamanho:_ Define o menor tamanho para o componente.
@@ -25,6 +23,28 @@ export default {
     large: {
       type: Boolean,
       default: false,
+    },
+  },
+};
+
+/**
+ * @mixin
+ */
+export const widthMixin = {
+  props: {
+    /**
+     * width do componente
+     */
+    width: {
+      type: [String, Number],
+      default: null,
+    },
+  },
+  computed: {
+    componentWidth() {
+      if (this.width === null) return false;
+      if (Number.isNaN(this.width - 0)) return this.width;
+      return `${this.width}px`;
     },
   },
 };
