@@ -65,6 +65,7 @@
 import ViWrapper from './Wrapper.vue';
 import ViButton from './Button.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
+import inputMixin from '../mixins/input';
 import extrasMixin from '../mixins/extras';
 
 export default {
@@ -73,7 +74,7 @@ export default {
     ViWrapper,
     ViButton,
   },
-  mixins: [scaleMixin, widthMixin, extrasMixin],
+  mixins: [scaleMixin, widthMixin, inputMixin, extrasMixin],
   props: {
     /**
      * Tipo de campo
@@ -83,32 +84,10 @@ export default {
       default: 'text',
     },
     /**
-     * Label do campo
-     */
-    label: {
-      type: String,
-      default: null,
-    },
-    /**
-     * Label extra ex: "(obrigatório)"
-     */
-    instruction: {
-      type: String,
-      default: null,
-    },
-    /**
      * Placeholder do campo
      */
     placeholder: {
       type: String,
-      default: null,
-    },
-    /**
-     * Valor do campo
-     * @model
-     */
-    value: {
-      type: [String, Number, Boolean, Object, Array],
       default: null,
     },
     /**
@@ -125,64 +104,6 @@ export default {
     autoComplete: {
       type: String,
       default: 'on',
-    },
-    /**
-     * Identificador do campo. Caso não definido, será um valor gerado automaticamente.
-     */
-    fieldID: {
-      type: String,
-      default: () => {
-        const crypto = window.crypto.getRandomValues(new Uint8Array(6));
-        const uId = Object.keys(crypto)
-          .map(key => crypto[key].toString(16))
-          .join('');
-
-        return `ViInput__Field${uId}`;
-      },
-    },
-    /**
-     * Define se o elemento recebe o foco ao entrar a página
-     */
-    autoFocus: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Input apenas leitura
-     */
-    readOnly: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Input desabilitado
-     */
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * _Validação:_ Obrigatório
-     */
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * _Validação:_ Mensagens de erro personalizada. [Opções de validação](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-cva-validity).
-     * Quando null usa a mensagem padrão na língua definida do browser
-     */
-    customErrorMsg: {
-      type: Object,
-      default: null,
-    },
-    /**
-     * _Validação:_ Validação em tempo real durante interação com o input
-     * Padão
-     */
-    forceValidation: {
-      type: Boolean,
-      default: false,
     },
     /**
      * _Validação:_ Número minimo no valor do campo
@@ -227,13 +148,6 @@ export default {
       default: null,
     },
     /**
-    * Nome do campo (usa o mesmo que fieldID se não definido)
-    */
-    name: {
-      type: String,
-      default: null,
-    },
-    /**
     * Multiplo
     */
     multiple: {
@@ -243,8 +157,6 @@ export default {
   },
   data() {
     return {
-      validated: false,
-      invalid: false,
       filesValue: null,
     };
   },
@@ -271,33 +183,6 @@ export default {
         default:
           return target.value;
       }
-    },
-    validate(target) {
-      this.validated = true;
-      this.invalid = !target.validity.valid;
-      if (this.customErrorMsg) {
-        let customMsg = '';
-        const hasMessage = Object.keys(this.customErrorMsg).some((key) => {
-          if (target.validity[key]) {
-            customMsg = this.customErrorMsg[key];
-          }
-          return target.validity[key];
-        });
-
-        if (hasMessage) {
-          target.setCustomValidity(customMsg);
-        } else {
-          target.setCustomValidity('');
-        }
-      }
-
-      /**
-       * Evento de validação
-       *
-       * @event invalid
-       * @type {boolean}
-       */
-      this.$emit('invalid', this.invalid);
     },
     fileButtonTrigger() {
       this.$refs.input.click();

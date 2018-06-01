@@ -47,6 +47,7 @@
 /* eslint-disable max-len */
 import ViWrapper from './Wrapper.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
+import inputMixin from '../mixins/input';
 import extrasMixin from '../mixins/extras';
 
 export default {
@@ -54,7 +55,7 @@ export default {
   components: {
     ViWrapper,
   },
-  mixins: [scaleMixin, widthMixin, extrasMixin],
+  mixins: [scaleMixin, widthMixin, inputMixin, extrasMixin],
   props: {
     /**
      * Tipo checkbox ou radio button
@@ -62,28 +63,6 @@ export default {
     radio: {
       type: Boolean,
       default: false,
-    },
-    /**
-     * Label do campo
-     */
-    label: {
-      type: String,
-      default: null,
-    },
-    /**
-     * Label extra ex: "(obrigatório)"
-     */
-    instruction: {
-      type: String,
-      default: null,
-    },
-    /**
-     * Valor do campo
-     * @model
-     */
-    value: {
-      type: [String, Number, Boolean, Object, Array],
-      default: null,
     },
     /**
      * Lista de opções usado para (Radio e Checkbox)
@@ -106,77 +85,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    /**
-     * Identificador do campo. Caso não definido, será um valor gerado automaticamente.
-     */
-    fieldID: {
-      type: String,
-      default: () => {
-        const crypto = window.crypto.getRandomValues(new Uint8Array(6));
-        const uId = Object.keys(crypto)
-          .map(key => crypto[key].toString(16))
-          .join('');
-
-        return `ViInputCheckbox__Field${uId}`;
-      },
-    },
-    /**
-     * Define se o elemento recebe o foco ao entrar a página
-     */
-    autoFocus: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Input apenas leitura
-     */
-    readOnly: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Input desabilitado
-     */
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * _Validação:_ Obrigatório
-     */
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * _Validação:_ Mensagens de erro personalizada. [Opções de validação](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-cva-validity).
-     * Quando null usa a mensagem padrão na língua definida do browser
-     */
-    customErrorMsg: {
-      type: Object,
-      default: null,
-    },
-    /**
-     * _Validação:_ Validação em tempo real durante interação com o input
-     * Padão
-     */
-    forceValidation: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-    * Nome do campo (usa o mesmo que fieldID se não definido)
-    */
-    name: {
-      type: String,
-      default: null,
-    },
-  },
-  data() {
-    return {
-      validated: false,
-      invalid: false,
-    };
   },
   methods: {
     inputChange(target) {
@@ -194,33 +102,6 @@ export default {
        *
        */
       this.$emit('input', value);
-    },
-    validate(target) {
-      this.validated = true;
-      this.invalid = !target.validity.valid;
-      if (this.customErrorMsg) {
-        let customMsg = '';
-        const hasMessage = Object.keys(this.customErrorMsg).some((key) => {
-          if (target.validity[key]) {
-            customMsg = this.customErrorMsg[key];
-          }
-          return target.validity[key];
-        });
-
-        if (hasMessage) {
-          target.setCustomValidity(customMsg);
-        } else {
-          target.setCustomValidity('');
-        }
-      }
-
-      /**
-       * Evento de validação
-       *
-       * @event invalid
-       * @type {boolean}
-       */
-      this.$emit('invalid', this.invalid);
     },
   },
   computed: {
@@ -265,8 +146,8 @@ export default {
           width 1.5em
           transition all 0.06s ease-out
 
-      &.ViInput__Input--invalid + label:before
-      &.ViInput__Input--validated:invalid + label:before
+      &.ViInputCheckbox__Input--invalid + label:before
+      &.ViInputCheckbox__Input--validated:invalid + label:before
         box-shadow 0px 0px 0px 1px rgba($error-color, 1)
 
       &:focus
