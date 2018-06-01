@@ -2,6 +2,8 @@
   "eslint.validate": [
       "javascript",
       "javascriptreact",
+      "airbnb-base",
+      "plugin:vue/strongly-recommended",
       {
         "language": "vue",
         "autoFix": true

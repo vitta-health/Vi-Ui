@@ -1,7 +1,6 @@
 <template>
   <vi-wrapper
     mini
-    v-model="internalValue"
     :vertical="isVertical"
     justify-content="flex-start"
     tag="div"
@@ -26,6 +25,7 @@
         @valid="validate($event.target)"
         @invalid="validate($event.target)"
         @input="inputChange($event.target)"
+        @change="inputChange($event.target)"
         class="ViInput__Input"
         :class="{
           'ViInput__Input--validated': validated || forceValidation,
@@ -34,16 +34,20 @@
         v-bind="{
           autocomplete: autocompleteComp,
           autofocus,
-          checked: isChecked,
+          checked: checked || isChecked,
+          disabled,
+          hidden: type === 'file',
           id: idField,
           max,
           maxlength,
           min,
           minlength,
+          multiple,
           name: name || idField,
           pattern,
           placeholder,
           required,
+          readOnly,
           rows,
           type: inputType,
           value,
@@ -52,6 +56,12 @@
         :key="order"
       />
     </template>
+    <vi-button
+      dark
+      type="button"
+      v-if="type === 'file'"
+      @click="fileButtonTrigger"
+    >{{ fileButton }}</vi-button>
   </vi-wrapper>
 </template>
 
@@ -59,6 +69,7 @@
 <script>
 /* eslint-disable max-len */
 import ViWrapper from './Wrapper.vue';
+import ViButton from './Button.vue';
 import sizeMixin from '../mixins/sizes';
 import extrasMixin from '../mixins/extras';
 
@@ -66,6 +77,7 @@ export default {
   name: 'ViInput',
   components: {
     ViWrapper,
+    ViButton,
   },
   mixins: [sizeMixin, extrasMixin],
   props: {
@@ -102,7 +114,7 @@ export default {
      * @model
      */
     value: {
-      type: [String, Number, Boolean, Array],
+      type: [String, Number, Boolean, Object, Array],
       default: null,
     },
     /**
@@ -127,12 +139,19 @@ export default {
       default: null,
     },
     /**
+     * Checkbox ou radiobutton marcados?
+     */
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Auto-complete [opções de autocomplete](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute).
-     * Obs: Chrome ignora opção a "off" (ou "false") e tenta decidir por conta propria
+     * Obs: Chrome ignora a opção "off" (ou "false") e tenta decidir por conta propria
      */
     autocomplete: {
       type: String,
-      default: 'off',
+      default: 'on',
     },
     /**
      * Identificador do campo (caso não definido retorna uma id auto gerada)
@@ -248,21 +267,26 @@ export default {
       type: String,
       default: null,
     },
+    /**
+    * @ignore
+    */
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       validated: false,
       invalid: false,
-      internalValue: null,
+      filesValue: null,
     };
   },
   methods: {
     inputChange(target) {
       this.validated = false;
       this.invalid = false;
-      const value = typeof this.value === 'boolean'
-        ? target.checked
-        : target.value;
+      const value = this.valueHandler(target);
 
       /**
        * Evento de retorno de dados
@@ -272,6 +296,17 @@ export default {
        *
        */
       this.$emit('input', value);
+    },
+    valueHandler(target) {
+      switch (this.type) {
+        case 'file':
+          this.filesValue = this.fileButtonTextSetter(target);
+          return target.files;
+        default:
+          return typeof this.value === 'boolean'
+            ? target.checked
+            : target.value;
+      }
     },
     validate(target) {
       this.validated = true;
@@ -300,8 +335,23 @@ export default {
        */
       this.$emit('invalid', this.invalid);
     },
+    fileButtonTrigger() {
+      this.$refs.input[0].click();
+    },
+    fileButtonTextSetter(target) {
+      if (target.files.length > 1) {
+        return `(${target.files.length}) Arquivos selecionados`;
+      }
+      return target.value;
+    },
   },
   computed: {
+    fileButton() {
+      if (!this.filesValue) {
+        return this.placeholder || 'Selecione arquivos';
+      }
+      return this.filesValue;
+    },
     inputLabelOrder() {
       switch (this.type) {
         case 'checkbox':
@@ -354,6 +404,8 @@ export default {
         case 'url':
         case 'tel':
           return this.type;
+        case 'password':
+          return 'off';
         default:
           return this.autocomplete;
       }
@@ -413,6 +465,10 @@ export default {
           width 1.5em
           transition all 0.06s ease-out
 
+      &.ViInput__Input--invalid + label:before
+      &.ViInput__Input--validated:invalid + label:before
+        box-shadow 0px 0px 0px 1px rgba($error-color, 1)
+
       &[type="checkbox"]
         & + label:after
           background transparent
@@ -448,22 +504,14 @@ export default {
 Input básico:
 
 ```jsx
-<vi-input
-  label="Label Input"
-  value=""
-/>
+<vi-input />
 ```
 
 Exemplo de formulario.
 
 ```vue
 <template>
-  <form
-    @input.capture="dataForm()"
-    @change.capture="dataForm()"
-    id="thisFormExemple"
-    class="ViComponent"
-  >
+  <form class="ViComponent">
     <vi-wrapper
       vertical
       tag="fieldset"
@@ -490,14 +538,14 @@ Exemplo de formulario.
         v-for="(valueRel, index) in relationshipStatusOptions"
         :key="index"
         type="radio"
-        :label="valueRel"
-        :checked="valueRel === relationshipStatus"
         name="relationshipStatus"
+        :label="valueRel"
         :value="valueRel"
+        :checked="valueRel === relationshipStatus"
         @input="relationshipStatus = valueRel"
       />
     </vi-wrapper>
-    <pre><code ref="formResult"></code></pre>
+    <pre><code>{{ dataForm }}</code></pre>
   </form>
 </template>
 <script>
@@ -507,7 +555,11 @@ export default {
       name: '',
       profileDescription: '',
       relationshipStatus: 'single',
-      relationshipStatusOptions: [
+    };
+  },
+  computed: {
+    relationshipStatusOptions() {
+      return [
         'single',
         'in a relationship',
         'engaged',
@@ -517,20 +569,56 @@ export default {
         'widowed',
         'separated',
         'divorced',
-      ]
-    };
-  },
-  methods: {
-    dataForm() {
-      this.$refs.formResult.innerHTML = JSON.stringify(this._data, null, 2);
+      ];
     },
-  },
-  mounted() {
-    this.dataForm();
+    dataForm() {
+      return JSON.stringify(this._data, null, 2);
+    },
   }
 };
 </script>
 ```
+
+Exemplo de file input
+
+```vue
+<template>
+  <form
+    class="ViComponent"
+    @submit.prevent="showFiles"
+  >
+    <vi-wrapper tag="div">
+      <vi-input
+        multiple
+        type="file"
+        ref="myFiles"
+        name="relationshipStatus"
+        @input="fileHandler"
+      />
+      <vi-button type="submit" success>Upload!</vi-button>
+    </vi-wrapper>
+  </form>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      files: {},
+    };
+  },
+  methods: {
+    fileHandler(files) {
+      this.files = files;
+    },
+    showFiles(files) {
+      alert('look at your browser console!')
+      console.log(this.files)
+    },
+  },
+};
+</script>
+```
+
 
 Exemplo de validação de formulário.
 
@@ -610,6 +698,54 @@ export default {
 ```
 
 Exemplo de validação com mensagem personalizada. [Opções de validação](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-cva-validity).
+
+```vue
+<template>
+  <form
+    @submit.prevent="testForm($event.target.validity)"
+    @invalid.capture="testForm($event.target.validity)"
+    class="ViComponent"
+  >
+    <vi-wrapper
+      justify-content="space-between"
+      tag="div"
+    >
+      <vi-input
+        placeholder="Email"
+        required
+        v-model="email"
+        type="email"
+        :customErrorMsg="customErrorMsg"
+      />
+      <vi-button type="submit" success>Try!</vi-button>
+    </vi-wrapper>
+  </form>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      email: '',
+      customErrorMsg: {
+        typeMismatch: 'Isso não é um email',
+        valueMissing: 'Preecha o email',
+      }
+    };
+  },
+  methods: {
+    testForm(validity) {
+      if(validity) {
+        console.log('validity:', validity);
+      } else {
+        alert('Valid form!');
+      }
+    },
+  },
+};
+</script>
+```
+
+File
 
 ```vue
 <template>

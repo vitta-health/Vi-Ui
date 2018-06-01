@@ -102,10 +102,10 @@ export default {
       /**
        * Evento de clique.
        *
-       * @event onClick
+       * @event click
        * @type {object}
        */
-      this.$emit('on-click');
+      this.$emit('click');
     },
   },
 };
@@ -196,7 +196,7 @@ Exemplo de utilização:
 ```vue
 <template>
     <div class="wrapper">
-        <vi-button @click.native="pushButton">+1</vi-button>
+        <vi-button @click="pushButton">+1</vi-button>
         <hr />
         <p class="text-name">Contando: {{ numClicks }}</p>
     </div>

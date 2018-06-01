@@ -6,31 +6,31 @@
     <vi-button
       title="Primeira Página"
       primary
-      @on-click="handleNavitation('FIRST_PAGE')"
+      @click="handleNavitation('FIRST_PAGE')"
       :href="getURL('FIRST_PAGE')"
       :disabled="!buttonEnabled('FIRST_PAGE')">⏮</vi-button>
     <vi-button
       primary
-      @on-click="handleNavitation('PREVIOUS_PAGE')"
+      @click="handleNavitation('PREVIOUS_PAGE')"
       :href="getURL('PREVIOUS_PAGE')"
       :disabled="!buttonEnabled('PREVIOUS_PAGE')">⏴</vi-button>
     <vi-button
       primary
       :href="getURL(page)"
-      @on-click="handleNavitation(page)"
+      @click="handleNavitation(page)"
       :active="isCurrentPage(page)"
       v-for="(page) in getPages"
       :key="page">{{ page }}
     </vi-button>
     <vi-button
       primary
-      @on-click="handleNavitation('NEXT_PAGE')"
+      @click="handleNavitation('NEXT_PAGE')"
       :href="getURL('NEXT_PAGE')"
       :disabled="!buttonEnabled('NEXT_PAGE')">⏵</vi-button>
     <vi-button
       primary
       title="Última Página"
-      @on-click="handleNavitation('LAST_PAGE')"
+      @click="handleNavitation('LAST_PAGE')"
       :href="getURL('LAST_PAGE')"
       :disabled="!buttonEnabled('LAST_PAGE')">⏭</vi-button>
   </vi-button-group>
