@@ -21,8 +21,6 @@
         autofocus: autoFocus,
         disabled,
         id: fieldID,
-        maxlength: maxLength,
-        minlength: minLength,
         accept,
         multiple,
         name: name || fieldID,
