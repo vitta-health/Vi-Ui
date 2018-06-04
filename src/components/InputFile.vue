@@ -1,0 +1,202 @@
+<template>
+  <vi-wrapper
+    mini
+    vertical
+    justify-content="flex-start"
+    tag="div"
+    class="ViComponent ViInput ViInputFile"
+    :style="{ width: componentWidth }"
+  >
+    <vi-input-label v-bind="{ for: fieldID, label, instruction }"/>
+    <input
+      ref="input"
+      @valid="validate($event.target)"
+      @invalid="validate($event.target)"
+      @input="inputChange($event.target)"
+      @change="inputChange($event.target)"
+      class="ViInput__Input"
+      type="file"
+      v-bind="{
+        autofocus: autoFocus,
+        disabled,
+        id: fieldID,
+        hidden: true,
+        max,
+        maxlength: maxLength,
+        min,
+        minlength: minLength,
+        multiple,
+        name: name || fieldID,
+        placeholder,
+        required,
+        readOnly,
+      }"
+    >
+    <vi-wrapper
+      no-margin
+      class="ViInput_Wrapper"
+      tag="div"
+    >
+      <input
+        class="ViInput__Input"
+        :class="{
+          'ViInput__Input--validated': validated || forceValidation,
+          'ViInput__Input--invalid': invalid,
+        }"
+        type="text"
+        v-bind="{
+          disabled,
+          readOnly: true,
+          value: filesTextValue,
+        }"
+        @click="fileTrigger"
+      >
+      <vi-button
+        primary
+        @click="fileTrigger"
+      >
+        {{ buttonDesciption }}
+      </vi-button>
+    </vi-wrapper>
+  </vi-wrapper>
+
+</template>
+
+
+<script>
+/* eslint-disable max-len */
+import ViWrapper from './Wrapper.vue';
+import ViButton from './Button.vue';
+import ViInputLabel from '../helperComponents/InputLabel.vue';
+import { scaleMixin, widthMixin } from '../mixins/sizes';
+import inputMixin from '../mixins/input';
+import extrasMixin from '../mixins/extras';
+
+export default {
+  name: 'ViInputFile',
+  components: {
+    ViWrapper,
+    ViButton,
+    ViInputLabel,
+  },
+  mixins: [scaleMixin, widthMixin, inputMixin, extrasMixin],
+  props: {
+    /**
+     * _Validação:_ Número minimo no valor do campo
+     */
+    min: {
+      type: [String, Number],
+      default: null,
+    },
+    /**
+     * _Validação:_ Número máximo no valor do campo
+     */
+    max: {
+      type: [String, Number],
+      default: null,
+    },
+    /**
+     * _Validação:_ Máximo de caracteres no campo
+     */
+    maxLength: {
+      type: [String, Number],
+      default: null,
+    },
+    /**
+     * _Validação:_ Mínimo de caracteres no campo
+     */
+    minLength: {
+      type: [String, Number],
+      default: null,
+    },
+    /**
+     * Descrição no campo no campo de texto. A tag ##NUMBER## é subistituida pelo total de arquivo.
+     */
+    inputDescription: {
+      type: Object,
+      default: () => ({
+        empty: 'No selected files',
+        filled: '(##NUMBER##) Selected files',
+      }),
+    },
+    /**
+     * Descrição no botão de seleção
+     */
+    buttonDesciption: {
+      type: String,
+      default: 'Select files',
+    },
+  },
+  data() {
+    return {
+      fileName: '',
+      totalFiles: 0,
+    };
+  },
+  methods: {
+    inputChange(target) {
+      this.validated = false;
+      this.invalid = false;
+      const value = this.valueHandler(target);
+
+      /**
+       * Evento de retorno de dados
+       *
+       * @event input
+       * @type {string|number|object|array|boolean}
+       *
+       */
+      this.$emit('input', value);
+    },
+    valueHandler(target) {
+      this.totalFiles = target.files.length;
+      this.fileName = this.totalFiles !== 1
+        ? '' : target.value;
+
+      return target.files;
+    },
+    fileTrigger() {
+      this.$refs.input.click();
+    },
+  },
+  computed: {
+    filesTextValue() {
+      let valueText = this.inputDescription.empty;
+      if (this.totalFiles === 1) {
+        valueText = this.fileName;
+      } else if (this.totalFiles > 1) {
+        valueText = this.inputDescription.filled;
+      }
+
+      return valueText.replace('##NUMBER##', this.totalFiles);
+    },
+  },
+};
+</script>
+
+<style lang="stylus">
+  @import '../themes/main'
+  @import '../themes/input'
+</style>
+
+<docs>
+Input File básico:
+
+```jsx
+<vi-input-file />
+```
+
+Opções extras para Input File:
+
+```jsx
+<vi-input-file
+  multiple
+  :input-description="{
+    empty: 'Nenhuma foto selecionada',
+    filled: 'Total de fotos a adicionar (##NUMBER##)',
+  }"
+  label="Adicionar fotos ao album"
+  button-desciption="Selecionar fotos"
+/>
+```
+</docs>

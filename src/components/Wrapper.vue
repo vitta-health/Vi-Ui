@@ -73,13 +73,17 @@ export default {
     if (!this.$slots.default) return null;
     const self = this;
     const wrapped = [];
-    const node = this.$slots.default;
+    const node = this.$slots.default.filter((vnode) => {
+      if (!vnode.tag && !vnode.text) return false;
+      return vnode.tag || vnode.text.replace(/[\s\n]/g, '');
+    });
     const wrapperClassName = ['flexWraper'];
     const blockClassName = ['contentWrapper'];
 
     if (this.vertical) wrapperClassName.push('flexWraper--vertical');
     if (this.inverted) wrapperClassName.push('flexWraper--inverted');
     if (this.breakLine) wrapperClassName.push('flexWraper--breakLine');
+    if (this.childWrapper) wrapperClassName.push('flexWraper--childWrapper');
     if (this.proportionalBlock) blockClassName.push('contentWrapper--proportional');
 
     if (this.mini) {
@@ -92,36 +96,21 @@ export default {
       wrapperClassName.push('flexWraper--noMargin');
     }
 
-    if (this.childWrapper) {
-      wrapperClassName.push('flexWraper--childWrapper');
-      node.forEach((child) => {
-        if (!child.text && !child.tag) return;
-        if ('text' in child && !child.tag) {
-          if (!child.text.replace(/[\s\n]/g, '')) return;
-        }
-
+    node.map((child) => {
+      if (this.childWrapper) {
         const newProps = {
           class: blockClassName.join(' '),
         };
-
         wrapped.push(createElement(self.childTag || self.tag, newProps, [child]));
-      });
-    } else {
-      node.map((child) => {
-        if (!child.text && !child.tag) return child;
-        if ('text' in child && !child.tag) {
-          if (!child.text.replace(/[\s\n]/g, '')) return child;
-        }
+        return child;
+      }
+      const newChild = child;
 
-        const newChild = child;
-        if (child.data) {
-          newChild.data.staticClass = child.data.staticClass || '';
-          newChild.data.staticClass = `${newChild.data.staticClass} ${blockClassName.join(' ')}`;
-        }
-
-        return newChild;
-      });
-    }
+      if (child.data) {
+        newChild.data.staticClass = `${child.data.staticClass || ''} ${blockClassName.join(' ')}`;
+      }
+      return newChild;
+    });
 
     return createElement(self.tag, {
       class: wrapperClassName.join(' '),

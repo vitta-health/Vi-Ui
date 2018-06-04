@@ -1,3 +1,5 @@
+let inputPosition = 0;
+
 /**
  * @mixin
  */
@@ -31,12 +33,8 @@ export default {
     fieldID: {
       type: String,
       default: () => {
-        const crypto = window.crypto.getRandomValues(new Uint8Array(6));
-        const uId = Object.keys(crypto)
-          .map(key => crypto[key].toString(16))
-          .join('');
-
-        return `ViInput__Field${uId}`;
+        inputPosition += 1;
+        return `ViInput__Field${inputPosition}`;
       },
     },
     /**
@@ -54,21 +52,21 @@ export default {
       default: false,
     },
     /**
-     * Input apenas leitura
+     * Campo apenas leitura
      */
     readOnly: {
       type: Boolean,
       default: false,
     },
     /**
-     * Input desabilitado
+     * Campo desabilitado
      */
     disabled: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Validação:_ Obrigatório
+     * _Validação:_ Define preechomento do campo como obrigatório
      */
     required: {
       type: Boolean,
@@ -83,12 +81,26 @@ export default {
       default: null,
     },
     /**
-     * _Validação:_ Validação em tempo real durante interação com o input
+     * _Validação:_ Validação em tempo real durante interação com o campo
      * Padão
      */
     forceValidation: {
       type: Boolean,
       default: false,
+    },
+    /**
+     * Múltiplas seleções no mesmo campo
+     */
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Placeholder do campo
+     */
+    placeholder: {
+      type: String,
+      default: null,
     },
   },
   methods: {

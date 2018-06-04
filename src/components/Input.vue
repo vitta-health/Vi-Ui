@@ -7,18 +7,8 @@
     class="ViComponent ViInput"
     :style="{ width: componentWidth }"
   >
-    <label
-      :for="fieldID"
-      class="ViInput__Label"
-      v-if="label"
-    >{{ label }}
-      <small
-        v-if="instruction"
-        class="ViInput__Instruction"
-      >{{ instruction }}</small>
-    </label>
+    <vi-input-label v-bind="{ for: fieldID, label, instruction }"/>
     <component
-      ref="input"
       @valid="validate($event.target)"
       @invalid="validate($event.target)"
       @input="inputChange($event.target)"
@@ -32,13 +22,11 @@
         autocomplete: autoCompleteHandler,
         autofocus: autoFocus,
         disabled,
-        hidden: type === 'file',
         id: fieldID,
         max,
         maxlength: maxLength,
         min,
         minlength: minLength,
-        multiple,
         name: name || fieldID,
         pattern,
         placeholder,
@@ -50,12 +38,6 @@
       }"
       :is="fieldType"
     />
-    <vi-button
-      dark
-      type="button"
-      v-if="type === 'file'"
-      @click="fileButtonTrigger"
-    >{{ fileButton }}</vi-button>
   </vi-wrapper>
 </template>
 
@@ -63,8 +45,8 @@
 <script>
 /* eslint-disable max-len */
 import ViWrapper from './Wrapper.vue';
-import ViButton from './Button.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
+import ViInputLabel from '../helperComponents/InputLabel.vue';
 import inputMixin from '../mixins/input';
 import extrasMixin from '../mixins/extras';
 
@@ -72,7 +54,7 @@ export default {
   name: 'ViInput',
   components: {
     ViWrapper,
-    ViButton,
+    ViInputLabel,
   },
   mixins: [scaleMixin, widthMixin, inputMixin, extrasMixin],
   props: {
@@ -82,13 +64,6 @@ export default {
     type: {
       type: String,
       default: 'text',
-    },
-    /**
-     * Placeholder do campo
-     */
-    placeholder: {
-      type: String,
-      default: null,
     },
     /**
      * Usado para comparar quando options é um array de objetos
@@ -141,30 +116,17 @@ export default {
       default: null,
     },
     /**
-    * Numero de linha quando usando textarea
+    * Número de linhas quando usando textarea
     */
     rows: {
       type: [String, Number],
       default: null,
     },
-    /**
-    * Multiplo
-    */
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      filesValue: null,
-    };
   },
   methods: {
     inputChange(target) {
       this.validated = false;
       this.invalid = false;
-      const value = this.valueHandler(target);
 
       /**
        * Evento de retorno de dados
@@ -173,34 +135,10 @@ export default {
        * @type {string|number|object|array|boolean}
        *
        */
-      this.$emit('input', value);
-    },
-    valueHandler(target) {
-      switch (this.type) {
-        case 'file':
-          this.filesValue = this.fileButtonTextSetter(target);
-          return target.files;
-        default:
-          return target.value;
-      }
-    },
-    fileButtonTrigger() {
-      this.$refs.input.click();
-    },
-    fileButtonTextSetter(target) {
-      if (target.files.length > 1) {
-        return `(${target.files.length}) Arquivos selecionados`;
-      }
-      return target.value;
+      this.$emit('input', target.value);
     },
   },
   computed: {
-    fileButton() {
-      if (!this.filesValue) {
-        return this.placeholder || 'Selecione arquivos';
-      }
-      return this.filesValue;
-    },
     fieldType() {
       switch (this.type) {
         case 'textarea':
@@ -232,27 +170,8 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../themes/main';
-
-.ViCompenent .ViInput
-.ViInput
-  &.flexWraper:not(.flexWraper--vertical)
-    align-items center
-
-  .contentWrapper.ViInput__Input
-  .ViInput__Input
-    border 1px solid $border-color-main
-    background $input-background-main
-    border-radius 0.3em
-    padding 0.6em
-    outline none
-
-    &:focus
-      border 1px solid $border-color-main-focus
-
-    &--invalid
-    &--validated:invalid
-      border 1px solid $error-color
+@import '../themes/main'
+@import '../themes/input'
 </style>
 
 <docs>
@@ -331,47 +250,6 @@ export default {
 };
 </script>
 ```
-
-Exemplo de file input
-
-```vue
-<template>
-  <form
-    class="ViComponent"
-    @submit.prevent="showFiles"
-  >
-    <vi-wrapper tag="div">
-      <vi-input
-        multiple
-        type="file"
-        ref="myFiles"
-        name="relationshipStatus"
-        @input="fileHandler"
-      />
-      <vi-button type="submit" success>Upload!</vi-button>
-    </vi-wrapper>
-  </form>
-</template>
-<script>
-export default {
-  data() {
-    return {
-      files: {},
-    };
-  },
-  methods: {
-    fileHandler(files) {
-      this.files = files;
-    },
-    showFiles(files) {
-      alert('look at your browser console!')
-      console.log(this.files)
-    },
-  },
-};
-</script>
-```
-
 
 Exemplo de validação de formulário.
 

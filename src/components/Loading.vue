@@ -111,7 +111,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../themes/main';
+@import '../themes/main'
 
 .ViComponent .ViLoading
 .ViLoading

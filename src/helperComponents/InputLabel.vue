@@ -1,0 +1,32 @@
+<template>
+  <label
+    :for="fieldID"
+    class="ViInput__Label"
+    v-if="label"
+  >{{ label }}
+    <small
+      v-if="instruction"
+      class="ViInput__Instruction"
+    >{{ instruction }}</small>
+  </label>
+</template>
+
+<script>
+export default {
+  name: 'ViInputLabel',
+  props: {
+    label: {
+      type: String,
+      default: null,
+    },
+    instruction: {
+      type: String,
+      default: null,
+    },
+    fieldID: {
+      type: String,
+      default: null,
+    },
+  },
+};
+</script>

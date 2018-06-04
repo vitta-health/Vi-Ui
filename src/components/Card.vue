@@ -77,7 +77,7 @@ export default {
 };
 </script>
 <style lang="stylus">
-@import '../themes/main';
+@import '../themes/main'
 
 $background-card = $isDark ? $colors.dark : $colors.light
 

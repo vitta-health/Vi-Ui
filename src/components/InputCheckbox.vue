@@ -6,7 +6,6 @@
     class="ViComponent ViInputCheckbox"
     :style="{ width: componentWidth }"
   >
-
     <input
       ref="input"
       @valid="validate($event.target)"
@@ -30,15 +29,7 @@
         value,
       }"
     >
-    <label
-      :for="fieldID"
-      class="ViInputCheckbox__Label"
-    >{{ label }}
-      <small
-        v-if="instruction"
-        class="ViInputCheckbox__Instruction"
-      >{{ instruction }}</small>
-    </label>
+    <vi-input-label v-bind="{ for: fieldID, label, instruction }"/>
   </vi-wrapper>
 </template>
 
@@ -47,6 +38,7 @@
 /* eslint-disable max-len */
 import ViWrapper from './Wrapper.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
+import ViInputLabel from '../helperComponents/InputLabel.vue';
 import inputMixin from '../mixins/input';
 import extrasMixin from '../mixins/extras';
 
@@ -54,6 +46,7 @@ export default {
   name: 'ViInputCheckbox',
   components: {
     ViWrapper,
+    ViInputLabel,
   },
   mixins: [scaleMixin, widthMixin, inputMixin, extrasMixin],
   props: {
@@ -79,7 +72,7 @@ export default {
       default: null,
     },
     /**
-     * Checkbox ou radiobutton marcados?
+     * Checkbox ou radio button está marcados?
      */
     checked: {
       type: Boolean,
@@ -113,7 +106,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../themes/main';
+  @import '../themes/main'
 
 .ViCompenent .ViInputCheckbox
 .ViInputCheckbox
@@ -192,6 +185,7 @@ Exemplo checkbox:
 <template>
   <vi-wrapper vertical class="ViComponent">
     <vi-input-checkbox label="Exemplo de Checkbox" v-model="isChecked" />
+    <hr>
     <vi-input-checkbox
       radio
       label="Is checkbox checked?"

@@ -1,0 +1,36 @@
+.ViCompenent .ViInput
+.ViInput
+  &.flexWraper:not(.flexWraper--vertical)
+    align-items center
+
+  .contentWrapper.ViInput__Input
+    border 1px solid $border-color-main
+    background $input-background-main
+    border-radius 0.3em
+    padding 0.6em
+    outline none
+    text-overflow ellipsis
+
+    &:focus:not([readonly])
+      border 1px solid $border-color-main-focus
+
+    &--invalid
+    &--validated:invalid
+      border 1px solid $error-color
+
+  & > .ViInput_Wrapper
+    align-items stretch
+
+    .contentWrapper:first-child
+      border-bottom-right-radius  0
+      border-top-right-radius  0
+
+    .contentWrapper:last-child
+      border-bottom-left-radius  0
+      border-top-left-radius  0
+
+    .contentWrapper.ViInput__Input
+      width 100%
+
+    .contentWrapper.ViButton
+      white-space nowrap
