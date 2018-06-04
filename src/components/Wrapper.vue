@@ -42,7 +42,7 @@ export default {
       default: false,
     },
     /**
-     * Quando definido, pode filhos podem quebrar a linha
+     * Quando definido, os filhos quebrar linha
      */
     breakLine: {
       type: Boolean,
