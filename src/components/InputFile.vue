@@ -179,7 +179,7 @@ Personalização do Input File:
   multiple
   :input-description="{
     empty: 'Nenhuma foto selecionada',
-    filled: 'Total de fotos a adicionar (##NUMBER##)',
+    filled: 'Total de fotos selecionadas: (##NUMBER##)',
   }"
   label="Adicionar fotos ao album"
   button-desciption="Selecionar fotos"
