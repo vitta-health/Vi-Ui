@@ -7,7 +7,7 @@ export default {
   mixins: [extrasMixin, scaleMixin],
   props: {
     /**
-     * _Tamanho:_ Remove margens dos filhos.
+     * _Tamanho:_ Remove margens dos filhos
      */
     noMargin: {
       type: Boolean,
@@ -21,42 +21,42 @@ export default {
       default: 'span',
     },
     /**
-     * define se blocos precisam ter o mesmo tamanho entre eles
+     * Define se blocos precisam ter o mesmo tamanho entre eles
      */
     proportionalBlock: {
       type: Boolean,
       default: false,
     },
     /**
-     * define se direção do wrap é vertical
+     * Define se direção do wrap é vertical
      */
     vertical: {
       type: Boolean,
       default: false,
     },
     /**
-     * define se ordem dos filhos é invertida
+     * Define se ordem dos filhos é invertida
      */
     inverted: {
       type: Boolean,
       default: false,
     },
     /**
-     * quando definido, pode quebra linha
+     * Quando definido, pode filhos podem quebrar a linha
      */
     breakLine: {
       type: Boolean,
       default: false,
     },
     /**
-     * define se filhos vão ser embrulhados em um wrapper filho
+     * Define se filhos vão ser embrulhados em um wrapper filho
      */
     childWrapper: {
       type: Boolean,
       default: false,
     },
     /**
-     * Tag usada no wrapper filho (filhos usam mesma tag da prop `tag` se `childTag` igual null)
+     * Tag usada no wrapper filho. Se `childTag` for null, utiliza o valor da prop `tag`
      */
     childTag: {
       type: String,
@@ -214,5 +214,5 @@ export default {
 
 <docs>
 Wrapper aplica flexbox entre os filhos.
-Ele também pode embrulhar os filhos em uma tag caso necessario.
+Ele também pode embrulhar os filhos em uma tag caso necessário.
 </docs>

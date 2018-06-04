@@ -51,25 +51,11 @@ export default {
   mixins: [scaleMixin, widthMixin, inputMixin, extrasMixin],
   props: {
     /**
-     * Tipo checkbox ou radio button
+     * Define tipo para radio button
      */
     radio: {
       type: Boolean,
       default: false,
-    },
-    /**
-     * Lista de opções usado para (Radio e Checkbox)
-     */
-    options: {
-      type: Array,
-      default: null,
-    },
-    /**
-     * Usado para comparar quando options é um array de objetos
-     */
-    trackBy: {
-      type: String,
-      default: null,
     },
     /**
      * Checkbox ou radio button está marcados?

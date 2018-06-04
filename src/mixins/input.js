@@ -66,7 +66,7 @@ export default {
       default: false,
     },
     /**
-     * _Validação:_ Define preechomento do campo como obrigatório
+     * _Validação:_ Define preechímento do campo como obrigatório
      */
     required: {
       type: Boolean,

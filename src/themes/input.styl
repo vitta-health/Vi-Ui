@@ -1,5 +1,7 @@
 .ViCompenent .ViInput
 .ViInput
+  position relative
+  z-index 0
   &.flexWraper:not(.flexWraper--vertical)
     align-items center
 
@@ -34,3 +36,15 @@
 
     .contentWrapper.ViButton
       white-space nowrap
+
+  .ViInput__FileInput
+    border 0
+    bottom -1px
+    height 1px
+    margin 0!important
+    overflow hidden
+    opacity 0
+    padding 0
+    position absolute
+    right 0
+    width 100%

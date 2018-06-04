@@ -14,17 +14,16 @@
       @invalid="validate($event.target)"
       @input="inputChange($event.target)"
       @change="inputChange($event.target)"
-      class="ViInput__Input"
+      class="ViInput__FileInput"
       type="file"
       v-bind="{
+        autocomplete: autoComplete,
         autofocus: autoFocus,
         disabled,
         id: fieldID,
-        hidden: true,
-        max,
         maxlength: maxLength,
-        min,
         minlength: minLength,
+        accept,
         multiple,
         name: name || fieldID,
         placeholder,
@@ -82,31 +81,20 @@ export default {
   mixins: [scaleMixin, widthMixin, inputMixin, extrasMixin],
   props: {
     /**
-     * _Validação:_ Número minimo no valor do campo
+     * Auto-complete [opções de autocomplete](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute).
+     * Obs: Chrome ignora a opção "off" (ou "false") e tenta decidir por conta propria
      */
-    min: {
-      type: [String, Number],
-      default: null,
+    autoComplete: {
+      type: String,
+      default: 'on',
     },
     /**
-     * _Validação:_ Número máximo no valor do campo
+     * _Validação:_ [formatos e extensões](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept)
+     * ou [MIME types](http://www.iana.org/assignments/media-types/media-types.xhtml)
+     * aceitados por um campo arquivo
      */
-    max: {
-      type: [String, Number],
-      default: null,
-    },
-    /**
-     * _Validação:_ Máximo de caracteres no campo
-     */
-    maxLength: {
-      type: [String, Number],
-      default: null,
-    },
-    /**
-     * _Validação:_ Mínimo de caracteres no campo
-     */
-    minLength: {
-      type: [String, Number],
+    accept: {
+      type: String,
       default: null,
     },
     /**
@@ -186,7 +174,7 @@ Input File básico:
 <vi-input-file />
 ```
 
-Opções extras para Input File:
+Personalização do Input File:
 
 ```jsx
 <vi-input-file
@@ -198,5 +186,35 @@ Opções extras para Input File:
   label="Adicionar fotos ao album"
   button-desciption="Selecionar fotos"
 />
+```
+
+
+Exemplo de validação de formulário.
+
+```jsx
+<form
+  @submit.prevent=""
+  class="ViComponent"
+>
+  <vi-wrapper
+    vertical
+    tag="fieldset"
+  >
+    <legend>Album</legend>
+
+    <vi-input-file
+      label="Photos to upload"
+      required
+      multiple
+      accept="image/*"
+    />
+  </vi-wrapper>
+  <vi-wrapper
+    justify-content="left"
+    tag="div"
+  >
+    <vi-button type="submit" success>Upload!</vi-button>
+  </vi-wrapper>
+</form>
 ```
 </docs>

@@ -19,7 +19,7 @@
         'ViInput__Input--invalid': invalid,
       }"
       v-bind="{
-        autocomplete: autoCompleteHandler,
+        autocomplete: autoComplete,
         autofocus: autoFocus,
         disabled,
         id: fieldID,
@@ -66,13 +66,6 @@ export default {
       default: 'text',
     },
     /**
-     * Usado para comparar quando options é um array de objetos
-     */
-    trackBy: {
-      type: String,
-      default: null,
-    },
-    /**
      * Auto-complete [opções de autocomplete](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute).
      * Obs: Chrome ignora a opção "off" (ou "false") e tenta decidir por conta propria
      */
@@ -81,7 +74,7 @@ export default {
       default: 'on',
     },
     /**
-     * _Validação:_ Número minimo no valor do campo
+     * _Validação:_ Número mínimo no valor do campo
      */
     min: {
       type: [String, Number],
@@ -151,20 +144,6 @@ export default {
     inputType() {
       return this.fieldType === 'input' ? this.type : false;
     },
-    autoCompleteHandler() {
-      if (this.autoComplete !== 'off') return this.autoComplete;
-
-      switch (this.type) {
-        case 'email':
-        case 'url':
-        case 'tel':
-          return this.type;
-        case 'password':
-          return 'off';
-        default:
-          return this.autoComplete;
-      }
-    },
   },
 };
 </script>
@@ -181,7 +160,7 @@ Input básico:
 <vi-input />
 ```
 
-Exemplo de formulario.
+Exemplo de formulário.
 
 ```vue
 <template>
@@ -280,7 +259,6 @@ Exemplo de validação de formulário.
         instruction="(Required)"
         v-model="password"
         type="password"
-        max-length="8"
         min-length="4"
       />
       <vi-input
