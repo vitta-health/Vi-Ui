@@ -5,8 +5,7 @@
       "airbnb-base",
       "plugin:vue/strongly-recommended",
       {
-        "language": "vue",
-        "autoFix": false
+        "language": "vue"
       }
     ]
   }
