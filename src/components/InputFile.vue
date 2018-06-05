@@ -99,18 +99,18 @@ export default {
       default: null,
     },
     /**
-     * Descrição no campo quando input vazio.
+     * Descrição no campo quando o input estiver vazio.
      */
     emptyInput: {
       type: String,
       default: 'No selected file',
     },
     /**
-     * Descrição no campo se `multiple` selecionado e mais de um arquivo selecionado. A tag ##NUMBER## é subistituida pelo total de arquivos.
+     * Texto do botão para quando a opção `multiple` é true e há mais de um arquivo selecionado. A string ##NUMBER## é substituída pelo número de arquivos.
      */
     filledInput: {
       type: String,
-      default: '(##NUMBER##) Selected files',
+      default: '##NUMBER## Selected files',
     },
     /**
      * Descrição no botão de seleção

@@ -12,7 +12,7 @@
       no-margin
       class="ViInput_Wrapper"
       tag="div"
-      :remove-parent-wrapper="!hasPrefix && !hasSuffix"
+      :disable-wrapper="!hasPrefix && !hasSuffix"
     >
       <div
         v-if="hasPrefix"

@@ -43,14 +43,14 @@ export default {
       default: false,
     },
     /**
-     * Quando definido, os filhos quebrar linha
+     * Quando definido, os filhos podem quebrar a linha
      */
     breakLine: {
       type: Boolean,
       default: false,
     },
     /**
-     * Define se filhos vão ser embrulhados em um wrapper filho
+     * Define se filhos serão envolvidos em um wrapper filho
      */
     childWrapper: {
       type: Boolean,
@@ -64,9 +64,9 @@ export default {
       default: null,
     },
     /**
-     * Tag pai condincional
+     * Se `true` retorna apenas os filhos sem o wrapper
      */
-    removeParentWrapper: {
+    disableWrapper: {
       type: Boolean,
       default: false,
     },
@@ -76,6 +76,7 @@ export default {
       if (!node.tag && !node.text) return false;
       return node.tag || node.text.replace(/[\s\n]/g, '');
     });
+    if (context.props.disableWrapper) return children;
     if (children.length === 0) return null;
     const { props } = context;
     const wrapperClassName = ['flexWraper'];
@@ -106,21 +107,18 @@ export default {
       }
       return newNode;
     });
-    if (!props.removeParentWrapper) {
-      const newCtx = context.data;
-      newCtx.staticClass = `${newCtx.staticClass} ${wrapperClassName.join(' ')}`;
-      newCtx.style = {
-        ...newCtx,
-        ...{
-          justifyContent: props.justifyContent,
-          alignItems: props.alignItems,
-        },
-      };
 
-      return createElement(props.tag, newCtx, iteratedChildren);
-    }
+    const newCtx = context.data;
+    newCtx.staticClass = `${newCtx.staticClass} ${wrapperClassName.join(' ')}`;
+    newCtx.style = {
+      ...newCtx,
+      ...{
+        justifyContent: props.justifyContent,
+        alignItems: props.alignItems,
+      },
+    };
 
-    return iteratedChildren;
+    return createElement(props.tag, newCtx, iteratedChildren);
   },
 };
 </script>
