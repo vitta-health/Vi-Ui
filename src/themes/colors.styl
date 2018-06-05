@@ -32,6 +32,9 @@ for $key, $val in $colors
   if $contrast-ratio-light > $contrast-ratio-text || $contrast-ratio-light > 3
     $text-color = $colors.light
     $link-color = $text-color
+  else if $contrast-ratio-text < 7 && $textIsDark
+    $text-color = #000000
+    $link-color = $link-color-main
   else
     $text-color = $text-color-main
     $link-color = $link-color-main

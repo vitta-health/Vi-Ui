@@ -50,6 +50,7 @@
       >
       <vi-button
         primary
+        :disabled="disabled"
         @click="fileTrigger"
       >
         {{ buttonDesciption }}
@@ -146,6 +147,7 @@ export default {
       return target.files;
     },
     fileTrigger() {
+      if (this.disabled) return;
       this.$refs.input.click();
     },
   },
