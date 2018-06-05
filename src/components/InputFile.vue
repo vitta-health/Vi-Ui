@@ -186,7 +186,7 @@ Personalização do Input File:
 <vi-input-file
   multiple
   emptyInput="Nenhuma foto selecionada"
-  filledInput="Total de fotos selecionadas: (##NUMBER##)"
+  filledInput="Total de fotos selecionadas: ##NUMBER##"
   label="Adicionar fotos ao album"
   button-desciption="Selecionar fotos"
 />
