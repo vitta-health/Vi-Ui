@@ -152,9 +152,9 @@ export default {
   computed: {
     filesTextValue() {
       let valueText = this.emptyInput;
-      if (this.totalFiles > 0 && !this.multiple) {
+      if (this.totalFiles === 1) {
         valueText = this.fileName;
-      } else {
+      } else if (this.totalFiles > 1) {
         valueText = this.filledInput;
       }
 
