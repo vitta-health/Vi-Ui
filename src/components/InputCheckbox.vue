@@ -40,7 +40,7 @@ import ViWrapper from './Wrapper.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import ViInputLabel from '../helperComponents/InputLabel.vue';
 import inputMixin from '../mixins/input';
-import extrasMixin from '../mixins/extras';
+import positioningMixin from '../mixins/positioning';
 
 export default {
   name: 'ViInputCheckbox',
@@ -48,7 +48,7 @@ export default {
     ViWrapper,
     ViInputLabel,
   },
-  mixins: [scaleMixin, widthMixin, inputMixin, extrasMixin],
+  mixins: [scaleMixin, widthMixin, inputMixin, positioningMixin],
   props: {
     /**
      * Define tipo para radio button
@@ -131,7 +131,7 @@ export default {
 
       &:focus
         & + label:before
-          box-shadow 0 0 10px rgba($primary, 0.2)
+          box-shadow 0 0 0 1px rgba($primary, 1)
 
       &[type="checkbox"]
         & + label:after
@@ -161,7 +161,6 @@ export default {
         &:checked
           & + label:before
             border-width 0.35em
-            box-shadow inset 0 -0.4em 0.35em rgba(0, 0, 0, 0.1)
 </style>
 
 <docs>
@@ -171,7 +170,7 @@ Exemplo checkbox:
 <template>
   <vi-wrapper vertical class="ViComponent">
     <vi-input-checkbox label="Exemplo de Checkbox" v-model="isChecked" />
-    <hr>
+    <hr />
     <vi-input-checkbox
       radio
       label="Is checkbox checked?"
@@ -194,7 +193,7 @@ export default {
   },
   computed: {
     dataForm() {
-      return JSON.stringify({ isChecked: this.isChecked }, null, 2);
+      return JSON.stringify(this._data, null, 2);
     },
   },
 };

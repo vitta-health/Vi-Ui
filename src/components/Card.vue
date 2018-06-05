@@ -47,7 +47,7 @@ export default {
      */
     tag: {
       type: String,
-      default: 'div',
+      default: 'article',
     },
     /**
     * Texto que será exibido no título
@@ -100,9 +100,6 @@ $background-card = $isDark ? $colors.dark : $colors.light
 
   &--large
     padding 60px
-
-  &__Title
-    margin-bottom 0
 </style>
 
 ```
@@ -133,7 +130,11 @@ Exemplo Complexo de Card
     class="ViComponent greyBox"
     justify-content="space-between"
   >
-    <vi-card v-for="(character, index) in characters" small>
+    <vi-card
+      v-for="character in characters"
+      :key="character.idHero"
+      small
+    >
       <div slot="body">
         <vi-wrapper>
           <img class="avatar" :src="character.avatar"/>
@@ -153,6 +154,7 @@ export default {
     return {
       characters: [
         {
+          idHero: 0,
           name: 'Peter Parker',
           superHeroName: 'Spider-Man',
           birthDate: '08/01/1989',
@@ -160,6 +162,7 @@ export default {
           avatar: '/assets/img/spider.png'
         },
         {
+          idHero: 1,
           name: 'James Howlett logan',
           superHeroName: 'Wolverine',
           birthDate: '??/??/1880',

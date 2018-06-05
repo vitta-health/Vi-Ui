@@ -1,10 +1,11 @@
 <script>
-import extrasMixin from '../mixins/extras';
+import positioningMixin from '../mixins/positioning';
 import { scaleMixin } from '../mixins/sizes';
 
 export default {
   name: 'ViWrapper',
-  mixins: [extrasMixin, scaleMixin],
+  functional: true,
+  mixins: [positioningMixin, scaleMixin],
   props: {
     /**
      * _Tamanho:_ Remove margens dos filhos
@@ -62,68 +63,69 @@ export default {
       type: String,
       default: null,
     },
-  },
-  computed: {
-    spacingComp() {
-      if (Number.isNaN(this.spacing - 0)) return this.spacing;
-      return `${this.spacing}px`;
+    /**
+     * Tag pai condincional
+     */
+    removeParentWrapper: {
+      type: Boolean,
+      default: false,
     },
   },
-  render(createElement) {
-    if (!this.$slots.default) return null;
-    const self = this;
-    const wrapped = [];
-    const node = this.$slots.default.filter((vnode) => {
-      if (!vnode.tag && !vnode.text) return false;
-      return vnode.tag || vnode.text.replace(/[\s\n]/g, '');
+  render(createElement, context) {
+    const children = context.children.filter((node) => {
+      if (!node.tag && !node.text) return false;
+      return node.tag || node.text.replace(/[\s\n]/g, '');
     });
+    if (children.length === 0) return null;
+    const { props } = context;
     const wrapperClassName = ['flexWraper'];
     const blockClassName = ['contentWrapper'];
 
-    if (this.vertical) wrapperClassName.push('flexWraper--vertical');
-    if (this.inverted) wrapperClassName.push('flexWraper--inverted');
-    if (this.breakLine) wrapperClassName.push('flexWraper--breakLine');
-    if (this.childWrapper) wrapperClassName.push('flexWraper--childWrapper');
-    if (this.proportionalBlock) blockClassName.push('contentWrapper--proportional');
+    if (props.vertical) wrapperClassName.push('flexWraper--vertical');
+    if (props.inverted) wrapperClassName.push('flexWraper--inverted');
+    if (props.breakLine) wrapperClassName.push('flexWraper--breakLine');
+    if (props.childWrapper) wrapperClassName.push('flexWraper--childWrapper');
+    if (props.proportionalBlock) blockClassName.push('contentWrapper--proportional');
 
-    if (this.mini) {
-      wrapperClassName.push('flexWraper--mini');
-    } else if (this.small) {
-      wrapperClassName.push('flexWraper--small');
-    } else if (this.large) {
-      wrapperClassName.push('flexWraper--large');
-    } else if (this.noMargin) {
-      wrapperClassName.push('flexWraper--noMargin');
-    }
+    if (props.mini) wrapperClassName.push('flexWraper--mini');
+    else if (props.small) wrapperClassName.push('flexWraper--small');
+    else if (props.large) wrapperClassName.push('flexWraper--large');
+    else if (props.noMargin) wrapperClassName.push('flexWraper--noMargin');
 
-    node.map((child) => {
-      if (this.childWrapper) {
+    const iteratedChildren = children.map((node) => {
+      if (props.childWrapper) {
         const newProps = {
           class: blockClassName.join(' '),
         };
-        wrapped.push(createElement(self.childTag || self.tag, newProps, [child]));
-        return child;
+        return createElement(props.childTag || props.tag, newProps, [node]);
       }
-      const newChild = child;
+      const newNode = node;
 
-      if (child.data) {
-        newChild.data.staticClass = `${child.data.staticClass || ''} ${blockClassName.join(' ')}`;
+      if (node.data) {
+        newNode.data.staticClass = `${node.data.staticClass || ''} ${blockClassName.join(' ')}`;
       }
-      return newChild;
+      return newNode;
     });
+    if (!props.removeParentWrapper) {
+      const newCtx = context.data;
+      newCtx.staticClass = `${newCtx.staticClass} ${wrapperClassName.join(' ')}`;
+      newCtx.style = {
+        ...newCtx,
+        ...{
+          justifyContent: props.justifyContent,
+          alignItems: props.alignItems,
+        },
+      };
 
-    return createElement(self.tag, {
-      class: wrapperClassName.join(' '),
-      style: {
-        justifyContent: self.justifyContent,
-        alignItems: self.alignItems,
-      },
-    }, wrapped.length ? wrapped : node);
+      return createElement(props.tag, newCtx, iteratedChildren);
+    }
+
+    return iteratedChildren;
   },
 };
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 .ViComponent .flexWraper
 .flexWraper
   align-items stretch

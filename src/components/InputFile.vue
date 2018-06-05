@@ -67,7 +67,7 @@ import ViButton from './Button.vue';
 import ViInputLabel from '../helperComponents/InputLabel.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import inputMixin from '../mixins/input';
-import extrasMixin from '../mixins/extras';
+import positioningMixin from '../mixins/positioning';
 
 export default {
   name: 'ViInputFile',
@@ -76,7 +76,7 @@ export default {
     ViButton,
     ViInputLabel,
   },
-  mixins: [scaleMixin, widthMixin, inputMixin, extrasMixin],
+  mixins: [scaleMixin, widthMixin, inputMixin, positioningMixin],
   props: {
     /**
      * Auto-complete [opções de autocomplete](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute).
@@ -96,14 +96,18 @@ export default {
       default: null,
     },
     /**
-     * Descrição no campo no campo de texto. A tag ##NUMBER## é subistituida pelo total de arquivo.
+     * Descrição no campo quando input vazio.
      */
-    inputDescription: {
-      type: Object,
-      default: () => ({
-        empty: 'No selected files',
-        filled: '(##NUMBER##) Selected files',
-      }),
+    emptyInput: {
+      type: String,
+      default: 'No selected file',
+    },
+    /**
+     * Descrição no campo se `multiple` selecionado e mais de um arquivo selecionado. A tag ##NUMBER## é subistituida pelo total de arquivos.
+     */
+    filledInput: {
+      type: String,
+      default: '(##NUMBER##) Selected files',
     },
     /**
      * Descrição no botão de seleção
@@ -147,11 +151,11 @@ export default {
   },
   computed: {
     filesTextValue() {
-      let valueText = this.inputDescription.empty;
-      if (this.totalFiles === 1) {
+      let valueText = this.emptyInput;
+      if (this.totalFiles > 0 && !this.multiple) {
         valueText = this.fileName;
-      } else if (this.totalFiles > 1) {
-        valueText = this.inputDescription.filled;
+      } else {
+        valueText = this.filledInput;
       }
 
       return valueText.replace('##NUMBER##', this.totalFiles);
@@ -177,10 +181,8 @@ Personalização do Input File:
 ```jsx
 <vi-input-file
   multiple
-  :input-description="{
-    empty: 'Nenhuma foto selecionada',
-    filled: 'Total de fotos selecionadas: (##NUMBER##)',
-  }"
+  emptyInput="Nenhuma foto selecionada"
+  filledInput="Total de fotos selecionadas: (##NUMBER##)"
   label="Adicionar fotos ao album"
   button-desciption="Selecionar fotos"
 />

@@ -8,36 +8,55 @@
     :style="{ width: componentWidth }"
   >
     <vi-input-label v-bind="{ for: fieldID, label, instruction }"/>
-    <component
-      @valid="validate($event.target)"
-      @invalid="validate($event.target)"
-      @input="inputChange($event.target)"
-      @change="inputChange($event.target)"
-      class="ViInput__Input"
-      :class="{
-        'ViInput__Input--validated': validated || forceValidation,
-        'ViInput__Input--invalid': invalid,
-      }"
-      v-bind="{
-        autocomplete: autoComplete,
-        autofocus: autoFocus,
-        disabled,
-        id: fieldID,
-        max,
-        maxlength: maxLength,
-        min,
-        minlength: minLength,
-        name: name || fieldID,
-        pattern,
-        placeholder,
-        required,
-        readOnly,
-        rows,
-        type: inputType,
-        value,
-      }"
-      :is="fieldType"
-    />
+    <vi-wrapper
+      no-margin
+      class="ViInput_Wrapper"
+      tag="div"
+      :remove-parent-wrapper="!hasPrefix && !hasSuffix"
+    >
+      <div
+        v-if="hasPrefix"
+        class="ViInput__Slot ViInput__Slot--prefix"
+      >
+        <slot name="prefix" />
+      </div>
+      <component
+        @valid="validate($event.target)"
+        @invalid="validate($event.target)"
+        @input="inputChange($event.target)"
+        @change="inputChange($event.target)"
+        class="ViInput__Input"
+        :class="{
+          'ViInput__Input--validated': validated || forceValidation,
+          'ViInput__Input--invalid': invalid,
+        }"
+        v-bind="{
+          autocomplete: autoComplete,
+          autofocus: autoFocus,
+          disabled,
+          id: fieldID,
+          max,
+          maxlength: maxLength,
+          min,
+          minlength: minLength,
+          name: name || fieldID,
+          pattern,
+          placeholder,
+          required,
+          readOnly,
+          rows,
+          type: inputType,
+          value,
+        }"
+        :is="fieldType"
+      />
+      <div
+        v-if="hasSuffix"
+        class="ViInput__Slot ViInput__Slot--suffix"
+      >
+        <slot name="suffix" />
+      </div>
+    </vi-wrapper>
   </vi-wrapper>
 </template>
 
@@ -48,7 +67,7 @@ import ViWrapper from './Wrapper.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import ViInputLabel from '../helperComponents/InputLabel.vue';
 import inputMixin from '../mixins/input';
-import extrasMixin from '../mixins/extras';
+import positioningMixin from '../mixins/positioning';
 
 export default {
   name: 'ViInput',
@@ -56,7 +75,7 @@ export default {
     ViWrapper,
     ViInputLabel,
   },
-  mixins: [scaleMixin, widthMixin, inputMixin, extrasMixin],
+  mixins: [scaleMixin, widthMixin, inputMixin, positioningMixin],
   props: {
     /**
      * Tipo de campo
@@ -132,6 +151,12 @@ export default {
     },
   },
   computed: {
+    hasSuffix() {
+      return 'suffix' in this.$slots;
+    },
+    hasPrefix() {
+      return 'prefix' in this.$slots;
+    },
     fieldType() {
       switch (this.type) {
         case 'textarea':
@@ -158,6 +183,15 @@ Input básico:
 
 ```jsx
 <vi-input />
+```
+
+Input com sufixo e prefixo:
+
+```jsx
+<vi-input type="number" min="0" step="1">
+  <template slot="prefix">R$</template>
+  <template slot="suffix">,00</template>
+</vi-input>
 ```
 
 Exemplo de formulário.

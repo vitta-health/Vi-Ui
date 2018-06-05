@@ -1,3 +1,5 @@
+$border-radius = 0.3em
+
 .ViCompenent .ViInput
 .ViInput
   position relative
@@ -8,34 +10,52 @@
   .contentWrapper.ViInput__Input
     border 1px solid $border-color-main
     background $input-background-main
-    border-radius 0.3em
+    border-radius $border-radius
     padding 0.6em
     outline none
     text-overflow ellipsis
 
     &:focus:not([readonly])
       border 1px solid $border-color-main-focus
+      box-shadow inset 0 -0.4em 0.35em rgba($border-color-main-focus, 0.1)
+      outline none
 
     &--invalid
     &--validated:invalid
       border 1px solid $error-color
+      box-shadow inset 0 -0.4em 0.35em rgba($error-color, 0.1)
+      outline none
 
   & > .ViInput_Wrapper
     align-items stretch
 
-    .contentWrapper:first-child
-      border-bottom-right-radius  0
-      border-top-right-radius  0
+    .contentWrapper
+      border-radius 0
 
-    .contentWrapper:last-child
-      border-bottom-left-radius  0
-      border-top-left-radius  0
+      &:first-child
+        border-bottom-left-radius $border-radius
+        border-top-left-radius $border-radius
 
-    .contentWrapper.ViInput__Input
-      width 100%
+      &:last-child
+        border-bottom-right-radius $border-radius
+        border-top-right-radius $border-radius
 
-    .contentWrapper.ViButton
-      white-space nowrap
+      &.ViInput__Input
+        width 100%
+
+      &.ViButton
+        white-space nowrap
+
+      &.ViInput__Slot
+        background rgba($border-color-main, 0.1)
+        border 1px solid $border-color-main
+        display flex
+        align-items center
+        padding 0.6em
+        &--prefix
+          border-right 0
+        &--suffix
+          border-left 0
 
   .ViInput__FileInput
     border 0

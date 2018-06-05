@@ -20,11 +20,10 @@
     :href="this.href"
     :style="{
       width: componentWidth,
-      justifyContent,
     }"
     @click="onClick">
     <vi-wrapper
-      :justify-content="justifyContent"
+      :justify-content="justifyContent || 'center'"
       small
       child-wrapper
     ><slot /></vi-wrapper>
@@ -35,14 +34,14 @@
 import ViWrapper from './Wrapper.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
-import extrasMixin from '../mixins/extras';
+import positioningMixin from '../mixins/positioning';
 
 export default {
   name: 'ViButton',
   components: {
     ViWrapper,
   },
-  mixins: [scaleMixin, widthMixin, colorsMixin, extrasMixin],
+  mixins: [scaleMixin, widthMixin, colorsMixin, positioningMixin],
   props: {
     /**
      * Fundo transparente com apenas borda e texto colorido
