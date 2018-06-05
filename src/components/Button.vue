@@ -19,28 +19,29 @@
     ]"
     :href="this.href"
     :style="{
-      width: buttonWidth,
-      justifyContent,
+      width: componentWidth,
     }"
     @click="onClick">
     <vi-wrapper
-      :justify-content="justifyContent"
-      spacing="10"><slot /></vi-wrapper>
+      :justify-content="justifyContent || 'center'"
+      small
+      child-wrapper
+    ><slot /></vi-wrapper>
   </component>
 </template>
 
 <script>
 import ViWrapper from './Wrapper.vue';
-import sizeMixin from '../mixins/sizes';
+import { scaleMixin, widthMixin } from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
-import extrasMixin from '../mixins/extras';
+import positioningMixin from '../mixins/positioning';
 
 export default {
   name: 'ViButton',
   components: {
     ViWrapper,
   },
-  mixins: [sizeMixin, colorsMixin, extrasMixin],
+  mixins: [scaleMixin, widthMixin, colorsMixin, positioningMixin],
   props: {
     /**
      * Fundo transparente com apenas borda e texto colorido
@@ -64,13 +65,6 @@ export default {
       default: false,
     },
     /**
-     * Largura do botão (Passe numero fazendo bind da prop)
-     */
-    width: {
-      type: [String, Number],
-      default: 'auto',
-    },
-    /**
      * Caso o botão seja um link
      */
     href: {
@@ -86,10 +80,6 @@ export default {
     },
   },
   computed: {
-    buttonWidth() {
-      if (Number.isNaN(this.width - 0)) return this.width;
-      return `${this.width}px`;
-    },
     tagButton() {
       if (this.href) return 'a';
       return 'button';
@@ -100,53 +90,53 @@ export default {
       /**
        * Evento de clique.
        *
-       * @event onClick
+       * @event click
        * @type {object}
        */
-      this.$emit('on-click');
+      this.$emit('click');
     },
   },
 };
 </script>
 
 <style lang="stylus">
-  @import '../themes/main';
-  @import '../themes/colors';
+@import '../themes/main'
 
-  .ViButton
-    border-width 0.09em
-    border-style solid
-    border-radius 0.5em
-    cursor pointer
-    display inline-block
-    font-size 0.95em
-    text-align center
-    padding 0.5em 0.8em
-    text-decoration none
-    outline none
-    transition: all 0.09s
-    > *
-      margin-right 0.25em
+.ViComponent .ViButton
+.ViButton
+  border-width 0.09em
+  border-style solid
+  border-radius 0.5em
+  cursor pointer
+  display inline-block
+  font-size 0.95em
+  text-align center
+  padding 0.5em 0.8em
+  text-decoration none
+  outline none
+  transition: all 0.09s
+  > *
+    margin-right 0.25em
 
-    &[disabled]
-      opacity 0.45
-      cursor default
+  &[disabled]
+    opacity 0.45
+    cursor default
 
-    .ViLoading
-      margin -4px 0
+  .ViLoading
+    margin -4px 0
 
-  .ViButton--pill
+  &--pill
     border-radius 100px
 
-  .ViButton--mini
+  &--mini
     font-size 0.8em
     padding 0.3em 0.5em
 
-  .ViButton--small
+  &--small
     font-size 0.8em
     padding 0.5em 0.8em
 
-  .ViButton--large
+  &--large
     font-size 1.2em
 </style>
 
@@ -155,7 +145,7 @@ Botão básico:
 
 ```jsx
 <div>
-  <vi-button default-variant large>Me aperte</vi-button>
+  <vi-button dark large>Me aperte</vi-button>
   <vi-button primary>Me aperte</vi-button>
   <vi-button success small>Me aperte</vi-button>
   <vi-button danger mini>Me aperte</vi-button>
@@ -169,7 +159,7 @@ Botão com loading:
 Botão com submit:
 
 ```jsx
-<form action="/#!/ViButton">
+<form action="/#button">
   <vi-button type="submit" success>Form submit</vi-button>
 </form>
 ```
@@ -194,7 +184,7 @@ Exemplo de utilização:
 ```vue
 <template>
     <div class="wrapper">
-        <vi-button @click.native="pushButton">+1</vi-button>
+        <vi-button @click="pushButton">+1</vi-button>
         <hr />
         <p class="text-name">Contando: {{ numClicks }}</p>
     </div>

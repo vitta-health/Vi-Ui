@@ -11,8 +11,14 @@ export default {
      */
     justifyContent: {
       type: String,
-      default: 'center',
+      default: null,
     },
-
+    /**
+     * Alinha filhos veticalmente. [Opções de alinhamento](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items#Syntax).
+     */
+    alignItems: {
+      type: String,
+      default: null,
+    },
   },
 };

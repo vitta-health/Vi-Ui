@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import sizeMixin from '../mixins/sizes';
+import { scaleMixin } from '../mixins/sizes';
 import colosMixin from '../mixins/colors';
 
 /**
@@ -54,7 +54,7 @@ const defaultPercent = 40;
 
 export default {
   name: 'ViLoading',
-  mixins: [sizeMixin, colosMixin],
+  mixins: [scaleMixin, colosMixin],
   props: {
     /**
      * [0 - 100] Define o percentual do carregamento
@@ -111,37 +111,37 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../themes/main';
-@import '../themes/colors';
+@import '../themes/main'
 
+.ViComponent .ViLoading
 .ViLoading
   position relative
   z-index 100
 
-.ViLoading--loop
-  .ViLoading__canvas
-    animation spin 1s linear infinite
-    animation-fill-mode forwards
+  &--loop
+    .ViLoading__canvas
+      animation spin 1s linear infinite
+      animation-fill-mode forwards
 
-.ViLoading__canvas
-  height 100%
-  left 0
-  position absolute
-  top 0
-  width 100%
-  z-index 1
+  &__canvas
+    height 100%
+    left 0
+    position absolute
+    top 0
+    width 100%
+    z-index 1
 
-.ViLoading__value
-  align-items center
-  border 1px solid rgba(0, 0, 0, 0.05)
-  border-radius 50%
-  display flex
-  height 100%
-  justify-content center
-  padding-top 0.1em
-  position relative
-  width 100%
-  z-index 0
+  &__value
+    align-items center
+    border 1px solid rgba(0, 0, 0, 0.05)
+    border-radius 50%
+    display flex
+    height 100%
+    justify-content center
+    padding-top 0.1em
+    position relative
+    width 100%
+    z-index 0
 
 
 @keyframes spin {

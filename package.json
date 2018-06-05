@@ -1,6 +1,10 @@
 {
   "name": "vue-vi-ui",
+<<<<<<< HEAD
   "version": "0.0.7",
+=======
+  "version": "0.0.8",
+>>>>>>> 0a478a05cd7248bd696763e2ff7825b17ecddd4d
   "description": "A simple but consistent Vue user interface",
   "main": "/dist/vi-ui.min.js",
   "license": "MIT",
