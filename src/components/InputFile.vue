@@ -47,11 +47,13 @@
           value: filesTextValue,
         }"
         @click="fileTrigger"
+        tabindex="-1"
       >
       <vi-button
         primary
         :disabled="disabled"
         @click="fileTrigger"
+        tabindex="-1"
       >
         {{ buttonDesciption }}
       </vi-button>
