@@ -1,4 +1,5 @@
 @import '../themes/fonts.css'
+@import '../themes/colors'
 
 $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
 
@@ -45,6 +46,7 @@ $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
   a
     text-decoration underline
     background-color transparent
+    color $link-color
 
   b,
   strong
@@ -78,10 +80,13 @@ $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
   small
     font-size 80%
 
+  hr
+    border none
+    border-top 1px solid rgba($text-color-main, 0.15)
+    margin 0 0 1em
 
   img
     border-style none
-
 
   abbr[title]
     border-bottom none
@@ -89,10 +94,19 @@ $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
     text-decoration underline dotted
 
   code
+    background $block-background-main
+
+  pre
+  code
   kbd
   samp
     font-family monospace
     font-size 1em
+
+  pre
+    code
+      display block
+      padding 0.5em 0.9em
 
   sub
   sup
@@ -117,7 +131,17 @@ $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
     overflow auto
 
   fieldset
-    padding 0.35em 0.75em 0.625em
+    border 0
+    padding 0
+    margin 0 0 2.4em
+    &:last-child
+      margin 0
+    legend
+      border-bottom $link-color-main 2px solid
+      font-size 1.1em
+      margin 0 0 1em
+      padding 0 0 0.3em
+      text-transform uppercase
 
   button
   input
@@ -126,7 +150,7 @@ $Roboto = 'Roboto', 'RobotoFallback', Arial, sans-serif
   textarea
     font-family inherit
     font-size 100%
-    line-height 1.15
+    line-height 1.15em
     margin 0
 
   button

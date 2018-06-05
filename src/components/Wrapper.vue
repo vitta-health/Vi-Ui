@@ -1,117 +1,218 @@
 <script>
-import extrasMixin from '../mixins/extras';
+import positioningMixin from '../mixins/positioning';
+import { scaleMixin } from '../mixins/sizes';
 
 export default {
   name: 'ViWrapper',
-  mixins: [extrasMixin],
+  functional: true,
+  mixins: [positioningMixin, scaleMixin],
   props: {
     /**
-     * Tag que faz wrap do slot
+     * _Tamanho:_ Remove margens dos filhos
+     */
+    noMargin: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Tag usada no wrapper
      */
     tag: {
       type: String,
       default: 'span',
     },
     /**
-     * define se blocos precisam ter o mesmo tamanho entre eles
+     * Define se blocos precisam ter o mesmo tamanho entre eles
      */
     proportionalBlock: {
       type: Boolean,
       default: false,
     },
     /**
-     * define se direção do wrap é vertical
+     * Define se direção do wrap é vertical
      */
     vertical: {
       type: Boolean,
       default: false,
     },
     /**
-     * define se filhos vão ser encapsulados em uma tag
+     * Define se ordem dos filhos é invertida
      */
-    noChildWrapper: {
+    inverted: {
       type: Boolean,
       default: false,
     },
     /**
-     * Espaço entre elementos
+     * Quando definido, os filhos podem quebrar a linha
      */
-    spacing: {
-      type: [Number, String],
-      default: 0,
+    breakLine: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Define se filhos serão envolvidos em um wrapper filho
+     */
+    childWrapper: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Tag usada no wrapper filho. Se `childTag` for null, utiliza o valor da prop `tag`
+     */
+    childTag: {
+      type: String,
+      default: null,
+    },
+    /**
+     * Se `true` retorna apenas os filhos sem o wrapper
+     */
+    disableWrapper: {
+      type: Boolean,
+      default: false,
     },
   },
-  computed: {
-    spacingComp() {
-      if (Number.isNaN(this.spacing - 0)) return this.spacing;
-      return `${this.spacing}px`;
-    },
-  },
-  render(createElement) {
-    const self = this;
-    const wrapped = [];
-    const node = this.$slots.default;
+  render(createElement, context) {
+    const children = context.children.filter((node) => {
+      if (!node.tag && !node.text) return false;
+      return node.tag || node.text.replace(/[\s\n]/g, '');
+    });
+    if (context.props.disableWrapper) return children;
+    if (children.length === 0) return null;
+    const { props } = context;
     const wrapperClassName = ['flexWraper'];
     const blockClassName = ['contentWrapper'];
 
-    if (this.vertical) wrapperClassName.push(' flexWraper--vertical');
-    if (this.proportionalBlock) blockClassName.push(' contentWrapper--proportional');
+    if (props.vertical) wrapperClassName.push('flexWraper--vertical');
+    if (props.inverted) wrapperClassName.push('flexWraper--inverted');
+    if (props.breakLine) wrapperClassName.push('flexWraper--breakLine');
+    if (props.childWrapper) wrapperClassName.push('flexWraper--childWrapper');
+    if (props.proportionalBlock) blockClassName.push('contentWrapper--proportional');
 
-    if (!this.noChildWrapper) {
-      node.forEach((child) => {
-        if (!child.text && !child.tag) return;
+    if (props.mini) wrapperClassName.push('flexWraper--mini');
+    else if (props.small) wrapperClassName.push('flexWraper--small');
+    else if (props.large) wrapperClassName.push('flexWraper--large');
+    else if (props.noMargin) wrapperClassName.push('flexWraper--noMargin');
+
+    const iteratedChildren = children.map((node) => {
+      if (props.childWrapper) {
         const newProps = {
           class: blockClassName.join(' '),
-          style: {
-            marginLeft: self.spacingComp,
-          },
         };
+        return createElement(props.childTag || props.tag, newProps, [node]);
+      }
+      const newNode = node;
 
-        wrapped.push(createElement(self.tag, newProps, [child]));
-      });
-    } else {
-      node.map((child) => {
-        const newChild = child;
-        if (child.data) {
-          newChild.data.staticClass = child.data.staticClass || '';
-          newChild.data.staticClass = `${newChild.data.staticClass} ${blockClassName.join(' ')}`;
-          newChild.data.style = { marginLeft: self.spacingComp };
-        }
+      if (node.data) {
+        newNode.data.staticClass = `${node.data.staticClass || ''} ${blockClassName.join(' ')}`;
+      }
+      return newNode;
+    });
 
-        return newChild;
-      });
-    }
-
-    return createElement(self.tag, {
-      class: wrapperClassName.join(' '),
-      style: {
-        justifyContent: self.justifyContent,
+    const newCtx = context.data;
+    newCtx.staticClass = `${newCtx.staticClass} ${wrapperClassName.join(' ')}`;
+    newCtx.style = {
+      ...newCtx,
+      ...{
+        justifyContent: props.justifyContent,
+        alignItems: props.alignItems,
       },
-    }, wrapped.length ? wrapped : node);
+    };
+
+    return createElement(props.tag, newCtx, iteratedChildren);
   },
 };
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
+.ViComponent .flexWraper
 .flexWraper
   align-items stretch
   display flex
   width 100%
 
-  &--vertical
-    flex-direction column
+  &--childWrapper
+    & > .contentWrapper
+      align-items stretch
+      display flex
 
   & > .contentWrapper
-    align-items stretch
-    display flex
+    margin 0 20px 0 0
 
-    &:first-child
-      margin-left 0!important
+    &:last-child
+      margin 0
 
     &--proportional
       flex 1 1
+
+  &--breakLine
+    flex-wrap wrap
+    & > .contentWrapper
+      margin-bottom 20px
+
+  &--vertical
+    flex-direction column
+    & > .contentWrapper
+      margin 0 0 20px
+    & > .contentWrapper:last-child:not(.flexWrape--breakLine)
+      margin 0
+
+  &--inverted
+    flex-direction row-reverse
+    &.flexWraper--vertical
+      flex-direction column-reverse
+
+  &--mini
+    & > .contentWrapper
+      margin 0 5px 0 0
+      &:last-child:not(.flexWrape--breakLine)
+        margin 0
+    &.flexWrape--breakLine
+      & > .contentWrapper
+        margin-bottom 5px
+    &.flexWraper--vertical
+      & > .contentWrapper
+        margin 0 0 5px
+        &:last-child
+          margin 0
+
+  &--small
+    & > .contentWrapper
+       margin 0 10px 0 0
+      &:last-child:not(.flexWrape--breakLine)
+        margin 0
+    &.flexWrape--breakLine
+      & > .contentWrapper
+        margin-bottom 10px
+    &.flexWraper--vertical
+      & > .contentWrapper
+        margin 0 0 10px
+        &:last-child
+          margin 0
+
+  &--large
+    & > .contentWrapper
+      margin 0 30px 0 0
+      &:last-child:not(.flexWrape--breakLine)
+        margin 0
+    &.flexWrape--breakLine
+      & > .contentWrapper
+        margin-bottom 30px
+    &.flexWraper--vertical
+      & > .contentWrapper
+        margin 0 0 30px
+        &:last-child
+          margin 0
+
+  &--noMargin
+    & > .contentWrapper
+      margin 0
+    &.flexWrape--breakLine
+    &.flexWraper--vertical
+      & > .contentWrapper
+        margin 0
 </style>
 
 <docs>
-Wrapper embrulha cada filho no slot em uma tag escolhida e aplica flexbox entre eles uma usando uma [render function](https://vuejs.org/v2/guide/render-function.html).
+Wrapper aplica flexbox entre os filhos.
+Ele também pode embrulhar os filhos em uma tag caso necessário.
 </docs>

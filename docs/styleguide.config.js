@@ -8,7 +8,7 @@ module.exports = {
   sortProps: props => props,
   webpackConfig,
   showUsage: true,
-  showCode: true,
+  showCode: false,
   require: ['babel-polyfill', path.join(__dirname, './layout/style.css')],
   styleguideComponents: {
     SectionRenderer: path.join(__dirname, 'layout/components/Section'),

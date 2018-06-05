@@ -11,7 +11,7 @@
       },
     ]"
     :style="{
-      justifyContent,
+      justifyContent: justifyContent || 'center',
     }"
   >
     <slot />
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import sizeMixin from '../mixins/sizes';
-import extrasMixin from '../mixins/extras';
+import { scaleMixin } from '../mixins/sizes';
+import positioningMixin from '../mixins/positioning';
 
 export default {
   name: 'ViButtonGroup',
-  mixins: [sizeMixin, extrasMixin],
+  mixins: [scaleMixin, positioningMixin],
   props: {
     /**
      * Fundo transparente com apenas borda e texto colorido
@@ -114,7 +114,7 @@ Botão grupo dinâmico:
 ```jsx
 <vi-button-group pill outlined>
   <vi-button sucess>◂</vi-button>
-  <vi-button v-for="n in 10">{{ n }}</vi-button>
+  <vi-button v-for="n in 10" :key="n" >{{ n }}</vi-button>
   <vi-button>▸</vi-button>
 </vi-button-group>
 ```
@@ -133,7 +133,7 @@ Botão grupo dinâmico:
 ```jsx
 <vi-button-group outlined large>
   <vi-button>◂</vi-button>
-  <vi-button v-for="n in 5">{{ n }}</vi-button>
+  <vi-button v-for="n in 5" :key="n" >{{ n }}</vi-button>
   <vi-button>▸</vi-button>
 </vi-button-group>
 ```
