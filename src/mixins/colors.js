@@ -1,13 +1,4 @@
-const colours = [
-  'primary',
-  'secondary',
-  'success',
-  'warning',
-  'danger',
-  'info',
-  'dark',
-  'light',
-];
+import colors from '../themes/colorsList';
 
 /**
  * @mixin
@@ -80,7 +71,7 @@ export default {
      */
     colorClass(args = {}) {
       let colorName = args.default || 'default';
-      colours.some((color) => {
+      Object.keys(colors).some((color) => {
         if (this[color]) colorName = color;
         return this[color];
       });

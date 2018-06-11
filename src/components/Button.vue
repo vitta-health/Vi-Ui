@@ -101,9 +101,7 @@ export default {
 
 <style lang="stylus">
 @import '../themes/main'
-
-.ViComponent .ViButton
-.ViButton
+.ViComponent.ViButton
   border-width 0.09em
   border-style solid
   border-radius 0.5em

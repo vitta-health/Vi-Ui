@@ -81,7 +81,6 @@ export default {
 
 $background-card = $isDark ? $colors.dark : $colors.light
 
-.ViComponent .ViCard
 .ViComponent.ViCard
   background-color $background-card
   border-radius 0.3em

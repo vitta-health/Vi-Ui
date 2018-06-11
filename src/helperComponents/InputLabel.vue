@@ -1,6 +1,6 @@
 <template>
   <label
-    :for="fieldID"
+    :for="id"
     class="ViInput__Label"
     v-if="label"
   >{{ label }}
@@ -23,7 +23,7 @@ export default {
       type: String,
       default: null,
     },
-    fieldID: {
+    id: {
       type: String,
       default: null,
     },

@@ -1,7 +1,6 @@
 $border-radius = 0.3em
 
-.ViCompenent .ViInput
-.ViInput
+.ViComponent.ViInput
   position relative
   z-index 0
   &.flexWraper:not(.flexWraper--vertical)
@@ -11,6 +10,7 @@ $border-radius = 0.3em
     border 1px solid $border-color-main
     background $input-background-main
     border-radius $border-radius
+    min-height 40px
     padding 0.6em
     outline none
     text-overflow ellipsis
@@ -22,8 +22,8 @@ $border-radius = 0.3em
 
     &--invalid
     &--validated:invalid
-      border 1px solid $error-color
-      box-shadow inset 0 -0.3em 0.35em rgba($error-color, 0.05)
+      border 1px solid $danger
+      box-shadow inset 0 -0.3em 0.35em rgba($danger, 0.05)
       outline none
 
   & > .ViInput_Wrapper
@@ -56,21 +56,3 @@ $border-radius = 0.3em
           border-right 0
         &--suffix
           border-left 0
-
-  .ViInput__FileInput
-    border 0
-    bottom -1px
-    height 1px
-    margin 0!important
-    overflow hidden
-    opacity 0
-    padding 0
-    position absolute
-    right 0
-    width 100%
-
-    & + .ViInput_Wrapper
-      & .ViInput__Input:focus
-        border 1px solid $border-color-main-focus
-        box-shadow inset 0 -0.3em 0.35em rgba($border-color-main-focus, 0.1)
-        outline none

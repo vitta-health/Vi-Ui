@@ -113,8 +113,7 @@ export default {
 <style lang="stylus">
 @import '../themes/main'
 
-.ViComponent .ViLoading
-.ViLoading
+.ViComponent.ViLoading
   position relative
   z-index 100
 

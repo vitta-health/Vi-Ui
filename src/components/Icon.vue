@@ -1,8 +1,15 @@
 <template>
-  <span :class="icon" />
+  <span
+    aria-hidden="true"
+    :class="icon"
+  />
 </template>
 
 <script>
+/**
+ * @deprecated since 0.0.7
+ * Os desenhos vão mudar.
+ */
 export default {
   name: 'ViIcon',
   props: {
