@@ -7,6 +7,7 @@
     tag="div"
     class="ViComponent ViInput"
     :style="{ width: componentWidth }"
+    :value="false"
   >
     <vi-input-label v-bind="{ for: id, label, instruction }"/>
     <multiselect
@@ -23,30 +24,28 @@
       @select="selectEvent"
       @remove="removeEvent"
       @search-change="searchEvent"
-      v-bind="$props"
+      v-bind="newProps"
       v-model="localValue"
-      :multiple="multiple||checkbox"
-      :label="optionLabel"
     >
-
       <template slot="clear" slot-scope="{ search }">
         <slot name="clear" :search="search">
           <template v-if="checkbox">
             <div class="ViInput__CheckAll">
               <span
-                class="multiselect__option"
+                class="multiselect__checkoption"
                 :class=" {
-                  'multiselect__option--selected  ': isAllChecked,
+                  'multiselect__checkoption--selected': isAllChecked,
+                  'multiselect__checkoption--inderteminate': isSomeChecked,
                 }"
+                @keydown.enter.prevent="selectAll"
+                @mousedown.prevent="selectAll"
               >
                 <span
                   tabindex="1"
                   class="ViInput__MultiselectCheckbox"
-                  @keydown.enter.prevent="selectAll(options, localValue)"
-                  @mousedown.prevent="selectAll(options, localValue)"
                 >{{ checkAllLabelComp }}</span>
+                <span class="ViInput__Total">({{ totalValueLabel }})</span>
               </span>
-              <span class="ViInput__Total">({{ totalValue }})</span>
             </div>
           </template>
         </slot>
@@ -81,7 +80,13 @@
               />
             </span>
           </template>
-          <template v-if="checkbox"/>
+          <template
+            @close="closeEvent"
+            v-else-if="getOptionLabel(value[0]) === getOptionLabel(option)
+            && (!isOpen && searchable || !searchable)"
+          >
+            {{ totalValueLabel }}
+          </template>
         </slot>
       </template>
 
@@ -91,13 +96,7 @@
         </slot>
       </template>
       <template slot="beforeList">
-        <slot name="beforeList">
-          <template v-if="searchable && checkbox">
-            <li class="ViInput__Search">
-              <span class="multiselect__option" />
-            </li>
-          </template>
-        </slot>
+        <slot name="beforeList" />
       </template>
       <template slot="afterList">
         <slot name="afterList" />
@@ -116,7 +115,7 @@
           Remova uma opção selecionada para escolher outra opção.
         </slot>
       </template>
-      <template slot="placeholder" v-if="!checkbox">
+      <template slot="placeholder">
         <slot name="placeholder">
           {{ placeholder }}
         </slot>
@@ -137,6 +136,7 @@ import inputMixin from '../mixins/input';
  * ###### Além das props descritas aqui, usamos a props e eventos do **Vue-Multiselect**.
  * <a target="_blank" href="https://vue-multiselect.js.org/#sub-props" class="ViComponent ViButton ViColor-success--background ViColor-success--hover">Documentação completa do Vue-Multiselect</a><br><br>
  */
+
 export default {
   extends: Multiselect,
   name: 'ViSelect',
@@ -147,13 +147,6 @@ export default {
   },
   mixins: [scaleMixin, widthMixin, inputMixin],
   props: {
-    /**
-     * Prop do Vue-Multisect.
-     */
-    showLabels: {
-      type: Boolean,
-      default: false,
-    },
     /**
      * Subistitui label do Vue-Multisect
      */
@@ -169,7 +162,8 @@ export default {
       default: null,
     },
     /**
-     * Select show the pill list
+     * Comportamento original do Vue-Multiselect. Que exibe os multiselect
+     * como uma lista de botões pra remover selecionados.
      */
     pill: {
       type: Boolean,
@@ -190,16 +184,68 @@ export default {
       default: 'Marcar tudo',
     },
     /**
-     * Label da opção "Desmarcar tudo" quando `checkbox` igual true e todas as p
+     * Label da opção "Marcar todas as opções da busca" quando `checkbox` igual true
+     */
+    checkSelectionLabel: {
+      type: String,
+      default: 'Marcar todas as opções da busca',
+    },
+    /**
+     * Label da opção "Desmarcar tudo" quando `checkbox` igual true
      */
     uncheckAllLabel: {
       type: String,
       default: 'Desmarcar tudo',
     },
+    /**
+     * Label da opção "Desmarcar todas as opções da busca" quando `checkbox` igual true
+     */
+    uncheckSelectionLabel: {
+      type: String,
+      default: 'Desmarcar todas as opções da busca',
+    },
+    /**
+     * Label dentro so select quando fechado, existem opçõe selecionadas e `pill` igual "false".
+     * ##NUMBER## é subistituido pelo total de opções selecionadas.
+     */
+    selectClosedLabel: {
+      type: String,
+      default: '##NUMBER## opções selecionadas',
+    },
+    /**
+     * String to show next to selected option
+     */
+    selectLabel: {
+      type: String,
+      default: '',
+    },
+    /**
+     * String to show when pointing to an already selected option
+     */
+    deselectLabel: {
+      type: String,
+      default: 'Selecionado',
+    },
+    /**
+     * String to show next to selected option
+     */
+    selectedLabel: {
+      type: String,
+      default: 'Selecionado',
+    },
+    /**
+     * Placeholder do campo
+     */
+    placeholder: {
+      type: String,
+      default: 'Selecione uma opção',
+    },
   },
   data() {
     return {
       localValue: null,
+      searchValue: '',
+      isOpen: false,
     };
   },
   watch: {
@@ -208,36 +254,76 @@ export default {
     }
   },
   computed: {
+    totalValueLabel() {
+      return this.selectClosedLabel.replace('##NUMBER##', this.totalValue);
+    },
+    newProps() {
+      const props = Object.assign({}, this.$props);
+      delete props.label;
+      if (this.optionLabel !== null) props.label = this.optionLabel;
+      if (this.placeholder === null) delete props.placeholder;
+      if (this.checkbox) {
+        props.selectedLabel = '';
+        props.deselectLabel = '';
+        props.clearOnSelect = false;
+        props.multiple = true;
+      }
+      return props;
+    },
     isAllChecked() {
-      return this.options === this.localValue;
+      if (!this.localValue) return false;
+      return this.filteredOptions
+        .every(option => this.localValue.indexOf(option) > -1);
+    },
+    isSomeChecked() {
+      if (!this.localValue) return false;
+      if (this.isAllChecked) return false;
+      return this.filteredOptions
+        .some(option => this.localValue.indexOf(option) > -1);
     },
     checkAllLabelComp() {
+      if (this.searchValue) {
+        return this.isAllChecked
+          ? this.uncheckSelectionLabel
+          : this.checkSelectionLabel;
+      }
       return this.isAllChecked
         ? this.uncheckAllLabel
         : this.checkAllLabel;
     },
     totalValue() {
-      if (!this.value) return 0;
-      return this.value.length;
+      if (!this.localValue) return 0;
+      return this.localValue.length;
+    },
+    filteredOptions() {
+      if (!this.searchValue) return this.options;
+      const pattern = new RegExp(this.searchValue);
+      return this.options
+        .filter(option => pattern.test(this.customLabel(option, this.optionLabel)));
     },
   },
   methods: {
-    equalFirstValue(option) {
-      if (!this.value) return false;
-      return option === this.value[0];
-    },
-    selectedlLabel(option) {
-      const lastOptionIndex = this.value.length - 1;
-      const lastOption = this.getOptionLabel(this.value[lastOptionIndex]);
-      const isLastOption = option === lastOption;
-      return `${option}${isLastOption ? '' : ','}`;
-    },
-    selectAll(options, option) {
-      if (options === option) {
-        this.removeElement(option);
+    selectAll() {
+      const value = this.localValue || [];
+      if (this.isAllChecked) {
+        this.localValue = value
+          .filter(option => !(this.filteredOptions.indexOf(option) > -1));
+        this.$emit('input', this.localValue);
       } else {
-        this.$emit('input', options);
+        const mergedValues = [...value, ...this.filteredOptions];
+        this.localValue = mergedValues
+          .filter((option, index) => mergedValues.indexOf(option) === index);
+        this.$emit('input', this.localValue);
       }
+    },
+    getOptionLabel(option) {
+      if (!option) return '';
+      if (option.isTag) return option.label;
+      if (option.$isLabel) return option.$groupLabel;
+
+      const label = this.customLabel(option, this.optionLabel);
+      if (!label) return '';
+      return label;
     },
     inputEvent(value, id) {
       this.localValue = value;
@@ -254,12 +340,15 @@ export default {
       this.$emit('tag', value, id);
     },
     searchEvent(value, id) {
+      this.searchValue = value;
       this.$emit('serch-change', value, id);
     },
     closeEvent(value, id) {
+      this.isOpen = false;
       this.$emit('close', value, id);
     },
     openEvent(id) {
+      this.isOpen = true;
       this.$emit('open', id);
     },
   },
@@ -276,13 +365,16 @@ export default {
   .ViInput__Multiselect
 
     &.multiselect--active
-      &.ViInput__Multiselect--hideOptionsOnFocus
-        .multiselect__tags-wrap
-          display none
-      .multiselect__tags
-        border-bottom-left-radius 0
-        border-bottom-right-radius 0
-        border-bottom-color rgba($border-color-main, 0.2)
+      &:not(.multiselect--above)
+        .multiselect__tags
+          border-bottom-left-radius 0
+          border-bottom-right-radius 0
+          border-bottom-color rgba($border-color-main, 0.5)
+      &.multiselect--above
+        .multiselect__tags
+          border-top-left-radius 0
+          border-top-right-radius 0
+          border-top-color rgba($border-color-main, 0.5)
 
     &--multiple
       .multiselect__tags
@@ -296,7 +388,7 @@ export default {
           &-icon
             border-radius 30px
             &:after
-              color rgba($text-color-main, 0.2)
+              color rgba($text-color-main, 0.5)
 
             &:focus
             &:hover
@@ -304,6 +396,7 @@ export default {
 
               &:after
                 color: $light
+
     .multiselect__input
       padding-left 0
 
@@ -322,10 +415,37 @@ export default {
 
     .multiselect__content-wrapper
       border-color $border-color-main
+      box-sizing content-box
+      width calc(100% - 2px)
+      overflow hidden
       z-index 1
 
+      .multiselect__content
+        box-sizing border-box
+        display block!important
+        max-height inherit
+        height 100%
+        overflow auto
+
+    .multiselect__checkoption
+      display block
+      padding 12px
+      min-height 40px
+      line-height 16px
+      text-decoration none
+      text-transform none
+      vertical-align middle
+      position relative
+      cursor pointer
+      white-space nowrap
+
+    .multiselect__checkoption
     .multiselect__option
-      border-bottom 1px solid rgba($border-color-main, 0.2)
+      border-bottom 1px solid rgba($border-color-main, 0.5)
+
+      &:after
+        font-weight 700
+        color rgba($text-color-main, 0.4)
 
       .ViInput__MultiselectCheckbox
         position relative
@@ -365,56 +485,76 @@ export default {
             opacity 1
             transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
 
+      &--inderteminate
+        .ViInput__MultiselectCheckbox
+          &:after
+            border-bottom-width 0
+            opacity 1
+            transform rotate(90deg) scale(0.4, 0.3) translate(-0.5em)
+
       &--highlight
-        border-bottom 1px solid rgba($border-color-main, 0.2)
-        background rgba($border-color-main, 0.05)
-        color $text-color-main
+      &:focus:not(.multiselect__checkoption)
+      &:hover:not(.multiselect__checkoption)
+        color $border-color-main-focus
+        background transparent
+        box-shadow inset 0 1px 0 $border-color-main-focus
+        border-color $border-color-main-focus
+        color $border-color-main-focus
+
+        &:after
+          background inherit
+          color rgba($text-color-main, 0.4)
 
         &.multiselect__option--selected
-          &:focus
-          &:hover
-            color $success
+          box-shadow inset 0 1px 0 $success
+          border-color $success
+          color $success
 
     .ViInput__CheckAll
-      position absolute
-      display flex
-      height 40px
-      justify-content space-between
-      padding 0 35px 0 0
-      width 100%
+      position relative
       z-index 2
 
-      .multiselect__option
-        border-bottom 0
+      .multiselect__checkoption
+        border 1px solid $border-color-main
+        border-bottom-color rgba($border-color-main, 0.5)
+        border-top none
+        display flex
         font-weight 300
+        height 0
+        justify-content space-between
+        left 0
+        position absolute
+        top 40px
+        width 100%
+        opacity 0
+        overflow hidden
+        transition all 0.06s ease-out
+        background $light
 
       .ViInput__Total
         font-size 80%
-        padding 12px 0 0
-        text-height 16px
+
+    &.multiselect--active
+      .ViInput__CheckAll
+        .multiselect__checkoption
+          height 40px
+          opacity 1
+
+    &.multiselect--above
+      .ViInput__CheckAll
+        .multiselect__checkoption
+          top -39px
 
     &--checkbox
       .multiselect__single
         display none
 
-      .multiselect__input
-        height 0
-        left 1px
-        opacity 0
-        position absolute
-        top 0
-        transition opacity 0.1s linear
-        z-index 2
-        border-bottom 1px solid rgba($border-color-main, 0.2)
+      .multiselect__content-wrapper
+        padding 40px 0 0
 
-      &.multiselect--active
-        .multiselect__input
-          height 40px
-          opacity 1
-          padding 0 1em
-          top 40px
-          width calc(100% - 2px)!important
-
+      &.multiselect--above
+        .multiselect__content-wrapper
+          padding 0 0 40px
 </style>
 
 

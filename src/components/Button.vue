@@ -108,6 +108,7 @@ export default {
   cursor pointer
   display inline-block
   font-size 0.95em
+  height auto
   text-align center
   padding 0.5em 0.8em
   text-decoration none
