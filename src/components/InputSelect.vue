@@ -292,11 +292,7 @@ export default {
         .every((option) => {
           if (typeof option === 'object') {
             const label = this.getOptionLabel(option);
-            return this.localValue
-              .some((localOption) => {
-                const locaLabel = this.getOptionLabel(localOption);
-                return locaLabel === label;
-              });
+            return this.containValue(label, this.localValue);
           }
           return this.localValue.includes(option);
         });
@@ -311,11 +307,7 @@ export default {
         .some((option) => {
           if (typeof option === 'object') {
             const label = this.getOptionLabel(option);
-            return this.localValue
-              .some((localOption) => {
-                const locaLabel = this.getOptionLabel(localOption);
-                return locaLabel === label;
-              });
+            return this.containValue(label, this.localValue);
           }
           return this.localValue.includes(option);
         });
@@ -342,6 +334,11 @@ export default {
     },
   },
   methods: {
+    containValue(value, obj) {
+      return obj.some((option) => {
+        return this.getOptionLabel(option) === value;
+      });
+    },
     setWidthOptions() {
       if (!this.isOpen) {
         return;
@@ -353,16 +350,27 @@ export default {
     },
     selectAll() {
       const value = this.localValue || [];
+
       if (this.isAllChecked) {
-        this.localValue = value
-          .filter(option => !(this.filteredOptions.indexOf(option) > -1));
-        this.$emit('input', this.localValue);
+        this.localValue = value.filter((option) => {
+          if (typeof option === 'object') {
+            const label = this.getOptionLabel(option);
+            return this.containValue(label, this.filteredOptions);
+          }
+          return this.filteredOptions.includes(option);
+        });
       } else {
         const mergedValues = [...value, ...this.filteredOptions];
-        this.localValue = mergedValues
-          .filter((option, index) => mergedValues.indexOf(option) === index);
-        this.$emit('input', this.localValue);
+        this.localValue = mergedValues.filter((option) => {
+          if (typeof option === 'object') {
+            const label = this.getOptionLabel(option);
+            return this.containValue(label, this.mergedValues);
+          }
+          return this.filteredOptions.includes(option);
+        });
       }
+
+      this.$emit('input', this.localValue);
     },
     getOptionLabel(option) {
       if (!option) return '';
