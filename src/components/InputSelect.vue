@@ -26,6 +26,7 @@
       @search-change="searchEvent"
       v-bind="newProps"
       v-model="localValue"
+      :tabindex="0"
     >
       <template slot="clear" slot-scope="{ search }">
         <slot name="clear" :search="search">
@@ -559,26 +560,24 @@ export default {
 
 
 <docs>
-Input básico:
+Select básico:
 ```vue
 <template>
-  <div class="ViComponent">
-    <vi-select
-      checkbox
-      label="Relationship Status"
-      v-model="value"
-      :options="relationshipStatusOptions"
-      :close-on-select="false"
-    >
-    </vi-select>
-    <pre><code>{{ dataForm }}</code></pre>
-  </div>
+  <vi-select
+    checkbox
+    label="Relationship Status"
+    v-model="value"
+    :options="relationshipStatusOptions"
+    :close-on-select="false"
+  />
+  <pre><code>{{ dataForm }}</code></pre>
 </template>
 <script>
 export default {
   data() {
     return {
       value: null,
+      email: null,
     };
   },
   computed: {
