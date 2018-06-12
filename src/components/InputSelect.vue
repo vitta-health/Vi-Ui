@@ -225,23 +225,23 @@ export default {
       default: '##NUMBER## opções selecionadas',
     },
     /**
-     * String to show next to selected option
+     * String que aparece quando o mouse ou o foco está em uma opção
      */
     selectLabel: {
       type: String,
       default: '',
     },
     /**
-     * String to show when pointing to an already selected option
+     * String que aparece em uma opção selecionada
      */
-    deselectLabel: {
+    selectedLabel: {
       type: String,
       default: 'Selecionado',
     },
     /**
-     * String to show next to selected option
+     * String que aparece quando o mouse ou o foco está em uma opção selecionada
      */
-    selectedLabel: {
+    deselectLabel: {
       type: String,
       default: 'Selecionado',
     },
