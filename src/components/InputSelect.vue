@@ -36,7 +36,7 @@
                 class="multiselect__checkoption"
                 :class=" {
                   'multiselect__checkoption--selected': isAllChecked,
-                  'multiselect__checkoption--inderteminate': isSomeChecked,
+                  'multiselect__checkoption--inderteminate': isSomeCheckedButNotAll,
                 }"
                 @keydown.enter.prevent="selectAll"
                 @mousedown.prevent="selectAll"
@@ -163,8 +163,7 @@ export default {
       default: null,
     },
     /**
-     * Comportamento original do Vue-Multiselect. Que exibe os multiselect
-     * como uma lista de botões pra remover selecionados.
+     * Visualização de tags, comportamento original do Vue-Multiselect.
      */
     pill: {
       type: Boolean,
@@ -274,13 +273,13 @@ export default {
     isAllChecked() {
       if (!this.localValue) return false;
       return this.filteredOptions
-        .every(option => this.localValue.indexOf(option) > -1);
+        .every(option => this.localValue.includes(option));
     },
-    isSomeChecked() {
+    isSomeCheckedButNotAll() {
       if (!this.localValue) return false;
       if (this.isAllChecked) return false;
       return this.filteredOptions
-        .some(option => this.localValue.indexOf(option) > -1);
+        .some(option => this.localValue.includes(option));
     },
     checkAllLabelComp() {
       if (this.searchValue) {
@@ -357,7 +356,6 @@ export default {
 </script>
 
 <style lang="stylus">
-/* eslint-disable vue/max-attributes-per-line */
 @import '../../node_modules/vue-multiselect/dist/vue-multiselect.min.css'
 @import '../themes/main'
 @import '../themes/input'
