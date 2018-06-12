@@ -2,7 +2,7 @@
   <label
     :for="id"
     class="ViInput__Label"
-    v-if="label"
+    v-if="label !== null"
   >{{ label }}
     <small
       v-if="instruction"

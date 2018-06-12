@@ -229,7 +229,7 @@ Exemplo de validação de formulário.
     vertical
     tag="fieldset"
   >
-    <legend>Album</legend>
+    <legend><vi-icon name="upload" /> Album</legend>
 
     <vi-input-file
       label="Photos to upload"

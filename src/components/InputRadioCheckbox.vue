@@ -16,6 +16,8 @@
       :class="{
         'ViCheckbox__Input--validated': validated || forceValidation,
         'ViCheckbox__Input--invalid': invalid,
+        'ViCheckbox__Input--radio': radio,
+        'ViCheckbox__Input--checkbox': !radio,
       }"
       v-bind="{
         autofocus: autoFocus,
@@ -27,9 +29,10 @@
         readOnly,
         type: radio ? 'radio' : 'checkbox',
         value,
+        indeterminate,
       }"
     >
-    <vi-input-label v-bind="{ for: id, label, instruction }"/>
+    <vi-input-label v-bind="{ for: id, label: label||'', instruction }"/>
   </vi-wrapper>
 </template>
 
@@ -59,6 +62,13 @@ export default {
      * Checkbox ou radio button está marcados?
      */
     checked: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Valor intermediario entre marcado ou não
+     */
+    indeterminate: {
       type: Boolean,
       default: false,
     },
@@ -106,6 +116,7 @@ export default {
     cursor pointer
 
     & + label
+      min-height 18px
       position relative
       padding 0 0 0 1em
       z-index 0
@@ -130,7 +141,7 @@ export default {
       & + label:before
         box-shadow 0 0 0 1px rgba($primary, 1)
 
-    &[type="checkbox"]
+    &.ViCheckbox__Input--checkbox
       & + label:after
         background transparent
         border 0.27em solid $primary
@@ -142,6 +153,7 @@ export default {
         opacity 0
         transform rotate(90deg) scale(0.4, 0.3) translate(-0.5em)
 
+      &[checked]
       &:checked
         & + label:before
           background $primary
@@ -151,7 +163,12 @@ export default {
           opacity 1
           transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
 
-    &[type="radio"]
+      &[indeterminate]
+      &:indeterminate
+        & + label:after
+          opacity 1!important
+
+    &.ViCheckbox__Input--radio
       & + label
         &:after
           display none
@@ -160,6 +177,7 @@ export default {
           border 0.75em solid lighten($default, 50%)
           border-radius 1.5em
 
+      &[checked]
       &:checked
         & + label:before
           border-width 0.35em
@@ -201,5 +219,12 @@ export default {
 };
 </script>
 ```
+
+Checkbox "indeterminate":
+
+```jsx
+<vi-checkbox indeterminate label="Indeterminado" />
+```
+
 
 </docs>

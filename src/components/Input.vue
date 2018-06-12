@@ -207,7 +207,7 @@ Exemplo de formulário.
       vertical
       tag="fieldset"
     >
-      <legend>About you</legend>
+      <legend><vi-icon name="person" /> About you</legend>
       <vi-input
         label="Name"
         auto-complete="name"
@@ -224,7 +224,7 @@ Exemplo de formulário.
       vertical
       tag="fieldset"
     >
-      <legend>Relationship Status</legend>
+      <legend><vi-icon name="question" /> Relationship Status</legend>
       <vi-checkbox
         radio
         v-for="(valueRel, index) in relationshipStatusOptions"
@@ -281,7 +281,7 @@ Exemplo de validação de formulário.
       vertical
       tag="fieldset"
     >
-      <legend>Login</legend>
+      <legend><vi-icon name="padlock" /> Login</legend>
       <vi-input
         label="Email"
         instruction="(Required)"
