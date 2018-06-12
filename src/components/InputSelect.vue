@@ -31,7 +31,12 @@
       <template slot="clear" slot-scope="{ search }">
         <slot name="clear" :search="search">
           <template v-if="checkbox">
-            <div class="ViInput__CheckAll">
+            <div
+              class="ViInput__CheckAll"
+              :style="{
+                width: `${optionsWidth}px`,
+              }"
+            >
               <span
                 tabindex="1"
                 class="multiselect__checkoption"
@@ -115,7 +120,7 @@
         </slot>
       </template>
       <template slot="noResult">
-        <slot name="noResult">Nenhum resultado disponivel</slot>
+        <slot name="noResult">Nenhum resultado disponível</slot>
       </template>
       <template slot="maxElements" v-if="multiple && max === internalValue.length">
         <slot name="maxElements">
@@ -253,12 +258,13 @@ export default {
       localValue: null,
       searchValue: '',
       isOpen: false,
+      optionsWidth: 'calc(100% - 2px)',
     };
   },
   watch: {
     value() {
       this.localValue = this.value;
-    }
+    },
   },
   computed: {
     totalValueLabel() {
@@ -336,6 +342,15 @@ export default {
     },
   },
   methods: {
+    setWidthOptions() {
+      if (!this.isOpen) {
+        return;
+      }
+
+      this.optionsWidth = this.$el
+        .getElementsByClassName('multiselect__element')[0]
+        .clientWidth;
+    },
     selectAll() {
       const value = this.localValue || [];
       if (this.isAllChecked) {
@@ -381,9 +396,16 @@ export default {
       this.$emit('close', value, id);
     },
     openEvent(id) {
+      setTimeout(this.setWidthOptions, 80);
       this.isOpen = true;
       this.$emit('open', id);
     },
+    /* isHighlighted(id) {
+      scrollIntoView(node, {
+        behavior: 'smooth',
+        scrollMode: 'if-needed',
+      });
+    },*/
   },
 };
 </script>
@@ -452,17 +474,7 @@ export default {
 
     .multiselect__content-wrapper
       border-color $border-color-main
-      box-sizing content-box
-      width calc(100% - 2px)
-      overflow hidden
       z-index 1
-
-      .multiselect__content
-        box-sizing border-box
-        display block!important
-        max-height inherit
-        height 100%
-        overflow auto
 
     .multiselect__checkoption
       display block
@@ -555,14 +567,13 @@ export default {
       z-index 2
 
       .multiselect__checkoption
-        border 1px solid $border-color-main
-        border-bottom-color rgba($border-color-main, 0.5)
-        border-top none
+        border none
+        border-bottom 1px solid rgba($border-color-main, 0.5)
         display flex
         font-weight 300
         height 0
         justify-content space-between
-        left 0
+        left 1px
         position absolute
         top 40px
         width 100%
@@ -593,11 +604,11 @@ export default {
       .multiselect__single
         display none
 
-      .multiselect__content-wrapper
+      .multiselect__content
         padding 40px 0 0
 
       &.multiselect--above
-        .multiselect__content-wrapper
+        .multiselect__content
           padding 0 0 40px
 </style>
 
@@ -606,21 +617,22 @@ export default {
 Select básico:
 ```vue
 <template>
-  <vi-select
-    checkbox
-    label="Relationship Status"
-    v-model="value"
-    :options="relationshipStatusOptions"
-    :close-on-select="false"
-  />
-  <pre><code>{{ dataForm }}</code></pre>
+  <vi-wrapper vertical>
+    <vi-select
+      checkbox
+      label="Relationship Status"
+      v-model="value"
+      :options="relationshipStatusOptions"
+      :close-on-select="false"
+    />
+    <pre><code>{{ dataForm }}</code></pre>
+  </vi-wrapper>
 </template>
 <script>
 export default {
   data() {
     return {
       value: null,
-      email: null,
     };
   },
   computed: {
