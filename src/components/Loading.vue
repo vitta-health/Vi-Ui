@@ -17,13 +17,13 @@
     }"
   >
     <canvas
-      class="ViLoading__canvas"
+      class="ViLoading__Canvas"
       ref="canvas"
       :height="`${getSize}px`"
       :width="`${getSize}px`"
     />
     <span
-      class="ViLoading__value"
+      class="ViLoading__Value"
       ref="text"
       :style="{
         borderWidth: `${borderSize}px`,
@@ -118,11 +118,11 @@ export default {
   z-index 100
 
   &--loop
-    .ViLoading__canvas
+    .ViLoading__Canvas
       animation spin 1s linear infinite
       animation-fill-mode forwards
 
-  &__canvas
+  .ViLoading__Canvas
     height 100%
     left 0
     position absolute
@@ -130,7 +130,7 @@ export default {
     width 100%
     z-index 1
 
-  &__value
+  .ViLoading__Value
     align-items center
     border 1px solid rgba(0, 0, 0, 0.05)
     border-radius 50%

@@ -139,7 +139,7 @@ export default {
 
     &:focus
       & + label:before
-        box-shadow 0 0 0 1px rgba($primary, 1)
+        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.7)
 
     &.ViCheckbox__Input--checkbox
       & + label:after
