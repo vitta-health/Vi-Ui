@@ -183,7 +183,7 @@ export default {
     border 0
     bottom -1px
     height 1px
-    margin 0!important
+    margin 0
     overflow hidden
     opacity 0
     padding 0

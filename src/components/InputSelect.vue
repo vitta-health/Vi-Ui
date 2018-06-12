@@ -33,16 +33,17 @@
           <template v-if="checkbox">
             <div class="ViInput__CheckAll">
               <span
+                tabindex="1"
                 class="multiselect__checkoption"
                 :class=" {
                   'multiselect__checkoption--selected': isAllChecked,
                   'multiselect__checkoption--inderteminate': isSomeCheckedButNotAll,
                 }"
                 @keydown.enter.prevent="selectAll"
+                @keydown.space.prevent="selectAll"
                 @mousedown.prevent="selectAll"
               >
                 <span
-                  tabindex="1"
                   class="ViInput__MultiselectCheckbox"
                 >{{ checkAllLabelComp }}</span>
                 <span class="ViInput__Total">({{ totalValueLabel }})</span>
@@ -53,7 +54,13 @@
       </template>
       <template slot="caret" slot-scope="{ toggle }">
         <slot name="caret" :toggle="toggle">
-          <div @mousedown.prevent.stop="toggle" class="multiselect__select" />
+          <div
+            tabindex="0"
+            @keydown.enter.prevent.stop="toggle"
+            @keydown.space.prevent.stop="toggle"
+            @mousedown.prevent.stop="toggle"
+            class="multiselect__select"
+          />
         </slot>
       </template>
       <template slot="option" slot-scope="{ option }">
@@ -271,15 +278,41 @@ export default {
       return props;
     },
     isAllChecked() {
-      if (!this.localValue) return false;
+      if (
+        !this.localValue
+        || !this.filteredOptions
+      ) return false;
       return this.filteredOptions
-        .every(option => this.localValue.includes(option));
+        .every((option) => {
+          if (typeof option === 'object') {
+            const label = this.getOptionLabel(option);
+            return this.localValue
+              .some((localOption) => {
+                const locaLabel = this.getOptionLabel(localOption);
+                return locaLabel === label;
+              });
+          }
+          return this.localValue.includes(option);
+        });
     },
     isSomeCheckedButNotAll() {
-      if (!this.localValue) return false;
-      if (this.isAllChecked) return false;
+      if (
+        !this.localValue
+        || !this.filteredOptions
+        || this.isAllChecked
+      ) return false;
       return this.filteredOptions
-        .some(option => this.localValue.includes(option));
+        .some((option) => {
+          if (typeof option === 'object') {
+            const label = this.getOptionLabel(option);
+            return this.localValue
+              .some((localOption) => {
+                const locaLabel = this.getOptionLabel(localOption);
+                return locaLabel === label;
+              });
+          }
+          return this.localValue.includes(option);
+        });
     },
     checkAllLabelComp() {
       if (this.searchValue) {
@@ -411,6 +444,11 @@ export default {
 
     .multiselect__select
       z-index 3
+      &:focus
+        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.7)
+        outline none
+        &:before
+          border-color $border-color-main-focus transparent transparent
 
     .multiselect__content-wrapper
       border-color $border-color-main
@@ -492,20 +530,23 @@ export default {
             transform rotate(90deg) scale(0.4, 0.3) translate(-0.5em)
 
       &--highlight
-      &:focus:not(.multiselect__checkoption)
-      &:hover:not(.multiselect__checkoption)
+      &:focus
+      &:hover
         color $border-color-main-focus
         background transparent
-        box-shadow inset 0 1px 0 $border-color-main-focus
+        box-shadow 0 -1px 0 $border-color-main-focus,
+        inset 0 0 0 0.2em rgba($border-color-main-focus, 0.7)
         border-color $border-color-main-focus
-        color $border-color-main-focus
+        position relative
+        z-index 1
 
         &:after
           background inherit
           color rgba($text-color-main, 0.4)
 
         &.multiselect__option--selected
-          box-shadow inset 0 1px 0 $success
+          box-shadow 0 -1px 0 $success,
+          inset 0 0 0 0.2em rgba($success, 0.7)
           border-color $success
           color $success
 
@@ -529,6 +570,10 @@ export default {
         overflow hidden
         transition all 0.06s ease-out
         background $light
+
+        &:focus
+        &:hover
+          border-color $border-color-main-focus
 
       .ViInput__Total
         font-size 80%
