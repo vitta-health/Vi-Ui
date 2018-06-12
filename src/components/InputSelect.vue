@@ -574,6 +574,8 @@ export default {
         height 0
         justify-content space-between
         left 1px
+        min-height 0
+        padding 0 12px
         position absolute
         top 40px
         width 100%
@@ -586,6 +588,11 @@ export default {
         &:hover
           border-color $border-color-main-focus
 
+        .ViInput__MultiselectCheckbox
+          &:before
+          &:after
+            top -5px
+
       .ViInput__Total
         font-size 80%
 
@@ -593,7 +600,9 @@ export default {
       .ViInput__CheckAll
         .multiselect__checkoption
           height 40px
+          min-height 40px
           opacity 1
+          padding 12px
 
     &.multiselect--above
       .ViInput__CheckAll
