@@ -1,8 +1,14 @@
 <template>
-  <span :class="icon" />
+  <span
+    aria-hidden="true"
+    :class="icon"
+  />
 </template>
 
 <script>
+/**
+ * @todo Alterar desenhos do icones.
+ */
 export default {
   name: 'ViIcon',
   props: {
@@ -23,6 +29,10 @@ export default {
 </script>
 
 <docs>
+
+Obs: Nas próximas versões existem o risco de breaking changes.
+Todos os desenhos irão mudar e provavelmente boa parte deles será renomeada.
+
 ### Como utilizar:
 
 ```jsx

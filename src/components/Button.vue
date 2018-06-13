@@ -101,15 +101,14 @@ export default {
 
 <style lang="stylus">
 @import '../themes/main'
-
-.ViComponent .ViButton
-.ViButton
+.ViComponent.ViButton
   border-width 0.09em
   border-style solid
   border-radius 0.5em
   cursor pointer
   display inline-block
   font-size 0.95em
+  height auto
   text-align center
   padding 0.5em 0.8em
   text-decoration none
