@@ -142,7 +142,7 @@ export default {
         });
       }
     },
-    showHide(status, allowCloseClick = false) {
+    showHide(status) {
       if (status) this.tooltip.show();
       else this.tooltip.hide();
     },
