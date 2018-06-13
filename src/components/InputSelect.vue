@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <vi-wrapper
     mini
@@ -28,8 +27,14 @@
       v-model="localValue"
       :tabindex="0"
     >
-      <template slot="clear" slot-scope="{ search }">
-        <slot name="clear" :search="search">
+      <template
+        slot="clear"
+        slot-scope="{ search }"
+      >
+        <slot
+          name="clear"
+          :search="search"
+        >
           <template v-if="checkbox">
             <div
               class="ViInput__CheckAll"
@@ -48,28 +53,38 @@
                 @keydown.space.prevent="selectAll"
                 @mousedown.prevent="selectAll"
               >
-                <span
-                  class="ViInput__MultiselectCheckbox"
-                >{{ checkAllLabelComp }}</span>
+                <span class="ViInput__MultiselectCheckbox">{{ checkAllLabelComp }}</span>
                 <span class="ViInput__Total">({{ totalValueLabel }})</span>
               </span>
             </div>
           </template>
         </slot>
       </template>
-      <template slot="caret" slot-scope="{ toggle }">
-        <slot name="caret" :toggle="toggle">
+      <template
+        slot="caret"
+        slot-scope="{ toggle }"
+      >
+        <slot
+          name="caret"
+          :toggle="toggle"
+        >
           <div
             tabindex="0"
+            class="multiselect__select"
             @keydown.enter.prevent.stop="toggle"
             @keydown.space.prevent.stop="toggle"
             @mousedown.prevent.stop="toggle"
-            class="multiselect__select"
           />
         </slot>
       </template>
-      <template slot="option" slot-scope="{ option }">
-        <slot name="option" v-bind="{ option }">
+      <template
+        slot="option"
+        slot-scope="{ option }"
+      >
+        <slot
+          name="option"
+          v-bind="{ option }"
+        >
           <template v-if="checkbox">
             <span class="ViInput__MultiselectCheckbox">{{ option }}</span>
           </template>
@@ -79,8 +94,14 @@
         </slot>
       </template>
 
-      <template slot="tag" slot-scope="{ option, search, remove }">
-        <slot name="tag" v-bind="{ option, search, remove }">
+      <template
+        slot="tag"
+        slot-scope="{ option, search, remove }"
+      >
+        <slot
+          name="tag"
+          v-bind="{ option, search, remove }"
+        >
           <template v-if="pill">
             <span class="multiselect__tag">
               <span>{{ getOptionLabel(option) }}</span>
@@ -103,8 +124,14 @@
         </slot>
       </template>
 
-      <template slot="singleLabel" slot-scope="scope">
-        <slot name="singleLabel" slot-scope="scope">
+      <template
+        slot="singleLabel"
+        slot-scope="scope"
+      >
+        <slot
+          name="singleLabel"
+          slot-scope="scope"
+        >
           {{ scope.option }}
         </slot>
       </template>
@@ -114,15 +141,24 @@
       <template slot="afterList">
         <slot name="afterList" />
       </template>
-      <template slot="limit" v-if="internalValue && internalValue.length > limit">
+      <template
+        slot="limit"
+        v-if="internalValue && internalValue.length > limit"
+      >
         <slot name="limit">
-          <strong class="multiselect__strong" v-text="limitText(internalValue.length - limit)"/>
+          <strong
+            class="multiselect__strong"
+            v-text="limitText(internalValue.length - limit)"
+          />
         </slot>
       </template>
       <template slot="noResult">
         <slot name="noResult">Nenhum resultado disponível</slot>
       </template>
-      <template slot="maxElements" v-if="multiple && max === internalValue.length">
+      <template
+        slot="maxElements"
+        v-if="multiple && max === internalValue.length"
+      >
         <slot name="maxElements">
           Maximo de {{ max }} opções selecionadas.
           Remova uma opção selecionada para escolher outra opção.
@@ -182,7 +218,8 @@ export default {
       default: false,
     },
     /**
-     * Exibe um checkbox ao lado do campo e força o valor de `multiple` para true
+     * Exibe um checkbox para cada opção e outro para marcar/desmarcar todos.
+     * Também força o valor de `multiple` para `true`.
      */
     checkbox: {
       type: Boolean,
@@ -289,19 +326,12 @@ export default {
       return props;
     },
     isAllChecked() {
-      if (
-        !this.localValue
-        || !this.filteredOptions
-      ) return false;
+      if (!this.localValue || !this.filteredOptions) return false;
       return this.filteredOptions
         .every(option => this.containValue(option, this.localValue));
     },
     isSomeCheckedButNotAll() {
-      if (
-        !this.localValue
-        || !this.filteredOptions
-        || this.isAllChecked
-      ) return false;
+      if (!this.localValue || !this.filteredOptions || this.isAllChecked) return false;
       return this.filteredOptions
         .some(option => this.containValue(option, this.localValue));
     },
