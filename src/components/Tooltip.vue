@@ -6,7 +6,7 @@
       'ViTooltip--mini': mini,
       'ViTooltip--small': small,
       'ViTooltip--large': large }]"
-      @click="justHide()">
+    @click="justHide()">
     <slot />
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       tooltip: {},
-    }
+    };
   },
   props: {
     /**
@@ -116,10 +116,9 @@ export default {
     trigger() {
       let tooltipTrigger = 'hover';
 
-      if (this.click) tooltipTrigger = 'click'
+      if (this.click) tooltipTrigger = 'click';
 
       return tooltipTrigger;
-;
     },
   },
   watch: {
@@ -127,6 +126,7 @@ export default {
       this.showHide(status);
     },
     'tooltip._isOpen'(status) {
+      // eslint-disable-next-line no-underscore-dangle
       this.tooltip._isOpening = status;
     },
   },
@@ -154,7 +154,7 @@ export default {
     this.initTooltip();
     this.showHide(this.show);
   },
-}
+};
 </script>
 
 <style lang="stylus">
