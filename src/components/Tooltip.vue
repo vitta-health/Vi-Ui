@@ -180,6 +180,7 @@ export default {
   &--large
     .tooltip
       font-size 1.2em
+      padding 0.6em 1em
 
   .tooltip
     background $light
