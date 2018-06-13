@@ -21,7 +21,7 @@
       }"
       v-bind="{
         autofocus: autoFocus,
-        checked: checked || isChecked,
+        checked: isChecked,
         disabled,
         id,
         name: name || id,
@@ -29,7 +29,7 @@
         readOnly,
         type: radio ? 'radio' : 'checkbox',
         value,
-        indeterminate,
+        indeterminate: !isChecked && indeterminate,
       }"
     >
     <vi-input-label v-bind="{ for: id, label: label||'', instruction }"/>
@@ -59,14 +59,15 @@ export default {
       default: false,
     },
     /**
-     * Checkbox ou radio button está marcados?
+     * Define se o input está selecionado.
+     * (Se `v-model` for um valor booleano, não é necessário usar)
      */
     checked: {
       type: Boolean,
       default: false,
     },
     /**
-     * Valor intermediario entre marcado ou não
+     * Se for `true`, define o input com estado indeterminado (seleção parcial). [Documentação sobre](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Indeterminate_state_checkboxes)
      */
     indeterminate: {
       type: Boolean,
@@ -93,7 +94,7 @@ export default {
   },
   computed: {
     isChecked() {
-      return typeof this.value === 'boolean' && this.value;
+      return this.checked || this.value === true;
     },
   },
 };

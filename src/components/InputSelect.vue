@@ -24,7 +24,6 @@
       @remove="removeEvent"
       @search-change="searchEvent"
       v-bind="newProps"
-      v-model="localValue"
       :tabindex="0"
     >
       <template
@@ -292,22 +291,16 @@ export default {
   },
   data() {
     return {
-      localValue: null,
       searchValue: '',
       isOpen: false,
       optionsWidth: 'calc(100% - 2px)',
     };
   },
-  watch: {
-    value() {
-      this.localValue = this.value;
-    },
-  },
   computed: {
     optionsWidthString() {
-      return Number.isInteger(this.optionsWidth)
-        ? `${this.optionsWidth}px`
-        : this.optionsWidth;
+      return Number.isNaN(this.optionsWidth - 0)
+        ? this.optionsWidth
+        : `${this.optionsWidth}px`;
     },
     totalValueLabel() {
       return this.selectClosedLabel.replace('##NUMBER##', this.totalValue);
@@ -326,14 +319,14 @@ export default {
       return props;
     },
     isAllChecked() {
-      if (!this.localValue || !this.filteredOptions) return false;
+      if (!this.value || !this.filteredOptions) return false;
       return this.filteredOptions
-        .every(option => this.containValue(option, this.localValue));
+        .every(option => this.containValue(option, this.value));
     },
     isSomeCheckedButNotAll() {
-      if (!this.localValue || !this.filteredOptions || this.isAllChecked) return false;
+      if (!this.value || !this.filteredOptions || this.isAllChecked) return false;
       return this.filteredOptions
-        .some(option => this.containValue(option, this.localValue));
+        .some(option => this.containValue(option, this.value));
     },
     checkAllLabelComp() {
       if (this.searchValue) {
@@ -346,8 +339,8 @@ export default {
         : this.checkAllLabel;
     },
     totalValue() {
-      if (!this.localValue) return 0;
-      return this.localValue.length;
+      if (!this.value) return 0;
+      return this.value.length;
     },
     filteredOptions() {
       if (!this.searchValue) return this.options;
@@ -363,22 +356,19 @@ export default {
       return obj.some(optionCompared => this.getOptionLabel(optionCompared) === labelToCompare);
     },
     setWidthOptions() {
-      if (!this.isOpen) {
-        return;
-      }
-
+      if (!this.isOpen) return;
       this.optionsWidth = this.$el
         .getElementsByClassName('multiselect__element')[0]
         .clientWidth;
     },
     selectAll() {
-      const value = this.localValue || [];
+      let newValue = this.value || [];
 
       if (this.isAllChecked) {
-        this.localValue = value
+        newValue = newValue
           .filter(option => !this.containValue(option, this.filteredOptions));
       } else {
-        const uniqueValues = [...value];
+        const uniqueValues = [...newValue];
         this.filteredOptions.map((option) => {
           if (!this.containValue(option, uniqueValues)) {
             uniqueValues.push(option);
@@ -386,11 +376,11 @@ export default {
           return null;
         });
 
-        this.localValue = uniqueValues
+        newValue = uniqueValues
           .filter(option => this.containValue(option, this.filteredOptions));
       }
 
-      this.$emit('input', this.localValue);
+      this.$emit('input', newValue);
     },
     getOptionLabel(option) {
       if (!option) return '';
@@ -402,11 +392,9 @@ export default {
       return label;
     },
     inputEvent(value, id) {
-      this.localValue = value;
       this.$emit('input', value, id);
     },
     selectEvent(value, id) {
-      this.localValue = value;
       this.$emit('select', value, id);
     },
     removeEvent(value, id) {
