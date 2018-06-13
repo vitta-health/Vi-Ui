@@ -104,14 +104,21 @@ export default {
   },
   computed: {
     position() {
-      return this.top ? 'top' :
-             this.right ? 'right' :
-             this.bottom ? 'bottom' :
-             this.left ? 'left' : 'top';
+      let toolltipPosition = 'top';
+
+      if (this.right) toolltipPosition = 'right';
+      else if (this.bottom) toolltipPosition = 'bottom';
+      else if (this.left) toolltipPosition = 'left';
+
+      return toolltipPosition;
     },
     trigger() {
-      return this.hover ? 'hover' :
-             this.click ? 'click' : 'hover';
+      let tooltipTrigger = 'hover';
+
+      if (this.click) tooltipTrigger = 'click'
+
+      return tooltipTrigger;
+;
     },
   },
   watch: {
@@ -174,16 +181,16 @@ export default {
       font-size 1.2em
 
   .tooltip
-    background #FFFFFF
+    background $light
     border-radius 3px
     box-shadow 0 0 2px rgba(0,0,0,0.5)
-    color #000000
+    color $dark
     padding 10px
     text-align center
     z-index 1
 
   .tooltip-arrow
-    border-color #DADADA
+    border-color $border-color-main
     border-style solid
     height 0
     margin 5px
@@ -254,23 +261,17 @@ Tooltip com botão:
 
 Tooltip com span:
 
-```vue
-<template>
-  <vi-wrapper proportinal class="ViComponent" justify-content="space-around">
-    <vi-tooltip top hover mini content="Esta dica tem tamanho pequeno!">
-      <span>Passe o mouse</span>
-    </vi-tooltip>
-    <vi-tooltip top hover large content="Já essa outra é maior!">
-      <span>Passe o mouse</span>
-    </vi-tooltip>
-    <vi-tooltip top hover content="Este demora 1 segundo pra fechar!" delay-to-close="1000">
-      <span>Passe o mouse</span>
-    </vi-tooltip>
-  </vi-wrapper>
-</template>
-<script>
-export default {
-}
-</script>
+```jsx
+<vi-wrapper proportinal class="ViComponent" justify-content="space-around">
+  <vi-tooltip top hover mini content="Esta dica tem tamanho pequeno!">
+    <span>Passe o mouse</span>
+  </vi-tooltip>
+  <vi-tooltip top hover large content="Já essa outra é maior!">
+    <span>Passe o mouse</span>
+  </vi-tooltip>
+  <vi-tooltip top hover content="Este demora 1 segundo pra fechar!" delay-to-close="1000">
+    <span>Passe o mouse</span>
+  </vi-tooltip>
+</vi-wrapper>
 ```
 </docs>
