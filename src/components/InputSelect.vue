@@ -34,7 +34,7 @@
             <div
               class="ViInput__CheckAll"
               :style="{
-                width: `${optionsWidth}px`,
+                width: optionsWidthString,
               }"
             >
               <span
@@ -267,6 +267,11 @@ export default {
     },
   },
   computed: {
+    optionsWidthString() {
+      return Number.isInteger(this.optionsWidth)
+        ? `${this.optionsWidth}px`
+        : this.optionsWidth;
+    },
     totalValueLabel() {
       return this.selectClosedLabel.replace('##NUMBER##', this.totalValue);
     },
@@ -289,13 +294,7 @@ export default {
         || !this.filteredOptions
       ) return false;
       return this.filteredOptions
-        .every((option) => {
-          if (typeof option === 'object') {
-            const label = this.getOptionLabel(option);
-            return this.containValue(label, this.localValue);
-          }
-          return this.localValue.includes(option);
-        });
+        .every(option => this.containValue(option, this.localValue));
     },
     isSomeCheckedButNotAll() {
       if (
@@ -304,13 +303,7 @@ export default {
         || this.isAllChecked
       ) return false;
       return this.filteredOptions
-        .some((option) => {
-          if (typeof option === 'object') {
-            const label = this.getOptionLabel(option);
-            return this.containValue(label, this.localValue);
-          }
-          return this.localValue.includes(option);
-        });
+        .some(option => this.containValue(option, this.localValue));
     },
     checkAllLabelComp() {
       if (this.searchValue) {
@@ -334,10 +327,10 @@ export default {
     },
   },
   methods: {
-    containValue(value, obj) {
-      return obj.some((option) => {
-        return this.getOptionLabel(option) === value;
-      });
+    containValue(optionToCompare, obj) {
+      if (typeof optionToCompare !== 'object') return obj.includes(optionToCompare);
+      const labelToCompare = this.getOptionLabel(optionToCompare);
+      return obj.some(optionCompared => this.getOptionLabel(optionCompared) === labelToCompare);
     },
     setWidthOptions() {
       if (!this.isOpen) {
@@ -352,22 +345,19 @@ export default {
       const value = this.localValue || [];
 
       if (this.isAllChecked) {
-        this.localValue = value.filter((option) => {
-          if (typeof option === 'object') {
-            const label = this.getOptionLabel(option);
-            return this.containValue(label, this.filteredOptions);
-          }
-          return this.filteredOptions.includes(option);
-        });
+        this.localValue = value
+          .filter(option => !this.containValue(option, this.filteredOptions));
       } else {
-        const mergedValues = [...value, ...this.filteredOptions];
-        this.localValue = mergedValues.filter((option) => {
-          if (typeof option === 'object') {
-            const label = this.getOptionLabel(option);
-            return this.containValue(label, this.mergedValues);
+        const uniqueValues = [...value];
+        this.filteredOptions.map((option) => {
+          if (!this.containValue(option, uniqueValues)) {
+            uniqueValues.push(option);
           }
-          return this.filteredOptions.includes(option);
+          return null;
         });
+
+        this.localValue = uniqueValues
+          .filter(option => this.containValue(option, this.filteredOptions));
       }
 
       this.$emit('input', this.localValue);
@@ -408,12 +398,6 @@ export default {
       this.isOpen = true;
       this.$emit('open', id);
     },
-    /* isHighlighted(id) {
-      scrollIntoView(node, {
-        behavior: 'smooth',
-        scrollMode: 'if-needed',
-      });
-    },*/
   },
 };
 </script>
@@ -622,7 +606,7 @@ export default {
         display none
 
       .multiselect__content
-        padding 40px 0 0
+        padding 41px 0 0
 
       &.multiselect--above
         .multiselect__content
