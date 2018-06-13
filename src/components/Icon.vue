@@ -8,8 +8,6 @@
 <script>
 /**
  * @todo Alterar desenhos do icones.
- * Obs: Nas próximas versões existem o risco de breaking change.
- * Todos os desenhos irão mudar e provavelmente boa parte sera renomeada.
  */
 export default {
   name: 'ViIcon',
@@ -31,6 +29,10 @@ export default {
 </script>
 
 <docs>
+
+Obs: Nas próximas versões existem o risco de breaking changes.
+Todos os desenhos irão mudar e provavelmente boa parte deles será renomeada.
+
 ### Como utilizar:
 
 ```jsx
