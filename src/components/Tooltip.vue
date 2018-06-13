@@ -185,7 +185,7 @@ export default {
   .tooltip
     background $light
     border-radius 3px
-    box-shadow 0 0 2px rgba(0,0,0,0.5)
+    box-shadow 0 1px 4px rgba(0,0,0,0.4)
     color $dark
     padding 10px
     text-align center
