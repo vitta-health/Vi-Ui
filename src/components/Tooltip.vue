@@ -125,6 +125,7 @@ export default {
     show(status) {
       this.showHide(status);
     },
+    // eslint-disable-next-line object-shorthand
     'tooltip._isOpen'(status) {
       // eslint-disable-next-line no-underscore-dangle
       this.tooltip._isOpening = status;
