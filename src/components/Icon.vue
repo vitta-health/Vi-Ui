@@ -7,8 +7,9 @@
 
 <script>
 /**
- * @deprecated since 0.0.7
- * Os desenhos vão mudar.
+ * @todo Alterar desenhos do icones.
+ * Obs: Nas próximas versões existem o risco de breaking change.
+ * Todos os desenhos irão mudar e provavelmente boa parte sera renomeada.
  */
 export default {
   name: 'ViIcon',
