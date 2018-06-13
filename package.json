@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "stylus": "^0.54.5",
+    "tooltip.js": "^1.2.0",
     "vue": "^2.5.16"
   },
   "devDependencies": {
