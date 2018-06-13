@@ -7,7 +7,7 @@
     class="ViComponent ViInput ViInputFile"
     :style="{ width: componentWidth }"
   >
-    <vi-input-label v-bind="{ for: fieldID, label, instruction }"/>
+    <vi-input-label v-bind="{ for: id, label, instruction }"/>
     <input
       ref="input"
       @valid="validate($event.target)"
@@ -20,10 +20,10 @@
         autocomplete: autoComplete,
         autofocus: autoFocus,
         disabled,
-        id: fieldID,
+        id,
         accept,
         multiple,
-        name: name || fieldID,
+        name: name || id,
         placeholder,
         required,
         readOnly,
@@ -64,13 +64,11 @@
 
 
 <script>
-/* eslint-disable max-len */
 import ViWrapper from './Wrapper.vue';
 import ViButton from './Button.vue';
 import ViInputLabel from '../helperComponents/InputLabel.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import inputMixin from '../mixins/input';
-import positioningMixin from '../mixins/positioning';
 
 export default {
   name: 'ViInputFile',
@@ -79,7 +77,7 @@ export default {
     ViButton,
     ViInputLabel,
   },
-  mixins: [scaleMixin, widthMixin, inputMixin, positioningMixin],
+  mixins: [scaleMixin, widthMixin, inputMixin],
   props: {
     /**
      * Auto-complete [opções de autocomplete](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute).
@@ -106,7 +104,8 @@ export default {
       default: 'No selected file',
     },
     /**
-     * Texto do botão para quando a opção `multiple` é true e há mais de um arquivo selecionado. A string ##NUMBER## é substituída pelo número de arquivos.
+     * Texto do botão para quando a opção `multiple` é true e há mais de um arquivo selecionado.
+     * A string ##NUMBER## é substituída pelo número de arquivos.
      */
     filledInput: {
       type: String,
@@ -118,6 +117,13 @@ export default {
     buttonDesciption: {
       type: String,
       default: 'Select files',
+    },
+    /**
+     * Placeholder do campo
+     */
+    placeholder: {
+      type: String,
+      default: null,
     },
   },
   data() {
@@ -169,8 +175,27 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../themes/main'
-  @import '../themes/input'
+@import '../themes/main'
+@import '../themes/input'
+
+.ViComponent.ViInput
+  .ViInput__FileInput
+    border 0
+    bottom -1px
+    height 1px
+    margin 0
+    overflow hidden
+    opacity 0
+    padding 0
+    position absolute
+    right 0
+    width 100%
+
+    & + .ViInput_Wrapper
+      & .ViInput__Input:focus
+        border 1px solid $border-color-main-focus
+        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.7)
+        outline none
 </style>
 
 <docs>
@@ -204,7 +229,7 @@ Exemplo de validação de formulário.
     vertical
     tag="fieldset"
   >
-    <legend>Album</legend>
+    <legend><vi-icon name="upload" /> Album</legend>
 
     <vi-input-file
       label="Photos to upload"

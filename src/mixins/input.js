@@ -30,7 +30,7 @@ export default {
     /**
      * Identificador do campo. Caso não definido, será um valor gerado automaticamente.
      */
-    fieldID: {
+    id: {
       type: String,
       default: () => {
         inputPosition += 1;
@@ -38,7 +38,7 @@ export default {
       },
     },
     /**
-    * Nome do campo (usa o mesmo que fieldID se não definido)
+    * Nome do campo (usa o mesmo que `id` se não definido)
     */
     name: {
       type: String,
@@ -94,13 +94,6 @@ export default {
     multiple: {
       type: Boolean,
       default: false,
-    },
-    /**
-     * Placeholder do campo
-     */
-    placeholder: {
-      type: String,
-      default: null,
     },
   },
   methods: {

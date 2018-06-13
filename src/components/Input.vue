@@ -7,12 +7,11 @@
     class="ViComponent ViInput"
     :style="{ width: componentWidth }"
   >
-    <vi-input-label v-bind="{ for: fieldID, label, instruction }"/>
+    <vi-input-label v-bind="{ for: id, label, instruction }"/>
     <vi-wrapper
       no-margin
       class="ViInput_Wrapper"
       tag="div"
-      :disable-wrapper="!hasPrefix && !hasSuffix"
     >
       <div
         v-if="hasPrefix"
@@ -34,12 +33,12 @@
           autocomplete: autoComplete,
           autofocus: autoFocus,
           disabled,
-          id: fieldID,
+          id,
           max,
           maxlength: maxLength,
           min,
           minlength: minLength,
-          name: name || fieldID,
+          name: name || id,
           pattern,
           placeholder,
           required,
@@ -62,12 +61,10 @@
 
 
 <script>
-/* eslint-disable max-len */
 import ViWrapper from './Wrapper.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import ViInputLabel from '../helperComponents/InputLabel.vue';
 import inputMixin from '../mixins/input';
-import positioningMixin from '../mixins/positioning';
 
 export default {
   name: 'ViInput',
@@ -75,7 +72,7 @@ export default {
     ViWrapper,
     ViInputLabel,
   },
-  mixins: [scaleMixin, widthMixin, inputMixin, positioningMixin],
+  mixins: [scaleMixin, widthMixin, inputMixin],
   props: {
     /**
      * Tipo de campo
@@ -132,6 +129,13 @@ export default {
     */
     rows: {
       type: [String, Number],
+      default: null,
+    },
+    /**
+     * Placeholder do campo
+     */
+    placeholder: {
+      type: String,
       default: null,
     },
   },
@@ -203,7 +207,7 @@ Exemplo de formulário.
       vertical
       tag="fieldset"
     >
-      <legend>About you</legend>
+      <legend><vi-icon name="person" /> About you</legend>
       <vi-input
         label="Name"
         auto-complete="name"
@@ -220,8 +224,8 @@ Exemplo de formulário.
       vertical
       tag="fieldset"
     >
-      <legend>Relationship Status</legend>
-      <vi-inputCheckbox
+      <legend><vi-icon name="question" /> Relationship Status</legend>
+      <vi-checkbox
         radio
         v-for="(valueRel, index) in relationshipStatusOptions"
         :key="index"
@@ -277,7 +281,7 @@ Exemplo de validação de formulário.
       vertical
       tag="fieldset"
     >
-      <legend>Login</legend>
+      <legend><vi-icon name="padlock" /> Login</legend>
       <vi-input
         label="Email"
         instruction="(Required)"
@@ -308,7 +312,7 @@ Exemplo de validação de formulário.
       tag="div"
     >
       <vi-button type="submit" success>Try!</vi-button>
-      <vi-inputCheckbox
+      <vi-checkbox
         required
         label="I read the EULA"
         v-model="terms"

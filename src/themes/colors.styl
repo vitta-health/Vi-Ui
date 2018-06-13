@@ -1,47 +1,36 @@
-$colors = {
-  default: #94A2B0,
-  primary: #3581BC,
-  secondary: #1C415E,
-  success: #28a478,
-  warning: #DDC880,
-  danger: #e45151,
-  info: #1987C5,
-  dark: #55636F,
-  light: #FFFFFF,
-}
-
-$background-main = #fff
-$text-color-main = rgba(0, 0, 0, 0.75)
-
-$isDark = !(contrast($colors.light, $background-main).ratio < 3)
-$textIsDark = contrast($colors.light, $text-color-main).ratio > 3
-
-$link-color-main = $colors.primary
-$border-color-main = $isDark ? rgba(255, 255, 255, 0.2) : rgba(0, 0, 0, 0.2)
-$border-color-main-focus = $colors.primary
-$input-background-main = $isDark ? $colors.dark : $colors.light
-$block-background-main = $isDark ? rgba(255, 255, 255, 0.04) : rgba(0, 0, 0, 0.04)
-$error-color = $colors.danger
-$primary = $colors.primary
-$default = $colors.default
+$colors = json('colorsList.json', { hash: true })
 
 for $key, $val in $colors
-  $contrast-ratio-light = contrast($val, $colors.light).ratio
+  define('$'+$key, $val)
+
+$isDark = false
+$textIsDark = true
+
+$background-main = $light
+$text-color-main = rgba(black, 0.75)
+
+$link-color-main = $primary
+$border-color-main = $isDark ? rgba($light, 0.2) : lighten(black, 80)
+$border-color-main-focus = $primary
+$input-background-main = $isDark ? $dark : $light
+$block-background-main = $isDark ? rgba($light, 0.04) : rgba(black, 0.04)
+
+for $key, $val in $colors
+  $contrast-ratio-light = contrast($val, $light).ratio
   $contrast-ratio-text = contrast($val, $text-color-main).ratio
 
   if $contrast-ratio-light > $contrast-ratio-text || $contrast-ratio-light > 3
-    $text-color = $colors.light
+    $text-color = $light
     $link-color = $text-color
   else if $contrast-ratio-text < 7 && $textIsDark
-    $text-color = #000000
+    $text-color = black
     $link-color = $link-color-main
   else
     $text-color = $text-color-main
     $link-color = $link-color-main
 
-  a.ViColor-{$key}
+  .ViComponent .ViColor-{$key}
   .ViComponent.ViColor-{$key}
-  .ViColor-{$key}
     &--background
       border-color $val
       background-color $val

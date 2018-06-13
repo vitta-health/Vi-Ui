@@ -9,17 +9,19 @@
       <tr class="ViTable__Row">
         <th
           v-if="checkbox"
-          class="ViTable--NoSortable ViTable__Checkbox">
+          class="ViTable--NotSortable ViTable__Checkbox">
           <input
             ref="checkboxAllSelected"
             type="checkbox"
-            @click="onSelectAll">
+            class="ViTable__InputCheckbox"
+            @click="selectAll">
+          <span class="ViTable__FakeCheckbox ViTable__FakeCheckbox--inverted" />
         </th>
         <th
           v-for="(column, index) in columns"
           :key="index"
           @click="column.sortable ? onSort(column.id) : null"
-          :class="[{'ViTable--NoSortable': !column.sortable}]">
+          :class="[{'ViTable--NotSortable': !column.sortable}]">
           <div class="ViTable__Collumns">
             {{ column.label }}
             <div class="ViTable__Arrows">
@@ -40,7 +42,7 @@
         </th>
       </tr>
     </thead>
-    <tfoot v-if="tFoot">
+    <tfoot v-if="'tfoot' in this.$slots">
       <tr>
         <td v-if="checkbox"/>
         <slot name="tfoot"/>
@@ -56,9 +58,12 @@
           v-if="checkbox">
           <input
             ref="selectedCheckbox"
-            @click="onSelect(index, item)"
+            @click="select(index, item)"
             type="checkbox"
-            :checked="item.selected">
+            class="ViTable__InputCheckbox"
+            :checked="item.selected"
+          >
+          <span class="ViTable__FakeCheckbox" />
         </td>
         <slot :item="item"/>
       </tr>
@@ -77,7 +82,7 @@ export default {
   props: {
     /**
      * Array de objetos contendo os dados do cabeçalho da tabela.
-     * id:string será enviado ao evento @on-sort para ordenação
+     * id:string será enviado ao evento @sort para ordenação
      * label:string texto apresentado na coluna
      * sortable:boolean define se a coluna poderá ser ordenada
      */
@@ -136,18 +141,11 @@ export default {
       type: Boolean,
       default: false,
     },
-    /**
-     * Habilita o tfoot
-     */
-    tFoot: {
-      type: Boolean,
-      default: false,
-    },
   },
   methods: {
     /**
      * Evento disparado ao clicar em um cabeçalho da tabela para ordenação.
-     * @event onSort
+     * @event sort
      * @type {string}
      * @returns {object} retorna um objeto com os dados de ordenação
      */
@@ -157,38 +155,34 @@ export default {
         sortedDirection: 'asc',
       };
       orderBy.sortedDirection = this.sortedColumn === value && this.sortedDirection === 'asc' ? 'desc' : 'asc';
-      this.$emit('on-sort', orderBy);
+      this.$emit('sort', orderBy);
     },
     /**
      * Evento disparado ao selecionar todos os registros da tabela.
-     * @event onSelectAll
+     * @event selectAll
      * @type {object}
      * @returns {object} objeto contendo todos os registros selecionados
      */
-    onSelectAll(input) {
+    selectAll(input) {
       const iterated = {
-        lines: null,
-        selected: false,
+        lines: this.items,
+        selected: input.currentTarget.checked,
       };
-      iterated.lines = this.items;
-      iterated.selected = input.currentTarget.checked;
-      this.$emit('on-select-all', iterated);
+      this.$emit('select-all', iterated);
     },
     /**
      * Evento disparado ao selecionar um registro.
      *
-     * @event onSelect
+     * @event select
      * @type {object}
      * @returns {object} retorna um objeto contendo os dados do registro selecionado
      */
-    onSelect(field, data) {
+    select(field, data) {
       const iterated = {
-        lines: null,
-        selected: false,
+        lines: data,
+        selected: this.$refs.selectedCheckbox[field].checked,
       };
-      iterated.selected = this.$refs.selectedCheckbox[field].checked;
-      iterated.lines = data;
-      this.$emit('on-select', iterated);
+      this.$emit('select', iterated);
     },
     verifySort(key, order) {
       return this.sortedColumn === key && this.sortedDirection === order;
@@ -225,28 +219,27 @@ export default {
 <style lang="stylus">
 @import '../themes/main'
 
-.ViComponent .ViTable
-.ViTable
+.ViComponent.ViTable
   border-spacing 0
   width 100%
   border-collapse collapse
   text-align left
 
   &--VerticalBordered
-    border-bottom 1px solid #ddd
-    border-top 1px solid #ddd
+    border-bottom 1px solid $border-color-main
+    border-top 1px solid $border-color-main
 
   &--HorizontalBordered
     td
     th
-      border-bottom 1px solid #ddd
-      border-top 1px solid #ddd
+      border-bottom 1px solid $border-color-main
+      border-top 1px solid $border-color-main
 
   &--VerticalBordered
     td
     th
-      border-left 1px solid #ddd
-      border-right 1px solid #ddd
+      border-left 1px solid $border-color-main
+      border-right 1px solid $border-color-main
 
   &--StripedRows
     tr:nth-child(even)
@@ -255,14 +248,16 @@ export default {
 
   thead
     th
+      color $light
+      background-color $dark
+      border-color $dark
       height 38px
-      background-color rgba(0, 0, 0, 0.1)
 
       &:hover
         cursor pointer
-        background-color rgba(0, 0, 0, 0.05)
+        background-color darken($dark,10%)
 
-  &--NoSortable
+  &--NotSortable
     background-color rgba(0, 0, 0, 0.1) !important
     &:hover
       cursor default !important
@@ -285,11 +280,11 @@ export default {
     height 0
     border-left 5px solid transparent
     border-right 5px solid transparent
-    border-bottom 5px solid rgba(0, 0, 0, 0.2)
+    border-bottom 5px solid rgba($light, 0.2)
     margin 3px 2px 0px 5px
 
     &.ViTable__Arrows--Active
-      border-bottom 5px solid black
+      border-bottom 5px solid $light
 
   .ViTable__ArrowDown
     transform rotate(180deg)
@@ -304,11 +299,78 @@ export default {
   .ViTable__Row
     height 38px
 
-.ViTable__Row--Selected
-  background-color rgba(#DDC880, 0.2) !important
-.ViTable--Hover
-  &:hover
-    background-color rgba(#24AEE4,0.2) !important
+  .ViTable__Row--Selected
+    font-weight 700
+
+  .ViTable--Hover
+    &:hover
+      background-color rgba($border-color-main,0.2) !important
+
+  .ViTable__InputCheckbox
+    outline none
+    opacity 0
+    margin-left 0.5em
+    position relative
+    transform scale(2)
+    z-index 1
+    cursor pointer
+
+    & + .ViTable__FakeCheckbox
+      position relative
+      z-index 0
+      &:after
+      &:before
+        background lighten($default, 50%)
+        border-radius 0.3em
+        content ''
+        height 1.5em
+        left 0.7em
+        position absolute
+        top 0.8em
+        width 1.5em
+        transition all 0.06s ease-out
+        transition transform 0.1s ease-out
+      &--inverted
+        &:before
+          background rgba($light, 0.1)
+
+      &:after
+          background transparent
+          border 0.27em solid $primary
+          border-right-width 0.5em
+          border-bottom-width 0
+          border-left 0
+          border-top 0
+          border-radius 0
+          opacity 0
+          transform rotate(90deg) scale(0.4, 0.3) translate(-0.5em)
+      &--inverted
+        &:after
+          border-color $light
+
+    &:checked
+      & + .ViTable__FakeCheckbox
+        &:before
+          background $primary
+        &--inverted
+          &:before
+            background $light
+
+        &:after
+          border-color $light
+          border-bottom-width 0.27em
+          opacity 1
+          transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
+        &--inverted
+          &:after
+            border-color $dark
+
+    &:indeterminate
+      & + .ViTable__FakeCheckbox
+        &:after
+          border-bottom-width 0
+          opacity 1
+          transform rotate(90deg) scale(0.4, 0.3) translate(-0.5em)
 
 </style>
 
@@ -323,14 +385,11 @@ export default {
   <vi-table
     :sortedColumn="orderColumn"
     :sortedDirection="order"
-    striped
     checkbox
     horizontalBordered
-    verticalBordered
-    tFoot
-    @on-sort="order => getOrder(order)"
-    @on-select-all="data => getSelectedAll(data)"
-    @on-select="data => getSelectedItem(data)"
+    @sort="order => getOrder(order)"
+    @select-all="data => getSelectedAll(data)"
+    @select="data => getSelectedItem(data)"
     :columns="cols"
     :items="data">
     <template slot-scope="{ item }">

@@ -3,8 +3,9 @@ import ViButtonGroup from './components/ButtonGroup.vue';
 import ViCard from './components/Card.vue';
 import ViIcon from './components/Icon.vue';
 import ViInput from './components/Input.vue';
-import ViInputCheckbox from './components/InputCheckbox.vue';
 import ViInputFile from './components/InputFile.vue';
+import ViSelect from './components/InputSelect.vue';
+import ViCheckbox from './components/InputRadioCheckbox.vue';
 import ViLoading from './components/Loading.vue';
 import ViPagination from './components/Pagination.vue';
 import ViTable from './components/Table.vue';
@@ -16,8 +17,9 @@ export default {
   ViCard,
   ViIcon,
   ViInput,
-  ViInputCheckbox,
   ViInputFile,
+  ViCheckbox,
+  ViSelect,
   ViLoading,
   ViPagination,
   ViTable,
