@@ -140,6 +140,7 @@ export default {
           title: this.content,
           trigger: this.trigger,
           delay: { show: 0, hide: this.delayToClose },
+          boundariesElement: 'viewport',
         });
       }
     },
@@ -191,6 +192,10 @@ export default {
     padding 10px
     text-align center
     z-index 1
+
+  .tooltip-inner
+    max-width 300px
+    word-break break-word
 
   .tooltip-arrow
     border-color $border-color-main
@@ -273,6 +278,10 @@ Tooltip com span:
     <span>Passe o mouse</span>
   </vi-tooltip>
   <vi-tooltip top hover content="Este demora 1 segundo pra fechar!" delay-to-close="1000">
+    <span>Passe o mouse</span>
+  </vi-tooltip>
+  <vi-tooltip top hover content="Este possui um texto bem grande para que seja possível ver como
+    fica a renderização em casos onde a dica possui um texto bem grande.">
     <span>Passe o mouse</span>
   </vi-tooltip>
 </vi-wrapper>
