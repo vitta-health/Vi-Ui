@@ -194,7 +194,7 @@ export default {
     & + .ViInput_Wrapper
       & .ViInput__Input:focus
         border 1px solid $border-color-main-focus
-        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.7)
+        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.4)
         outline none
 </style>
 
