@@ -73,6 +73,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Valor do campo
+     * @model
+     */
+    value: {
+      type: [String, Number, Boolean],
+      default: null,
+    },
   },
   methods: {
     inputChange(target) {
@@ -86,7 +94,7 @@ export default {
        * Evento de retorno de dados
        *
        * @event input
-       * @type {string|number|object|array|boolean}
+       * @type {string|number|boolean}
        *
        */
       this.$emit('input', value);
@@ -164,6 +172,9 @@ export default {
           border-bottom-width 0.27em
           opacity 1
           transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
+        &:focus
+          & + label:before
+            box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4)
 
       &[indeterminate]
       &:indeterminate

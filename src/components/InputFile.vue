@@ -142,7 +142,7 @@ export default {
        * Evento de retorno de dados
        *
        * @event input
-       * @type {string|number|object|array|boolean}
+       * @type {file}
        *
        */
       this.$emit('input', value);

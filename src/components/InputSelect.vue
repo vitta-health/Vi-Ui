@@ -288,6 +288,14 @@ export default {
       type: String,
       default: 'Selecione uma opção',
     },
+    /**
+     * Valor do campo
+     * @model
+     */
+    value: {
+      type: [String, Number, Object, Array],
+      default: null,
+    },
   },
   data() {
     return {

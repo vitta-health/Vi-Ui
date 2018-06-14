@@ -9,7 +9,11 @@ module.exports = {
   webpackConfig,
   showUsage: true,
   showCode: false,
-  require: ['babel-polyfill', path.join(__dirname, './layout/style.css')],
+  require: [
+    'babel-polyfill',
+    path.join(__dirname, './layout/style.css'),
+    path.join(__dirname, '/requires.js'),
+  ],
   styleguideComponents: {
     SectionRenderer: path.join(__dirname, 'layout/components/Section'),
     HeadingRenderer: path.join(__dirname, 'layout/components/Heading'),

@@ -6,7 +6,8 @@ $border-radius = 0.3em
   &.flexWraper:not(.flexWraper--vertical)
     align-items center
 
-  .contentWrapper.ViInput__Input
+  .contentWrapper.ViInput__Input:not(div)
+  div.contentWrapper.ViInput__Input input
     border 1px solid $border-color-main
     background $input-background-main
     border-radius $border-radius
@@ -14,6 +15,7 @@ $border-radius = 0.3em
     padding 0.6em
     outline none
     text-overflow ellipsis
+    width 100%
 
     &:focus:not([readonly])
       border 1px solid $border-color-main-focus

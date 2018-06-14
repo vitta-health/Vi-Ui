@@ -148,7 +148,7 @@ export default {
        * Evento de retorno de dados
        *
        * @event input
-       * @type {string|number|object|array|boolean}
+       * @type {string|number|object|array}
        *
        */
       this.$emit('input', target.value);
