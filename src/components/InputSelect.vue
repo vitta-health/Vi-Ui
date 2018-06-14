@@ -258,7 +258,7 @@ export default {
      */
     selectClosedLabel: {
       type: String,
-      default: '##NUMBER## opções selecionadas',
+      default: '##NUMBER## opções marcadas',
     },
     /**
      * String que aparece quando o mouse ou o foco está em uma opção
@@ -477,7 +477,7 @@ export default {
     .multiselect__select
       z-index 3
       &:focus
-        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.7)
+        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.4)
         outline none
         &:before
           border-color $border-color-main-focus transparent transparent
@@ -552,24 +552,19 @@ export default {
             transform rotate(90deg) scale(0.4, 0.3) translate(-0.5em)
 
       &--highlight
-      &:focus
-      &:hover
+      &:focus:not(.multiselect__checkoption)
+      &:hover:not(.multiselect__checkoption)
         color $border-color-main-focus
-        background transparent
-        box-shadow 0 -1px 0 $border-color-main-focus,
-        inset 0 0 0 0.2em rgba($border-color-main-focus, 0.7)
-        border-color $border-color-main-focus
+        box-shadow 0 -1px 0 rgba($border-color-main,0.5)
+        background rgba($border-color-main,0.4)
         position relative
         z-index 1
 
         &:after
           background inherit
-          color rgba($text-color-main, 0.4)
+          color rgba($text-color-main, 0.3)
 
         &.multiselect__option--selected
-          box-shadow 0 -1px 0 $success,
-          inset 0 0 0 0.2em rgba($success, 0.7)
-          border-color $success
           color $success
 
     .ViInput__CheckAll
@@ -593,10 +588,6 @@ export default {
         overflow hidden
         transition all 0.06s ease-out
         background $light
-
-        &:focus
-        &:hover
-          border-color $border-color-main-focus
 
         .ViInput__MultiselectCheckbox
           &:before
@@ -624,11 +615,11 @@ export default {
         display none
 
       .multiselect__content
-        padding 41px 0 0
+        padding 40px 0 0
 
       &.multiselect--above
         .multiselect__content
-          padding 0 0 40px
+          padding 0 0 39px
 </style>
 
 

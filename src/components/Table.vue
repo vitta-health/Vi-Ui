@@ -2,40 +2,42 @@
   <table
     class="ViComponent ViTable"
     :class="[{
-      'ViTable--HorizontalBordered': horizontalBordered,
-      'ViTable--VerticalBordered': verticalBordered,
-      'ViTable--StripedRows': striped }]">
+      'ViTable--horizontal-bordered': horizontalBordered,
+      'ViTable--vertical-bordered': verticalBordered,
+      'ViTable--striped-rows': striped }]">
     <thead>
       <tr class="ViTable__Row">
         <th
           v-if="checkbox"
-          class="ViTable--NotSortable ViTable__Checkbox">
-          <input
-            ref="checkboxAllSelected"
-            type="checkbox"
-            class="ViTable__InputCheckbox"
-            @click="selectAll">
-          <span class="ViTable__FakeCheckbox ViTable__FakeCheckbox--inverted" />
+          class="ViTable--not-sortable ViTable__Checkbox">
+          <div class="ViTable__CheckboxWrapper">
+            <input
+              ref="checkboxAllSelected"
+              type="checkbox"
+              class="ViTable__InputCheckbox"
+              @click="selectAll">
+            <span class="ViTable__FakeCheckbox ViTable__FakeCheckbox--inverted" />
+          </div>
         </th>
         <th
           v-for="(column, index) in columns"
           :key="index"
           @click="column.sortable ? onSort(column.id) : null"
-          :class="[{'ViTable--NotSortable': !column.sortable}]">
-          <div class="ViTable__Collumns">
-            {{ column.label }}
+          :class="[{'ViTable--not-sortable': !column.sortable}]">
+          <div class="ViTable__InnerHead">
+            <div>{{ column.label }}</div>
             <div class="ViTable__Arrows">
               <div
                 ref="arrowUp"
                 v-if="column.sortable"
                 class="ViTable__ArrowUp"
-                :class="{ 'ViTable__Arrows--Active':
+                :class="{ 'ViTable__Arrows--active':
                 verifySort(column.id, 'asc')}"/>
               <div
                 ref="arrowDown"
                 v-if="column.sortable"
                 class="ViTable__ArrowDown"
-                :class="{ 'ViTable__Arrows--Active':
+                :class="{ 'ViTable__Arrows--active':
                 verifySort(column.id, 'desc')}"/>
             </div>
           </div>
@@ -52,18 +54,20 @@
       <tr
         v-for="(item, index) in items"
         :key="index"
-        class="ViTable__Row ViTable--Hover"
-        :class="[{'ViTable__Row--Selected': item.selected}]">
+        class="ViTable__Row ViTable--hover"
+        :class="[{'ViTable__Row--selected': item.selected}]">
         <td
           v-if="checkbox">
-          <input
-            ref="selectedCheckbox"
-            @click="select(index, item)"
-            type="checkbox"
-            class="ViTable__InputCheckbox"
-            :checked="item.selected"
-          >
-          <span class="ViTable__FakeCheckbox" />
+          <div class="ViTable__CheckboxWrapper">
+            <input
+              ref="selectedCheckbox"
+              @click="select(index, item)"
+              type="checkbox"
+              class="ViTable__InputCheckbox"
+              :checked="item.selected"
+            >
+            <span class="ViTable__FakeCheckbox" />
+          </div>
         </td>
         <slot :item="item"/>
       </tr>
@@ -225,23 +229,23 @@ export default {
   border-collapse collapse
   text-align left
 
-  &--VerticalBordered
+  &--vertical-bordered
     border-bottom 1px solid $border-color-main
     border-top 1px solid $border-color-main
 
-  &--HorizontalBordered
+  &--horizontal-bordered
     td
     th
       border-bottom 1px solid $border-color-main
       border-top 1px solid $border-color-main
 
-  &--VerticalBordered
+  &--vertical-bordered
     td
     th
       border-left 1px solid $border-color-main
       border-right 1px solid $border-color-main
 
-  &--StripedRows
+  &--striped-rows
     tr:nth-child(even)
       td
         background-color rgba(0, 0, 0, 0.03)
@@ -257,7 +261,7 @@ export default {
         cursor pointer
         background-color darken($dark,10%)
 
-  &--NotSortable
+  &--not-sortable
     background-color rgba(0, 0, 0, 0.1) !important
     &:hover
       cursor default !important
@@ -283,7 +287,7 @@ export default {
     border-bottom 5px solid rgba($light, 0.2)
     margin 3px 2px 0px 5px
 
-    &.ViTable__Arrows--Active
+    &.ViTable__Arrows--active
       border-bottom 5px solid $light
 
   .ViTable__ArrowDown
@@ -293,18 +297,23 @@ export default {
     margin-left 5px
     float right
 
-  .ViTable__Collumns
-    display: flex
+  .ViTable__InnerHead
+    display flex
+    justify-content space-between
 
   .ViTable__Row
     height 38px
 
-  .ViTable__Row--Selected
+  .ViTable__Row--selected
     font-weight 700
 
-  .ViTable--Hover
+  .ViTable--hover
     &:hover
-      background-color rgba($border-color-main,0.2) !important
+      background-color rgba($border-color-main,0.4) !important
+
+  .ViTable__CheckboxWrapper
+    position relative
+    z-index 0
 
   .ViTable__InputCheckbox
     outline none
@@ -316,7 +325,9 @@ export default {
     cursor pointer
 
     & + .ViTable__FakeCheckbox
-      position relative
+      left 0
+      position absolute
+      top 0
       z-index 0
       &:after
       &:before
@@ -324,12 +335,13 @@ export default {
         border-radius 0.3em
         content ''
         height 1.5em
-        left 0.7em
+        left -0.1em
         position absolute
-        top 0.8em
+        top -0.2em
         width 1.5em
         transition all 0.06s ease-out
         transition transform 0.1s ease-out
+
       &--inverted
         &:before
           background rgba($light, 0.1)
@@ -347,6 +359,16 @@ export default {
       &--inverted
         &:after
           border-color $light
+
+    &:focus
+      & + .ViTable__FakeCheckbox
+        &:before
+          box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4),
+          0 0 0 0.1em rgba($border-color-main-focus, 0.5)
+        &--inverted
+          &:before
+            box-shadow 0 0 0 0.25em rgba(black, 0.1),
+            0 0 0 0.1em rgba(black, 0.3)
 
     &:checked
       & + .ViTable__FakeCheckbox
