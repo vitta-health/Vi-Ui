@@ -125,9 +125,7 @@ export default {
     show(status) {
       this.showHide(status);
     },
-    // eslint-disable-next-line object-shorthand
-    'tooltip._isOpen'(status) {
-      // eslint-disable-next-line no-underscore-dangle
+    'tooltip._isOpen': (status) => {
       this.tooltip._isOpening = status;
     },
   },
@@ -194,7 +192,8 @@ export default {
     z-index 1
 
   .tooltip-inner
-    max-width 300px
+    max-width 400px
+    white-space: pre-line
     word-break break-word
 
   .tooltip-arrow
