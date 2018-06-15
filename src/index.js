@@ -3,7 +3,7 @@ import ViButtonGroup from './components/ButtonGroup.vue';
 import ViCard from './components/Card.vue';
 import ViIcon from './components/Icon.vue';
 import ViInput from './components/Input.vue';
-import ViDatepicker from './components/Input.vue';
+import ViDatepicker from './components/InputDatepicker.vue';
 import ViInputFile from './components/InputFile.vue';
 import ViSelect from './components/InputSelect.vue';
 import ViCheckbox from './components/InputRadioCheckbox.vue';

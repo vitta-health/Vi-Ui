@@ -4,7 +4,7 @@
     vertical
     justify-content="flex-start"
     class="ViComponent ViInput"
-    :class="{ 'ViInput__Input--elevated': isPopoverOpen }"
+    :class="{ 'ViInput--elevated': isPopoverOpen }"
     :style="{ width: componentWidth }"
   >
     <vi-input-label v-bind="{ for: id, label, instruction }"/>
@@ -17,8 +17,8 @@
       </div>
       <v-date-picker
         @input="inputChange"
-        @popover-did-appear.capture="popoverState(true)"
-        @popover-did-disappear.capture="popoverState(false)"
+        @popover-will-appear.capture="popoverState(true)"
+        @popover-will-disappear.capture="popoverState(false)"
         popover-visibility="focus"
         tint-color="#3581BC"
         :class="[
