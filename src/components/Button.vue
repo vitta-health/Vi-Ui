@@ -152,33 +152,35 @@ export default {
 </div>
 ```
 
-### Botão com submit ou link
+### Botão com submit ou como link
 
 ```jsx
 <form action="/#button">
   <vi-button type="submit" success>Form submit</vi-button>
-  <vi-button href="https://google.com/" primary small>Link</vi-button>
+  <vi-button href="https://google.com/" primary>Link</vi-button>
 </form>
 ```
 
 ### Outros exemplos
 
 ```jsx
-<vi-button success width="200"><vi-loading light mini /></vi-button>
-<vi-button pill large success outlined
-  justify-content="space-between"
-  :width="220"
-><span>▸</span> Me aperte</vi-button>
+<vi-wrapper vertical>
+  <vi-button success width="220"><vi-loading light mini /></vi-button>
+  <vi-button pill large success outlined
+    justify-content="space-between"
+    width="220"
+  ><span>▸</span> Me aperte</vi-button>
+</vi-wrapper>
 ```
 
 ### Utilizando eventos
 
 ```vue
 <template>
-    <div class="wrapper">
-        <vi-button @click="pushButton">+1</vi-button>
-        <hr />
-        <p class="text-name">Contando: {{ numClicks }}</p>
+    <div> class="ViComponent">
+      <p><vi-button @click="pushButton">+1</vi-button></p>
+      <hr />
+      <p>Contando: {{ numClicks }}</p>
     </div>
 </template>
 <script>
