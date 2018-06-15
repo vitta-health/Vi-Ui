@@ -4,6 +4,7 @@
     vertical
     justify-content="flex-start"
     class="ViComponent ViInput"
+    :class="{ 'ViInput__Input--elevated': isPopoverOpen }"
     :style="{ width: componentWidth }"
   >
     <vi-input-label v-bind="{ for: id, label, instruction }"/>
@@ -15,6 +16,11 @@
         <vi-icon name="calendar"/>
       </div>
       <v-date-picker
+        @input="inputChange"
+        @popover-did-appear.capture="popoverState(true)"
+        @popover-did-disappear.capture="popoverState(false)"
+        popover-visibility="focus"
+        tint-color="#3581BC"
         :class="[
           'ViInput__Input',
           {
@@ -22,23 +28,19 @@
             'ViInput__Input--invalid': invalid,
           }
         ]"
-        :formats="formats"
-        popover-visibility="focus"
-        :show-day-popover="false"
-        @input="inputChange"
-        :min-date="min"
-        :max-date="max"
         :disabled-dates="disabledDates"
-        :is-double-panel="doublePanel"
-        :is-required="required"
+        :formats="formats"
         :input-props="{
           required,
-          pattern,
           class: 'ViInput__InputDate',
           placeholder: placeholder,
         }"
-        tint-color="#3581BC"
+        :is-double-panel="doublePanel"
+        :is-required="required"
+        :max-date="max"
+        :min-date="min"
         :mode="defineMode"
+        :show-day-popover="false"
         :value="value"
       />
     </vi-wrapper>
@@ -61,7 +63,7 @@ const FORMATS = {
 };
 
 export default {
-  name: 'ViDatePicker',
+  name: 'ViDatepicker',
   components: {
     ViWrapper,
     ViInputLabel,
@@ -135,6 +137,9 @@ export default {
     },
   },
   methods: {
+    popoverState(value) {
+      this.isPopoverOpen = value;
+    },
     inputChange(value) {
       this.validated = false;
       this.invalid = false;
@@ -152,6 +157,7 @@ export default {
   data() {
     return {
       formats: FORMATS,
+      isPopoverOpen: false,
     };
   },
 };
@@ -174,10 +180,11 @@ export default {
 
 ```vue
 <template>
-  <div class="ViComponent">
-    <vi-date-picker ranged v-model="date" />
+  <vi-wrapper vertical class="ViComponent">
+    <vi-datepicker ranged v-model="date" />
+    <vi-input />
     <pre><code>{{ dataForm }}</code></pre>
-  </div>
+  </vi-wrapper>
 </template>
 <script>
 export default {

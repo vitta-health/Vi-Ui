@@ -105,13 +105,13 @@ export default {
 .ViComponent.ViButton
   border-width 0.09em
   border-style solid
-  border-radius 0.5em
+  border-radius 0.61em
   cursor pointer
   display inline-block
-  font-size 0.95em
+  font-size 16px
   height auto
   text-align center
-  padding 0.5em 0.8em
+  padding 0.61em
   text-decoration none
   outline none
   transition: all 0.09s
@@ -129,26 +129,28 @@ export default {
     border-radius 100px
 
   &--mini
-    font-size 0.8em
-    padding 0.3em 0.5em
+    font-size 10px
+    padding 0.37em 0.59em
+    font-weight 500
 
   &--small
-    font-size 0.8em
-    padding 0.5em 0.8em
+    font-size 12px
 
   &--large
-    font-size 1.2em
+    font-size 1.61em
+    padding 0.37em 0.59em
 </style>
 
 <docs>
 ### Botão básico
 
 ```jsx
-<div>
-  <vi-button dark large>Me aperte</vi-button>
-  <vi-button primary>Me aperte</vi-button>
-  <vi-button success small>Me aperte</vi-button>
-  <vi-button danger mini>Me aperte</vi-button>
+<div >
+  <vi-button success large>Me aperte</vi-button>
+  <vi-button primary><vi-icon name="vitta" /></vi-button>
+  <vi-button danger>Me aperte</vi-button>
+  <vi-button dark small>Me aperte</vi-button>
+  <vi-button warning mini>Me aperte</vi-button>
 </div>
 ```
 

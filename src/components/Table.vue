@@ -331,7 +331,7 @@ export default {
       z-index 0
       &:after
       &:before
-        background lighten($default, 50%)
+        background $default
         border-radius 0.3em
         content ''
         height 1.5em
