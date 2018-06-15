@@ -2,7 +2,6 @@
   <vi-wrapper
     mini
     justify-content="flex-start"
-    tag="div"
     class="ViComponent ViCheckbox"
     :style="{ width: componentWidth }"
   >
@@ -201,7 +200,10 @@ Exemplo checkbox:
 
 ```vue
 <template>
-  <vi-wrapper vertical class="ViComponent">
+  <vi-wrapper
+    vertical
+    class="ViComponent"
+  >
     <vi-checkbox label="Exemplo de Checkbox" v-model="isChecked" />
     <hr />
     <vi-checkbox

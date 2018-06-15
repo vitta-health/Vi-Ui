@@ -3,7 +3,6 @@
     mini
     vertical
     justify-content="flex-start"
-    tag="div"
     class="ViComponent ViInput"
     :style="{ width: componentWidth }"
     :value="false"

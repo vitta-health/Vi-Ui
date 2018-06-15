@@ -3,7 +3,6 @@
     mini
     vertical
     justify-content="flex-start"
-    tag="div"
     class="ViComponent ViInput"
     :style="{ width: componentWidth }"
   >
@@ -11,7 +10,6 @@
     <vi-wrapper
       no-margin
       class="ViInput_Wrapper"
-      tag="div"
     >
       <div
         v-if="hasPrefix"
@@ -312,7 +310,6 @@ export default {
     </vi-wrapper>
     <vi-wrapper
       justify-content="left"
-      tag="div"
     >
       <vi-button type="submit" success>Try!</vi-button>
       <vi-checkbox
@@ -358,7 +355,6 @@ Você pode ver as popções de validação, [aqui](https://html.spec.whatwg.org/
   >
     <vi-wrapper
       justify-content="space-between"
-      tag="div"
     >
       <vi-input
         placeholder="Email"

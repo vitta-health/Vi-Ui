@@ -3,7 +3,6 @@
     mini
     vertical
     justify-content="flex-start"
-    tag="div"
     class="ViComponent ViInput ViInputFile"
     :style="{ width: componentWidth }"
   >
@@ -32,7 +31,6 @@
     <vi-wrapper
       no-margin
       class="ViInput_Wrapper"
-      tag="div"
     >
       <input
         class="ViInput__Input"
@@ -239,7 +237,6 @@ export default {
   </vi-wrapper>
   <vi-wrapper
     justify-content="left"
-    tag="div"
   >
     <vi-button type="submit" success>Upload!</vi-button>
   </vi-wrapper>
