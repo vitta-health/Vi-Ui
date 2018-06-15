@@ -631,7 +631,8 @@ export default {
 
 
 <docs>
-Select básico:
+### Select básico
+
 ```vue
 <template>
   <vi-wrapper vertical>

@@ -211,6 +211,8 @@ Ele também pode embrulhar os filhos em uma tag caso necessário.
 É recomendao não definer margens no css e usar apenas um
 vi-wrapper sempre for trabalhar com conjunto de componentes.
 
+### Exemplo de wrapper
+
 ```jsx
 <vi-wrapper>
     <vi-wrapper>

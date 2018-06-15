@@ -196,7 +196,7 @@ export default {
 </style>
 
 <docs>
-Exemplo checkbox:
+### Exemplo checkbox
 
 ```vue
 <template>
@@ -235,7 +235,7 @@ export default {
 </script>
 ```
 
-Checkbox "indeterminate":
+### Checkbox "indeterminate"
 
 ```jsx
 <vi-checkbox indeterminate label="Indeterminado" />

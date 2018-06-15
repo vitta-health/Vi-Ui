@@ -114,7 +114,8 @@ Card Básico
   </vi-card>
 ```
 
-Card Colorido
+### Card Colorido
+
 ```jsx
   <vi-card success>
     <div slot="body">Card com fundo colorido</div>
@@ -122,7 +123,10 @@ Card Colorido
   </vi-card>
 ```
 
-Exemplo Complexo de Card
+### Exemplo elaborado de Card
+
+Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
+
 ```vue
 <template>
   <vi-wrapper

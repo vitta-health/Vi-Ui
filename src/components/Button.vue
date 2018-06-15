@@ -141,7 +141,7 @@ export default {
 </style>
 
 <docs>
-Botão básico:
+### Botão básico
 
 ```jsx
 <div>
@@ -151,35 +151,27 @@ Botão básico:
   <vi-button danger mini>Me aperte</vi-button>
 </div>
 ```
-Botão com loading:
 
-```jsx
-<vi-button success width="200"><vi-loading light mini /></vi-button>
-```
-Botão com submit:
+### Botão com submit ou link
 
 ```jsx
 <form action="/#button">
   <vi-button type="submit" success>Form submit</vi-button>
+  <vi-button href="https://google.com/" primary small>Link</vi-button>
 </form>
 ```
 
-Botão com link:
+### Outros exemplos
 
 ```jsx
-<vi-button href="https://google.com/" primary small>Link</vi-button>
-```
-
-Outras props:
-
-```jsx
+<vi-button success width="200"><vi-loading light mini /></vi-button>
 <vi-button pill large success outlined
   justify-content="space-between"
   :width="220"
 ><span>▸</span> Me aperte</vi-button>
 ```
 
-Exemplo de utilização:
+### Utilizando eventos
 
 ```vue
 <template>
