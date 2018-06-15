@@ -199,7 +199,7 @@ export default {
 ### Exemplo de formulário
 
 Por pardrão o componente imput e outros componentes não tem margem.
-Pra trabalhar com conjunto de elementos use o [ViWrapper](#Wrapper).
+Pra trabalhar criar formulário ou conjunto de inputs use o [ViWrapper](#Wrapper).
 
 ```vue
 <template>
