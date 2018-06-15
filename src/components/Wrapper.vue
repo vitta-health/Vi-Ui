@@ -216,13 +216,13 @@ vi-wrapper sempre for trabalhar com conjunto de componentes.
 ```jsx
 <vi-wrapper>
     <vi-wrapper>
-      <vi-card mini primary>Separador</vi-card>
-      <vi-card mini primary>Separador</vi-card>
+      <vi-card mini primary>&nbsp;</vi-card>
+      <vi-card mini primary>&nbsp;</vi-card>
     </vi-wrapper>
     <vi-wrapper vertical>
-      <vi-card mini primary>Separador</vi-card>
-      <vi-card mini primary>Separador</vi-card>
-      <vi-card mini primary>Separador</vi-card>
+      <vi-card mini primary>&nbsp;</vi-card>
+      <vi-card mini primary>&nbsp;</vi-card>
+      <vi-card mini primary>&nbsp;</vi-card>
     </vi-wrapper>
 </vi-wrapper>
 ```
