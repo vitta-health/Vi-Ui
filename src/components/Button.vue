@@ -23,6 +23,7 @@
     }"
     @click="onClick">
     <vi-wrapper
+      tag="span"
       :justify-content="justifyContent || 'center'"
       small
       child-wrapper

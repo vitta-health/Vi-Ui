@@ -199,13 +199,13 @@ export default {
 </style>
 
 <docs>
-Input File básico:
+### Input File básico
 
 ```jsx
 <vi-input-file />
 ```
 
-Personalização do Input File:
+### Personalização do Input File
 
 ```jsx
 <vi-input-file
@@ -217,8 +217,7 @@ Personalização do Input File:
 />
 ```
 
-
-Exemplo de validação de formulário.
+### Exemplo de validação de formulário
 
 ```jsx
 <form

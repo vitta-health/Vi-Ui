@@ -15,11 +15,11 @@ export default {
       default: false,
     },
     /**
-     * Tag usada no wrapper
+     * Tag principal onde os outros elementos vão dentro.
      */
     tag: {
       type: String,
-      default: 'span',
+      default: 'div',
     },
     /**
      * Define se blocos precisam ter o mesmo tamanho entre eles
@@ -213,6 +213,17 @@ export default {
 </style>
 
 <docs>
-Wrapper aplica flexbox entre os filhos.
+Wrapper é usado para trabalhar com conjunto de componentes.
 Ele também pode embrulhar os filhos em uma tag caso necessário.
+
+É recomendao não definer margens no css e usar apenas um
+vi-wrapper sempre for trabalhar com conjunto de componentes.
+
+```jsx
+<vi-wrapper style="background: #EAEAE; padding:25px">
+  <vi-card mini primary>Separador</vi-card>
+  <vi-card mini primary>Separador</vi-card>
+  <vi-card mini primary>Separador</vi-card>
+</vi-wrapper>
+```
 </docs>

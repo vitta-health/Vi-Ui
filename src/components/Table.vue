@@ -408,7 +408,7 @@ export default {
 </style>
 
 <docs>
-#### Basic Table:
+### Basic Table:
 
 > Para alinhar o conteúdo das colunas em uma direção, adicione [center|right] como uma
 > propriedade na coluna.

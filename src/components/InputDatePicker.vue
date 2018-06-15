@@ -3,7 +3,6 @@
     mini
     vertical
     justify-content="flex-start"
-    tag="div"
     class="ViComponent ViInput"
     :style="{ width: componentWidth }"
   >
@@ -11,7 +10,6 @@
     <vi-wrapper
       no-margin
       class="ViInput_Wrapper"
-      tag="div"
     >
       <div class="ViInput__Slot ViInput__Slot--prefix">
         <vi-icon name="calendar"/>
@@ -31,11 +29,13 @@
         :min-date="min"
         :max-date="max"
         :disabled-dates="disabledDates"
+        :is-double-panel="doublePanel"
+        :is-required="required"
         :input-props="{
           required,
           pattern,
           class: 'ViInput__InputDate',
-          placeholder: ranged ? rangedPlaceholder : placeholder,
+          placeholder: placeholder,
         }"
         tint-color="#3581BC"
         :mode="defineMode"
@@ -53,6 +53,12 @@ import ViInputLabel from '../helperComponents/InputLabel.vue';
 import ViIcon from './Icon.vue';
 import inputMixin from '../mixins/input';
 
+const FORMATS = {
+  title: 'MMMM YYYY',
+  weekdays: 'W',
+  navMonths: 'MMM',
+  input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
+};
 
 export default {
   name: 'ViDatePicker',
@@ -79,24 +85,17 @@ export default {
       default: null,
     },
     /**
-     * _Validação:_ Número mínimo no valor do campo
+     * _Validação:_ Data mínima no valor do campo
      */
     min: {
       type: [Date],
       default: null,
     },
     /**
-     * _Validação:_ Número máximo no valor do campo
+     * _Validação:_ Data máxima no valor do campo
      */
     max: {
       type: [Date],
-      default: null,
-    },
-    /**
-     * _Validação:_ Valida contra uma expressão regular
-     */
-    pattern: {
-      type: String,
       default: null,
     },
     /**
@@ -107,18 +106,18 @@ export default {
       default: false,
     },
     /**
-     * Placeholder se datepicker for ranged.
+     * Exibe dois paineis de calendádio ao mesmo tempo
      */
-    rangedPlaceholder: {
-      type: String,
-      default: 'Selecione um período',
+    doublePanel: {
+      type: Boolean,
+      default: false,
     },
     /**
      * Placeholder do datepicker.
      */
     placeholder: {
       type: String,
-      default: 'Selecione uma data',
+      default: 'Selecione uma data ou período',
     },
     /**
      * Valor do campo
@@ -152,14 +151,7 @@ export default {
   },
   data() {
     return {
-      dateFormat: 'D MMM',
-      formats: {
-        title: 'MMMM YYYY',
-        weekdays: 'W',
-        navMonths: 'MMM',
-        input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
-        dayPopover: 'L',
-      }
+      formats: FORMATS,
     };
   },
 };
@@ -178,7 +170,7 @@ export default {
 </style>
 
 <docs>
-Input Datepicker básico:
+### Input Datepicker básico
 
 ```vue
 <template>

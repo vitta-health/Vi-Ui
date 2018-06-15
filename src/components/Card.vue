@@ -21,6 +21,7 @@
       <!-- @slot Use este slot para definir o contéudo que estará presente
       dentro do corpo do card -->
       <slot name="body"/>
+      <slot/>
     </div>
 
     <!-- @slot Use este slot para definir o contéudo que estará presente dentro do rodapé -->
@@ -47,7 +48,7 @@ export default {
      */
     tag: {
       type: String,
-      default: 'article',
+      default: 'section',
     },
     /**
     * Texto que será exibido no título

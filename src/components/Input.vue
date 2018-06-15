@@ -183,13 +183,13 @@ export default {
 </style>
 
 <docs>
-Input básico:
+### Input básico
 
 ```jsx
 <vi-input />
 ```
 
-Input com sufixo e prefixo:
+### Input com sufixo e prefixo
 
 ```jsx
 <vi-input type="number" min="0" step="1">
@@ -198,7 +198,10 @@ Input com sufixo e prefixo:
 </vi-input>
 ```
 
-Exemplo de formulário.
+### Exemplo de formulário
+
+Por pardrão o componente imput e outros componentes não tem margem.
+Pra trabalhar com conjunto de elementos use o [ViWrapper](#Wrapper).
 
 ```vue
 <template>
@@ -268,7 +271,7 @@ export default {
 </script>
 ```
 
-Exemplo de validação de formulário.
+### Exemplo de validação de formulário
 
 ```vue
 <template>
@@ -342,8 +345,9 @@ export default {
 };
 </script>
 ```
+### Exemplo de validação com mensagem personalizada
 
-Exemplo de validação com mensagem personalizada. [Opções de validação](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-cva-validity).
+Você pode ver as popções de validação, [aqui](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-cva-validity).
 
 ```vue
 <template>
