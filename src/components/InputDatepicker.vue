@@ -182,7 +182,6 @@ export default {
 <template>
   <vi-wrapper vertical class="ViComponent">
     <vi-datepicker ranged v-model="date" />
-    <vi-input />
     <pre><code>{{ dataForm }}</code></pre>
   </vi-wrapper>
 </template>
