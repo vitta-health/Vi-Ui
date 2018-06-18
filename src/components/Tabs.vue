@@ -6,6 +6,13 @@ function toggleClass(element, classAdd, classRemove) {
   }
 }
 
+function tabActive(nodeActive, index, hasActiveTabDefault) {
+  if (nodeActive) {
+    return 'active';
+  }
+  return index === 0 && !hasActiveTabDefault ? 'active' : 'inactive';
+}
+
 export default {
   name: 'ViTabs',
   functional: true,
@@ -45,6 +52,7 @@ export default {
         tabNode.children = [];
         tabNode.children.push(createElement('a', {
           attrs: { id: `vi-tab${index}-link` },
+          staticClass: tabActive(node.data.attrs.active, index, hasActiveTabDefault),
           on: {
             click: function click() {
               const listTabs = [...document.getElementsByClassName('TabsList')[0].childNodes];
@@ -68,11 +76,8 @@ export default {
         tabsList.push({ ...tabNode });
 
         contentNode.data.attrs.id = idContent;
-        if (node.data.attrs.active) {
-          contentNode.data.staticClass = 'active';
-        } else {
-          contentNode.data.staticClass = index === 0 && !hasActiveTabDefault ? 'active' : 'inactive';
-        }
+        contentNode.data.staticClass =
+          tabActive(node.data.attrs.active, index, hasActiveTabDefault);
       }
 
       return contentNode;
