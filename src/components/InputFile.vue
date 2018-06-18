@@ -79,7 +79,7 @@ export default {
   props: {
     /**
      * Auto-complete [opções de autocomplete](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute).
-     * Obs: Chrome ignora a opção "off" (ou "false") e tenta decidir por conta propria
+     * Obs: Chrome ignora a opção "off" (ou "false") e tenta decidir por conta própria
      */
     autoComplete: {
       type: String,
