@@ -63,6 +63,13 @@ export default {
       type: String,
       default: null,
     },
+    /**
+     * Prop do filho
+     */
+    colMini: {
+      type: [String, Number],
+      default: null,
+    },
   },
   render(createElement, context) {
     const children = context.children.filter((node) => {
@@ -74,6 +81,9 @@ export default {
     const wrapperClassName = ['flexWraper'];
     const blockClassName = ['contentWrapper'];
 
+    /**
+     * The only true button.
+     */
     if (props.vertical) wrapperClassName.push('flexWraper--vertical');
     if (props.inverted) wrapperClassName.push('flexWraper--inverted');
     if (props.breakLine) wrapperClassName.push('flexWraper--breakLine');
@@ -111,6 +121,11 @@ export default {
     };
 
     return createElement(props.tag, newCtx, iteratedChildren);
+  },
+  methods: {
+    col(size, number) {
+      console.log('exemple',size, number);
+    }
   },
 };
 </script>
@@ -216,14 +231,25 @@ vi-wrapper sempre que for trabalhar com conjunto de componentes.
 ```jsx
 <vi-wrapper>
     <vi-wrapper>
-      <vi-card mini primary>&nbsp;</vi-card>
-      <vi-card mini primary>&nbsp;</vi-card>
+      <vi-card mini primary>1</vi-card>
+      <vi-card mini primary>2</vi-card>
     </vi-wrapper>
     <vi-wrapper vertical>
-      <vi-card mini primary>&nbsp;</vi-card>
-      <vi-card mini primary>&nbsp;</vi-card>
-      <vi-card mini primary>&nbsp;</vi-card>
+      <vi-card mini primary>3</vi-card>
+      <vi-card mini primary>4</vi-card>
+      <vi-card mini primary>5</vi-card>
     </vi-wrapper>
 </vi-wrapper>
 ```
+### Exemplo de wrapper como grid
+
+```jsx
+<vi-wrapper mini>
+  <vi-card :col-small="4" mini primary>1</vi-card>
+  <vi-card :col-small="1" mini primary>2</vi-card>
+  <vi-card :col-small="1" mini primary>3</vi-card>
+  <vi-card :col-small="1" mini primary>4</vi-card>
+</vi-wrapper>
+```
+
 </docs>

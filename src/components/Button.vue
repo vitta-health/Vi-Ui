@@ -139,6 +139,7 @@ export default {
   &--large
     font-size 1.61em
     padding 0.37em 0.59em
+    font-weight 300
 </style>
 
 <docs>

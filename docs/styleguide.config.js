@@ -20,9 +20,9 @@ module.exports = {
     SectionHeadingRenderer: path.join(__dirname, 'layout/components/SectionHeading'),
     LogoRenderer: path.join(__dirname, 'layout/components/Logo'),
     StyleGuideRenderer: path.join(__dirname, 'layout/components/StyleGuide'),
-    LinkRenderer: path.join(__dirname, 'layout/components/Link'),
-    ComponentsListRenderer: path.join(__dirname, 'layout/components/ComponentsList'),
-    TableOfContentsRenderer: path.join(__dirname, 'layout/components/TableOfContents'),
+    //LinkRenderer: path.join(__dirname, 'layout/components/Link'),
+    //ComponentsListRenderer: path.join(__dirname, 'layout/components/ComponentsList'),
+    //TableOfContentsRenderer: path.join(__dirname, 'layout/components/TableOfContents'),
   },
   theme: {
     color: {
