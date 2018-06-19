@@ -7,7 +7,7 @@ function toggleClass(element, classAdd, classRemove) {
 }
 
 function tabActive(nodeActive, index, hasActiveTabDefault) {
-  if (nodeActive) {
+  if (nodeActive === 'true') {
     return 'active';
   }
   return index === 0 && !hasActiveTabDefault ? 'active' : 'inactive';
