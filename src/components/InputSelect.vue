@@ -441,7 +441,7 @@ export default {
       .multiselect__content-wrapper
         border-bottom-width 0
 
-    &.multiselect--active
+    &.multiselect--active:not(.multiselect--above)
       .multiselect__tags
         border-bottom-color rgba($border-color-main, 0.5)
 
@@ -625,6 +625,7 @@ export default {
     &.multiselect--above
       .ViInput__CheckAll
         .multiselect__checkoption
+          border-top 1px solid rgba($border-color-main, 0.5)
           top -39px
 
     &--checkbox
@@ -636,7 +637,7 @@ export default {
 
       &.multiselect--above
         .multiselect__content
-          padding 0 0 39px
+          padding 0 0 38px
 </style>
 
 
