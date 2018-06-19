@@ -473,7 +473,7 @@ export default {
 
     .multiselect__tags
       border 1px solid $border-color-main
-      border-radius $border-radius
+      border-bottom-width 2px
       min-height 40px
       padding 0.7em 1em 0
       outline none

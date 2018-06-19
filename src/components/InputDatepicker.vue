@@ -21,18 +21,18 @@
         @popover-will-disappear.capture="popoverState(false)"
         popover-visibility="focus"
         tint-color="#3581BC"
-        :class="[
-          'ViInput__Input',
-          {
-            'ViInput__Input--validated': validated || forceValidation,
-            'ViInput__Input--invalid': invalid,
-          }
-        ]"
         :disabled-dates="disabledDates"
         :formats="formats"
         :input-props="{
           required,
-          class: 'ViInput__InputDate',
+          class: [
+            'contentWrapper',
+            'ViInput__Input',
+            {
+              'ViInput__Input--validated': validated || forceValidation,
+              'ViInput__Input--invalid': invalid,
+            }
+          ],
           placeholder: placeholder,
         }"
         :is-double-paned="doublePanel"
@@ -47,8 +47,8 @@
   </vi-wrapper>
 </template>
 
-
 <script>
+import { setupCalendar, DatePicker } from 'v-calendar';
 import ViWrapper from './Wrapper.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import ViInputLabel from '../helperComponents/InputLabel.vue';
@@ -64,10 +64,17 @@ const FORMATS = {
 
 export default {
   name: 'ViDatepicker',
+  beforeCreate() {
+    setupCalendar({
+      locale: 'pt-BR',
+      firstDayOfWeek: 1,
+    });
+  },
   components: {
     ViWrapper,
     ViInputLabel,
     ViIcon,
+    'v-date-picker': DatePicker,
   },
   mixins: [scaleMixin, widthMixin, inputMixin],
   props: {
@@ -169,10 +176,8 @@ export default {
 @import '../themes/input'
 
 .ViComponent.ViInput
-  .contentWrapper.ViInput__Input
-    .ViInput__InputDate
-      border-top-left-radius 0
-      border-bottom-left-radius 0
+  .popover-container
+    width 100%
 </style>
 
 <docs>
