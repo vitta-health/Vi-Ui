@@ -140,7 +140,7 @@ export default {
        * Evento de retorno de dados
        *
        * @event input
-       * @type {file}
+       * @type {File}
        *
        */
       this.$emit('input', value);

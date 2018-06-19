@@ -208,7 +208,7 @@ export default {
 Wrapper é usado para trabalhar com conjunto de componentes.
 Ele também pode embrulhar os filhos em uma tag caso necessário.
 
-É recomendao não definer margens no css e usar apenas um
+É recomendao não definir margens no css e usar apenas um
 vi-wrapper sempre que for trabalhar com conjunto de componentes.
 
 ### Exemplo de wrapper

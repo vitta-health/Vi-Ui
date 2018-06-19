@@ -411,7 +411,7 @@ export default {
 ### Basic Table
 
 Para alinhar o conteúdo das colunas em uma direção,
-adicione [center|right] como um proiedade na coluna.
+adicione [center|right] como um propriedade na coluna.
 
 ```vue
 <template>
