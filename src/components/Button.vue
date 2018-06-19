@@ -128,7 +128,6 @@ export default {
     margin -4px 0
 
   &--pill
-    min-height auto
     border-radius 100px
 
   &--mini
@@ -138,6 +137,7 @@ export default {
     padding 0.37em 0.59em
 
   &--small
+    min-height auto
     font-size 12px
 
   &--large
