@@ -145,7 +145,7 @@ Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
           <vi-wrapper vertical child-wrapper no-margin class="descrition">
             <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
-            <vi-button success mini outlined pill>Avançar!</vi-button>
+            <vi-button success small outlined pill>Avançar!</vi-button>
           </vi-wrapper>
         </vi-wrapper>
       </div>

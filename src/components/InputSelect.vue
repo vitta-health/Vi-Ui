@@ -12,7 +12,7 @@
       class="ViInput__Multiselect"
       :class="{
         'ViInput__Multiselect--multiple': multiple,
-        'ViInput__Multiselect--hideOptionsOnFocus': !pill,
+        'ViInput__Multiselect--pills': pill,
         'ViInput__Multiselect--checkbox': checkbox,
       }"
       @open="openEvent"
@@ -434,17 +434,19 @@ export default {
 
 .ViComponent.ViInput
   .ViInput__Multiselect
+    .multiselect__tags
+      border-radius 0
+
+    &.multiselect--above
+      .multiselect__content-wrapper
+        border-bottom-width 0
 
     &.multiselect--active
-      &:not(.multiselect--above)
-        .multiselect__tags
-          border-bottom-left-radius 0
-          border-bottom-right-radius 0
-          border-bottom-color rgba($border-color-main, 0.5)
+      .multiselect__tags
+        border-bottom-color rgba($border-color-main, 0.5)
+
       &.multiselect--above
         .multiselect__tags
-          border-top-left-radius 0
-          border-top-right-radius 0
           border-top-color rgba($border-color-main, 0.5)
 
     &--multiple
@@ -468,8 +470,14 @@ export default {
               &:after
                 color: $light
 
+    &--multiple
+      &--pill
+        .multiselect__tags
+          padding 0.55em 0.55em 0
+
     .multiselect__input
       padding-left 0
+      margin-top -1px
 
     .multiselect__tags
       border 1px solid $border-color-main
@@ -491,6 +499,8 @@ export default {
 
     .multiselect__content-wrapper
       border-color $border-color-main
+      border-bottom-width 2px
+      border-radius 0
       z-index 1
 
     .multiselect__checkoption
@@ -589,7 +599,7 @@ export default {
         min-height 0
         padding 0 12px
         position absolute
-        top 40px
+        top 39px
         width 100%
         opacity 0
         overflow hidden
