@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     col(size, number) {
-      console.log('exemple',size, number);
+      console.log('exemple', size, number);
     }
   },
 };
@@ -245,10 +245,11 @@ vi-wrapper sempre que for trabalhar com conjunto de componentes.
 
 ```jsx
 <vi-wrapper mini>
-  <vi-card :col-small="4" mini primary>1</vi-card>
-  <vi-card :col-small="1" mini primary>2</vi-card>
-  <vi-card :col-small="1" mini primary>3</vi-card>
-  <vi-card :col-small="1" mini primary>4</vi-card>
+  <vi-card col-small="18" col="6" mini primary>1</vi-card>
+  <vi-card col-small="18" col="6" mini primary>2</vi-card>
+  <vi-card col-small="18" col="6" mini primary>3</vi-card>
+  <vi-card col-small="18" col="5" mini primary>4</vi-card>
+  <vi-card col-small="18" col="5" mini primary>5</vi-card>
 </vi-wrapper>
 ```
 

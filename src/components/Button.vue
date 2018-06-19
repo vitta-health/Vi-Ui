@@ -128,8 +128,8 @@ export default {
     margin -4px 0
 
   &--pill
-    min-height auto
     border-radius 100px
+    min-height auto
 
   &--mini
     font-size 10px
