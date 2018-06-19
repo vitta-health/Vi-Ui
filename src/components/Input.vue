@@ -198,8 +198,8 @@ export default {
 
 ### Exemplo de formulário
 
-Por pardrão o componente imput e outros componentes não tem margem.
-Para formulário ou conjunto de inputs use o [ViWrapper](#Wrapper).
+Por padrão, os inputs e outros componentes não possuem margem.
+Para utilizá-los em conjunto, como em formulários, utilize o [ViWrapper](#Wrapper).
 
 ```vue
 <template>
@@ -344,7 +344,7 @@ export default {
 ```
 ### Exemplo de validação com mensagem personalizada
 
-Você pode ver as popções de validação, [aqui](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-cva-validity).
+Você pode ver as opções de validação [aqui](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-cva-validity).
 
 ```vue
 <template>

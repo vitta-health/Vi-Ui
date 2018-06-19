@@ -12,7 +12,6 @@ module.exports = {
   require: [
     'babel-polyfill',
     path.join(__dirname, './layout/style.css'),
-    path.join(__dirname, '/requires.js'),
   ],
   styleguideComponents: {
     SectionRenderer: path.join(__dirname, 'layout/components/Section'),
