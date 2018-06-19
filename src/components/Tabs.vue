@@ -16,22 +16,6 @@ function tabActive(nodeActive, index, hasActiveTabDefault) {
 export default {
   name: 'ViTabs',
   functional: true,
-  props: {
-    /**
-     * Define título da aba
-     */
-    title: {
-      type: String,
-      default: 'Aba',
-    },
-    /**
-     * Define a aba ativa
-     */
-    active: {
-      type: Boolean,
-      default: false,
-    },
-  },
   render(createElement, context) {
     let hasActiveTabDefault = false;
     const childrens = context.children.filter((node) => {
@@ -130,12 +114,12 @@ export default {
           white-space nowrap
 
           &:hover
-            border-color #3581bc
+            border-color $primary
             transition border-color 0.4s ease-in-out
 
         a.active
-          border-color #3581bc
-          color #3581bc
+          border-color $primary
+          color $primary
           font-weight 600
 
   .ViTabs__Content
@@ -149,7 +133,7 @@ export default {
 <docs>
 Card Básico
 ```jsx
-  <vi-card title="Componentes de abas">
+  <vi-card title="Componente de abas">
     <div slot="body">
       <vi-tabs>
         <div title="Aba 1">
@@ -168,4 +152,12 @@ Card Básico
     </div>
   </vi-card>
 ```
+
+### Atributos para as abas
+
+| Atributo de colunas | Default | descrição                      |
+|:-------------------:|:-------:|:------------------------------:|
+| title               |         | Define o título da aba         |
+| active              | false   | Define se a aba está ativa     |
+
 </docs>
