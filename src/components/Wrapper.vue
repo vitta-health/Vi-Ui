@@ -85,7 +85,7 @@ export default {
   mixins: [positioningMixin, scaleMixin],
   props: {
     /**
-     * _Tamanho:_ Remove margens dos filhos
+     * _Tamanho:_ Remove margens dos filhos.
      */
     noMargin: {
       type: Boolean,
@@ -99,14 +99,14 @@ export default {
       default: 'div',
     },
     /**
-     * Define se direção do wrap é vertical
+     * Define se direção do wrap é vertical.
      */
     vertical: {
       type: Boolean,
       default: false,
     },
     /**
-     * Define se ordem dos filhos é invertida
+     * Define se ordem dos filhos é invertida.
      */
     inverted: {
       type: Boolean,
@@ -114,14 +114,14 @@ export default {
     },
     /**
      * Define se filhos serão envolvidos em um wrapper filho
-     * Sempre `true` quando a prop `grid` igual `true`.
+     * Sempre `true` quando em modo grid.
      */
     childWrapper: {
       type: Boolean,
       default: false,
     },
     /**
-     * Tag usada no wrapper filho. Se `childTag` for null, utiliza o valor da prop `tag`
+     * Tag usada no wrapper filho. Se `childTag` for null, utiliza o valor da prop `tag`.
      * Só é usado quando `childWrapper` igual `true`.
      */
     childTag: {
@@ -130,7 +130,7 @@ export default {
     },
     /**
      * Define se blocos precisam ter o mesmo tamanho entre eles.
-     * Não funciona quando `grid` igual `true`.
+     * Não funciona quando em modo grid.
      */
     proportionalChild: {
       type: Boolean,
@@ -138,14 +138,14 @@ export default {
     },
     /**
      * Quando definido, impede os filhos de quebrar a linha  mesmo quando o tamanho mesmo dos filhos exedem o limite da grid.
-     * Só é utilizado quando em modo grid
+     * Só é utilizado quando em modo grid.
      */
     noWrap: {
       type: Boolean,
       default: false,
     },
     /**
-     * Modo grid permite adicionar colunas para os filhos
+     * Modo grid permite adicionar colunas para os filhos.
      */
     grid: {
       type: Boolean,
@@ -284,11 +284,13 @@ mediaQueryInterpolator($size, $max = auto)
 </style>
 
 <docs>
-Wrapper é usado para trabalhar com conjunto de componentes.
+O componente ViWrapper é usado para trabalhar com conjunto de componentes.
 Ele também pode embrulhar os filhos em uma tag caso necessário.
 
-É recomendao não definir margens no css e usar apenas um
-vi-wrapper sempre que for trabalhar com conjunto de componentes.
+É recomendao não definir margens no css e usar apenas um wrapper sempre que for trabalhar
+com conjunto de componentes.
+
+Use os tamanhos [mini|small|large|no-margin] para definir espaçamento entre componentes ou colunas.
 
 ### Exemplo de wrapper
 
@@ -333,14 +335,14 @@ Use a prop `grid` para definir comportamento de grid.
 </vi-wrapper>
 ```
 
-#### Tamanhos e colunas
+#### Tamanhos e colunas no modo grid
 <!-- eslint-disable max-len -->
 |                    | Mini (`< 576px`) | Small (`=> 576px`) | Medium (`=> 768px`) | large (`=> 992px`) | jumbo (`=> 1200px`) |
 |:------------------:|:----------------:|:------------------:|:-------------------:|:------------------:|:-------------------:|
 |**largura maxima**  | auto             | 540px              | 720px               | 960px              | 1140px              |
 |**total de colunas**| 12               | 12                 | 12                  | 12                 | 12                  |
 
-#### Atributos para colulas da grid
+#### Atributos para colulas no modo grid
 
 | Atributo de colunas | Default | descrição                      |
 |:-------------------:|:-------:|:------------------------------:|
