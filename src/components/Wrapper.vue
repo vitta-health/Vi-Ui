@@ -347,18 +347,18 @@ Use a prop `grid` para definir comportamento de grid.
 <div id="AnchorForGridDoc"></div>
 #### Atributos para coluna no modo grid
 
-|               | Atributo de colunas | Default | descrição                             |
-|:-------------:|:-------------------:|:-------:|:-------------------------------------:|
-| **Colunas**   |                     |         |                                       |
-|               | col-mini            | 12      | Coluna se resolução `< 576px`         |
-|               | col-small           | 12      | Coluna se resolução `>= 576px`        |
-|               | col                 | 12      | Coluna se resolução `>= 768px`        |
-|               | col-large           | 12      | Coluna se resolução `>= 992px`        |
-|               | col-jumbo           | 12      | Coluna se resolução `>= 1200px`       |
-| **Ordenação** |                     |         |                                       |
-|               | order-mini          | null    | Ordem coluna se resolução `< 576px`   |
-|               | order-small         | null    | Ordem coluna se resolução `>= 576px`  |
-|               | order               | null    | Ordem coluna se resolução `>= 768px`  |
-|               | order-large         | null    | Ordem coluna se resolução `>= 992px`  |
-|               | order-jumbo         | null    | Ordem coluna se resolução `>= 1200px` |
+| Atributo de colunas | Default | descrição                             |
+|:-------------------:|:-------:|:-------------------------------------:|
+| **Colunas**         |         |                                       |
+| col-mini            | 12      | Coluna se resolução `< 576px`         |
+| col-small           | 12      | Coluna se resolução `>= 576px`        |
+| col                 | 12      | Coluna se resolução `>= 768px`        |
+| col-large           | 12      | Coluna se resolução `>= 992px`        |
+| col-jumbo           | 12      | Coluna se resolução `>= 1200px`       |
+| **Ordenação**       |         |                                       |
+| order-mini          | null    | Ordem coluna se resolução `< 576px`   |
+| order-small         | null    | Ordem coluna se resolução `>= 576px`  |
+| order               | null    | Ordem coluna se resolução `>= 768px`  |
+| order-large         | null    | Ordem coluna se resolução `>= 992px`  |
+| order-jumbo         | null    | Ordem coluna se resolução `>= 1200px` |
 </docs>
