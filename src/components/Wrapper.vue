@@ -90,6 +90,14 @@ export default {
       default: false,
     },
     /**
+     * Modo grid permite adicionar colunas para os filhos. Para melhor
+     * entendimento, veja o [exemplo](#AnchorForGridDoc).
+     */
+    grid: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Tag principal onde os outros elementos vão dentro.
      */
     tag: {
@@ -120,7 +128,7 @@ export default {
     },
     /**
      * Tag usada no wrapper filho. Se `childTag` for null, utiliza o valor da prop `tag`.
-     * Só é usado quando `childWrapper` igual `true`.
+     * Só é utilizado quando `childWrapper` igual `true`.
      */
     childTag: {
       type: String,
@@ -139,14 +147,6 @@ export default {
      * dos filhos excedem o limite da grid. Só é utilizado quando em modo grid.
      */
     noWrap: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Modo grid permite adicionar colunas para os filhos. Para melhor
-     * entendimento, veja o [exemplo](#AnchorForGridDoc).
-     */
-    grid: {
       type: Boolean,
       default: false,
     },
