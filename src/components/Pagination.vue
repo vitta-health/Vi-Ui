@@ -13,7 +13,7 @@
       primary
       @click="handleNavitation('PREVIOUS_PAGE')"
       :href="getURL('PREVIOUS_PAGE')"
-      :disabled="!buttonEnabled('PREVIOUS_PAGE')">⏴</vi-button>
+      :disabled="!buttonEnabled('PREVIOUS_PAGE')"><vi-icon name="chevron-prev" /></vi-button>
     <vi-button
       primary
       :href="getURL(page)"
@@ -26,7 +26,7 @@
       primary
       @click="handleNavitation('NEXT_PAGE')"
       :href="getURL('NEXT_PAGE')"
-      :disabled="!buttonEnabled('NEXT_PAGE')">⏵</vi-button>
+      :disabled="!buttonEnabled('NEXT_PAGE')"><vi-icon name="chevron-next" /></vi-button>
     <vi-button
       primary
       title="Última Página"

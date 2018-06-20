@@ -21,6 +21,7 @@
       <!-- @slot Use este slot para definir o contéudo que estará presente
       dentro do corpo do card -->
       <slot name="body"/>
+      <slot/>
     </div>
 
     <!-- @slot Use este slot para definir o contéudo que estará presente dentro do rodapé -->
@@ -47,7 +48,7 @@ export default {
      */
     tag: {
       type: String,
-      default: 'article',
+      default: 'section',
     },
     /**
     * Texto que será exibido no título
@@ -113,7 +114,8 @@ Card Básico
   </vi-card>
 ```
 
-Card Colorido
+### Card Colorido
+
 ```jsx
   <vi-card success>
     <div slot="body">Card com fundo colorido</div>
@@ -121,7 +123,10 @@ Card Colorido
   </vi-card>
 ```
 
-Exemplo Complexo de Card
+### Exemplo elaborado de Card
+
+Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
+
 ```vue
 <template>
   <vi-wrapper
@@ -140,7 +145,7 @@ Exemplo Complexo de Card
           <vi-wrapper vertical child-wrapper no-margin class="descrition">
             <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
-            <vi-button success mini outlined pill>Avançar!</vi-button>
+            <vi-button success small outlined pill>Avançar!</vi-button>
           </vi-wrapper>
         </vi-wrapper>
       </div>
