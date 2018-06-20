@@ -143,8 +143,8 @@ export default {
       default: false,
     },
     /**
-     * Quando definido, impede os filhos de quebrar a linha  mesmo quando o tamanho mesmo
-     * dos filhos excedem o limite da grid. Só é utilizado quando em modo grid.
+     * Quando definido, impede os filhos de quebrarem a linha mesmo quando o tamanho dos filhos
+     * excedem o limite da grid. Só é utilizado quando em modo grid.
      */
     noWrap: {
       type: Boolean,
