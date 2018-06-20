@@ -2,6 +2,7 @@ $border-radius = 0.3em
 
 .ViComponent.ViInput
   position relative
+  width 100%
   z-index 0
 
   &--elevated
@@ -15,7 +16,7 @@ $border-radius = 0.3em
     border-bottom-width 2px
     background $input-background-main
     min-height 40px
-    padding 0.6em
+    padding 0.5em
     outline none
     text-overflow ellipsis
     width 100%
@@ -44,9 +45,6 @@ $border-radius = 0.3em
       &.ViButton:last-child
         border-bottom-right-radius $border-radius
         border-top-right-radius $border-radius
-
-      &.ViInput__Input
-        width 100%
 
       &.ViButton
         white-space nowrap

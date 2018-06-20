@@ -87,19 +87,20 @@ $background-card = $isDark ? $colors.dark : $colors.light
   border-radius 0.3em
   box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
   display flex
+  height 100%
   flex-direction column
   justify-content space-between
-  padding 40px
+  padding 20px
   width 100%
 
   &--mini
-    padding 10px
+    padding 5px
 
   &--small
-    padding 20px
+    padding 10px
 
   &--large
-    padding 60px
+    padding 40px
 </style>
 
 ```
@@ -130,14 +131,14 @@ Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
 ```vue
 <template>
   <vi-wrapper
-    proportinal
     class="ViComponent greyBox"
-    justify-content="space-between"
+    grid
   >
     <vi-card
+      col="4"
+      colSmall="12"
       v-for="character in characters"
       :key="character.idHero"
-      small
     >
       <div slot="body">
         <vi-wrapper>
@@ -145,7 +146,7 @@ Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
           <vi-wrapper vertical child-wrapper no-margin class="descrition">
             <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
-            <vi-button success mini outlined pill>Avançar!</vi-button>
+            <vi-button success small outlined pill>Avançar!</vi-button>
           </vi-wrapper>
         </vi-wrapper>
       </div>
