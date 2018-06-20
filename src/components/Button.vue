@@ -158,6 +158,7 @@ export default {
       width 21px
 
   &--small
+    min-height auto
     font-size 12px
     min-height 30px
     &.ViButton--circle

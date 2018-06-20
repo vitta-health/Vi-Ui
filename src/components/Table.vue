@@ -410,8 +410,13 @@ export default {
 <docs>
 ### Basic Table
 
+<<<<<<< HEAD
 Para alinhar o conteúdo das colunas em uma direção,
 adicione [center|right] como um propriedade na coluna.
+=======
+Para alinhar o conteúdo das células da coluna em uma direção,
+adicione [center|right] como uma propriedade na coluna.
+>>>>>>> f3c886e45e6cd8e97e27a454effc02efa4beca8d
 
 ```vue
 <template>
