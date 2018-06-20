@@ -195,14 +195,14 @@ export default {
   mixins: [scaleMixin, widthMixin, inputMixin],
   props: {
     /**
-     * Subistitui label do Vue-Multisect
+     * Substitui label do Vue-Multisect.
      */
     optionLabel: {
       type: String,
       default: null,
     },
     /**
-     * Label do campo do Vi-Ui
+     * Label do campo do Vi-Ui.
      */
     label: {
       type: String,
@@ -224,71 +224,71 @@ export default {
       default: false,
     },
     /**
-     * Label da opção "Marcar tudo" quando `checkbox` igual true
+     * Label da opção "Marcar tudo" quando `checkbox` igual `true`.
      */
     checkAllLabel: {
       type: String,
       default: 'Marcar tudo',
     },
     /**
-     * Label da opção "Marcar todas as opções da busca" quando `checkbox` igual true
+     * Label da opção "Marcar todas as opções da busca" quando `checkbox` igual `true`.
      */
     checkSelectionLabel: {
       type: String,
       default: 'Marcar todas as opções da busca',
     },
     /**
-     * Label da opção "Desmarcar tudo" quando `checkbox` igual true
+     * Label da opção "Desmarcar tudo" quando `checkbox` igual `true`.
      */
     uncheckAllLabel: {
       type: String,
       default: 'Desmarcar tudo',
     },
     /**
-     * Label da opção "Desmarcar todas as opções da busca" quando `checkbox` igual true
+     * Label da opção "Desmarcar todas as opções da busca" quando `checkbox` igual `true`.
      */
     uncheckSelectionLabel: {
       type: String,
       default: 'Desmarcar todas as opções da busca',
     },
     /**
-     * Label dentro so select quando fechado, existem opçõe selecionadas e `pill` igual "false".
-     * ##NUMBER## é subistituido pelo total de opções selecionadas.
+     * Label dentro so select quando fechado, existem opções selecionadas e `pill` igual `false`.
+     * ##NUMBER## é substituído pelo total de opções selecionadas.
      */
     selectClosedLabel: {
       type: String,
       default: '##NUMBER## opções marcadas',
     },
     /**
-     * String que aparece quando o mouse ou o foco está em uma opção
+     * String que aparece quando o mouse ou o foco está em uma opção.
      */
     selectLabel: {
       type: String,
       default: '',
     },
     /**
-     * String que aparece em uma opção selecionada
+     * String que aparece em uma opção selecionada.
      */
     selectedLabel: {
       type: String,
       default: 'Selecionado',
     },
     /**
-     * String que aparece quando o mouse ou o foco está em uma opção selecionada
+     * String que aparece quando o mouse ou o foco está em uma opção selecionada.
      */
     deselectLabel: {
       type: String,
       default: 'Selecionado',
     },
     /**
-     * Placeholder do campo
+     * Placeholder do campo.
      */
     placeholder: {
       type: String,
       default: 'Selecione uma opção',
     },
     /**
-     * Valor do campo
+     * Valor do campo.
      * @model
      */
     value: {
@@ -412,7 +412,7 @@ export default {
     },
     searchEvent(value, id) {
       this.searchValue = value;
-      this.$emit('serch-change', value, id);
+      this.$emit('search-change', value, id);
     },
     closeEvent(value, id) {
       this.isOpen = false;

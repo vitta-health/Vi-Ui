@@ -1,30 +1,30 @@
 <script>
 /* eslint-disable max-len */
-/* Esse disable precisa exister por causa da tabela na parte de documentação. */
+/* Esse disable precisa existir por causa da tabela na parte de documentação. */
 import positioningMixin from '../mixins/positioning';
 import { scaleMixin } from '../mixins/sizes';
 
-const justify = value => `flexWraper--justify-content-${value}`;
-const align = value => `flexWraper--align-items-${value}`;
+const justify = value => `flexWrapper--justify-content-${value}`;
+const align = value => `flexWrapper--align-items-${value}`;
 
 const addClassNames = (props, classesToMerge) => {
-  const className = ['flexWraper'];
+  const className = ['flexWrapper'];
   if (classesToMerge) className.push(classesToMerge);
 
   if (props.justifyContent) className.push(justify(props.justifyContent));
   if (props.alignItems) className.push(align(props.alignItems));
-  if (props.vertical) className.push('flexWraper--vertical');
-  if (props.inverted) className.push('flexWraper--inverted');
-  if (props.childWrapper || props.grid) className.push('flexWraper--child-wrapper');
-  if (props.noWrap && props.grid) className.push('flexWraper--no-wrap');
+  if (props.vertical) className.push('flexWrapper--vertical');
+  if (props.inverted) className.push('flexWrapper--inverted');
+  if (props.childWrapper || props.grid) className.push('flexWrapper--child-wrapper');
+  if (props.noWrap && props.grid) className.push('flexWrapper--no-wrap');
 
-  if (props.grid) className.push('flexWraper--grid');
-  else className.push('flexWraper--not-grid');
+  if (props.grid) className.push('flexWrapper--grid');
+  else className.push('flexWrapper--not-grid');
 
-  if (props.mini) className.push('flexWraper--mini');
-  else if (props.small) className.push('flexWraper--small');
-  else if (props.large) className.push('flexWraper--large');
-  else if (props.noMargin) className.push('flexWraper--no-margin');
+  if (props.mini) className.push('flexWrapper--mini');
+  else if (props.small) className.push('flexWrapper--small');
+  else if (props.large) className.push('flexWrapper--large');
+  else if (props.noMargin) className.push('flexWrapper--no-margin');
 
   return className;
 };
@@ -137,7 +137,7 @@ export default {
       default: false,
     },
     /**
-     * Quando definido, impede os filhos de quebrar a linha  mesmo quando o tamanho mesmo dos filhos exedem o limite da grid.
+     * Quando definido, impede os filhos de quebrar a linha  mesmo quando o tamanho mesmo dos filhos excedem o limite da grid.
      * Só é utilizado quando em modo grid.
      */
     noWrap: {
@@ -196,7 +196,7 @@ gridPadding($space, $useMargin = false)
       margin 0 0 0 $space * 2
       &:first-child
         margin-left 0
-    &.flexWraper--vertical
+    &.flexWrapper--vertical
       & > .contentWrapper
         margin 0 0 $space * 2
         &:last-child
@@ -208,15 +208,15 @@ gridPadding($space, $useMargin = false)
 
 gridSizes($useMargin = false)
   gridPadding(10px, $useMargin)
-  &.flexWraper--mini
+  &.flexWrapper--mini
     gridPadding(2px, $useMargin)
-  &.flexWraper--small
+  &.flexWrapper--small
     gridPadding(5px, $useMargin)
-  &.flexWraper--large
+  &.flexWrapper--large
     gridPadding(20px, $useMargin)
-  &.flexWraper--jumbo
+  &.flexWrapper--jumbo
     gridPadding(40px, $useMargin)
-  &.flexWraper--no-margin
+  &.flexWrapper--no-margin
     gridPadding(0, true)
 
 mediaQueryInterpolator($size, $max = auto)
@@ -229,8 +229,8 @@ mediaQueryInterpolator($size, $max = auto)
         flex $v 1 ($v * 8.3%)
         max-width: ($v * 8.3%);
 
-.ViComponent .flexWraper
-.flexWraper
+.ViComponent .flexWrapper
+.flexWrapper
   align-items center
   display flex
 
@@ -343,7 +343,7 @@ Use a prop `grid` para definir comportamento de grid.
 |**largura maxima**  | auto             | 540px              | 720px               | 960px              | 1140px              |
 |**total de colunas**| 12               |                    |                     |                    |                     |
 
-#### Atributos para colulas no modo grid
+#### Atributos para coluna no modo grid
 
 |               | Atributo de colunas | Default | descrição                                        |
 |:-------------:|:-------------------:|:-------:|:------------------------------------------------:|

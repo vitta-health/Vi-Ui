@@ -18,13 +18,12 @@
       :is="titleTag"
       class="ViCard__Title">{{ title }}</component>
     <div class="ViCard__Body">
-      <!-- @slot Use este slot para definir o contéudo que estará presente
-      dentro do corpo do card -->
+      <!-- @slot Use slot body para definir o conteúdo no corpo do card -->
       <slot name="body"/>
       <slot/>
     </div>
 
-    <!-- @slot Use este slot para definir o contéudo que estará presente dentro do rodapé -->
+    <!-- @slot Use este slot para definir o conteúdo no rodapé -->
     <slot
       class="ViCard__Footer"
       name="footer"
@@ -51,14 +50,14 @@ export default {
       default: 'section',
     },
     /**
-    * Texto que será exibido no título
+    * Texto exibido no título
     */
     title: {
       type: String,
       default: null,
     },
     /**
-    * Tamanho do texto do título, de 1 a 6
+    * Tamanho do título, de 1 a 6
     */
     sizeTitle: {
       type: Number,
@@ -109,7 +108,10 @@ $background-card = $isDark ? $colors.dark : $colors.light
 
 Card Básico
 ```jsx
-  <vi-card title="Este é um título do card tamanho 1" :sizeTitle="2">
+  <vi-card
+    title="Este é um título do card tamanho 1"
+    :sizeTitle="2"
+  >
     <div slot="body">Este é um parágrafo contido no slot do body</div>
     <div slot="footer"><vi-button primary>Botão no footer</vi-button></div>
   </vi-card>
@@ -143,8 +145,8 @@ Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
       <div slot="body">
         <vi-wrapper>
           <img class="avatar" :src="character.avatar"/>
-          <vi-wrapper vertical child-wrapper no-margin class="descrition">
-            <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
+          <vi-wrapper vertical child-wrapper no-margin>
+            <h4 class="name">{{character.name}} aka <small>{{character.superHeroName}}</small></h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
             <vi-button success small outlined pill>Avançar!</vi-button>
           </vi-wrapper>

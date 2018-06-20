@@ -6,31 +6,31 @@
     <vi-button
       title="Primeira Página"
       primary
-      @click="handleNavitation('FIRST_PAGE')"
+      @click="handleNavigation('FIRST_PAGE')"
       :href="getURL('FIRST_PAGE')"
       :disabled="!buttonEnabled('FIRST_PAGE')">⏮</vi-button>
     <vi-button
       primary
-      @click="handleNavitation('PREVIOUS_PAGE')"
+      @click="handleNavigation('PREVIOUS_PAGE')"
       :href="getURL('PREVIOUS_PAGE')"
       :disabled="!buttonEnabled('PREVIOUS_PAGE')"><vi-icon name="chevron-prev" /></vi-button>
     <vi-button
       primary
       :href="getURL(page)"
-      @click="handleNavitation(page)"
+      @click="handleNavigation(page)"
       :active="isCurrentPage(page)"
       v-for="(page) in getPages"
       :key="page">{{ page }}
     </vi-button>
     <vi-button
       primary
-      @click="handleNavitation('NEXT_PAGE')"
+      @click="handleNavigation('NEXT_PAGE')"
       :href="getURL('NEXT_PAGE')"
       :disabled="!buttonEnabled('NEXT_PAGE')"><vi-icon name="chevron-next" /></vi-button>
     <vi-button
       primary
       title="Última Página"
-      @click="handleNavitation('LAST_PAGE')"
+      @click="handleNavigation('LAST_PAGE')"
       :href="getURL('LAST_PAGE')"
       :disabled="!buttonEnabled('LAST_PAGE')">⏭</vi-button>
   </vi-button-group>
@@ -55,7 +55,7 @@ export default {
       default: 1,
     },
     /**
-     * Url para ser composta ex: exemplo?page=##PAGE##
+     * Url para ser composta. ex: exemplo?page=##PAGE##
      */
     baseURL: {
       type: String,
@@ -99,8 +99,8 @@ export default {
      * @event onChangePage
      * @type {object}
      */
-    handleNavitation(page) {
-      this.$emit('on-change-page', { page: this.getPage(page) });
+    handleNavigation(page) {
+      this.$emit('change-page', { page: this.getPage(page) });
     },
     buttonEnabled(button) {
       if (button === 'LAST_PAGE') {
@@ -147,8 +147,7 @@ export default {
 </script>
 
 <docs>
-#### Basic Pagination:
-
+#### Exemplo de paginação:
 
 ```vue
 <template>
@@ -157,7 +156,7 @@ export default {
     :baseURL="baseURL"
     :totalPages="totalPages"
     :totalShowed="totalShowed"
-    @on-change-page="page => mudaPagina(page)"/>
+    @change-page="page => mudaPagina(page)"/>
 </template>
 
 <script>
