@@ -1,6 +1,4 @@
 <script>
-/* eslint-disable max-len */
-/* Esse disable precisa existir por causa da tabela na parte de documentação. */
 import positioningMixin from '../mixins/positioning';
 import { scaleMixin } from '../mixins/sizes';
 
@@ -137,15 +135,16 @@ export default {
       default: false,
     },
     /**
-     * Quando definido, impede os filhos de quebrar a linha  mesmo quando o tamanho mesmo dos filhos excedem o limite da grid.
-     * Só é utilizado quando em modo grid.
+     * Quando definido, impede os filhos de quebrar a linha  mesmo quando o tamanho mesmo
+     * dos filhos excedem o limite da grid. Só é utilizado quando em modo grid.
      */
     noWrap: {
       type: Boolean,
       default: false,
     },
     /**
-     * Modo grid permite adicionar colunas para os filhos. Para melhor entendimento, veja o [exemplo](#AnchorForGridDoc).
+     * Modo grid permite adicionar colunas para os filhos. Para melhor
+     * entendimento, veja o [exemplo](#AnchorForGridDoc).
      */
     grid: {
       type: Boolean,
@@ -339,12 +338,13 @@ Use a prop `grid` para definir comportamento de grid.
 ```
 
 #### Tamanhos e colunas no modo grid
-|                    | Mini (`< 576px`) | Small (`>= 576px`) | Medium (`>= 768px`) | large (`>= 992px`) | jumbo (`>= 1200px`) |
-|:------------------:|:----------------:|:------------------:|:-------------------:|:------------------:|:-------------------:|
-|**largura maxima**  | auto             | 540px              | 720px               | 960px              | 1140px              |
-|**total de colunas**| 12               |                    |                     |                    |                     |
-
 <div id="AnchorForGridDoc"></div>
+
+Medidas (`px`)     |Mini (`<576`)|Small (`>=576`)|Medium (`>=768`)|Large (`>=992`)|Jumbo (`>=1200`)
+------------------:|:-----------:|:-------------:|:--------------:|:-------------:|:---------------
+**largura maxima** | auto        | 540px         | 720px          | 960px         | 1140px
+**# de colunas**   | 12          | 12            | 12             | 12            | 12
+
 #### Atributos para coluna no modo grid
 
 | Atributo de colunas | Default | descrição                             |
