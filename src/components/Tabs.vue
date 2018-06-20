@@ -7,10 +7,12 @@ function toggleClass(element, classAdd, classRemove) {
 }
 
 function tabActive(nodeActive, index, hasActiveTabDefault) {
-  if (nodeActive === 'true') {
+  if (nodeActive === 'true' ||
+    (index === 0 && !hasActiveTabDefault)) {
     return 'active';
   }
-  return index === 0 && !hasActiveTabDefault ? 'active' : 'inactive';
+
+  return 'inactive';
 }
 
 export default {
@@ -19,9 +21,11 @@ export default {
   render(createElement, context) {
     let hasActiveTabDefault = false;
     const childrens = context.children.filter((node) => {
-      if (!node.tag && !node.text) return false;
-      if (node.data && node.data.attrs.active) hasActiveTabDefault = true;
-      return node.tag;
+      const nodeItem = node;
+      if (!nodeItem.tag && !nodeItem.text) return false;
+      if (nodeItem.data && hasActiveTabDefault) nodeItem.data.attrs.active = false;
+      if (nodeItem.data && nodeItem.data.attrs.active) hasActiveTabDefault = true;
+      return nodeItem.tag;
     });
 
     const tabsList = [];
@@ -62,9 +66,11 @@ export default {
         contentNode.data.attrs.id = idContent;
         contentNode.data.staticClass =
           tabActive(node.data.attrs.active, index, hasActiveTabDefault);
+
+        return contentNode;
       }
 
-      return contentNode;
+      return '';
     });
 
     return createElement(
@@ -136,7 +142,7 @@ Card Básico
   <vi-card title="Componente de abas">
     <div slot="body">
       <vi-tabs>
-        <div title="Aba 1">
+        <div title="Aba 1" active="true">
           <div>
             Teste 1
             <div>Teste 1.1</div>
