@@ -24,6 +24,7 @@ const addClassNames = (props, classesToMerge) => {
   if (props.mini) className.push('flexWraper--mini');
   else if (props.small) className.push('flexWraper--small');
   else if (props.large) className.push('flexWraper--large');
+  else if (props.jumbo) className.push('flexWraper--jumbo');
   else if (props.noMargin) className.push('flexWraper--no-margin');
 
   return className;
@@ -214,6 +215,8 @@ gridSizes($useMargin = false)
     gridPadding(5px, $useMargin)
   &.flexWraper--large
     gridPadding(20px, $useMargin)
+  &.flexWraper--jumbo
+    gridPadding(40px, $useMargin)
   &.flexWraper--no-margin
     gridPadding(0, true)
 
@@ -280,17 +283,16 @@ mediaQueryInterpolator($size, $max = auto)
       mediaQueryInterpolator('Large', 960px)
 
     @media (min-width: 1200px)
-      mediaQueryInterpolator('Large', 1140px)
+      mediaQueryInterpolator('Jumbo', 1140px)
 </style>
 
 <docs>
 O componente ViWrapper é usado para trabalhar com conjunto de componentes.
 Ele também pode embrulhar os filhos em uma tag caso necessário.
 
-É recomendao não definir margens no css e usar apenas um wrapper sempre que for trabalhar
-com conjunto de componentes.
-
-Use os tamanhos [mini|small|large|no-margin] para definir espaçamento entre componentes ou colunas.
+É recomendado não definir margens no css e usar apenas um wrapper sempre que precisar fazer
+um espaçamento entre componentes. Use os tamanhos [mini|small|large|jumbo|no-margin] para definir espaçamento
+entre componentes ou colunas.
 
 ### Exemplo de wrapper
 
@@ -340,20 +342,23 @@ Use a prop `grid` para definir comportamento de grid.
 |                    | Mini (`< 576px`) | Small (`=> 576px`) | Medium (`=> 768px`) | large (`=> 992px`) | jumbo (`=> 1200px`) |
 |:------------------:|:----------------:|:------------------:|:-------------------:|:------------------:|:-------------------:|
 |**largura maxima**  | auto             | 540px              | 720px               | 960px              | 1140px              |
-|**total de colunas**| 12               | 12                 | 12                  | 12                 | 12                  |
+|**total de colunas**| 12               |                    |                     |                    |                    |
 
 #### Atributos para colulas no modo grid
 
-| Atributo de colunas | Default | descrição                      |
-|:-------------------:|:-------:|:------------------------------:|
-| col-mini            | 12      | Coluna `< 576px`               |
-| col-small           | 12      | Coluna `=> 576px`              |
-| col                 | 12      | Coluna `=> 768px`              |
-| col-large           | 12      | Coluna `=> 992px`              |
-| col-jumbo           | 12      | Coluna `=> 1200px`             |
-| order-mini          | null    | Ordem coluna abaixo de 576px   |
-| order-small         | null    | Ordem coluna acima de 576px    |
-| order               | null    | Ordem coluna acima de 768px    |
-| order-large         | null    | Ordem coluna acima de 992px    |
-| order-jumbo         | null    | Ordem coluna acima de 1200px   |
+|               | Atributo de colunas | Default | descrição                                        |
+|:-------------:|:-------------------:|:-------:|:------------------------------------------------:|
+| **Colunas**   |                     |         |                                                  |
+|               | col-mini            | 12      | Coluna `< 576px`                                 |
+|               | col-mini            | 12      | Coluna `< 576px`                                 |
+|               | col-small           | 12      | Coluna `=> 576px`                                |
+|               | col                 | 12      | Coluna `=> 768px`                                |
+|               | col-large           | 12      | Coluna `=> 992px`                                |
+|               | col-jumbo           | 12      | Coluna `=> 1200px`                               |
+| **Ordenação** |                     |         |                                                  |
+|               | order-mini          | null    | Ordem coluna quando resolução abaixo de 576px    |
+|               | order-small         | null    | Ordem coluna quando resolução  acima de 576px    |
+|               | order               | null    | Ordem coluna quando resolução  acima de 768px    |
+|               | order-large         | null    | Ordem coluna quando resolução  acima de 992px    |
+|               | order-jumbo         | null    | Ordem coluna quando resolução  acima de 1200px   |
 </docs>
