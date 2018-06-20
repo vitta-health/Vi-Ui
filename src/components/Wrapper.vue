@@ -345,7 +345,7 @@ Use a prop `grid` para definir comportamento de grid.
 |**largura maxima**  | auto             | 540px              | 720px               | 960px              | 1140px              |
 |**total de colunas**| 12               |                    |                     |                    |                     |
 
-<div id="AnchorForGridDoc">&nbsp;</div>
+<div id="AnchorForGridDoc"></div>
 #### Atributos para coluna no modo grid
 
 |               | Atributo de colunas | Default | descrição                                        |
