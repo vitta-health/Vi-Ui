@@ -4,9 +4,20 @@
     @click="onClick"
     v-bind="colorsOpt"
     default-color="default"
+    tag="span"
     mini
   >
-    <slot />
+    <vi-wrapper
+      tag="span"
+      child-wrapper
+      mini
+    >
+      <slot />
+      <vi-icon
+        class= "close "
+        name="cross"
+      />
+    </vi-wrapper>
   </vi-card>
 </template>
 
@@ -49,16 +60,23 @@ export default {
     /**
      * Alinhar alerta ao funda tela. Nao funciona se `inline` igual `true`.
      */
-    botom: {
+    bottom: {
       type: Boolean,
       default: false,
     },
     /**
-     * Permite esconder alerta
+     * Permite esconder alerta.
      */
     dismiss: {
       type: Boolean,
       default: false,
+    },
+    /**
+     * Inicia visível.
+     */
+    startActive: {
+      type: Boolean,
+      default: true,
     },
   },
   methods: {
@@ -103,9 +121,11 @@ export default {
   position fixed
   top 1em
   left 50%
-  width auto
   transform translate(-50%, 0)
   z-index 300
+
+  &.ViCard
+    width auto
 </style>
 
 <docs>
