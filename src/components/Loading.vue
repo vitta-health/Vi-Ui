@@ -58,7 +58,7 @@ export default {
   props: {
     /**
      * [0 - 100] Define o percentual do carregamento.
-     * Sem valor definido o círculo gira infinitamente em uma animação.
+     * Sem valor definido o círculo, em uma animação, gira infinitamente.
      */
     percentValue: {
       type: [Number, String],

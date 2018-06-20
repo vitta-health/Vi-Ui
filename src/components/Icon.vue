@@ -7,13 +7,13 @@
 
 <script>
 /**
- * @todo Alterar desenhos do ícones.
+ * @todo Alterar desenhos dos ícones.
  */
 export default {
   name: 'ViIcon',
   props: {
     /**
-     * Nome do ícones escolhido.
+     * Nome do ícone escolhido.
      */
     name: {
       type: String,

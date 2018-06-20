@@ -57,7 +57,7 @@ export default {
       default: null,
     },
     /**
-    * Tamanho do título, de 1 a 6
+    * Tamanho do título de 1 a 6
     */
     sizeTitle: {
       type: Number,
@@ -109,7 +109,7 @@ $background-card = $isDark ? $colors.dark : $colors.light
 Card Básico
 ```jsx
   <vi-card
-    title="Este é um título do card tamanho 1"
+    title="Este é um título do card"
     :sizeTitle="2"
   >
     <div slot="body">Este é um parágrafo contido no slot do body</div>

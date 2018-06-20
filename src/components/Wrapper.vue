@@ -226,8 +226,8 @@ mediaQueryInterpolator($size, $max = auto)
       &.order{$size}--pos{$i || '-default'}
         order $v
       &.col{$size}--size{$i || '-default'}
-        flex $v 1 ($v * 8.3%)
-        max-width: ($v * 8.3%);
+        flex $v 1 ($v * 8.3333%)
+        max-width: ($v * 8.3333%);
 
 .ViComponent .flexWrapper
 .flexWrapper
@@ -265,6 +265,9 @@ mediaQueryInterpolator($size, $max = auto)
     flex-wrap wrap
     gridSizes()
 
+    & > .contentWrapper
+      order 12
+
     &^[0]--no-wrap
       flex-wrap nowrap
 
@@ -289,9 +292,8 @@ mediaQueryInterpolator($size, $max = auto)
 O componente ViWrapper é usado para trabalhar com conjunto de componentes.
 Ele também pode embrulhar os filhos em uma tag caso necessário.
 
-É recomendado não definir margens no css e usar apenas um wrapper sempre que precisar fazer
-um espaçamento entre componentes. Use os tamanhos [mini|small|large|no-margin] para definir espaçamento
-entre componentes ou colunas.
+É recomendado não colocar margens diretamente pelo css. Use um wrapper sempre que precisar definir
+um espaçamento entre componentes. As opções de espaçamento  são [mini|small|large|no-margin].
 
 ### Exemplo de wrapper
 
@@ -323,15 +325,15 @@ Use a prop `grid` para definir comportamento de grid.
     <vi-card col="6" danger>1</vi-card>
     <vi-card col="3" order="1" danger>2</vi-card>
   </vi-wrapper>
-  <vi-wrapper break-line grid small>
+  <vi-wrapper grid small>
     <vi-card col="6" success>1</vi-card>
-    <vi-card col="3" success>2</vi-card>
+    <vi-card col="7" order="2" success>2</vi-card>
     <vi-card col="3" success>3</vi-card>
     <vi-card col="3" success>4</vi-card>
     <vi-card col="3" success>5</vi-card>
-    <vi-card col="6" order="1" success>6</vi-card>
+    <vi-card col="5" order="3" success>6</vi-card>
     <vi-card col="4" success>7</vi-card>
-    <vi-card col="12" success>8</vi-card>
+    <vi-card col="12" order="1" success>8</vi-card>
   </vi-wrapper>
 </vi-wrapper>
 ```
@@ -348,7 +350,6 @@ Use a prop `grid` para definir comportamento de grid.
 |               | Atributo de colunas | Default | descrição                                        |
 |:-------------:|:-------------------:|:-------:|:------------------------------------------------:|
 | **Colunas**   |                     |         |                                                  |
-|               | col-mini            | 12      | Coluna `< 576px`                                 |
 |               | col-mini            | 12      | Coluna `< 576px`                                 |
 |               | col-small           | 12      | Coluna `=> 576px`                                |
 |               | col                 | 12      | Coluna `=> 768px`                                |
