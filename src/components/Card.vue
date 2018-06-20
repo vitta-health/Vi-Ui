@@ -9,7 +9,7 @@
         'ViCard--small': small,
         'ViCard--large': large,
       },
-      colorClass({ background: true, default: 'light' }),
+      colorClass({ background: true, default: defaultColor }),
     ]"
     :style="{ width: componentWidth }"
   >
@@ -21,6 +21,7 @@
       <!-- @slot Use este slot para definir o contéudo que estará presente
       dentro do corpo do card -->
       <slot name="body"/>
+      <slot/>
     </div>
 
     <!-- @slot Use este slot para definir o contéudo que estará presente dentro do rodapé -->
@@ -63,6 +64,15 @@ export default {
       type: Number,
       default: null,
       validator: size => size >= 1 && size <= 6,
+    },
+    /**
+    * @ignore é apenas um helper para outros componentes que dependem do card. Deixar essa prop
+    * exposta vai causar mais confusão que instruir como dever ser utilizado as props de cores
+    * O usuario final precisa apenas usar o nome das cores como prop.
+    */
+    defaultColor: {
+      type: String,
+      default: 'light',
     },
   },
   computed: {

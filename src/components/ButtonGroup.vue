@@ -44,7 +44,7 @@ export default {
 };
 </script>
 
-<style lang="stylus" >
+<style lang="stylus">
   @import '../themes/main'
 
 .ViComponent.ViButtonGroup
