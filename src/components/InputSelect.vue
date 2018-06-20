@@ -3,7 +3,6 @@
     mini
     vertical
     justify-content="flex-start"
-    tag="div"
     class="ViComponent ViInput"
     :style="{ width: componentWidth }"
     :value="false"
@@ -13,7 +12,7 @@
       class="ViInput__Multiselect"
       :class="{
         'ViInput__Multiselect--multiple': multiple,
-        'ViInput__Multiselect--hideOptionsOnFocus': !pill,
+        'ViInput__Multiselect--pills': pill,
         'ViInput__Multiselect--checkbox': checkbox,
       }"
       @open="openEvent"
@@ -288,6 +287,14 @@ export default {
       type: String,
       default: 'Selecione uma opção',
     },
+    /**
+     * Valor do campo
+     * @model
+     */
+    value: {
+      type: [String, Number, Object, Array],
+      default: null,
+    },
   },
   data() {
     return {
@@ -427,17 +434,19 @@ export default {
 
 .ViComponent.ViInput
   .ViInput__Multiselect
+    .multiselect__tags
+      border-radius 0
 
-    &.multiselect--active
-      &:not(.multiselect--above)
-        .multiselect__tags
-          border-bottom-left-radius 0
-          border-bottom-right-radius 0
-          border-bottom-color rgba($border-color-main, 0.5)
+    &.multiselect--above
+      .multiselect__content-wrapper
+        border-bottom-width 0
+
+    &.multiselect--active:not(.multiselect--above)
+      .multiselect__tags
+        border-bottom-color rgba($border-color-main, 0.5)
+
       &.multiselect--above
         .multiselect__tags
-          border-top-left-radius 0
-          border-top-right-radius 0
           border-top-color rgba($border-color-main, 0.5)
 
     &--multiple
@@ -461,12 +470,18 @@ export default {
               &:after
                 color: $light
 
+    &--multiple
+      &--pill
+        .multiselect__tags
+          padding 0.55em 0.55em 0
+
     .multiselect__input
       padding-left 0
+      margin-top -1px
 
     .multiselect__tags
       border 1px solid $border-color-main
-      border-radius $border-radius
+      border-bottom-width 2px
       min-height 40px
       padding 0.7em 1em 0
       outline none
@@ -484,6 +499,8 @@ export default {
 
     .multiselect__content-wrapper
       border-color $border-color-main
+      border-bottom-width 2px
+      border-radius 0
       z-index 1
 
     .multiselect__checkoption
@@ -513,7 +530,7 @@ export default {
 
         &:after
         &:before
-          background lighten($default, 50%)
+          background $default
           border-radius 0.3em
           content ''
           height 1.5em
@@ -582,7 +599,7 @@ export default {
         min-height 0
         padding 0 12px
         position absolute
-        top 40px
+        top 39px
         width 100%
         opacity 0
         overflow hidden
@@ -608,6 +625,7 @@ export default {
     &.multiselect--above
       .ViInput__CheckAll
         .multiselect__checkoption
+          border-top 1px solid rgba($border-color-main, 0.5)
           top -39px
 
     &--checkbox
@@ -619,12 +637,13 @@ export default {
 
       &.multiselect--above
         .multiselect__content
-          padding 0 0 39px
+          padding 0 0 38px
 </style>
 
 
 <docs>
-Select básico:
+### Select básico
+
 ```vue
 <template>
   <vi-wrapper vertical>

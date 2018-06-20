@@ -3,7 +3,6 @@
     mini
     vertical
     justify-content="flex-start"
-    tag="div"
     class="ViComponent ViInput ViInputFile"
     :style="{ width: componentWidth }"
   >
@@ -32,7 +31,6 @@
     <vi-wrapper
       no-margin
       class="ViInput_Wrapper"
-      tag="div"
     >
       <input
         class="ViInput__Input"
@@ -81,7 +79,7 @@ export default {
   props: {
     /**
      * Auto-complete [opções de autocomplete](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute).
-     * Obs: Chrome ignora a opção "off" (ou "false") e tenta decidir por conta propria
+     * Obs: Chrome ignora a opção "off" (ou "false") e tenta decidir por conta própria
      */
     autoComplete: {
       type: String,
@@ -142,7 +140,7 @@ export default {
        * Evento de retorno de dados
        *
        * @event input
-       * @type {string|number|object|array|boolean}
+       * @type {File}
        *
        */
       this.$emit('input', value);
@@ -199,13 +197,13 @@ export default {
 </style>
 
 <docs>
-Input File básico:
+### Input File básico
 
 ```jsx
 <vi-input-file />
 ```
 
-Personalização do Input File:
+### Personalização do Input File
 
 ```jsx
 <vi-input-file
@@ -217,8 +215,7 @@ Personalização do Input File:
 />
 ```
 
-
-Exemplo de validação de formulário.
+### Exemplo de validação de formulário
 
 ```jsx
 <form
@@ -240,7 +237,6 @@ Exemplo de validação de formulário.
   </vi-wrapper>
   <vi-wrapper
     justify-content="left"
-    tag="div"
   >
     <vi-button type="submit" success>Upload!</vi-button>
   </vi-wrapper>

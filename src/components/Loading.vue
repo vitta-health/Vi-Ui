@@ -154,13 +154,13 @@ export default {
 </style>
 
 <docs>
-Progress circular em loop:
+### Progress circular em loop
 
 ```jsx
 <vi-loading small />
 ```
 
-Progress circular dinamico:
+### Progress circular dinamico
 
 ```jsx
 <vi-loading danger percent-value="29" />

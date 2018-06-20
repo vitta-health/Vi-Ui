@@ -2,7 +2,6 @@
   <vi-wrapper
     mini
     justify-content="flex-start"
-    tag="div"
     class="ViComponent ViCheckbox"
     :style="{ width: componentWidth }"
   >
@@ -73,6 +72,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Valor do campo
+     * @model
+     */
+    value: {
+      type: [String, Number, Boolean],
+      default: null,
+    },
   },
   methods: {
     inputChange(target) {
@@ -86,7 +93,7 @@ export default {
        * Evento de retorno de dados
        *
        * @event input
-       * @type {string|number|object|array|boolean}
+       * @type {string|number|boolean}
        *
        */
       this.$emit('input', value);
@@ -123,7 +130,7 @@ export default {
       z-index 0
       &:after
       &:before
-        background lighten($default, 50%)
+        background $default
         border-radius 0.3em
         content ''
         height 1.5em
@@ -164,6 +171,9 @@ export default {
           border-bottom-width 0.27em
           opacity 1
           transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
+        &:focus
+          & + label:before
+            box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4)
 
       &[indeterminate]
       &:indeterminate
@@ -186,11 +196,14 @@ export default {
 </style>
 
 <docs>
-Exemplo checkbox:
+### Exemplo checkbox
 
 ```vue
 <template>
-  <vi-wrapper vertical class="ViComponent">
+  <vi-wrapper
+    vertical
+    class="ViComponent"
+  >
     <vi-checkbox label="Exemplo de Checkbox" v-model="isChecked" />
     <hr />
     <vi-checkbox
@@ -222,7 +235,7 @@ export default {
 </script>
 ```
 
-Checkbox "indeterminate":
+### Checkbox "indeterminate"
 
 ```jsx
 <vi-checkbox indeterminate label="Indeterminado" />
