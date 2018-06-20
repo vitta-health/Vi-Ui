@@ -24,7 +24,6 @@ const addClassNames = (props, classesToMerge) => {
   if (props.mini) className.push('flexWraper--mini');
   else if (props.small) className.push('flexWraper--small');
   else if (props.large) className.push('flexWraper--large');
-  else if (props.jumbo) className.push('flexWraper--jumbo');
   else if (props.noMargin) className.push('flexWraper--no-margin');
 
   return className;
@@ -291,7 +290,7 @@ O componente ViWrapper é usado para trabalhar com conjunto de componentes.
 Ele também pode embrulhar os filhos em uma tag caso necessário.
 
 É recomendado não definir margens no css e usar apenas um wrapper sempre que precisar fazer
-um espaçamento entre componentes. Use os tamanhos [mini|small|large|jumbo|no-margin] para definir espaçamento
+um espaçamento entre componentes. Use os tamanhos [mini|small|large|no-margin] para definir espaçamento
 entre componentes ou colunas.
 
 ### Exemplo de wrapper
@@ -342,7 +341,7 @@ Use a prop `grid` para definir comportamento de grid.
 |                    | Mini (`< 576px`) | Small (`=> 576px`) | Medium (`=> 768px`) | large (`=> 992px`) | jumbo (`=> 1200px`) |
 |:------------------:|:----------------:|:------------------:|:-------------------:|:------------------:|:-------------------:|
 |**largura maxima**  | auto             | 540px              | 720px               | 960px              | 1140px              |
-|**total de colunas**| 12               |                    |                     |                    |                    |
+|**total de colunas**| 12               |                    |                     |                    |                     |
 
 #### Atributos para colulas no modo grid
 
