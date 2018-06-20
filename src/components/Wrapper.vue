@@ -40,11 +40,11 @@ const addChildClassNames = (data, {
   const className = ['contentWrapper'];
   if (proportionalChild) className.push('contentWrapper--proportional');
 
-  if (!data) return className.join(' ');
+  if (!data) return className;
   if (data.class) className.push(data.class);
 
   if (grid) {
-    if (!data.attrs) return className.join(' ');
+    if (!data.attrs) return className;
 
     Object.keys(data.attrs).map((prop) => {
       if (prop.includes('col')) {
@@ -145,7 +145,7 @@ export default {
       default: false,
     },
     /**
-     * Modo grid permite adicionar colunas para os filhos.
+     * Modo grid permite adicionar colunas para os filhos. Para melhor entendimento, veja o [exemplo](#AnchorForGridDoc).
      */
     grid: {
       type: Boolean,
@@ -345,6 +345,7 @@ Use a prop `grid` para definir comportamento de grid.
 |**largura maxima**  | auto             | 540px              | 720px               | 960px              | 1140px              |
 |**total de colunas**| 12               |                    |                     |                    |                     |
 
+<div id="AnchorForGridDoc">&nbsp;</div>
 #### Atributos para coluna no modo grid
 
 |               | Atributo de colunas | Default | descrição                                        |
