@@ -325,7 +325,7 @@ export default {
 <template>
   <div class="ViComponent">
     <vi-button primary @click="isOpen = !isOpen">Abrir alerta</vi-button>
-    <vi-alert success pill timeout="0" v-model="isOpen" icon="exclamation"> Alerta Aberto</vi-alert>
+    <vi-alert info pill timeout="0" v-model="isOpen" icon="exclamation"> Alerta Aberto</vi-alert>
   </div>
 </template>
 <script>

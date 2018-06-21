@@ -1,6 +1,5 @@
 <script>
 import positioningMixin from '../mixins/positioning';
-import { scaleMixin } from '../mixins/sizes';
 
 const justify = value => `flexWrapper--justify-content-${value}`;
 const align = value => `flexWrapper--align-items-${value}`;
@@ -29,26 +28,23 @@ const addClassNames = (props, classesToMerge) => {
 
 const kebabToCamelCase = str => str.replace(/-[a-z]/, l => l[1].toUpperCase());
 const col = (size, value) => `${kebabToCamelCase(size)}--size${value || '-default'}`;
-const order = (size, value) => `${kebabToCamelCase(size)}--pos${value || '-default'}`;
+const order = (size, value) => `${kebabToCamelCase(size)}--pos${value}`;
 
-const addChildClassNames = (data, {
-  proportionalChild,
-  grid,
-}) => {
+const addChildClassNames = (data, { grid }) => {
   const className = ['contentWrapper'];
-  if (proportionalChild) className.push('contentWrapper--proportional');
 
   if (!data) return className;
   if (data.class) className.push(data.class);
 
   if (grid) {
     if (!data.attrs) return className;
+    const attrs = Object.keys(data.attrs);
 
-    Object.keys(data.attrs).map((prop) => {
+    attrs.map((prop) => {
       if (prop.includes('col')) {
         className.push(col(prop, data.attrs[prop]));
       }
-      if (prop.includes('order')) {
+      if(prop.includes('order')) {
         className.push(order(prop, data.attrs[prop]));
       }
 
@@ -59,28 +55,10 @@ const addChildClassNames = (data, {
   return className;
 };
 
-const orderedChild = (data) => {
-  let orderValue = 0;
-  let style = {};
-  if (data) {
-    if (data.style) style = { ...data.style };
-    if (data.attrs) {
-      if (data.attrs.order) orderValue = data.attrs.order;
-    }
-  }
-
-  if (orderValue <= 12) return { ...style };
-
-  return {
-    ...style,
-    ...{ order: orderValue },
-  };
-};
-
 export default {
   name: 'ViWrapper',
   functional: true,
-  mixins: [positioningMixin, scaleMixin],
+  mixins: [positioningMixin],
   props: {
     /**
      * _Espaçamento:_ Define o menor espaçamento entre filhos.
@@ -156,14 +134,6 @@ export default {
       default: null,
     },
     /**
-     * Define se blocos precisam ter o mesmo tamanho entre eles.
-     * Não funciona quando em modo grid.
-     */
-    proportionalChild: {
-      type: Boolean,
-      default: false,
-    },
-    /**
      * Quando definido, impede os filhos de quebrarem a linha mesmo quando o tamanho dos filhos
      * excedem o limite da grid. Só é utilizado quando em modo grid.
      */
@@ -184,7 +154,6 @@ export default {
         const newProps = {
           class: addChildClassNames(node.data, props),
         };
-        if (props.grid) newProps.style = orderedChild(node.data);
 
         return createElement(props.childTag || props.tag, newProps, [node]);
       }
@@ -237,17 +206,18 @@ gridSizes($useMargin = false)
   &.flexWrapper--jumbo
     gridPadding(40px, $useMargin)
   &.flexWrapper--no-spacing
-    gridPadding(0, true)
+    gridPadding(0, false)
 
 mediaQueryInterpolator($size, $max = auto)
   & > .contentWrapper
     for $i in 0..12
       $v = $i || 12
-      &.order{$size}--pos{$i || '-default'}
-        order $v
       &.col{$size}--size{$i || '-default'}
         flex $v 1 ($v * 8.3333%)
         max-width: ($v * 8.3333%);
+    for $i in 0..50
+      &.order{$size}--pos{$i}
+        order $i
 
 .ViComponent .flexWrapper
 .flexWrapper
@@ -282,7 +252,8 @@ mediaQueryInterpolator($size, $max = auto)
     gridSizes()
 
     & > .contentWrapper
-      order 12
+      order 51
+      flex-grow 1
 
     &^[0]--no-wrap
       flex-wrap nowrap
@@ -314,42 +285,46 @@ um espaçamento entre componentes. As opções de espaçamento  são [mini|small
 ### Exemplo de wrapper
 
 ```jsx
-<vi-wrapper small align-items="stretch">
-    <vi-wrapper small align-items="stretch">
-      <vi-card primary>1</vi-card>
-      <vi-card primary>2</vi-card>
+<vi-wrapper small-spacing align-items="stretch">
+    <vi-wrapper small-spacing align-items="stretch">
+      <vi-card dark>1</vi-card>
+      <vi-card dark>2</vi-card>
     </vi-wrapper>
-    <vi-wrapper vertical small>
-      <vi-card primary>3</vi-card>
-      <vi-card primary>4</vi-card>
-      <vi-card primary>5</vi-card>
+    <vi-wrapper vertical small-spacing>
+      <vi-card dark>3</vi-card>
+      <vi-card dark>4</vi-card>
+      <vi-card dark>5</vi-card>
     </vi-wrapper>
 </vi-wrapper>
 ```
 ### Exemplo de wrapper como grid
 
 Use a prop `grid` para definir comportamento de grid.
+Qualquer filho sem ordem fica na posição 51 por padrão.
 
 ```jsx
-<vi-wrapper mini grid>
-  <vi-wrapper grid small jumbo-col="4">
-    <vi-card col="2" dark>1</vi-card>
-    <vi-card col="6" order="2" dark>2</vi-card>
-    <vi-card col="4" order="1" dark>3</vi-card>
+<vi-wrapper no-spacing grid align-items="stretch">
+  <vi-wrapper grid small-spacing col-large="6" col-jumbo="3" align-items="flex-end">
+    <vi-card col="5" col-jumbo="3" order-jumbo="0" primary>1</vi-card>
+    <vi-card col="7" col-jumbo="6" order-jumbo="1"primary>2</vi-card>
+    <vi-card col="7" col-jumbo="6" primary>3</vi-card>
+    <vi-card col="5" col-jumbo="3" order-jumbo="2" primary>4</vi-card>
   </vi-wrapper>
-  <vi-wrapper grid small jumbo-col="4">
-    <vi-card col="6" danger>1</vi-card>
-    <vi-card col="6" order="1" danger>2</vi-card>
+  <vi-wrapper grid small-spacing col-large="6" col-jumbo="3" align-items="stretch">
+    <vi-card col="6" info>1</vi-card>
+    <vi-card col="6" order="1" info>2</vi-card>
+    <vi-card col="6" info>3</vi-card>
+    <vi-card col="6" info>4</vi-card>
   </vi-wrapper>
-  <vi-wrapper grid small jumbo-col="4">
-    <vi-card col="6" success>1</vi-card>
-    <vi-card col="7" order="2" success>2</vi-card>
-    <vi-card col="3" success>3</vi-card>
-    <vi-card col="3" success>4</vi-card>
-    <vi-card col="3" success>5</vi-card>
-    <vi-card col="5" order="3" success>6</vi-card>
-    <vi-card col="4" success>7</vi-card>
-    <vi-card col="12" order="1" success>8</vi-card>
+    <vi-wrapper grid small-spacing col="12" col-jumbo="6">
+    <vi-card col="6" secondary>1</vi-card>
+    <vi-card col="7" secondary order="1">2</vi-card>
+    <vi-card col="3" secondary>3</vi-card>
+    <vi-card col="3" secondary>4</vi-card>
+    <vi-card col="3" secondary>5</vi-card>
+    <vi-card col="5" secondary order="2">6</vi-card>
+    <vi-card col="4" secondary>7</vi-card>
+    <vi-card col="12" order="0" secondary>8</vi-card>
   </vi-wrapper>
 </vi-wrapper>
 ```
@@ -378,4 +353,6 @@ Medidas (`px`)     |Mini (`<576`)|Small (`>=576`)|Medium (`>=768`)|Large (`>=992
 | order               | null    | Ordem coluna se resolução `>= 768px`  |
 | order-large         | null    | Ordem coluna se resolução `>= 992px`  |
 | order-jumbo         | null    | Ordem coluna se resolução `>= 1200px` |
+
+Todo filho não posicionado fica na posição 51, qualquer como posição definida
 </docs>

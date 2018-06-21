@@ -84,11 +84,11 @@ export default {
   },
   computed: {
     titleTag() {
-      if (!this.sizeTitle) {
+      if (!this.titleSize) {
         return 'p';
       }
 
-      return `h${this.sizeTitle}`;
+      return `h${this.titleSize}`;
     },
   },
 };
@@ -107,6 +107,10 @@ $background-card = $isDark ? $colors.dark : $colors.light
   justify-content space-between
   padding 20px
   width 100%
+
+  ../../.flexWrapper--grid
+    .ViCard
+      height 100%
 
   &--mini
     padding 5px
@@ -129,7 +133,7 @@ Card Básico
 ```jsx
   <vi-card
     title="Este é um título do card"
-    :sizeTitle="2"
+    :title-size="2"
   >
     <div slot="body">Este é um parágrafo contido no slot do body</div>
     <div slot="footer"><vi-button primary>Botão no footer</vi-button></div>
