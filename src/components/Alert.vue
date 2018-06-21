@@ -296,6 +296,7 @@ export default {
       transform translate(0, 0) rotateY(0)
 
   &.ViCard
+    height auto
     width auto
 
     .contentWrapper
