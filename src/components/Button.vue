@@ -92,7 +92,7 @@ export default {
        * Evento de clique.
        *
        * @event click
-       * @type {object}
+       * @type {none}
        */
       this.$emit('click');
     },
@@ -153,8 +153,8 @@ export default {
 <vi-wrapper mini align-items="center">
   <vi-button success large>Me aperte</vi-button>
   <vi-button primary><vi-icon name="vitta" /></vi-button>
-  <vi-button danger>Me aperte</vi-button>
-  <vi-button dark small>Me aperte</vi-button>
+  <vi-button secondary>Me aperte</vi-button>
+  <vi-button danger small>Me aperte</vi-button>
   <vi-button warning mini>Me aperte</vi-button>
 </vi-wrapper>
 ```

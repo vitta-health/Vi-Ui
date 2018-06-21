@@ -63,12 +63,6 @@ export default {
     },
   },
   methods: {
-    /**
-     * Adiciona cor a elementos.Use as propriedades: [background, border, hover]
-     *
-     * @param {Object}
-     * @public
-     */
     colorClass(args = {}) {
       let colorName = args.default || 'default';
       Object.keys(colors).some((color) => {
