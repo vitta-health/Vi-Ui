@@ -66,9 +66,9 @@ export default {
       validator: size => size >= 1 && size <= 6,
     },
     /**
-    * @ignore é apenas um helper para outros componentes que dependem do card. Deixar essa prop
-    * exposta vai causar mais confusão que instruir como dever ser utilizado as props de cores
-    * O usuario final precisa apenas usar o nome das cores como prop.
+    * @ignore Essa prop é apenas um helper para outros componentes que dependem do card. Deixar ela
+    * exposta vai causar mais confusão que instruir como dever ser utilizado as props de cores.
+    * O usuário final precisa apenas usar o nome das cores como prop.
     */
     defaultColor: {
       type: String,
