@@ -1,6 +1,6 @@
 <template>
   <vi-wrapper
-    mini
+    mini-spacing
     vertical
     justify-content="flex-start"
     class="ViComponent ViInput ViInputFile"
@@ -29,7 +29,7 @@
       }"
     >
     <vi-wrapper
-      no-margin
+      no-spacing
       class="ViInput_Wrapper"
     >
       <input

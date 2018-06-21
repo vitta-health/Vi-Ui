@@ -74,13 +74,12 @@ module.exports = (env, argv) => {
         },
       ],
     },
-    /* eslint-disable */
     plugins: argv && argv.mode !== 'production'
       ? []
       : [
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
-          filename: "vi-ui.min.css",
+          filename: 'vi-ui.min.css',
         }),
         new OptimizeCSSAssetsPlugin({}),
         new UglifyJsPlugin({
@@ -91,7 +90,6 @@ module.exports = (env, argv) => {
           },
         }),
       ],
-    /* eslint-enable */
     devtool: 'source-map',
     devServer: {
       noInfo: true,

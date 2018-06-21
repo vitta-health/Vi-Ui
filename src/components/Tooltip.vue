@@ -125,7 +125,7 @@ export default {
     show(status) {
       this.showHide(status);
     },
-    'tooltip._isOpen': (status) => {
+    'tooltip._isOpen': function (status, me) {
       this.tooltip._isOpening = status;
     },
   },
@@ -269,7 +269,7 @@ Tooltip com botão:
 Tooltip com span:
 
 ```jsx
-<vi-wrapper proportinal class="ViComponent" justify-content="space-around">
+<vi-wrapper grid class="ViComponent" justify-content="space-around">
   <vi-tooltip top hover mini content="Esta dica tem tamanho pequeno!">
     <span>Passe o mouse</span>
   </vi-tooltip>

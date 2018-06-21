@@ -9,6 +9,7 @@
         'ViButton--small': small,
         'ViButton--large': large,
         'ViButton--pill': pill,
+        'ViButton--circle': !pill && !width && circle,
         'ViButton--active': active,
       },
       colorClass({
@@ -33,7 +34,7 @@
       :justify-content="justifyContent || 'center'"
       :align-items="alignItems || 'center'"
       :inverted="inverted"
-      small
+      small-spacing
       child-wrapper
     >
       <vi-icon
@@ -77,6 +78,14 @@ export default {
      * Define botão pilula.
      */
     pill: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Define botão como um círculo perfeito. Não funciona caso a prop
+     * `pill` esteja `true` ou algum valor definido na prop `width`.
+     */
+    circle: {
       type: Boolean,
       default: false,
     },
@@ -143,18 +152,15 @@ export default {
   border-style solid
   border-radius 0.2em
   cursor pointer
-  display inline-block
+  display inline-flex
   font-size 16px
   height auto
   min-height 40px
   outline none
-  padding 0.61em
-  text-align center
+  padding 0 0.61em
+  justify-content center
   text-decoration none
   transition: all 0.04s
-  min-height
-  > *
-    margin-right 0.25em
 
   &[disabled]
     opacity 0.45
@@ -163,34 +169,59 @@ export default {
   .ViLoading
     margin -4px 0
 
+  &--circle
+    border-radius 100px
+    height 40px
+    padding 0
+    width 40px
+
   &--pill
     border-radius 100px
+    padding 0 1em
 
   &--mini
     font-size 10px
-    font-weight 500
-    min-height auto
-    padding 0.37em 0.59em
+    font-weight 700
+    letter-spacing 0.5px
+    min-height 21px
+    padding 0 0.59em
+    &.ViButton--pill
+      padding 0 1em
+    &.ViButton--circle
+      height 21px
+      padding 0
+      width 21px
 
   &--small
     min-height auto
     font-size 12px
+    min-height 30px
+    &.ViButton--circle
+      height 30px
+      width 30px
 
   &--large
     font-size 1.61em
     font-weight 300
-    padding 0.37em 0.59em
+    min-height 53px
+    padding 0 0.59em
+    &.ViButton--pill
+      padding 0 1em
+    &.ViButton--circle
+      height 53px
+      padding 0
+      width 53px
 </style>
 
 <docs>
 ### Botão básico
 
 ```jsx
-<vi-wrapper mini align-items="center">
+<vi-wrapper mini-spacing align-items="center">
   <vi-button success large>Me aperte</vi-button>
-  <vi-button primary title="Vitta" icon="vitta" />
-  <vi-button secondary>Me aperte</vi-button>
-  <vi-button danger small>Me aperte</vi-button>
+  <vi-button primary center title="Vitta" icon="vitta" />
+  <vi-button danger>Me aperte</vi-button>
+  <vi-button dark small>Me aperte</vi-button>
   <vi-button warning mini>Me aperte</vi-button>
 </vi-wrapper>
 ```
@@ -220,7 +251,7 @@ export default {
 
 ```vue
 <template>
-    <div> class="ViComponent">
+    <div class="ViComponent">
       <p><vi-button @click="pushButton">+1</vi-button></p>
       <hr />
       <p>Contando: {{ numClicks }}</p>

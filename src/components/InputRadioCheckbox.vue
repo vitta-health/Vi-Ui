@@ -1,6 +1,6 @@
 <template>
   <vi-wrapper
-    mini
+    mini-spacing
     justify-content="flex-start"
     class="ViComponent ViCheckbox"
     :style="{ width: componentWidth }"
@@ -111,7 +111,7 @@ export default {
 @import '../themes/main'
 
 .ViComponent.ViCheckbox
-  &.flexWraper
+  &.flexWrapper
     align-items center
 
   .contentWrapper.ViCheckbox__Input
