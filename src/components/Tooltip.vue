@@ -125,7 +125,7 @@ export default {
     show(status) {
       this.showHide(status);
     },
-    'tooltip._isOpen': (status) => {
+    'tooltip._isOpen': function (status, me) {
       this.tooltip._isOpening = status;
     },
   },
