@@ -8,6 +8,7 @@
         'ViCard--mini': mini,
         'ViCard--small': small,
         'ViCard--large': large,
+        'ViCard--no-spacing': noSpacing,
       },
       colorClass({ background: true, default: defaultColor }),
     ]"
@@ -44,6 +45,13 @@ export default {
   },
   props: {
     /**
+     * _Tamanho:_ Remove paddings do card
+     */
+    noSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Tag do card
      */
     tag: {
@@ -60,7 +68,7 @@ export default {
     /**
     * Tamanho do texto do título, de 1 a 6
     */
-    sizeTitle: {
+    titleSize: {
       type: Number,
       default: null,
       validator: size => size >= 1 && size <= 6,
@@ -109,6 +117,9 @@ $background-card = $isDark ? $colors.dark : $colors.light
 
   &--large
     padding 60px
+
+  &--no-spacing
+    padding 0
 </style>
 
 ```

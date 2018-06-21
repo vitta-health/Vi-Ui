@@ -21,13 +21,28 @@
     :style="{
       width: componentWidth,
     }"
-    @click="onClick">
+    :title="title"
+    @click="onClick"
+  >
+    <span
+      class="sr-only"
+      v-if="title"
+    >{{ title }}</span>
     <vi-wrapper
       tag="span"
       :justify-content="justifyContent || 'center'"
+      :align-items="alignItems || 'center'"
+      :inverted="inverted"
       small
       child-wrapper
-    ><slot /></vi-wrapper>
+    >
+      <vi-icon
+        v-if="icon"
+        class= "ViAlert__ContentIcon"
+        :name="icon"
+      />
+      <slot />
+    </vi-wrapper>
   </component>
 </template>
 
@@ -45,38 +60,59 @@ export default {
   mixins: [scaleMixin, widthMixin, colorsMixin, positioningMixin],
   props: {
     /**
-     * Fundo transparente com apenas borda e texto colorido
+     * Fundo transparente com apenas borda e texto colorido.
      */
     outlined: {
       type: Boolean,
       default: false,
     },
     /**
-     * Define se o botão esta selecionado
+     * Define se o botão esta selecionado.
      */
     active: {
       type: Boolean,
       default: false,
     },
     /**
-     * Define botão pilula
+     * Define botão pilula.
      */
     pill: {
       type: Boolean,
       default: false,
     },
     /**
-     * Caso o botão seja um link
+     * Caso o botão seja um link.
      */
     href: {
-      type: [String],
+      type: String,
       default: null,
     },
     /**
-     * Caso o elemento root não possar ser nem um botão nem num link
+     * Caso o elemento root não possar ser nem um botão nem num link.
      */
     tag: {
-      type: [String],
+      type: String,
+      default: null,
+    },
+    /**
+     * Descritivo do botão.
+     */
+    title: {
+      type: String,
+      default: null,
+    },
+    /**
+     * Define um ícone de `vi-icons`
+     */
+    icon: {
+      type: String,
+      default: null,
+    },
+    /**
+     * Invert posição do ícone
+     */
+    inverted: {
+      type: String,
       default: null,
     },
   },
@@ -152,7 +188,7 @@ export default {
 ```jsx
 <vi-wrapper mini align-items="center">
   <vi-button success large>Me aperte</vi-button>
-  <vi-button primary><vi-icon name="vitta" /></vi-button>
+  <vi-button primary title="Vitta" icon="vitta" />
   <vi-button secondary>Me aperte</vi-button>
   <vi-button danger small>Me aperte</vi-button>
   <vi-button warning mini>Me aperte</vi-button>

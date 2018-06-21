@@ -12,16 +12,19 @@
         'ViAlert--top': !inline && !bottom,
         'ViAlert--bottom': !inline && bottom,
         'ViAlert--inline': inline,
+        'ViAlert--pill': pill,
       }
     ]"
-    @click.native="startToggle"
     v-bind="colorsOpt"
+    @mouseover.native="stopTimer(true)"
+    @mouseout.native="startTimer(false)"
     default-color="default"
     tag="span"
-    mini
+    small
   >
     <vi-wrapper
       tag="span"
+      small
       justify-content="space-between"
       align-items="center"
     >
@@ -30,6 +33,7 @@
         small
         child-wrapper
         justify-content="start"
+        align-items="center"
       >
         <vi-icon
           v-if="icon"
@@ -38,11 +42,17 @@
         />
         <slot />
       </vi-wrapper>
-      <vi-icon
-        v-if="!notDismissable"
+      <vi-button
+        small
+        v-bind="colorsOpt"
+        title="Fechar"
         class= "ViAlert__Close"
-        name="cross"
-      />
+        :circle="pill"
+        @click="startToggle"
+        v-if="!notDismissable"
+      >
+        <vi-icon name="cross"/>
+      </vi-button>
     </vi-wrapper>
   </vi-card>
 </template>
@@ -116,11 +126,18 @@ export default {
       default: true,
     },
     /**
-     * Seta um ícone de `vi-icons`
+     * Define um ícone de `vi-icons`
      */
     icon: {
       type: String,
       default: null,
+    },
+    /**
+     * Alerta em formato pilula
+     */
+    pill: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
@@ -166,20 +183,29 @@ export default {
        */
       this.$emit('open');
     },
-    handleValue(v) {
-      this.isOpen = v;
-      if (v) {
+    handleValue(alertState) {
+      this.isOpen = alertState;
+      if (alertState) {
         this.open();
         if (timer) clearTimeout(timer);
-        if (this.timeoutMillisecs) {
-          timer = setTimeout(() => {
-            this.isOpen = false;
-            this.$emit('input', false);
-          }, this.timeoutMillisecs);
-        }
+        this.startTimer(false);
       } else {
-        if (timer) clearTimeout(timer);
+        this.stopTimer(false);
         this.closed();
+      }
+    },
+    stopTimer(mouseState) {
+      this.isOver = mouseState;
+      if (timer) clearTimeout(timer);
+    },
+    startTimer(mouseState) {
+      this.isOver = mouseState;
+      if (timer) clearTimeout(timer);
+      if (this.timeoutMillisecs) {
+        timer = setTimeout(() => {
+          this.isOpen = false;
+          this.$emit('input', false);
+        }, this.timeoutMillisecs);
       }
     },
   },
@@ -206,6 +232,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      isOver: false,
     };
   },
   mounted() {
@@ -219,6 +246,10 @@ export default {
 @import '../themes/main'
 .ViComponent.ViAlert
   transition all 0.2s ease-in-out
+
+  &--pill
+    &.ViCard
+      border-radius 100px
 
   &--inline
     &.ViAlert--closed
@@ -251,7 +282,7 @@ export default {
     &.ViAlert--bottom
       bottom 1em
     &.ViAlert--open
-      transform translate(0, 0) rotateX(0)
+      transform translate(0, 0) rotateY(0)
 
   &--right
     right 1em
@@ -262,10 +293,7 @@ export default {
     &.ViAlert--bottom
       bottom 1em
     &.ViAlert--open
-      transform translate(0, 0) rotateX(0)
-
-  &--dismissable
-    cursor pointer
+      transform translate(0, 0) rotateY(0)
 
   &.ViCard
     width auto
@@ -273,12 +301,9 @@ export default {
     .contentWrapper
       align-items center
 
-    .ViAlert__Close
-      font-size 60%
-      color rgba(black, 0.5)
-
   .ViAlert__ContentIcon
-    color rgba(black, 0.5)
+  .ViAlert__ContentIcon
+    opacity 0.5
 </style>
 
 <docs>
