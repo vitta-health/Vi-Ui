@@ -7,13 +7,13 @@
 
 <script>
 /**
- * @todo Alterar desenhos do icones.
+ * @todo Alterar desenhos dos ícones.
  */
 export default {
   name: 'ViIcon',
   props: {
     /**
-     * Nome do icone escolhido
+     * Nome do ícone escolhido.
      */
     name: {
       type: String,
@@ -33,17 +33,17 @@ export default {
 Obs: Nas próximas versões existem o risco de breaking changes.
 Todos os desenhos irão mudar e provavelmente boa parte deles será renomeada.
 
-### Como utilizar:
+### Como utilizar
 
 ```jsx
 <vi-icon name="heart-beats" />
 ```
 
-### Lista de icones:
+### Lista de icones
 
 ```vue noeditor
 <template>
-  <vi-wrapper no-margin class="ViIconWrapperDemo">
+  <vi-wrapper no-spacing class="ViIconWrapperDemo">
     <span class="ViIconDemo"><vi-icon name="arrow" /> arrow</span>
     <span class="ViIconDemo"><vi-icon name="arrow-left" /> arrow-left</span>
     <span class="ViIconDemo"><vi-icon name="birthday-cake" /> birthday-cake</span>
@@ -73,7 +73,7 @@ Todos os desenhos irão mudar e provavelmente boa parte deles será renomeada.
     <span class="ViIconDemo"><vi-icon name="list" /> list</span>
     <span class="ViIconDemo"><vi-icon name="mail" /> mail</span>
     <span class="ViIconDemo"><vi-icon name="magnifying-glass" /> magnifying-glass</span>
-    <span class="ViIconDemo"><vi-icon name="mananger-panel" /> mananger-panel</span>
+    <span class="ViIconDemo"><vi-icon name="manager-panel" /> manager-panel</span>
     <span class="ViIconDemo"><vi-icon name="money" /> money</span>
     <span class="ViIconDemo"><vi-icon name="message" /> message</span>
     <span class="ViIconDemo"><vi-icon name="others" /> others</span>
@@ -91,10 +91,10 @@ Todos os desenhos irão mudar e provavelmente boa parte deles será renomeada.
     <span class="ViIconDemo"><vi-icon name="question-circle" /> question-circle</span>
     <span class="ViIconDemo"><vi-icon name="refresh" /> refresh</span>
     <span class="ViIconDemo"><vi-icon name="document" /> document</span>
-    <span class="ViIconDemo"><vi-icon name="rounded-minus" /> rounde-minus</span>
-    <span class="ViIconDemo"><vi-icon name="rounded-x" /> rounde-x</span>
-    <span class="ViIconDemo"><vi-icon name="rounded-plus" /> rounde-plus</span>
-    <span class="ViIconDemo"><vi-icon name="rounded-money" /> rounde-money</span>
+    <span class="ViIconDemo"><vi-icon name="rounded-minus" /> rounded-minus</span>
+    <span class="ViIconDemo"><vi-icon name="rounded-x" /> round-x</span>
+    <span class="ViIconDemo"><vi-icon name="rounded-plus" /> rounded-plus</span>
+    <span class="ViIconDemo"><vi-icon name="rounded-money" /> rounded-money</span>
     <span class="ViIconDemo"><vi-icon name="search-file" /> search-file</span>
     <span class="ViIconDemo"><vi-icon name="settings" /> settings</span>
     <span class="ViIconDemo"><vi-icon name="shopping-basket" /> shopping-basket</span>

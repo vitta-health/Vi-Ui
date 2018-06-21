@@ -57,8 +57,8 @@ export default {
   mixins: [scaleMixin, colosMixin],
   props: {
     /**
-     * [0 - 100] Define o percentual do carregamento
-     * (Sem valor definido o circulo apenas gira infinitamente).
+     * [0 - 100] Define o percentual do carregamento.
+     * Sem valor definido o círculo, em uma animação, gira infinitamente.
      */
     percentValue: {
       type: [Number, String],
@@ -154,13 +154,13 @@ export default {
 </style>
 
 <docs>
-Progress circular em loop:
+### Progress circular em loop
 
 ```jsx
 <vi-loading small />
 ```
 
-Progress circular dinamico:
+### Progress circular dinâmico
 
 ```jsx
 <vi-loading danger percent-value="29" />

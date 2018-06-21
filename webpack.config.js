@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
@@ -75,13 +74,12 @@ module.exports = (env, argv) => {
         },
       ],
     },
-    /* eslint-disable */
     plugins: argv && argv.mode !== 'production'
       ? []
       : [
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
-          filename: "vi-ui.min.css",
+          filename: 'vi-ui.min.css',
         }),
         new OptimizeCSSAssetsPlugin({}),
         new UglifyJsPlugin({
@@ -92,7 +90,6 @@ module.exports = (env, argv) => {
           },
         }),
       ],
-    /* eslint-enable */
     devtool: 'source-map',
     devServer: {
       noInfo: true,

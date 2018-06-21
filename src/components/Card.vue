@@ -8,8 +8,9 @@
         'ViCard--mini': mini,
         'ViCard--small': small,
         'ViCard--large': large,
+        'ViCard--no-spacing': noSpacing,
       },
-      colorClass({ background: true, default: 'light' }),
+      colorClass({ background: true, default: defaultColor }),
     ]"
     :style="{ width: componentWidth }"
   >
@@ -18,12 +19,12 @@
       :is="titleTag"
       class="ViCard__Title">{{ title }}</component>
     <div class="ViCard__Body">
-      <!-- @slot Use este slot para definir o contéudo que estará presente
-      dentro do corpo do card -->
+      <!-- @slot Use slot body para definir o conteúdo no corpo do card -->
       <slot name="body"/>
+      <slot/>
     </div>
 
-    <!-- @slot Use este slot para definir o contéudo que estará presente dentro do rodapé -->
+    <!-- @slot Use este slot para definir o conteúdo no rodapé -->
     <slot
       class="ViCard__Footer"
       name="footer"
@@ -43,35 +44,51 @@ export default {
   },
   props: {
     /**
+     * _Tamanho:_ Remove paddings do card
+     */
+    noSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Tag do card
      */
     tag: {
       type: String,
-      default: 'article',
+      default: 'section',
     },
     /**
-    * Texto que será exibido no título
+    * Texto exibido no título
     */
     title: {
       type: String,
       default: null,
     },
     /**
-    * Tamanho do texto do título, de 1 a 6
+    * Tamanho do título de 1 a 6
     */
-    sizeTitle: {
+    titleSize: {
       type: Number,
       default: null,
       validator: size => size >= 1 && size <= 6,
     },
+    /**
+    * @ignore Essa prop é apenas um helper para outros componentes que dependem do card. Deixar ela
+    * exposta vai causar mais confusão que instruir como dever ser utilizado as props de cores.
+    * O usuário final precisa apenas usar o nome das cores como prop.
+    */
+    defaultColor: {
+      type: String,
+      default: 'light',
+    },
   },
   computed: {
     titleTag() {
-      if (!this.sizeTitle) {
+      if (!this.titleSize) {
         return 'p';
       }
 
-      return `h${this.sizeTitle}`;
+      return `h${this.titleSize}`;
     },
   },
 };
@@ -88,17 +105,24 @@ $background-card = $isDark ? $colors.dark : $colors.light
   display flex
   flex-direction column
   justify-content space-between
-  padding 40px
+  padding 20px
   width 100%
 
+  ../../.flexWrapper--grid
+    .ViCard
+      height 100%
+
   &--mini
-    padding 10px
+    padding 5px
 
   &--small
-    padding 20px
+    padding 10px
 
   &--large
-    padding 60px
+    padding 40px
+
+  &--no-spacing
+    padding 0
 </style>
 
 ```
@@ -107,13 +131,17 @@ $background-card = $isDark ? $colors.dark : $colors.light
 
 Card Básico
 ```jsx
-  <vi-card title="Este é um título do card tamanho 1" :sizeTitle="2">
+  <vi-card
+    title="Este é um título do card"
+    :title-size="2"
+  >
     <div slot="body">Este é um parágrafo contido no slot do body</div>
     <div slot="footer"><vi-button primary>Botão no footer</vi-button></div>
   </vi-card>
 ```
 
-Card Colorido
+### Card Colorido
+
 ```jsx
   <vi-card success>
     <div slot="body">Card com fundo colorido</div>
@@ -121,26 +149,29 @@ Card Colorido
   </vi-card>
 ```
 
-Exemplo Complexo de Card
+### Exemplo elaborado de Card
+
+Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
+
 ```vue
 <template>
   <vi-wrapper
-    proportinal
     class="ViComponent greyBox"
-    justify-content="space-between"
+    grid
   >
     <vi-card
+      col="4"
+      colSmall="12"
       v-for="character in characters"
       :key="character.idHero"
-      small
     >
       <div slot="body">
         <vi-wrapper>
           <img class="avatar" :src="character.avatar"/>
-          <vi-wrapper vertical child-wrapper no-margin class="descrition">
-            <h4 class="name">{{character.name}} aka {{character.superHeroName}}</h4>
+          <vi-wrapper vertical child-wrapper no-spacing>
+            <h4 class="name">{{character.name}} aka <small>{{character.superHeroName}}</small></h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
-            <vi-button success mini outlined pill>Avançar!</vi-button>
+            <vi-button success small outlined pill>Avançar!</vi-button>
           </vi-wrapper>
         </vi-wrapper>
       </div>

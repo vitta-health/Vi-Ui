@@ -7,7 +7,7 @@
 
 ## Usage
 ```js
-import 'node_modules/vue-vi-ui/dist/vi-ui.min.css';
+import 'vue-vi-ui/dist/vi-ui.min.css';
 import { ViButton } from 'vue-vi-ui';
 
 export default {

@@ -10,7 +10,7 @@ export default {
      * @model
      */
     value: {
-      type: [String, Number, Boolean, Object, Array],
+      type: [String, Number],
       default: null,
     },
     /**
