@@ -331,7 +331,7 @@ export default {
       z-index 0
       &:after
       &:before
-        background lighten($default, 50%)
+        background $default
         border-radius 0.3em
         content ''
         height 1.5em
@@ -367,13 +367,23 @@ export default {
           0 0 0 0.1em rgba($border-color-main-focus, 0.5)
         &--inverted
           &:before
-            box-shadow 0 0 0 0.25em rgba(black, 0.1),
-            0 0 0 0.1em rgba(black, 0.3)
+            box-shadow inset 0 0 0 0.1em rgba($light, 0.5),
+            0 0 0 0.25em rgba($light, 0.1)
 
     &:checked
+
+      &:focus
+        & + .ViTable__FakeCheckbox
+          &:before
+            box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4)
+          &--inverted
+            &:before
+              box-shadow 0 0 0 0.25em rgba($light, 0.1)
+
       & + .ViTable__FakeCheckbox
         &:before
           background $primary
+
         &--inverted
           &:before
             background $light
@@ -383,6 +393,7 @@ export default {
           border-bottom-width 0.27em
           opacity 1
           transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
+
         &--inverted
           &:after
             border-color $dark
@@ -397,10 +408,10 @@ export default {
 </style>
 
 <docs>
-#### Basic Table:
+### Basic Table
 
-> Para alinhar o conteúdo das colunas em uma direção, adicione [center|right] como uma
-> propriedade na coluna.
+Para alinhar o conteúdo das células da coluna em uma direção,
+adicione [center|right] como uma propriedade na coluna.
 
 ```vue
 <template>

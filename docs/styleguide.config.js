@@ -9,16 +9,23 @@ module.exports = {
   webpackConfig,
   showUsage: true,
   showCode: false,
-  require: ['babel-polyfill', path.join(__dirname, './layout/style.css')],
+  require: [
+    'babel-polyfill',
+    path.join(__dirname, './layout/style.css'),
+  ],
   styleguideComponents: {
     SectionRenderer: path.join(__dirname, 'layout/components/Section'),
     HeadingRenderer: path.join(__dirname, 'layout/components/Heading'),
     SectionHeadingRenderer: path.join(__dirname, 'layout/components/SectionHeading'),
     LogoRenderer: path.join(__dirname, 'layout/components/Logo'),
     StyleGuideRenderer: path.join(__dirname, 'layout/components/StyleGuide'),
-    LinkRenderer: path.join(__dirname, 'layout/components/Link'),
-    ComponentsListRenderer: path.join(__dirname, 'layout/components/ComponentsList'),
-    TableOfContentsRenderer: path.join(__dirname, 'layout/components/TableOfContents'),
+    /**
+     * @todo padronizar estilo do styleguide com as mesmas regras de design do Vi-Ui
+     * @todo corrigir responsividade do styleguidist
+     * LinkRenderer: path.join(__dirname, 'layout/components/Link'),
+     * ComponentsListRenderer: path.join(__dirname, 'layout/components/ComponentsList'),
+     * TableOfContentsRenderer: path.join(__dirname, 'layout/components/TableOfContents'),
+     */
   },
   theme: {
     color: {

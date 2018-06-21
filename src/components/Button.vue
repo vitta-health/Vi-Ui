@@ -9,6 +9,7 @@
         'ViButton--small': small,
         'ViButton--large': large,
         'ViButton--pill': pill,
+        'ViButton--circle': !pill && !width && circle,
         'ViButton--active': active,
       },
       colorClass({
@@ -21,12 +22,28 @@
     :style="{
       width: componentWidth,
     }"
-    @click="onClick">
+    :title="title"
+    @click="onClick"
+  >
+    <span
+      class="sr-only"
+      v-if="title"
+    >{{ title }}</span>
     <vi-wrapper
+      tag="span"
       :justify-content="justifyContent || 'center'"
-      small
+      :align-items="alignItems || 'center'"
+      :inverted="inverted"
+      small-spacing
       child-wrapper
-    ><slot /></vi-wrapper>
+    >
+      <vi-icon
+        v-if="icon"
+        class= "ViAlert__ContentIcon"
+        :name="icon"
+      />
+      <slot />
+    </vi-wrapper>
   </component>
 </template>
 
@@ -44,38 +61,67 @@ export default {
   mixins: [scaleMixin, widthMixin, colorsMixin, positioningMixin],
   props: {
     /**
-     * Fundo transparente com apenas borda e texto colorido
+     * Fundo transparente com apenas borda e texto colorido.
      */
     outlined: {
       type: Boolean,
       default: false,
     },
     /**
-     * Define se o botão esta selecionado
+     * Define se o botão esta selecionado.
      */
     active: {
       type: Boolean,
       default: false,
     },
     /**
-     * Define botão pilula
+     * Define botão pilula.
      */
     pill: {
       type: Boolean,
       default: false,
     },
     /**
-     * Caso o botão seja um link
+     * Define botão como um círculo perfeito. Não funciona caso a prop
+     * `pill` esteja `true` ou algum valor definido na prop `width`.
+     */
+    circle: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Caso o botão seja um link.
      */
     href: {
-      type: [String],
+      type: String,
       default: null,
     },
     /**
-     * Caso o elemento root não possar ser nem um botão nem num link
+     * Caso o elemento root não possar ser nem um botão nem num link.
      */
     tag: {
-      type: [String],
+      type: String,
+      default: null,
+    },
+    /**
+     * Descritivo do botão.
+     */
+    title: {
+      type: String,
+      default: null,
+    },
+    /**
+     * Define um ícone de `vi-icons`
+     */
+    icon: {
+      type: String,
+      default: null,
+    },
+    /**
+     * Invert posição do ícone
+     */
+    inverted: {
+      type: String,
       default: null,
     },
   },
@@ -91,7 +137,7 @@ export default {
        * Evento de clique.
        *
        * @event click
-       * @type {object}
+       * @type {none}
        */
       this.$emit('click');
     },
@@ -104,18 +150,17 @@ export default {
 .ViComponent.ViButton
   border-width 0.09em
   border-style solid
-  border-radius 0.5em
+  border-radius 0.2em
   cursor pointer
-  display inline-block
-  font-size 0.95em
+  display inline-flex
+  font-size 16px
   height auto
-  text-align center
-  padding 0.5em 0.8em
-  text-decoration none
+  min-height 40px
   outline none
-  transition: all 0.09s
-  > *
-    margin-right 0.25em
+  padding 0 0.61em
+  justify-content center
+  text-decoration none
+  transition: all 0.04s
 
   &[disabled]
     opacity 0.45
@@ -124,68 +169,92 @@ export default {
   .ViLoading
     margin -4px 0
 
+  &--circle
+    border-radius 100px
+    height 40px
+    padding 0
+    width 40px
+
   &--pill
     border-radius 100px
+    padding 0 1em
 
   &--mini
-    font-size 0.8em
-    padding 0.3em 0.5em
+    font-size 10px
+    font-weight 700
+    letter-spacing 0.5px
+    min-height 21px
+    padding 0 0.59em
+    &.ViButton--pill
+      padding 0 1em
+    &.ViButton--circle
+      height 21px
+      padding 0
+      width 21px
 
   &--small
-    font-size 0.8em
-    padding 0.5em 0.8em
+    min-height auto
+    font-size 12px
+    min-height 30px
+    &.ViButton--circle
+      height 30px
+      width 30px
 
   &--large
-    font-size 1.2em
+    font-size 1.61em
+    font-weight 300
+    min-height 53px
+    padding 0 0.59em
+    &.ViButton--pill
+      padding 0 1em
+    &.ViButton--circle
+      height 53px
+      padding 0
+      width 53px
 </style>
 
 <docs>
-Botão básico:
+### Botão básico
 
 ```jsx
-<div>
-  <vi-button dark large>Me aperte</vi-button>
-  <vi-button primary>Me aperte</vi-button>
-  <vi-button success small>Me aperte</vi-button>
-  <vi-button danger mini>Me aperte</vi-button>
-</div>
+<vi-wrapper mini-spacing align-items="center">
+  <vi-button success large>Me aperte</vi-button>
+  <vi-button primary center title="Vitta" icon="vitta" />
+  <vi-button danger>Me aperte</vi-button>
+  <vi-button dark small>Me aperte</vi-button>
+  <vi-button warning mini>Me aperte</vi-button>
+</vi-wrapper>
 ```
-Botão com loading:
 
-```jsx
-<vi-button success width="200"><vi-loading light mini /></vi-button>
-```
-Botão com submit:
+### Botão com submit ou como link
 
 ```jsx
 <form action="/#button">
   <vi-button type="submit" success>Form submit</vi-button>
+  <vi-button href="https://google.com/" primary>Link</vi-button>
 </form>
 ```
 
-Botão com link:
+### Outros exemplos
 
 ```jsx
-<vi-button href="https://google.com/" primary small>Link</vi-button>
+<vi-wrapper vertical>
+  <vi-button success width="220"><vi-loading light mini /></vi-button>
+  <vi-button pill large success outlined
+    justify-content="space-between"
+    width="220"
+  ><span>▸</span> Me aperte</vi-button>
+</vi-wrapper>
 ```
 
-Outras props:
-
-```jsx
-<vi-button pill large success outlined
-  justify-content="space-between"
-  :width="220"
-><span>▸</span> Me aperte</vi-button>
-```
-
-Exemplo de utilização:
+### Utilizando eventos
 
 ```vue
 <template>
-    <div class="wrapper">
-        <vi-button @click="pushButton">+1</vi-button>
-        <hr />
-        <p class="text-name">Contando: {{ numClicks }}</p>
+    <div class="ViComponent">
+      <p><vi-button @click="pushButton">+1</vi-button></p>
+      <hr />
+      <p>Contando: {{ numClicks }}</p>
     </div>
 </template>
 <script>

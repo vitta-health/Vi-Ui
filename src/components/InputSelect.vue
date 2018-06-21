@@ -1,9 +1,8 @@
 <template>
   <vi-wrapper
-    mini
+    mini-spacing
     vertical
     justify-content="flex-start"
-    tag="div"
     class="ViComponent ViInput"
     :style="{ width: componentWidth }"
     :value="false"
@@ -13,7 +12,7 @@
       class="ViInput__Multiselect"
       :class="{
         'ViInput__Multiselect--multiple': multiple,
-        'ViInput__Multiselect--hideOptionsOnFocus': !pill,
+        'ViInput__Multiselect--pills': pill,
         'ViInput__Multiselect--checkbox': checkbox,
       }"
       @open="openEvent"
@@ -196,14 +195,14 @@ export default {
   mixins: [scaleMixin, widthMixin, inputMixin],
   props: {
     /**
-     * Subistitui label do Vue-Multisect
+     * Substitui label do Vue-Multisect.
      */
     optionLabel: {
       type: String,
       default: null,
     },
     /**
-     * Label do campo do Vi-Ui
+     * Label do campo do Vi-Ui.
      */
     label: {
       type: String,
@@ -225,68 +224,76 @@ export default {
       default: false,
     },
     /**
-     * Label da opção "Marcar tudo" quando `checkbox` igual true
+     * Label da opção "Marcar tudo" quando `checkbox` igual `true`.
      */
     checkAllLabel: {
       type: String,
       default: 'Marcar tudo',
     },
     /**
-     * Label da opção "Marcar todas as opções da busca" quando `checkbox` igual true
+     * Label da opção "Marcar todas as opções da busca" quando `checkbox` igual `true`.
      */
     checkSelectionLabel: {
       type: String,
       default: 'Marcar todas as opções da busca',
     },
     /**
-     * Label da opção "Desmarcar tudo" quando `checkbox` igual true
+     * Label da opção "Desmarcar tudo" quando `checkbox` igual `true`.
      */
     uncheckAllLabel: {
       type: String,
       default: 'Desmarcar tudo',
     },
     /**
-     * Label da opção "Desmarcar todas as opções da busca" quando `checkbox` igual true
+     * Label da opção "Desmarcar todas as opções da busca" quando `checkbox` igual `true`.
      */
     uncheckSelectionLabel: {
       type: String,
       default: 'Desmarcar todas as opções da busca',
     },
     /**
-     * Label dentro so select quando fechado, existem opçõe selecionadas e `pill` igual "false".
-     * ##NUMBER## é subistituido pelo total de opções selecionadas.
+     * Label dentro so select quando fechado, existem opções selecionadas e `pill` igual `false`.
+     * ##NUMBER## é substituído pelo total de opções selecionadas.
      */
     selectClosedLabel: {
       type: String,
       default: '##NUMBER## opções marcadas',
     },
     /**
-     * String que aparece quando o mouse ou o foco está em uma opção
+     * String que aparece quando o mouse ou o foco está em uma opção.
      */
     selectLabel: {
       type: String,
       default: '',
     },
     /**
-     * String que aparece em uma opção selecionada
+     * String que aparece em uma opção selecionada.
      */
     selectedLabel: {
       type: String,
       default: 'Selecionado',
     },
     /**
-     * String que aparece quando o mouse ou o foco está em uma opção selecionada
+     * String que aparece quando o mouse ou o foco está em uma opção selecionada.
      */
     deselectLabel: {
       type: String,
       default: 'Selecionado',
     },
     /**
-     * Placeholder do campo
+     * Placeholder do campo.
      */
     placeholder: {
       type: String,
       default: 'Selecione uma opção',
+    },
+    /**
+     * Valor do campo.
+     * @model
+     */
+    value: {
+      type: [String, Number, Object, Array],
+      default: null,
     },
   },
   data() {
@@ -405,7 +412,7 @@ export default {
     },
     searchEvent(value, id) {
       this.searchValue = value;
-      this.$emit('serch-change', value, id);
+      this.$emit('search-change', value, id);
     },
     closeEvent(value, id) {
       this.isOpen = false;
@@ -427,17 +434,19 @@ export default {
 
 .ViComponent.ViInput
   .ViInput__Multiselect
+    .multiselect__tags
+      border-radius 0
 
-    &.multiselect--active
-      &:not(.multiselect--above)
-        .multiselect__tags
-          border-bottom-left-radius 0
-          border-bottom-right-radius 0
-          border-bottom-color rgba($border-color-main, 0.5)
+    &.multiselect--above
+      .multiselect__content-wrapper
+        border-bottom-width 0
+
+    &.multiselect--active:not(.multiselect--above)
+      .multiselect__tags
+        border-bottom-color rgba($border-color-main, 0.5)
+
       &.multiselect--above
         .multiselect__tags
-          border-top-left-radius 0
-          border-top-right-radius 0
           border-top-color rgba($border-color-main, 0.5)
 
     &--multiple
@@ -461,12 +470,18 @@ export default {
               &:after
                 color: $light
 
+    &--multiple
+      &--pill
+        .multiselect__tags
+          padding 0.55em 0.55em 0
+
     .multiselect__input
       padding-left 0
+      margin-top -1px
 
     .multiselect__tags
       border 1px solid $border-color-main
-      border-radius $border-radius
+      border-bottom-width 2px
       min-height 40px
       padding 0.7em 1em 0
       outline none
@@ -484,6 +499,8 @@ export default {
 
     .multiselect__content-wrapper
       border-color $border-color-main
+      border-bottom-width 2px
+      border-radius 0
       z-index 1
 
     .multiselect__checkoption
@@ -513,7 +530,7 @@ export default {
 
         &:after
         &:before
-          background lighten($default, 50%)
+          background $default
           border-radius 0.3em
           content ''
           height 1.5em
@@ -582,7 +599,7 @@ export default {
         min-height 0
         padding 0 12px
         position absolute
-        top 40px
+        top 39px
         width 100%
         opacity 0
         overflow hidden
@@ -608,6 +625,7 @@ export default {
     &.multiselect--above
       .ViInput__CheckAll
         .multiselect__checkoption
+          border-top 1px solid rgba($border-color-main, 0.5)
           top -39px
 
     &--checkbox
@@ -619,12 +637,13 @@ export default {
 
       &.multiselect--above
         .multiselect__content
-          padding 0 0 39px
+          padding 0 0 38px
 </style>
 
 
 <docs>
-Select básico:
+### Select básico
+
 ```vue
 <template>
   <vi-wrapper vertical>
