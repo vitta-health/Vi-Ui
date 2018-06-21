@@ -63,12 +63,6 @@ export default {
     },
   },
   methods: {
-    /**
-     * Adiciona cor a elementos.Use as propriedades: [background, border, hover]
-     *
-     * @param {Object}
-     * @public
-     */
     colorClass(args = {}) {
       let colorName = args.default || 'default';
       Object.keys(colors).some((color) => {
@@ -76,12 +70,9 @@ export default {
         return this[color];
       });
 
-      const variations = [];
-      Object.keys(args).map((arg) => {
-        variations.push(args[arg] ? `ViColor-${colorName}--${arg}` : '');
-
-        return false;
-      });
+      const variations = Object.keys(args)
+        .filter(arg => args[arg] && arg !== 'default')
+        .map(arg => `ViColor-${colorName}--${arg}`);
 
       return variations.join(' ');
     },
