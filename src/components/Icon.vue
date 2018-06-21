@@ -33,13 +33,13 @@ export default {
 Obs: Nas próximas versões existem o risco de breaking changes.
 Todos os desenhos irão mudar e provavelmente boa parte deles será renomeada.
 
-### Como utilizar:
+### Como utilizar
 
 ```jsx
 <vi-icon name="heart-beats" />
 ```
 
-### Lista de icones:
+### Lista de icones
 
 ```vue noeditor
 <template>

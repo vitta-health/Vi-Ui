@@ -23,6 +23,7 @@
     }"
     @click="onClick">
     <vi-wrapper
+      tag="span"
       :justify-content="justifyContent || 'center'"
       small
       child-wrapper
@@ -104,16 +105,18 @@ export default {
 .ViComponent.ViButton
   border-width 0.09em
   border-style solid
-  border-radius 0.5em
+  border-radius 0.2em
   cursor pointer
   display inline-block
-  font-size 0.95em
+  font-size 16px
   height auto
-  text-align center
-  padding 0.5em 0.8em
-  text-decoration none
+  min-height 40px
   outline none
-  transition: all 0.09s
+  padding 0.61em
+  text-align center
+  text-decoration none
+  transition: all 0.04s
+  min-height
   > *
     margin-right 0.25em
 
@@ -128,64 +131,63 @@ export default {
     border-radius 100px
 
   &--mini
-    font-size 0.8em
-    padding 0.3em 0.5em
+    font-size 10px
+    font-weight 500
+    min-height auto
+    padding 0.37em 0.59em
 
   &--small
-    font-size 0.8em
-    padding 0.5em 0.8em
+    min-height auto
+    font-size 12px
 
   &--large
-    font-size 1.2em
+    font-size 1.61em
+    font-weight 300
+    padding 0.37em 0.59em
 </style>
 
 <docs>
-Botão básico:
+### Botão básico
 
 ```jsx
-<div>
-  <vi-button dark large>Me aperte</vi-button>
-  <vi-button primary>Me aperte</vi-button>
-  <vi-button success small>Me aperte</vi-button>
-  <vi-button danger mini>Me aperte</vi-button>
-</div>
+<vi-wrapper mini align-items="center">
+  <vi-button success large>Me aperte</vi-button>
+  <vi-button primary><vi-icon name="vitta" /></vi-button>
+  <vi-button danger>Me aperte</vi-button>
+  <vi-button dark small>Me aperte</vi-button>
+  <vi-button warning mini>Me aperte</vi-button>
+</vi-wrapper>
 ```
-Botão com loading:
 
-```jsx
-<vi-button success width="200"><vi-loading light mini /></vi-button>
-```
-Botão com submit:
+### Botão com submit ou como link
 
 ```jsx
 <form action="/#button">
   <vi-button type="submit" success>Form submit</vi-button>
+  <vi-button href="https://google.com/" primary>Link</vi-button>
 </form>
 ```
 
-Botão com link:
+### Outros exemplos
 
 ```jsx
-<vi-button href="https://google.com/" primary small>Link</vi-button>
+<vi-wrapper vertical>
+  <vi-button success width="220"><vi-loading light mini /></vi-button>
+  <vi-button pill large success outlined
+    justify-content="space-between"
+    width="220"
+  ><span>▸</span> Me aperte</vi-button>
+</vi-wrapper>
 ```
 
-Outras props:
-
-```jsx
-<vi-button pill large success outlined
-  justify-content="space-between"
-  :width="220"
-><span>▸</span> Me aperte</vi-button>
-```
-
-Exemplo de utilização:
+### Utilizando eventos
 
 ```vue
 <template>
-    <div class="wrapper">
-        <vi-button @click="pushButton">+1</vi-button>
-        <hr />
-        <p class="text-name">Contando: {{ numClicks }}</p>
+    <div> class="ViComponent">
+      <p><vi-button @click="pushButton">+1</vi-button></p>
+      <hr />
+      <p>Contando: {{ numClicks }}</p>
     </div>
 </template>
 <script>

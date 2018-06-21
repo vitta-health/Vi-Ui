@@ -15,11 +15,11 @@ export default {
       default: false,
     },
     /**
-     * Tag usada no wrapper
+     * Tag principal onde os outros elementos vão dentro.
      */
     tag: {
       type: String,
-      default: 'span',
+      default: 'div',
     },
     /**
      * Define se blocos precisam ter o mesmo tamanho entre eles
@@ -63,20 +63,12 @@ export default {
       type: String,
       default: null,
     },
-    /**
-     * Se `true` retorna apenas os filhos sem o wrapper
-     */
-    disableWrapper: {
-      type: Boolean,
-      default: false,
-    },
   },
   render(createElement, context) {
     const children = context.children.filter((node) => {
       if (!node.tag && !node.text) return false;
       return node.tag || node.text.replace(/[\s\n]/g, '');
     });
-    if (context.props.disableWrapper) return children;
     if (children.length === 0) return null;
     const { props } = context;
     const wrapperClassName = ['flexWraper'];
@@ -213,6 +205,25 @@ export default {
 </style>
 
 <docs>
-Wrapper aplica flexbox entre os filhos.
+Wrapper é usado para trabalhar com conjunto de componentes.
 Ele também pode embrulhar os filhos em uma tag caso necessário.
+
+É recomendao não definir margens no css e usar apenas um
+vi-wrapper sempre que for trabalhar com conjunto de componentes.
+
+### Exemplo de wrapper
+
+```jsx
+<vi-wrapper>
+    <vi-wrapper>
+      <vi-card mini primary>&nbsp;</vi-card>
+      <vi-card mini primary>&nbsp;</vi-card>
+    </vi-wrapper>
+    <vi-wrapper vertical>
+      <vi-card mini primary>&nbsp;</vi-card>
+      <vi-card mini primary>&nbsp;</vi-card>
+      <vi-card mini primary>&nbsp;</vi-card>
+    </vi-wrapper>
+</vi-wrapper>
+```
 </docs>

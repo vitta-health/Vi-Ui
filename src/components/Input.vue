@@ -3,7 +3,6 @@
     mini
     vertical
     justify-content="flex-start"
-    tag="div"
     class="ViComponent ViInput"
     :style="{ width: componentWidth }"
   >
@@ -11,7 +10,6 @@
     <vi-wrapper
       no-margin
       class="ViInput_Wrapper"
-      tag="div"
     >
       <div
         v-if="hasPrefix"
@@ -83,7 +81,7 @@ export default {
     },
     /**
      * Auto-complete [opções de autocomplete](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute).
-     * Obs: Chrome ignora a opção "off" (ou "false") e tenta decidir por conta propria
+     * Obs: Chrome ignora a opção "off" (ou "false") e tenta decidir por conta própria
      */
     autoComplete: {
       type: String,
@@ -148,7 +146,7 @@ export default {
        * Evento de retorno de dados
        *
        * @event input
-       * @type {string|number|object|array|boolean}
+       * @type {string|number|object|array}
        *
        */
       this.$emit('input', target.value);
@@ -183,13 +181,13 @@ export default {
 </style>
 
 <docs>
-Input básico:
+### Input básico
 
 ```jsx
 <vi-input />
 ```
 
-Input com sufixo e prefixo:
+### Input com sufixo e prefixo
 
 ```jsx
 <vi-input type="number" min="0" step="1">
@@ -198,7 +196,10 @@ Input com sufixo e prefixo:
 </vi-input>
 ```
 
-Exemplo de formulário.
+### Exemplo de formulário
+
+Por padrão, os inputs e outros componentes não possuem margem.
+Para utilizá-los em conjunto, como em formulários, utilize o [ViWrapper](#Wrapper).
 
 ```vue
 <template>
@@ -268,7 +269,7 @@ export default {
 </script>
 ```
 
-Exemplo de validação de formulário.
+### Exemplo de validação de formulário
 
 ```vue
 <template>
@@ -309,7 +310,6 @@ Exemplo de validação de formulário.
     </vi-wrapper>
     <vi-wrapper
       justify-content="left"
-      tag="div"
     >
       <vi-button type="submit" success>Try!</vi-button>
       <vi-checkbox
@@ -342,8 +342,9 @@ export default {
 };
 </script>
 ```
+### Exemplo de validação com mensagem personalizada
 
-Exemplo de validação com mensagem personalizada. [Opções de validação](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-cva-validity).
+Você pode ver as opções de validação [aqui](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#dom-cva-validity).
 
 ```vue
 <template>
@@ -354,7 +355,6 @@ Exemplo de validação com mensagem personalizada. [Opções de validação](htt
   >
     <vi-wrapper
       justify-content="space-between"
-      tag="div"
     >
       <vi-input
         placeholder="Email"
