@@ -11,6 +11,7 @@
     "url": "git+https://bitbucket.org/vittapros/styleguide.git"
   },
   "dependencies": {
+    "tooltip.js": "^1.2.0",
     "v-calendar": "^0.9.7",
     "vue-multiselect": "^2.1.0"
   },

@@ -11,6 +11,7 @@ import ViLoading from './components/Loading.vue';
 import ViPagination from './components/Pagination.vue';
 import ViTable from './components/Table.vue';
 import ViWrapper from './components/Wrapper.vue';
+import ViTooltip from './components/Tooltip.vue';
 
 export default {
   ViButton,
@@ -26,4 +27,5 @@ export default {
   ViPagination,
   ViTable,
   ViWrapper,
+  ViTooltip,
 };
