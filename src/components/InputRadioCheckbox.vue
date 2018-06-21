@@ -1,6 +1,6 @@
 <template>
   <vi-wrapper
-    mini
+    mini-spacing
     justify-content="flex-start"
     class="ViComponent ViCheckbox"
     :style="{ width: componentWidth }"

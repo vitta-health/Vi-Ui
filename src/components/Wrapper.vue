@@ -19,10 +19,10 @@ const addClassNames = (props, classesToMerge) => {
   if (props.grid) className.push('flexWrapper--grid');
   else className.push('flexWrapper--not-grid');
 
-  if (props.mini) className.push('flexWrapper--mini');
-  else if (props.small) className.push('flexWrapper--small');
-  else if (props.large) className.push('flexWrapper--large');
-  else if (props.noMargin) className.push('flexWrapper--no-margin');
+  if (props.miniSpacing) className.push('flexWrapper--mini');
+  else if (props.smallSpacing) className.push('flexWrapper--small');
+  else if (props.largeSpacing) className.push('flexWrapper--large');
+  else if (props.noSpacing) className.push('flexWrapper--no-spacing');
 
   return className;
 };
@@ -83,9 +83,30 @@ export default {
   mixins: [positioningMixin, scaleMixin],
   props: {
     /**
-     * _Tamanho:_ Remove margens dos filhos.
+     * _Espaçamento:_ Define o menor espaçamento entre filhos.
      */
-    noMargin: {
+    miniSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Espaçamento:_ Define o espaçamento entre filhos.
+     */
+    smallSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Espaçamento:_ Define o maior espaçamento entre filhos.
+     */
+    largeSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Espaçamento:_ Remove margens espaçamento entre filhos.
+     */
+    noSpacing: {
       type: Boolean,
       default: false,
     },
@@ -215,7 +236,7 @@ gridSizes($useMargin = false)
     gridPadding(20px, $useMargin)
   &.flexWrapper--jumbo
     gridPadding(40px, $useMargin)
-  &.flexWrapper--no-margin
+  &.flexWrapper--no-spacing
     gridPadding(0, true)
 
 mediaQueryInterpolator($size, $max = auto)
@@ -232,10 +253,7 @@ mediaQueryInterpolator($size, $max = auto)
 .flexWrapper
   align-items center
   display flex
-
-  & > .contentWrapper
-    &--proportional
-      flex-grow 1
+  flex-grow 1
 
   &--vertical
     align-items unset
@@ -256,7 +274,6 @@ mediaQueryInterpolator($size, $max = auto)
         align-items unquote($val)
 
   &--not-grid
-    flex-grow 1
     gridSizes(true)
 
   &--grid
@@ -292,13 +309,13 @@ O componente ViWrapper é usado para trabalhar com conjunto de componentes.
 Ele também pode embrulhar os filhos em uma tag caso necessário.
 
 É recomendado não colocar margens diretamente pelo css. Use um wrapper sempre que precisar definir
-um espaçamento entre componentes. As opções de espaçamento  são [mini|small|large|no-margin].
+um espaçamento entre componentes. As opções de espaçamento  são [mini|small|large|no-spacing].
 
 ### Exemplo de wrapper
 
 ```jsx
 <vi-wrapper small align-items="stretch">
-    <vi-wrapper small>
+    <vi-wrapper small align-items="stretch">
       <vi-card primary>1</vi-card>
       <vi-card primary>2</vi-card>
     </vi-wrapper>
@@ -314,17 +331,17 @@ um espaçamento entre componentes. As opções de espaçamento  são [mini|small
 Use a prop `grid` para definir comportamento de grid.
 
 ```jsx
-<vi-wrapper vertical mini>
-  <vi-wrapper grid small>
+<vi-wrapper mini grid>
+  <vi-wrapper grid small jumbo-col="4">
     <vi-card col="2" dark>1</vi-card>
     <vi-card col="6" order="2" dark>2</vi-card>
     <vi-card col="4" order="1" dark>3</vi-card>
   </vi-wrapper>
-  <vi-wrapper grid small>
+  <vi-wrapper grid small jumbo-col="4">
     <vi-card col="6" danger>1</vi-card>
-    <vi-card col="3" order="1" danger>2</vi-card>
+    <vi-card col="6" order="1" danger>2</vi-card>
   </vi-wrapper>
-  <vi-wrapper grid small>
+  <vi-wrapper grid small jumbo-col="4">
     <vi-card col="6" success>1</vi-card>
     <vi-card col="7" order="2" success>2</vi-card>
     <vi-card col="3" success>3</vi-card>

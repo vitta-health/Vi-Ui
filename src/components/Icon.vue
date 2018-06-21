@@ -43,7 +43,7 @@ Todos os desenhos irão mudar e provavelmente boa parte deles será renomeada.
 
 ```vue noeditor
 <template>
-  <vi-wrapper no-margin class="ViIconWrapperDemo">
+  <vi-wrapper no-spacing class="ViIconWrapperDemo">
     <span class="ViIconDemo"><vi-icon name="arrow" /> arrow</span>
     <span class="ViIconDemo"><vi-icon name="arrow-left" /> arrow-left</span>
     <span class="ViIconDemo"><vi-icon name="birthday-cake" /> birthday-cake</span>

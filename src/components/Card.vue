@@ -8,8 +8,9 @@
         'ViCard--mini': mini,
         'ViCard--small': small,
         'ViCard--large': large,
+        'ViCard--no-spacing': noSpacing,
       },
-      colorClass({ background: true, default: 'light' }),
+      colorClass({ background: true, default: defaultColor }),
     ]"
     :style="{ width: componentWidth }"
   >
@@ -43,6 +44,13 @@ export default {
   },
   props: {
     /**
+     * _Tamanho:_ Remove paddings do card
+     */
+    noSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Tag do card
      */
     tag: {
@@ -59,10 +67,19 @@ export default {
     /**
     * Tamanho do título de 1 a 6
     */
-    sizeTitle: {
+    titleSize: {
       type: Number,
       default: null,
       validator: size => size >= 1 && size <= 6,
+    },
+    /**
+    * @ignore Essa prop é apenas um helper para outros componentes que dependem do card. Deixar ela
+    * exposta vai causar mais confusão que instruir como dever ser utilizado as props de cores.
+    * O usuário final precisa apenas usar o nome das cores como prop.
+    */
+    defaultColor: {
+      type: String,
+      default: 'light',
     },
   },
   computed: {
@@ -86,7 +103,6 @@ $background-card = $isDark ? $colors.dark : $colors.light
   border-radius 0.3em
   box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
   display flex
-  height 100%
   flex-direction column
   justify-content space-between
   padding 20px
@@ -100,6 +116,9 @@ $background-card = $isDark ? $colors.dark : $colors.light
 
   &--large
     padding 40px
+
+  &--no-spacing
+    padding 0
 </style>
 
 ```
@@ -145,7 +164,7 @@ Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
       <div slot="body">
         <vi-wrapper>
           <img class="avatar" :src="character.avatar"/>
-          <vi-wrapper vertical child-wrapper no-margin>
+          <vi-wrapper vertical child-wrapper no-spacing>
             <h4 class="name">{{character.name}} aka <small>{{character.superHeroName}}</small></h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
             <vi-button success small outlined pill>Avançar!</vi-button>

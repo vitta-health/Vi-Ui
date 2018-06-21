@@ -11,14 +11,14 @@ export const scaleMixin = {
       default: false,
     },
     /**
-     * _Tamanho:_ Define pequeno tamanho para o componente.
+     * _Tamanho:_ Define o tamanho pequeno para o componente.
      */
     small: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Tamanho:_ Define o tamanho maior para o componente.
+     * _Tamanho:_ Define o maior tamanho para o componente.
      */
     large: {
       type: Boolean,

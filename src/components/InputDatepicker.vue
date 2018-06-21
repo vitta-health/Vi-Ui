@@ -1,6 +1,6 @@
 <template>
   <vi-wrapper
-    mini
+    mini-spacing
     vertical
     justify-content="flex-start"
     class="ViComponent ViInput"
@@ -9,7 +9,7 @@
   >
     <vi-input-label v-bind="{ for: id, label, instruction }"/>
     <vi-wrapper
-      no-margin
+      no-spacing
       class="ViInput_Wrapper"
     >
       <div class="ViInput__Slot ViInput__Slot--prefix">

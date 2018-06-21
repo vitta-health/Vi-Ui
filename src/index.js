@@ -1,3 +1,4 @@
+import ViAlert from './components/Alert.vue';
 import ViButton from './components/Button.vue';
 import ViButtonGroup from './components/ButtonGroup.vue';
 import ViCard from './components/Card.vue';
@@ -13,6 +14,7 @@ import ViTable from './components/Table.vue';
 import ViWrapper from './components/Wrapper.vue';
 
 export default {
+  ViAlert,
   ViButton,
   ViButtonGroup,
   ViCard,
