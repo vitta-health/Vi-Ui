@@ -1,85 +1,83 @@
+<template>
+  <div class="ViTabs">
+    <div class="ViTabs__List">
+      <hr class="ViTabs__Line" />
+      <ul class="TabsList">
+        <li
+          v-for="(value, key) in listOfTabs"
+          :key="key">
+          <a
+            @click="changeTab(value.tab)"
+            :class="{ 'active': value.tab === activeTabProp }">
+            {{value.title ? value.title : value.tab}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="ViTabs__Content">
+      <slot />
+    </div>
+  </div>
+</template>
+
 <script>
-function toggleClass(element, classAdd, classRemove) {
-  if (!element.classList.contains(classAdd)) {
-    element.classList.remove(classRemove);
-    element.classList.toggle(classAdd);
-  }
-}
-
-function tabActive(nodeActive, index, hasActiveTabDefault) {
-  if (nodeActive === 'true' ||
-    (index === 0 && !hasActiveTabDefault)) {
-    return 'active';
-  }
-
-  return 'inactive';
-}
-
 export default {
   name: 'ViTabs',
-  functional: true,
-  render(createElement, context) {
-    let hasActiveTabDefault = false;
-    const childrens = context.children.filter((node) => {
-      const nodeItem = node;
-      if (!nodeItem.tag && !nodeItem.text) return false;
-      if (nodeItem.data && hasActiveTabDefault) nodeItem.data.attrs.active = false;
-      if (nodeItem.data && nodeItem.data.attrs.active) hasActiveTabDefault = true;
-      return nodeItem.tag;
-    });
+  data() {
+    return {
+      activeTabProp: '',
+      listOfTabs: [],
+    };
+  },
+  props: {
+    /**
+     * Define o nome da tab ativa
+     */
+    activeTab: {
+      type: String,
+      required: true,
+      default: null,
+    },
+    /**
+     * Define o nome da tab ativa
+     * @model
+     */
+    value: {
+      type: String,
+      default: null,
+    },
+  },
+  methods: {
+    changeTab(tab) {
+      this.$emit('input', tab);
+      this.activeTabProp = tab;
+      this.tabsList();
+    },
+    tabsList() {
+      const vm = this;
+      const tab = this.activeTabProp;
+      this.listOfTabs = [];
 
-    const tabsList = [];
-    const tabsContent = childrens.map((node, index) => {
-      const tabNode = Object.create(node);
-      const contentNode = Object.create(node);
+      this.$slots.default.map((child) => {
+        if(child.tag) {
+          child.data.class = [
+            'ViTabs__Content',
+            {
+              active: child.data.attrs.tab === tab,
+              inactive: child.data.attrs.tab !== tab,
+            },
+          ];
 
-      if (node.data) {
-        const idContent = `vi-tab${index}`;
+          vm.listOfTabs.push(child.data.attrs);
+        }
 
-        tabNode.tag = 'li';
-        tabNode.children = [];
-        tabNode.children.push(createElement('a', {
-          attrs: { id: `vi-tab${index}-link` },
-          staticClass: tabActive(node.data.attrs.active, index, hasActiveTabDefault),
-          on: {
-            click: function click() {
-              const listTabs = [...document.getElementsByClassName('TabsList')[0].childNodes];
-              const listContents = [...document.getElementsByClassName('ViTabs__Content')[0].childNodes];
-              listContents.forEach((element) => {
-                toggleClass(element, 'inactive', 'active');
-              });
-
-              listTabs.forEach((element) => {
-                toggleClass(element.childNodes[0], 'inactive', 'active');
-              });
-
-              const elementTab = document.getElementById(`${idContent}-link`);
-              const elementContent = document.getElementById(idContent);
-              toggleClass(elementTab, 'active', 'inactive');
-              toggleClass(elementContent, 'active', 'inactive');
-            }
-          }
-        }, [{ text: node.data.attrs.title }]));
-
-        tabsList.push({ ...tabNode });
-
-        contentNode.data.attrs.id = idContent;
-        contentNode.data.staticClass =
-          tabActive(node.data.attrs.active, index, hasActiveTabDefault);
-
-        return contentNode;
-      }
-
-      return '';
-    });
-
-    return createElement(
-      'div', { class: ['ViTabs'] },
-      [createElement(
-        'nav', { class: ['ViTabs__List'] },
-        [createElement('ul', { class: ['TabsList'] }, [tabsList])]
-      ), createElement('div', { class: ['ViTabs__Content'] }, [tabsContent])]
-    );
+        return null;
+      });
+    },
+  },
+  beforeMount() {
+    this.activeTabProp = this.activeTab;
+    this.tabsList();
   },
 };
 </script>
@@ -128,6 +126,13 @@ export default {
           color $primary
           font-weight 600
 
+  .ViTabs__Line
+    border 2px solid #d2d2d24f
+    bottom 0
+    margin 0
+    position absolute
+    width 100%
+
   .ViTabs__Content
     .active
       display block
@@ -137,26 +142,37 @@ export default {
 </style>
 
 <docs>
-Card Básico
-```jsx
-  <vi-card title="Componente de abas">
+Componente de abas em um card
+```vue
+<template>
+  <vi-card>
     <div slot="body">
-      <vi-tabs>
-        <div title="Aba 1" active="true">
+      <vi-tabs active-tab="Tab1">
+        <div title="Aba 1" tab="Tab1">
           <div>
-            Teste 1
-            <div>Teste 1.1</div>
+            Aba 1
+            <div>Aba 1.1</div>
           </div>
         </div>
-        <div title="Aba 2">
-          <div>Teste 2</div>
+        <div title="Aba 2" tab="Tab2">
+          Conteúdo Aba 2
         </div>
-        <div title="Aba 3" active="true">
-          <div>Teste 3</div>
+        <div title="Aba 3" tab="Tab3">
+          Conteúdo Aba 3
         </div>
       </vi-tabs>
     </div>
   </vi-card>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      activeTab: 'Tab1',
+    };
+  },
+};
+</script>
 ```
 
 ### Atributos para as abas
