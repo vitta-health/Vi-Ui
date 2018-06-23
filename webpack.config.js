@@ -41,6 +41,8 @@ module.exports = (env, argv) => {
               loader: 'css-loader',
               options: {
                 importLoaders: 1,
+                minimize: true,
+                modules: true,
               },
             },
             {

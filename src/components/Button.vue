@@ -202,7 +202,7 @@ export default {
 
   &--large
     font-size 1.61em
-    font-weight 300
+    font-weight 400
     min-height 53px
     padding 0 0.59em
     &.ViButton--pill

@@ -1,29 +1,34 @@
 <template>
   <vi-wrapper
+    class="ViComponent ViCard"
     vertical
     :tag="tag"
-    class="ViComponent ViCard"
     :class="[
       {
-        'ViCard--mini': mini,
-        'ViCard--small': small,
-        'ViCard--large': large,
+        'ViCard--mini': miniSpacing,
+        'ViCard--small': smallSpacing,
+        'ViCard--large': largeSpacing,
         'ViCard--no-spacing': noSpacing,
       },
       colorClass({ background: true, default: defaultColor }),
     ]"
     :style="{ width: componentWidth }"
+    v-bind="{
+      miniSpacing,
+      smallSpacing,
+      largeSpacing,
+      noSpacing
+    }"
   >
     <component
       v-if="title"
       :is="titleTag"
       class="ViCard__Title">{{ title }}</component>
-    <div class="ViCard__Body">
-      <!-- @slot Use slot body para definir o conteúdo no corpo do card -->
-      <slot name="body"/>
-      <slot/>
-    </div>
-
+      <div class="ViCard__Body">
+        <!-- @slot Use slot body para definir o conteúdo no corpo do card -->
+        <slot name="body"/>
+        <slot/>
+      </div>
     <!-- @slot Use este slot para definir o conteúdo no rodapé -->
     <slot
       class="ViCard__Footer"
@@ -33,42 +38,63 @@
 </template>
 <script>
 import ViWrapper from './Wrapper.vue';
-import { scaleMixin, widthMixin } from '../mixins/sizes';
+import { widthMixin } from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
 
 export default {
   name: 'ViCard',
-  mixins: [scaleMixin, widthMixin, colorsMixin],
+  mixins: [widthMixin, colorsMixin],
   components: {
     ViWrapper,
   },
   props: {
     /**
-     * _Tamanho:_ Remove paddings do card
+     * _Tamanho:_ Define o menor espaçamento do card.
+     */
+    miniSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Tamanho:_ Define o tamanho pequeno do card.
+     */
+    smallSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Tamanho:_ Define o maior tamanho do card.
+     */
+    largeSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Tamanho:_ Remove paddings do card.
      */
     noSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * Tag do card
+     * Tag do card.
      */
     tag: {
       type: String,
       default: 'section',
     },
     /**
-    * Texto exibido no título
+    * Texto exibido no título.
     */
     title: {
       type: String,
       default: null,
     },
     /**
-    * Tamanho do título de 1 a 6
+    * Tamanho do título de 1 a 6.
     */
     titleSize: {
-      type: Number,
+      type: [Number, String],
       default: null,
       validator: size => size >= 1 && size <= 6,
     },
@@ -129,11 +155,11 @@ $background-card = $isDark ? $colors.dark : $colors.light
 
 <docs>
 
-Card Básico
+### Card Básico
 ```jsx
   <vi-card
     title="Este é um título do card"
-    :title-size="2"
+    title-size="1"
   >
     <div slot="body">Este é um parágrafo contido no slot do body</div>
     <div slot="footer"><vi-button primary>Botão no footer</vi-button></div>

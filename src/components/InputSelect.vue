@@ -4,6 +4,7 @@
     vertical
     justify-content="flex-start"
     class="ViComponent ViInput"
+    :class="{ 'ViInput--elevated': isOpen }"
     :style="{ width: componentWidth }"
     :value="false"
   >

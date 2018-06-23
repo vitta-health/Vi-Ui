@@ -20,7 +20,7 @@
     @mouseout.native="startTimer(false)"
     default-color="default"
     tag="span"
-    small
+    small-spacing
   >
     <vi-wrapper
       tag="span"
@@ -259,7 +259,7 @@ export default {
   &--bottom
     backface-visibility hidden
     position fixed
-    z-index 300
+    z-index 400
 
   &--center
     left 50%

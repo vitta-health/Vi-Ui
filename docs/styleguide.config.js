@@ -8,7 +8,8 @@ module.exports = {
   sortProps: props => props,
   webpackConfig,
   showUsage: true,
-  showCode: false,
+  showCode: true,
+  getComponentPathLine: false,
   require: [
     'babel-polyfill',
     path.join(__dirname, './layout/style.css'),
