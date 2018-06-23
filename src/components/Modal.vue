@@ -1,8 +1,9 @@
 <template>
   <div
-    :class="{
-      'ViComponent ViModal': value,
-    }"
+    class="ViComponent ViModal"
+    :class="[{
+      'ViModal--open': value,
+    }]"
   >
     <vi-card
       vertical
@@ -41,6 +42,12 @@ import ViCard from './Card.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
 
+/**
+ * Infelizmente necessário para manipular a tag html.
+ * Isso é usado pra travar o lock do scroll atrás da modal.
+ */
+const root = document.documentElement;
+
 export default {
   name: 'ViModal',
   mixins: [scaleMixin, widthMixin, colorsMixin],
@@ -50,7 +57,28 @@ export default {
   },
   props: {
     /**
-     * _Tamanho:_ Remove paddings do card
+     * _Tamanho:_ Define o menor espaçamento da modal.
+     */
+    miniSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Tamanho:_ Define o tamanho pequeno do modal.
+     */
+    smallSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Tamanho:_ Define o maior tamanho do modal.
+     */
+    largeSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Tamanho:_ Remove paddings do modal.
      */
     noSpacing: {
       type: Boolean,
@@ -108,8 +136,14 @@ export default {
       default: false,
     },
   },
-  mounted() {
-    console.log(this)
+  watch: {
+    value(v) {
+      if(v && this.lockScroll) {
+        root.classList.add('ViRoot--locked');
+      } else if(root.classList.contains('ViRoot--locked')) {
+        root.remove('ViRoot--locked');
+      }
+    }
   }
 };
 </script>
@@ -121,23 +155,29 @@ export default {
   overflow hidden
 
 .ViComponent.ViModal
-  justify-content center
   align-items center
-  transition all 0.2s ease-in-out
   background rgba(black, 0.3)
-  position fixed
-  padding 20px
   display flex
-  overflow-y scroll
-  top 0
+  height 0
+  justify-content center
   left 0
+  opacity 0
+  overflow-y scroll
+  padding 0
+  position fixed
+  transition opacity 0.2s ease-in-out, height 0 linear 0.2s
+  top 0
   width 100vw
-  height 100vh
-  z-index 200
+  z-index 0
 
+  .ViModal--open
+    transition opacity 0.2s ease-in-out, height 0
+    height 100vh
+    padding 20px
+    opacity 1
 
   .ViCard.ViModal__Card
-    transition transition 0.2s ease-in-out
+    transition transform 0.2s ease-in-out 0.1s,
     overflow auto
     height auto
     width auto
@@ -153,26 +193,41 @@ export default {
 
 ### Exemplo de modal
 
-```jsx
-  <vi-modal
-    title="Este é um título da Modal"
-    title-size="1"
-  >
-    <div slot="body">
-    <h1>Heading 1</h1>
-    <h2>Heading 2</h2>
-    <h3>Heading 3</h3>
-    <h4>Heading 4</h4>
-    <h5>Heading 5</h5>
-    <h6>Heading 6</h6>
+```vue
+<template>
+  <div>
+    <vi-button primary @click="isOpen = true">Abrir alerta</vi-button>
+    <vi-modal
+      title="Este é um título da Modal"
+      title-size="1"
+      v-model="isOpen"
+    >
+      <div slot="body">
+      <h1>Heading 1</h1>
+      <h2>Heading 2</h2>
+      <h3>Heading 3</h3>
+      <h4>Heading 4</h4>
+      <h5>Heading 5</h5>
+      <h6>Heading 6</h6>
 
-    </div>
-    <div slot="footer">
-      <vi-wrapper justify-content="flex-end">
-        <vi-button outlined primary>Buttão 1</vi-button>
-        <vi-button success>Buttão 2</vi-button>
-      </vi-wrapper>
-    </div>
-  </vi-modal>
+      </div>
+      <div slot="footer">
+        <vi-wrapper justify-content="flex-end">
+          <vi-button outlined primary>Buttão 1</vi-button>
+          <vi-button success>Buttão 2</vi-button>
+        </vi-wrapper>
+      </div>
+    </vi-modal>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
+};
+</script>
 ```
 </docs>

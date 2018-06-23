@@ -9,7 +9,6 @@ module.exports = {
   webpackConfig,
   showUsage: true,
   showCode: true,
-  getComponentPathLine: false,
   require: [
     'babel-polyfill',
     path.join(__dirname, './layout/style.css'),
