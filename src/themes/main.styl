@@ -1,10 +1,14 @@
 @import '../themes/fonts.css'
 @import '../themes/colors'
 
-$Montserrat = 'Montserrat', Futura, "Trebuchet MS", sans-serif
+$Montserrat = 'Montserrat', Futura, 'Trebuchet MS', sans-serif
+$Roboto = 'Roboto', Arial, Helvetica, sans-serif
 
 /*! Based on normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
 /*! Also some snippets from bootstrap: https://github.com/twbs/bootstrap/blob/v4-dev/dist/css/bootstrap.css */
+
+html
+  touch-action manipulation
 
 [hidden]
   display none
@@ -30,7 +34,7 @@ $Montserrat = 'Montserrat', Futura, "Trebuchet MS", sans-serif
   overflow visible
   clip auto
   white-space normal
-
+  
 .ViComponent
   box-sizing border-box
   color $text-color-main
@@ -49,6 +53,11 @@ $Montserrat = 'Montserrat', Futura, "Trebuchet MS", sans-serif
     text-decoration underline
     background-color transparent
     color $link-color
+
+  a
+  button
+    user-select none
+    -webkit-tap-highlight-color transparent
 
   b,
   strong
@@ -113,6 +122,10 @@ $Montserrat = 'Montserrat', Futura, "Trebuchet MS", sans-serif
     font-weight 700
     line-height 0.87em
     margin 2.33em 0
+  
+  p
+    font-family $Roboto
+    font-weight normal
 
   small
     font-size 80%
@@ -120,7 +133,7 @@ $Montserrat = 'Montserrat', Futura, "Trebuchet MS", sans-serif
   hr
     border none
     border-top 1px solid rgba($text-color-main, 0.15)
-    margin 0 0 1em
+    margin 0.67em 0
 
   img
     border-style none

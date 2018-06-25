@@ -64,7 +64,7 @@ const FORMATS = {
 
 export default {
   name: 'ViDatepicker',
-  beforeCreate() {
+  beforeMount() {
     setupCalendar({
       locale: 'pt-BR',
       firstDayOfWeek: 1,

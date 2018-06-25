@@ -292,6 +292,7 @@ export default {
 
   .ViTable__ArrowDown
     transform rotate(180deg)
+    will-change transform
 
   .ViTable__Arrows
     margin-left 5px
@@ -321,6 +322,7 @@ export default {
     margin-left 0.5em
     position relative
     transform scale(2)
+    will-change transform
     z-index 1
     cursor pointer
 
@@ -339,8 +341,7 @@ export default {
         position absolute
         top -0.2em
         width 1.5em
-        transition all 0.06s ease-out
-        transition transform 0.1s ease-out
+        transition all 0.04s ease-out
 
       &--inverted
         &:before
@@ -365,20 +366,23 @@ export default {
         &:before
           box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4),
           0 0 0 0.1em rgba($border-color-main-focus, 0.5)
+          will-change box-shadow
         &--inverted
           &:before
             box-shadow inset 0 0 0 0.1em rgba($light, 0.5),
             0 0 0 0.25em rgba($light, 0.1)
+            will-change box-shadow
 
     &:checked
-
       &:focus
         & + .ViTable__FakeCheckbox
           &:before
             box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4)
+            will-change box-shadow
           &--inverted
             &:before
               box-shadow 0 0 0 0.25em rgba($light, 0.1)
+              will-change box-shadow
 
       & + .ViTable__FakeCheckbox
         &:before
@@ -393,6 +397,8 @@ export default {
           border-bottom-width 0.27em
           opacity 1
           transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
+          transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+          will-change transform, opacity
 
         &--inverted
           &:after
@@ -403,7 +409,8 @@ export default {
         &:after
           border-bottom-width 0
           opacity 1
-          transform rotate(90deg) scale(0.4, 0.3) translate(-0.5em)
+          transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+          will-change transform, opacity
 
 </style>
 

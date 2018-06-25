@@ -13,27 +13,31 @@
       colorClass({ background: true, default: defaultColor }),
     ]"
     :style="{ width: componentWidth }"
-    v-bind="{
-      miniSpacing,
-      smallSpacing,
-      largeSpacing,
-      noSpacing
-    }"
   >
-    <component
-      v-if="title"
-      :is="titleTag"
-      class="ViCard__Title">{{ title }}</component>
-      <div class="ViCard__Body">
-        <!-- @slot Use slot body para definir o conteúdo no corpo do card -->
-        <slot name="body"/>
-        <slot/>
-      </div>
-    <!-- @slot Use este slot para definir o conteúdo no rodapé -->
-    <slot
-      class="ViCard__Footer"
-      name="footer"
-    />
+    <vi-wrapper
+      justify-content="space-between"
+      class="ViCard__Header ViCard__Section"
+    >
+      <component
+        v-if="title"
+        :is="titleTag"
+        class="ViCard__Title"
+      >{{ title }}</component>
+      <!-- @slot  Use slot o `side` que conteúdo ao lado título. -->
+      <slot name="side"/>
+      <slot name="close"/>
+    </vi-wrapper>
+    <div class="ViCard__Body ViCard__Section" ref="body">
+      <!-- @slot Use slot o `body` para definir o conteúdo no corpo do card. -->
+      <slot name="body"/>
+      <slot/>
+    </div>
+    <div v-if="$slots.footer" class="ViCard__Footer ViCard__Section">
+      <!-- @slot Use slot o `footer` para definir o conteúdo no rodapé. -->
+      <slot
+        name="footer"
+      />
+    </div>
   </vi-wrapper>
 </template>
 <script>
@@ -49,28 +53,28 @@ export default {
   },
   props: {
     /**
-     * _Tamanho:_ Define o menor espaçamento do card.
+     * _Espaçamento:_ Define o menor espaçamento do card.
      */
     miniSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Tamanho:_ Define o tamanho pequeno do card.
+     * _Espaçamento:_ Define o tamanho pequeno do card.
      */
     smallSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Tamanho:_ Define o maior tamanho do card.
+     * _Espaçamento:_ Define o maior tamanho do card.
      */
     largeSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Tamanho:_ Remove paddings do card.
+     * _Espaçamento:_ Remove paddings do card.
      */
     noSpacing: {
       type: Boolean,
@@ -110,10 +114,7 @@ export default {
   },
   computed: {
     titleTag() {
-      if (!this.titleSize) {
-        return 'p';
-      }
-
+      if (!this.titleSize) return 'p';
       return `h${this.titleSize}`;
     },
   },
@@ -128,27 +129,53 @@ $background-card = $isDark ? $colors.dark : $colors.light
   background-color $background-card
   border-radius 0.3em
   box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
-  display flex
-  flex-direction column
-  justify-content space-between
-  padding 20px
   width 100%
 
   ../../.flexWrapper--grid
     .ViCard
       height 100%
 
+  & > .contentWrapper.ViCard__Header
+    flex-shrink 0
+
+  & > .contentWrapper.ViCard__Section
+    margin 0
+    padding 10px 20px
+    &:first-child
+      padding-top 20px
+    &:last-child 
+      padding-bottom 20px
+
   &--mini
-    padding 5px
+    & > .contentWrapper.ViCard__Section 
+      padding 2.5px 5px
+      &:first-child
+        padding-top 5px
+      &:last-child 
+        padding-bottom 5px
 
   &--small
-    padding 10px
+    & > .contentWrapper.ViCard__Section 
+      padding 5px 10px
+      &:first-child
+        padding-top 10px
+      &:last-child 
+        padding-bottom 10px
 
   &--large
-    padding 40px
+    & > .contentWrapper.ViCard__Section 
+      padding 10px 35px
+      &:first-child
+        padding-top 35px
+      &:last-child 
+        padding-bottom 35px
 
   &--no-spacing
-    padding 0
+    & > .contentWrapper.ViCard__Section
+      &
+      &:first-child
+      &:last-child
+        padding 0
 </style>
 
 ```
@@ -182,20 +209,18 @@ Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
 ```vue
 <template>
   <vi-wrapper
-    class="ViComponent greyBox"
     grid
+    class="ViComponent greyBox"
   >
     <vi-card
-      col="4"
-      colSmall="12"
       v-for="character in characters"
       :key="character.idHero"
     >
       <div slot="body">
         <vi-wrapper>
           <img class="avatar" :src="character.avatar"/>
-          <vi-wrapper vertical child-wrapper no-spacing>
-            <h4 class="name">{{character.name}} aka <small>{{character.superHeroName}}</small></h4>
+          <vi-wrapper vertical child-wrapper>
+            <h4 class="name">{{character.name}}<br /><small>aka {{character.superHeroName}}</small></h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
             <vi-button success small outlined pill>Avançar!</vi-button>
           </vi-wrapper>

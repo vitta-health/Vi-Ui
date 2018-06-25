@@ -7,21 +7,22 @@ const align = value => `flexWrapper--align-items-${value}`;
 const addClassNames = (props, classesToMerge) => {
   const className = ['flexWrapper'];
   if (classesToMerge) className.push(classesToMerge);
-
   if (props.justifyContent) className.push(justify(props.justifyContent));
   if (props.alignItems) className.push(align(props.alignItems));
-  if (props.vertical) className.push('flexWrapper--vertical');
-  if (props.inverted) className.push('flexWrapper--inverted');
-  if (props.childWrapper || props.grid) className.push('flexWrapper--child-wrapper');
-  if (props.noWrap && props.grid) className.push('flexWrapper--no-wrap');
 
-  if (props.grid) className.push('flexWrapper--grid');
-  else className.push('flexWrapper--not-grid');
-
-  if (props.miniSpacing) className.push('flexWrapper--mini');
-  else if (props.smallSpacing) className.push('flexWrapper--small');
-  else if (props.largeSpacing) className.push('flexWrapper--large');
-  else if (props.noSpacing) className.push('flexWrapper--no-spacing');
+  className.push({
+    'flexWrapper--vertical': props.vertical,
+    'flexWrapper--inverted': props.inverted,
+    'flexWrapper--child-wrapper': props.childWrapper || props.grid,
+    'flexWrapper--no-wrap': props.noWrap && props.grid,
+    'flexWrapper--not-grid': !props.grid,
+    'flexWrapper--grid': props.grid,
+    'flexWrapper--mini': props.miniSpacing,
+    'flexWrapper--small': props.smallSpacing,
+    'flexWrapper--large': props.largeSpacing,
+    'flexWrapper--no-spacing': props.noSpacing,
+    'flexWrapper--parent-spacing': props.parentSpacing,
+  });
 
   return className;
 };
@@ -82,9 +83,17 @@ export default {
       default: false,
     },
     /**
-     * _Espaçamento:_ Remove margens espaçamento entre filhos.
+     * _Espaçamento:_ Remove espaçamento espaçamento entre filhos.
      */
     noSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Espaçamento:_ Adiciona espaçamento no componente wrapper em volta dos filhos.
+     * O espaçamento é do mesmo tamanho do espaçamento dos filhos.
+     */
+    parentSpacing: {
       type: Boolean,
       default: false,
     },
@@ -177,6 +186,9 @@ $justify = 'center' 'start' 'end' 'flex-start' 'flex-end' 'left' 'right' 'baseli
 $align = 'center' 'start' 'end' 'flex-start' 'flex-end' 'self-start' 'self-end' 'baseline' 'stretch' 'first baseline' 'last baseline' 'inherit' 'initial' 'unset'
 
 gridPadding($space, $useMargin = false)
+  &.flexWrapper--parent-spacing
+    padding $space * 2
+
   if $useMargin
     & > .contentWrapper
       margin 0 0 0 $space * 2
@@ -219,6 +231,7 @@ mediaQueryInterpolator($size, $max = auto)
 
 .flexWrapper
   align-items center
+  justify-content center
   display flex
   flex-grow 1
 
@@ -282,7 +295,7 @@ um espaçamento entre componentes. As opções de espaçamento  são [mini-spaci
 ### Exemplo de wrapper
 
 ```jsx
-<vi-wrapper small-spacing align-items="stretch">
+<vi-wrapper small-spacing align-items="stretch" class="ViComponent">
     <vi-wrapper small-spacing align-items="stretch">
       <vi-card dark>1</vi-card>
       <vi-card dark>2</vi-card>
@@ -300,7 +313,7 @@ Use a prop `grid` para definir comportamento de grid.
 Qualquer filho sem ordem fica na posição 51 por padrão.
 
 ```jsx
-<vi-wrapper no-spacing grid align-items="stretch">
+<vi-wrapper no-spacing grid align-items="stretch" class="ViComponent">
   <vi-wrapper grid small-spacing col-large="6" col-jumbo="3" align-items="flex-end">
     <vi-card col="5" col-jumbo="3" order-jumbo="0" primary>1</vi-card>
     <vi-card col="7" col-jumbo="6" order-jumbo="1"primary>2</vi-card>

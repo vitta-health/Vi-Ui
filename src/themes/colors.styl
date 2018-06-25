@@ -49,9 +49,11 @@ for $key, $val in $colors
 
     &--hover:focus:enabled
       box-shadow 0 0 10px rgba($val, 0.5)
+      will-change box-shadow
 
     &--hover:hover:enabled
       box-shadow 0 0 0 rgba($val, 0)
       background-color shade($val, 20%)
       border-color shade($val, 25%)
       color $text-color
+      will-change box-shadow

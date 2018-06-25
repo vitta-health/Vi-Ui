@@ -5,7 +5,7 @@
       {
         'ViAlert--open': isOpen,
         'ViAlert--closed': !isOpen,
-        'ViAlert--dismissable': !notDismissable,
+        'ViAlert--not-dismissable': notDismissable,
         'ViAlert--center': !inline && !left && !right,
         'ViAlert--right': !inline && right,
         'ViAlert--left': !inline && left,
@@ -15,7 +15,7 @@
         'ViAlert--pill': pill,
       }
     ]"
-    v-bind="colorsOpt"
+    v-bind="colorsOpt()"
     @mouseover.native="stopTimer(true)"
     @mouseout.native="startTimer(false)"
     default-color="default"
@@ -44,7 +44,7 @@
       </vi-wrapper>
       <vi-button
         small
-        v-bind="colorsOpt"
+        v-bind="colorsOpt()"
         title="Fechar"
         class= "ViAlert__Close"
         :circle="pill"
@@ -218,16 +218,6 @@ export default {
     timeoutMillisecs() {
       return this.timeout ? this.timeout * 1000 : 0;
     },
-    colorsOpt() {
-      const colors = Object.keys(colorsMixin.props);
-      const newPros = {};
-      Object.keys(this.$props)
-        .filter(prop => colors.includes(prop))
-        .forEach((prop) => {
-          newPros[prop] = this.$props[prop];
-        });
-      return newPros;
-    },
   },
   data() {
     return {
@@ -243,9 +233,12 @@ export default {
 
 <style lang="stylus">
 @import '../themes/main'
-@import '../themes/main'
+
 .ViComponent.ViAlert
-  transition all 0.2s ease-in-out
+  transition all 0.25s cubic-bezier(0.87, -0.41, 0.19, 1.44)
+
+  &--open
+    will-change transform, opacity 
 
   &--pill
     &.ViCard
@@ -274,6 +267,10 @@ export default {
       transform translate(-50%, 0) rotateX(0)
 
   &--left
+  &--right
+    transition-duration 0.32s
+
+  &--left
     left 1em
     transform-origin center 10%
     transform translate(-200%, 0) rotateY(180deg)
@@ -296,6 +293,7 @@ export default {
       transform translate(0, 0) rotateY(0)
 
   &.ViCard
+    height auto
     width auto
 
     .contentWrapper
@@ -325,7 +323,7 @@ export default {
 <template>
   <div class="ViComponent">
     <vi-button primary @click="isOpen = !isOpen">Abrir alerta</vi-button>
-    <vi-alert info pill timeout="0" v-model="isOpen" icon="exclamation"> Alerta Aberto</vi-alert>
+    <vi-alert info pill left v-model="isOpen" icon="exclamation"> Alerta Aberto</vi-alert>
   </div>
 </template>
 <script>

@@ -61,6 +61,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+    * @ignore Essa prop é apenas um helper para componentes que dependem de outros componentes. Deixar ela
+    * exposta vai causar mais confusão que instruir como dever ser utilizado as props de cores.
+    * O usuário final precisa apenas usar o nome das cores como prop.
+    */
+    defaultColor: {
+      type: String,
+      default: 'default',
+    },
   },
   methods: {
     colorClass(args = {}) {
@@ -75,6 +84,14 @@ export default {
         .map(arg => `ViColor-${colorName}--${arg}`);
 
       return variations.join(' ');
+    },
+    colorsOpt() {
+      const newPros = {};
+      Object.keys(colors)
+        .forEach((color) => {
+          if (this[color]) newPros[color] = this.$props[color];
+        });
+      return newPros;
     },
   },
 };

@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../themes/main'
+@import '../themes/main'
 
 .ViComponent.ViButtonGroup
   display flex
@@ -83,8 +83,6 @@ export default {
         border-left-width 0
         background transparent
         color: #333
-        margin-right -0.09em
-        padding-left 1.09em
         box-shadow: none
 
         &[disabled]:hover

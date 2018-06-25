@@ -276,10 +276,10 @@ Tooltip com span:
   <vi-tooltip top hover large content="Já essa outra é maior!">
     <span>Passe o mouse</span>
   </vi-tooltip>
-  <vi-tooltip top hover content="Este demora 1 segundo pra fechar!" delay-to-close="1000">
+  <vi-tooltip top hover content="Esse demora 1 segundo pra fechar!" delay-to-close="1000">
     <span>Passe o mouse</span>
   </vi-tooltip>
-  <vi-tooltip top hover content="Este possui um texto bem grande para que seja possível ver como
+  <vi-tooltip top hover content="Esse possui um texto bem grande para que seja possível ver como
     fica a renderização em casos onde a dica possui um texto bem grande.">
     <span>Passe o mouse</span>
   </vi-tooltip>

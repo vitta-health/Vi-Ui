@@ -137,9 +137,8 @@ export default {
         left -1.5em
         position absolute
         top -0.2em
+        transition all 0.04s ease-out
         width 1.5em
-        transition all 0.06s ease-out
-        transition transform 0.1s ease-out
 
     &.ViCheckbox__Input--invalid + label:before
     &.ViCheckbox__Input--validated:invalid + label:before
@@ -149,6 +148,7 @@ export default {
       & + label:before
         box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4),
         0 0 0 0.1em rgba($border-color-main-focus, 0.5)
+        will-change box-shadow
 
     &.ViCheckbox__Input--checkbox
       & + label:after
@@ -171,6 +171,8 @@ export default {
           border-bottom-width 0.27em
           opacity 1
           transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
+          transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+          will-change transform, opacity
         &:focus
           & + label:before
             box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4)
@@ -179,6 +181,8 @@ export default {
       &:indeterminate
         & + label:after
           opacity 1!important
+          transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+          will-change transform, opacity
 
     &.ViCheckbox__Input--radio
       & + label
@@ -188,6 +192,7 @@ export default {
           background $primary
           border 0.75em solid lighten($default, 50%)
           border-radius 1.5em
+          transition all 0.06s ease-out, opacity 0.1s ease-out
 
       &[checked]
       &:checked
