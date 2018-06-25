@@ -29,9 +29,6 @@ $border-radius = 0.3em
       position relative
       z-index 1
 
-    &--pill
-      border-radius 20px
-
     &--invalid
     &--validated:invalid
       border-color $danger
@@ -50,6 +47,9 @@ $border-radius = 0.3em
       &.ViButton:last-child
         border-bottom-right-radius $border-radius
         border-top-right-radius $border-radius
+
+      &.ViInput__Input--pill
+        border-radius 20px
 
       &.ViButton
         white-space nowrap
