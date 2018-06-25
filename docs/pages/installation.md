@@ -28,6 +28,6 @@ export default {
 }
 ```
 
-## Aplicando estilo do Vi-Ui
+## Aplicando estilos padrões do Vi-Ui
 
-Aplique o padrão de estilo do Vi-Ui colocando a classe `ViComponent` no body ou o bloco onde ele são desejados. Componentes com exceção do `vi-wrapper` já apresentam esse estilo.
+Aplique os padrões de estilo do Vi-Ui colocando a classe `ViComponent` no body ou o bloco onde eles são desejados. Componentes com exceção do `vi-wrapper` já apresentam esse estilo.
