@@ -1,83 +1,95 @@
-<template>
-  <div class="ViTabs">
-    <div class="ViTabs__List">
-      <hr class="ViTabs__Line" />
-      <ul class="TabsList">
-        <li
-          v-for="(value, key) in listOfTabs"
-          :key="key">
-          <a
-            @click="changeTab(value.tab)"
-            :class="{ 'active': value.tab === activeTabProp }">
-            {{value.title ? value.title : value.tab}}
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="ViTabs__Content">
-      <slot />
-    </div>
-  </div>
-</template>
-
 <script>
 export default {
   name: 'ViTabs',
   data() {
     return {
-      activeTabProp: '',
       listOfTabs: [],
-    };
-  },
-  props: {
-    /**
-     * Define o nome da tab ativa
-     */
-    activeTab: {
-      type: String,
-      required: true,
-      default: null,
-    },
-    /**
-     * Define o nome da tab ativa
-     * @model
-     */
-    value: {
-      type: String,
-      default: null,
-    },
+      listOfContents: [],
+    }
   },
   methods: {
-    changeTab(tab) {
-      this.$emit('input', tab);
-      this.activeTabProp = tab;
-      this.tabsList();
+    addRemoveClass(element, classAdd, classRemove) {
+      if (!element.classList.contains(classAdd)) {
+        element.classList.remove(classRemove);
+        element.classList.toggle(classAdd);
+      }
     },
-    tabsList() {
-      const vm = this;
-      const tab = this.activeTabProp;
-      this.listOfTabs = [];
-
-      this.$slots.default.map((child) => {
-        if(child.tag) {
-          child.data.class = [
-            'ViTabs__Content',
-            {
-              active: child.data.attrs.tab === tab,
-              inactive: child.data.attrs.tab !== tab,
-            },
-          ];
-
-          vm.listOfTabs.push(child.data.attrs);
-        }
-
-        return null;
-      });
+    createTabList(createElement, attrs, arrayTabs) {
+      this.listOfTabs = createElement('ul', attrs, arrayTabs);
+      return this.listOfTabs;
+    },
+    createTabContent(createElement, attrs, arrayContent) {
+      this.listOfContents = createElement('div', attrs, arrayContent);
+      return this.listOfContents;
+    },
+    isActiveClass(nodeActive, index, hasActiveTabDefault) {
+      return nodeActive === 'true' || (index === 0 && !hasActiveTabDefault);
     },
   },
-  beforeMount() {
-    this.activeTabProp = this.activeTab;
-    this.tabsList();
+  render(createElement, context) {
+    const self = this;
+    let hasActiveTabDefault = false;
+    const childrens = this.$slots.default.filter((node) => {
+      const nodeItem = node;
+      if (!nodeItem.tag && !nodeItem.text) return false;
+      if (nodeItem.data && hasActiveTabDefault) nodeItem.data.attrs.active = false;
+      if (nodeItem.data && nodeItem.data.attrs.active) hasActiveTabDefault = true;
+      return nodeItem.tag;
+    });
+
+    const tabsList = [];
+    const tabsContent = childrens.map((node, index) => {
+      const tabNode = Object.create(node);
+      const contentNode = Object.create(node);
+
+      if (node.data) {
+        const idContent = `vi-tab${index}`;
+
+        tabNode.tag = 'li';
+        tabNode.children = [];
+        tabNode.children.push(createElement('a', {
+          attrs: { id: `vi-tab${index}-link` },
+          class: [{
+            'active': self.isActiveClass(node.data.attrs.active, index, hasActiveTabDefault),
+            'inactive': !node.data.attrs.active,
+          }],
+          on: {
+            click: function click(elementClicked) {
+              self.listOfContents.children.forEach((element) => {
+                self.addRemoveClass(element.elm, 'inactive', 'active');
+              });
+
+              self.listOfTabs.children.forEach((element) => {
+                self.addRemoveClass(element.elm.childNodes[0], 'inactive', 'active');
+              });
+
+              self.addRemoveClass(elementClicked.srcElement, 'active', 'inactive');
+              self.addRemoveClass(self.$el.querySelector(`#${idContent}`), 'active', 'inactive');
+            }
+          }
+        }, [{ text: node.data.attrs.title }]));
+
+        tabsList.push({ ...tabNode });
+
+        contentNode.data.attrs.id = idContent;
+        contentNode.data.class = [{
+          'active': self.isActiveClass(node.data.attrs.active, index, hasActiveTabDefault),
+          'inactive': !node.data.attrs.active,
+        }];
+
+        return contentNode;
+      }
+
+      return '';
+    });
+
+    return createElement(
+      'div', { class: ['ViTabs'] },
+      [createElement(
+        'nav', { class: ['ViTabs__List'] },
+        [self.createTabList(createElement, { class: ['TabsList'] }, [tabsList])]
+      ), self.createTabContent(createElement, { class: ['ViTabs__Content'] }, [tabsContent])]
+    );
   },
 };
 </script>
@@ -87,6 +99,9 @@ export default {
 
 .ViTabs
   .ViTabs__List
+    border-bottom 1px solid lighten($default, 50%)
+    height 49px
+    margin-bottom 30px
     position relative
 
     .TabsList
@@ -126,13 +141,6 @@ export default {
           color $primary
           font-weight 600
 
-  .ViTabs__Line
-    border 2px solid #d2d2d24f
-    bottom 0
-    margin 0
-    position absolute
-    width 100%
-
   .ViTabs__Content
     .active
       display block
@@ -142,37 +150,26 @@ export default {
 </style>
 
 <docs>
-Componente de abas em um card
-```vue
-<template>
-  <vi-card>
+Card Básico
+```jsx
+  <vi-card title="Componente de abas">
     <div slot="body">
-      <vi-tabs active-tab="Tab1">
-        <div title="Aba 1" tab="Tab1">
+      <vi-tabs>
+        <div title="Aba 1" active="true">
           <div>
-            Aba 1
-            <div>Aba 1.1</div>
+            Teste 1
+            <div>Teste 1.1</div>
           </div>
         </div>
-        <div title="Aba 2" tab="Tab2">
-          Conteúdo Aba 2
+        <div title="Aba 2">
+          <div>Teste 2</div>
         </div>
-        <div title="Aba 3" tab="Tab3">
-          Conteúdo Aba 3
+        <div title="Aba 3" active="true">
+          <div>Teste 3</div>
         </div>
       </vi-tabs>
     </div>
   </vi-card>
-</template>
-<script>
-export default {
-  data() {
-    return {
-      activeTab: 'Tab1',
-    };
-  },
-};
-</script>
 ```
 
 ### Atributos para as abas
