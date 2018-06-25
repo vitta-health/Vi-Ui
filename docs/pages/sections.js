@@ -1,11 +1,11 @@
 const sections = [
   {
-    name: 'Intro',
-    content: 'pages/intro.md',
-  },
-  {
     name: 'Instalação e utilização',
     content: 'pages/installation.md',
+  },
+  {
+    name: 'Tipografia e cores',
+    content: 'pages/thypography-colors.md',
   },
   {
     name: 'Documentação',

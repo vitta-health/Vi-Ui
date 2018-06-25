@@ -123,10 +123,7 @@ export default {
 <style lang="stylus">
 @import '../themes/main'
 
-$background-card = $isDark ? $colors.dark : $colors.light
-
 .ViComponent.ViCard
-  background-color $background-card
   border-radius 0.3em
   box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
   width 100%
@@ -143,31 +140,31 @@ $background-card = $isDark ? $colors.dark : $colors.light
     padding 10px 20px
     &:first-child
       padding-top 20px
-    &:last-child 
+    &:last-child
       padding-bottom 20px
 
   &--mini
-    & > .contentWrapper.ViCard__Section 
+    & > .contentWrapper.ViCard__Section
       padding 2.5px 5px
       &:first-child
         padding-top 5px
-      &:last-child 
+      &:last-child
         padding-bottom 5px
 
   &--small
-    & > .contentWrapper.ViCard__Section 
+    & > .contentWrapper.ViCard__Section
       padding 5px 10px
       &:first-child
         padding-top 10px
-      &:last-child 
+      &:last-child
         padding-bottom 10px
 
   &--large
-    & > .contentWrapper.ViCard__Section 
+    & > .contentWrapper.ViCard__Section
       padding 10px 35px
       &:first-child
         padding-top 35px
-      &:last-child 
+      &:last-child
         padding-bottom 35px
 
   &--no-spacing

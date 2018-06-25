@@ -67,9 +67,9 @@ module.exports = {
       h6: 16,
     },
     fontFamily: {
-      base: ['Montserrat', 'Futura', 'Trebuchet MS', 'sans-serif'],
-      monospace: ['"Source Code Pro"', 'Consolas', '"Liberation Mono"', 'Menlo', 'monospace'
-      ],
+      text: ['"Roboto"', 'Arial', 'Helvetica', 'sans-serif'],
+      base: ['Montserrat', 'Futura', '"Trebuchet MS"', 'sans-serif'],
+      monospace: ['"Source Code Pro"', 'Consolas', '"Liberation Mono"', 'Menlo', 'monospace'],
 
     },
   },

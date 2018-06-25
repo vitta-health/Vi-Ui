@@ -1,3 +1,4 @@
+------
 Falta algo nesse algo na biblioteca? Crie uma issue ou faça você mesmo:
 
 ### Crie o componente
