@@ -23,15 +23,7 @@
       :small-spacing="smallSpacing"
       :large-spacing="largeSpacing"
       :no-spacing="noSpacing"
-      :class="[
-      'ViModal__Card',
-      {
-        'ViModal__Card--center': !leftToRight && !rightToLeft,
-        'ViModal__Card--right-to-left': rightToLeft,
-        'ViModal__Card--left-to-right': leftToRight,
-        'ViModal__Card--top-to-bottom': !bottomToTop,
-        'ViModal__Card--bottom-to-top': bottomToTop,
-      }]"
+      class="ViModal__Card"
       :style="{ width: componentWidth }"
       :title="title"
       :title-size="titleSize"
@@ -39,15 +31,15 @@
       <template
         slot="side"
       >
-        <!-- @slot  Use slot o `side` que conteúdo ao lado título e antes do botão de fechar --> 
+        <!-- @slot  Use slot o `side` que conteúdo ao lado título e antes do botão de fechar -->
         <slot name="side"/>
       </template>
       <template
         slot="close"
       >
-        <!-- @slot  Use slot o `close` que conteúdo ao lado título. O botão de fechar original substituído quando esse slot é utilizado. --> 
+        <!-- @slot  Use slot o `close` que conteúdo ao lado título. O botão de fechar original substituído quando esse slot é utilizado. -->
         <slot name="close">
-          <vi-button 
+          <vi-button
             circle
             small
             @click="toggleModal(false)"
@@ -264,10 +256,6 @@ export default {
 <style lang="stylus">
 @import '../themes/main'
 
-.ViRoot--locked,
-.ViRoot--locked body
-  overflow hidden
-
 .ViComponent.ViModal
   align-items center
   background rgba(black, 0.3)
@@ -282,7 +270,7 @@ export default {
   top 0
   width 100vw
   z-index 200
-  
+
   &.ViModal
     &--mini
       padding 2px
@@ -300,6 +288,10 @@ export default {
     max-width 100%
     transform translate(0, -50px)
     transition transform 0.2s cubic-bezier(.21,1.08,.75,1.31) 0.2s, opacity 0.2s linear 0.1s
+    .ViModal__Card  .ViCard__Section
+      transform translate(0, -20px)
+      opacity 0
+      transition transform 0.3s ease-in-out 0.3s, opacity 0.3s linear 0.3s
 
   &--open
     backface-visibility hidden
@@ -310,14 +302,16 @@ export default {
     will-change opacity
 
     .ViModal__Wrapper
+      backface-visibility hidden
       opacity 1
-      transform translate(0, 0) rotateX(0)
+      transform translate(0, 0) translate3d(0,0,0)
       will-change transform, opacity
-
-      .ViCard.ViModal__Card .ViCard__Body
-        transform translate3d(0,0,0)
+      .ViModal__Card .ViCard__Section
         backface-visibility hidden
-    
+        opacity 1
+        transform translate(0, 0) translate3d(0,0,0)
+        will-change transform, opacity
+
   &--not-dismissable
     cursor default
     .ViModal__CloseButton
@@ -385,7 +379,7 @@ Obs: Evite sobrepor modais sempre que possível.
     <vi-modal
       success
       title="Sucesso!"
-      width="300px" 
+      width="300px"
       v-model="secondModalIsOpen"
       title-size="2"
     >
@@ -394,7 +388,7 @@ Obs: Evite sobrepor modais sempre que possível.
 
     <vi-modal
       title="Modal com scroll"
-      width="500px" 
+      width="500px"
       v-model="thirdModalIsOpen"
       :baseURL="baseURLThird"
       title-size="2"
@@ -414,7 +408,7 @@ Obs: Evite sobrepor modais sempre que possível.
         <p>The great beasts were sung into existence, after the Singer had done with the planets and the hills and the trees and the oceans and the lesser beasts. The cliffs that bound existence were sung, and the hunting grounds, and the dark. Songs remain. They last. The right song can turn an emperor into a laughingstock, can bring down dynasties. A song can last long after the events and the people in it are dust and dreams and gone. That’s the power of songs. There are other things you can do with songs. They do not only make worlds or recreate existence. Fat Charlie Nancy’s father, for example, was simply using them to have what he hoped and expected would be a marvelous night out.</p>
 
         <p>Before Fat Charlie’s father had come into the bar, the barman had been of the opinion that the whole karaoke evening was going to be an utter bust; but then the little old man had sashayed into the room, walked past the table of several blonde women with the fresh sunburns and smiles of tourists, who were sitting by the little makeshift stage in the corner. He had tipped his hat to them, for he wore a hat, a spotless green fedora, and lemon-yellow gloves, and then he walked over to their table. They giggled.</p>
-        
+
         <hr/>
         <h4>page 2</h4>
 
