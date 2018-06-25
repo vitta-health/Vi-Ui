@@ -117,27 +117,6 @@ export default {
       default: false,
     },
     /**
-     * Modal abre e fecha da esquerda para direita.
-     */
-    leftToRight: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Modal abre e fecha da direita para esquerda.
-     */
-    rightToLeft: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Modal abre e fecha de baixo para cima.
-     */
-    bottomToTop: {
-      type: Boolean,
-      default: false,
-    },
-    /**
     * Texto exibido no título.
     */
     title: {
@@ -299,7 +278,7 @@ export default {
   opacity 0
   padding 10px
   position fixed
-  transition opacity 0.1s ease-in-out, height 0s linear 0.2s
+  transition opacity 0.3s ease-in-out 0.4s, height 0s linear 0.7s
   top 0
   width 100vw
   z-index 200
@@ -312,28 +291,37 @@ export default {
     &--large
       padding 20px
 
+  .ViModal__Wrapper
+    backface-visibility hidden
+    transform translate3d(0,0,0)
+    flex-grow 0
+    opacity 0
+    max-height 100%
+    max-width 100%
+    transform translate(0, -50px)
+    transition transform 0.2s cubic-bezier(.21,1.08,.75,1.31) 0.2s, opacity 0.2s linear 0.1s
+
   &--open
+    backface-visibility hidden
     height 100vh
     opacity 1
-    transition opacity 0.1s ease-in-out
+    transition opacity 0.4s ease-in-out
     transform translate3d(0,0,0)
-    backface-visibility hidden
-    .ViCard.ViModal__Card
-      will-change transform
-      .ViCard__Body
+    will-change opacity
+
+    .ViModal__Wrapper
+      opacity 1
+      transform translate(0, 0) rotateX(0)
+      will-change transform, opacity
+
+      .ViCard.ViModal__Card .ViCard__Body
         transform translate3d(0,0,0)
         backface-visibility hidden
     
   &--not-dismissable
     cursor default
-
     .ViModal__CloseButton
       display none
-
-  .ViModal__Wrapper
-    flex-grow 0
-    max-width 100%
-    max-height 100%
 
   .ViCard.ViModal__Card
     transition transform 0.2s ease-in-out 0.1s
@@ -412,7 +400,12 @@ Obs: Evite sobrepor modais sempre que possível.
       title-size="2"
     >
       <div slot="body">
+        <p>Modais com scroll mantem o footer e o header visíveis para facilitar navegação.
+        <p>Exemplo:</p>
+        <hr/>
         <h3>Chapter One </h3>
+        <hr/>
+        <h4>page 1</h4>
         <blockquote>IT BEGINS, AS MOST THINGS BEGIN, WITH A SONG.</blockquote>
         <p>In the beginning, after all, were the words, and they came with a tune. That was how the world was made, how the void was divided, how the lands and the stars and the dreams and the little gods and the animals, how all of them came into the world.</p>
 
@@ -423,7 +416,7 @@ Obs: Evite sobrepor modais sempre que possível.
         <p>Before Fat Charlie’s father had come into the bar, the barman had been of the opinion that the whole karaoke evening was going to be an utter bust; but then the little old man had sashayed into the room, walked past the table of several blonde women with the fresh sunburns and smiles of tourists, who were sitting by the little makeshift stage in the corner. He had tipped his hat to them, for he wore a hat, a spotless green fedora, and lemon-yellow gloves, and then he walked over to their table. They giggled.</p>
         
         <hr/>
-        <h4>page 4</h4>
+        <h4>page 2</h4>
 
         <p>“Are you enjoyin’ yourselves, ladies?” he asked.</p>
 
