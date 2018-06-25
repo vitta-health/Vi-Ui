@@ -40,14 +40,13 @@
         <!-- @slot  Use slot o `close` que conteúdo ao lado título. O botão de fechar original substituído quando esse slot é utilizado. -->
         <slot name="close">
           <vi-button
-            circle
-            small
-            @click="toggleModal(false)"
-            v-bind="colorsOpt()"
             class="ViModal__CloseButton"
-            default-color="light"
             title="Fechar"
             icon="cross"
+            light
+            small
+            v-bind="colorsOpt()"
+            @click="toggleModal(false)"
           />
         </slot>
       </template>
@@ -258,12 +257,13 @@ export default {
 
 .ViComponent.ViModal
   align-items center
-  background rgba(black, 0.3)
+  background rgba(black, 0.4)
   display flex
   height 0
   justify-content center
   left 0
   opacity 0
+  overflow hidden
   padding 10px
   position fixed
   transition opacity 0.3s ease-in-out 0.4s, height 0s linear 0.7s
@@ -287,11 +287,11 @@ export default {
     max-height 100%
     max-width 100%
     transform translate(0, -50px)
-    transition transform 0.2s cubic-bezier(.21,1.08,.75,1.31) 0.2s, opacity 0.2s linear 0.1s
+    transition transform 0.4s ease-in-out 0.2s, opacity 0.3s linear 0.1s
     .ViModal__Card  .ViCard__Section
-      transform translate(0, -20px)
       opacity 0
-      transition transform 0.3s ease-in-out 0.3s, opacity 0.3s linear 0.3s
+      transform translate(0, -15px)
+      transition transform 0.3s ease-in-out 0.3s, opacity 0.2s linear 0.3s
 
   &--open
     backface-visibility hidden
@@ -311,6 +311,9 @@ export default {
         opacity 1
         transform translate(0, 0) translate3d(0,0,0)
         will-change transform, opacity
+        .ViModal__CloseButton
+          opacity 1
+          will-change opacity
 
   &--not-dismissable
     cursor default
@@ -321,6 +324,16 @@ export default {
     transition transform 0.2s ease-in-out 0.1s
     max-width 100%
     max-height 100%
+
+    .ViModal__CloseButton
+      transition opacity 0.1s linear 0.6s
+      border 0
+      box-shadow 0
+      opacity 0
+      padding 10px
+      position absolute
+      right 0
+      top 0
 
     .ViCard__Body
       overflow-x hidden
@@ -334,7 +347,7 @@ export default {
 
 ```jsx
 <vi-modal primary large-spacing title="Exemplo de modal" title-size="2">
-<vi-wrapper child-wrapper>Essa moda inicia aberta.</vi-wrapper>
+Essa modal inicia aberta.
 </vi-modal>
 ```
 
@@ -394,7 +407,7 @@ Obs: Evite sobrepor modais sempre que possível.
       title-size="2"
     >
       <div slot="body">
-        <p>Modais com scroll mantem o footer e o header visíveis para facilitar navegação.
+        <p>Modais com scroll mantem o footer e o header visíveis para facilitar navegação.</p>
         <p>Exemplo:</p>
         <hr/>
         <h3>Chapter One </h3>
