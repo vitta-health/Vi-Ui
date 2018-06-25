@@ -63,7 +63,7 @@ export default {
                 self.addRemoveClass(element.elm.childNodes[0], 'inactive', 'active');
               });
 
-              self.addRemoveClass(elementClicked.srcElement, 'active', 'inactive');
+              self.addRemoveClass(elementClicked.target, 'active', 'inactive');
               self.addRemoveClass(self.$el.querySelector(`#${idContent}`), 'active', 'inactive');
             }
           }
