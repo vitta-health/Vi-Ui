@@ -85,7 +85,7 @@ export default {
     });
 
     return createElement(
-      'div', { class: ['ViTabs'] },
+      'div', { class: ['ViTabs', 'ViComponent'] },
       [createElement(
         'nav', { class: ['ViTabs__List'] },
         [self.createTabList(createElement, { class: ['TabsList'] }, [tabsList])]
@@ -98,7 +98,8 @@ export default {
 <style lang="stylus">
 @import '../themes/main'
 
-.ViTabs
+.ViComponent.ViTabs
+  width 100%
   .ViTabs__List
     border-bottom 1px solid lighten($default, 50%)
     height 49px
