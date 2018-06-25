@@ -97,7 +97,7 @@ export default {
       default: null,
     },
     /**
-     * Por padrão o endereço é altera usando [History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API), essa prop desabilita esse comportamento colocando o href direto nos botões.
+     * Por padrão o endereço é alterado usando [History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API), essa prop desabilita esse comportamento colocando o href direto nos botões.
      */
     disableHistoryChange: {
       type: Boolean,
