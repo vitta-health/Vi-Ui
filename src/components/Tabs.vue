@@ -44,14 +44,15 @@ export default {
 
       if (node.data) {
         const idContent = `vi-tab${index}`;
+        const isTabActive = self.isActiveClass(node.data.attrs.active, index, hasActiveTabDefault);
 
         tabNode.tag = 'li';
         tabNode.children = [];
         tabNode.children.push(createElement('a', {
           attrs: { id: `vi-tab${index}-link` },
           class: [{
-            'active': self.isActiveClass(node.data.attrs.active, index, hasActiveTabDefault),
-            'inactive': !node.data.attrs.active,
+            'active': isTabActive,
+            'inactive': !isTabActive && !node.data.attrs.active,
           }],
           on: {
             click: function click(elementClicked) {
@@ -67,14 +68,14 @@ export default {
               self.addRemoveClass(self.$el.querySelector(`#${idContent}`), 'active', 'inactive');
             }
           }
-        }, [{ text: node.data.attrs.title }]));
+        }, [{ text: node.data.attrs.title || node.componentOptions.propsData.title }]));
 
         tabsList.push({ ...tabNode });
 
         contentNode.data.attrs.id = idContent;
         contentNode.data.class = [{
-          'active': self.isActiveClass(node.data.attrs.active, index, hasActiveTabDefault),
-          'inactive': !node.data.attrs.active,
+          'active': isTabActive,
+          'inactive': !isTabActive && !node.data.attrs.active,
         }];
 
         return contentNode;
@@ -164,7 +165,7 @@ Card Básico
         <div title="Aba 2">
           <div>Teste 2</div>
         </div>
-        <div title="Aba 3" active="true">
+        <div title="Aba 3">
           <div>Teste 3</div>
         </div>
       </vi-tabs>
