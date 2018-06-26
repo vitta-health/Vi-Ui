@@ -22,9 +22,24 @@ export default {
       this.$emit('input', this.actualTab);
     },
     isTabActive(tab) {
-      if(!this.actualTab) this.actualTab = tab;
+      if (!this.actualTab) this.actualTab = tab;
       return this.actualTab === tab;
-    }
+    },
+    tabTitle(node, index) {
+      const dataPath = this.testPath('data.attrs.title', node);
+      if (dataPath) return dataPath;
+
+      const propPath = this.testPath('componentOptions.propsData.title', node);
+      if (propPath) return propPath;
+
+      return `Aba ${index}`;
+    },
+    testPath(path, node) {
+      return  path.split('.').reduce((obj, key, i, arr) => {
+        if (!obj) arr.splice(i-1);
+        return obj ? obj[key] : obj;
+      }, node);
+    },
   },
   watch: {
     value(v) {
@@ -36,24 +51,23 @@ export default {
   },
   render(createElement) {
     const self = this;
-    const childrens = this.$slots.default.filter((node) => {
+    const children = this.$slots.default.filter((node) => {
       const nodeItem = node;
       if (!nodeItem.tag && !nodeItem.text) return false;
       return true;
     });
 
+    let tabIndex = 0;
     const tabsList = [];
     const tabsContent = []
-    childrens.map((node, index) => {
+    children.map((node, index) => {
       const tabNode = Object.create(node);
       const contentNode = Object.create(node);
 
       if (node.data) {
-        const idContent = `vi-tab${index}`;
-        let tabName = `tab${index}`;
-        if(node.data.attrs) {
-          if(node.data.attrs.tab) tabName = node.data.attrs.tab;
-        }
+        tabIndex += 1;
+        let tabId = `tab${tabIndex}`;
+        if(self.testPath('data.attrs.tab', node)) tabId = node.data.attrs.tab;
 
         tabNode.tag = 'li';
         tabNode.children = [];
@@ -61,22 +75,22 @@ export default {
           class: [
             'ViTabs__Link',
             {
-              'ViTabs__Link--active': self.isTabActive(tabName),
-              'ViTabs__Link--inactive': !self.isTabActive(tabName),
+              'ViTabs__Link--active': self.isTabActive(tabId),
+              'ViTabs__Link--inactive': !self.isTabActive(tabId),
             }
           ],
           on: {
             click: (elementClicked) => {
-              self.selectTab(tabName);
+              self.selectTab(tabId);
             }
           }
-        }, [{ text: node.data.attrs.title || node.componentOptions.propsData.title }]));
+        }, [{ text: self.tabTitle(node, tabIndex) }]));
 
         contentNode.data.class = [
           'ViTabs__Tab',
           {
-            'ViTabs__Tab--active': self.isTabActive(tabName),
-            'ViTabs__Tab--inactive': !self.isTabActive(tabName),
+            'ViTabs__Tab--active': self.isTabActive(tabId),
+            'ViTabs__Tab--inactive': !self.isTabActive(tabId),
           }
         ];
 
