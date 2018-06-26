@@ -84,7 +84,7 @@ export default {
       default: false,
     },
     /**
-     * Define paginação exibe estilo dot.
+     * Define paginação com estilo dot.
      */
     dots: {
       type: Boolean,
