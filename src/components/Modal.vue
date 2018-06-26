@@ -31,13 +31,13 @@
       <template
         slot="side"
       >
-        <!-- @slot  Use slot o `side` que conteúdo ao lado título e antes do botão de fechar -->
+        <!-- @slot  Use slot o `side` que conteúdo ao lado título e antes do botão de fechar. -->
         <slot name="side"/>
       </template>
       <template
         slot="close"
       >
-        <!-- @slot  Use slot o `close` que conteúdo ao lado título. O botão de fechar original substituído quando esse slot é utilizado. -->
+        <!-- @slot  Use slot o `close` para substituir o botão de fechar. -->
         <slot name="close">
           <vi-button
             circle
@@ -54,7 +54,7 @@
       <template
         slot="body"
       >
-        <!-- @slot Use slot o `body` para definir o conteúdo no corpo do card. -->
+        <!-- @slot Use slot o `body` para definir o conteúdo no corpo da modal. -->
         <slot name="body" />
         <slot/>
       </template>
