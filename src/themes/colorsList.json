@@ -7,5 +7,6 @@
   "danger": "#e45151",
   "info": "#1987C5",
   "dark": "#55636F",
+  "grey": "#EAEAEA",
   "light": "#FFFFFF"
 }

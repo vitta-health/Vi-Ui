@@ -123,10 +123,7 @@ export default {
 <style lang="stylus">
 @import '../themes/main'
 
-$background-card = $isDark ? $colors.dark : $colors.light
-
 .ViComponent.ViCard
-  background-color $background-card
   border-radius 0.3em
   box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
   width 100%
