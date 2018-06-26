@@ -8,7 +8,7 @@ export default {
   },
   props: {
     /**
-     * Controle da aba aberta. Na aba use o atributo `tab` como identificador.
+     * Controle da aba aberta. Na aba use o atributo `tabid` como identificador.
      * @model
      */
     value: {
