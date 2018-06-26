@@ -19,7 +19,7 @@
     ><vi-card
       vertical
       v-bind="colorsOpt()"
-      :mini-spacing="miniSpacing"
+      :mini-spacing="smallSpacing"
       :small-spacing="smallSpacing"
       :large-spacing="largeSpacing"
       :no-spacing="noSpacing"
@@ -235,8 +235,6 @@ export default {
       padding 2px
     &--small
       padding 5px
-    &--large
-      padding 20px
 
   .ViModal__Wrapper
     backface-visibility hidden
@@ -271,7 +269,7 @@ export default {
         transform translate(0, 0) translate3d(0,0,0)
         will-change transform, opacity
         .ViModal__CloseButton
-          opacity 1
+          opacity 0.6
           will-change opacity
 
   &--not-dismissable
@@ -282,22 +280,31 @@ export default {
   .ViCard.ViModal__Card
     transition transform 0.2s ease-in-out 0.1s
     max-width 100%
-    max-height 100%
-
-    .ViModal__CloseButton
-      transition opacity 0.1s linear 0.6s
-      border 0
-      box-shadow 0
-      opacity 0
-      padding 10px
-      position absolute
-      right 0
-      top 0
-
+    max-height: calc(100vh - 41px);
+    .ViCard__Header
+      padding-right 35px
+      flex 0
     .ViCard__Body
-      overflow-x hidden
-      overflow-y auto
+      flex 2 2
+      overflow auto
       -webkit-overflow-scrolling touch  /* para chrome e safari mobile */
+
+  .ViModal__CloseButton
+    transition opacity 0.1s linear 0.6s
+    border 0
+    box-shadow 0
+    opacity 0
+    padding 10px
+    position absolute
+    right 0
+    top 0
+    &
+    &:hover
+    &:focus
+      background transparent!important
+      border 0!important
+      box-shadow 0!important
+
 </style>
 
 <docs>
