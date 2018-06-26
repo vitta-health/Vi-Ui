@@ -88,21 +88,21 @@ export default {
       default: false,
     },
     /**
-     * _Espaçamento:_ Define o espaçamento pequeno do modal.
+     * _Espaçamento:_ Define o espaçamento pequeno da modal.
      */
     smallSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Espaçamento:_ Define o maior espaçamento do modal.
+     * _Espaçamento:_ Define o maior espaçamento da modal.
      */
     largeSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Tamanho:_ Remove paddings do modal.
+     * _Espaçamento:_ Remove espaçamento do modal.
      */
     noSpacing: {
       type: Boolean,
@@ -161,7 +161,7 @@ export default {
     },
     willBeClosed() {
       /**
-       * Modal foi fechada.
+       * Modal vai ser aberta.
        *
        * @event before-close
        * @type {none}
@@ -170,7 +170,7 @@ export default {
     },
     willBeOpen() {
       /**
-       * Modal foi aberta.
+       * Modal vai ser fechada.
        *
        * @event before-open
        * @type {none}
