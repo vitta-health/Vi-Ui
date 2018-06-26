@@ -3,7 +3,7 @@ export default {
   name: 'ViTabs',
   data() {
     return {
-      actualTab: null,
+      currentTab: null,
     }
   },
   props: {
@@ -18,12 +18,12 @@ export default {
   },
   methods: {
     selectTab(tab) {
-      this.actualTab = tab;
-      this.$emit('input', this.actualTab);
+      this.currentTab = tab;
+      this.$emit('input', this.currentTab);
     },
     isTabActive(tab) {
-      if (!this.actualTab) this.actualTab = tab;
-      return this.actualTab === tab;
+      if (!this.currentTab) this.currentTab = tab;
+      return this.currentTab === tab;
     },
     tabTitle(node, index) {
       const dataPath = this.testPath('data.attrs.title', node);
@@ -43,11 +43,11 @@ export default {
   },
   watch: {
     value(v) {
-      this.actualTab = v;
+      this.currentTab = v;
     }
   },
   mounted() {
-    if(this.value) this.actualTab = this.value;
+    if(this.value) this.currentTab = this.value;
   },
   render(createElement) {
     const self = this;
@@ -59,7 +59,7 @@ export default {
     let tabIndex = 0;
     const tabsList = [];
     const tabsContent = []
-    children.map((node, index) => {
+    childrens.map((node, index) => {
       const tabNode = Object.create(node);
       const contentNode = Object.create(node);
 
