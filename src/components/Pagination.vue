@@ -16,7 +16,7 @@
       @click="handleNavigation('FIRST_PAGE')"
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('FIRST_PAGE')"
-      :href="!disableHistoryChange ? null : getURL('FIRST_PAGE')"
+      :href="getURL('FIRST_PAGE')"
     >⏮</vi-button>
     <vi-button
       v-bind="colorsOpt()"
@@ -24,7 +24,7 @@
       @click="handleNavigation('PREVIOUS_PAGE')"
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('PREVIOUS_PAGE')"
-      :href="!disableHistoryChange ? null : getURL('PREVIOUS_PAGE')"
+      :href="getURL('PREVIOUS_PAGE')"
     ><vi-icon name="chevron-prev" /></vi-button>
     <vi-button
       v-bind="colorsOpt()"
@@ -33,7 +33,7 @@
       :active="isCurrentPage(page)"
       :default-color="pickDefaultColor"
       :key="page"
-      :href="!disableHistoryChange ? null : getURL(page)"
+      :href="getURL(page)"
     >{{ page }}</vi-button>
     <vi-button
       v-bind="colorsOpt()"
@@ -41,7 +41,7 @@
       @click="handleNavigation('NEXT_PAGE')"
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('NEXT_PAGE')"
-      :href="!disableHistoryChange ? null : getURL('NEXT_PAGE')"
+      :href="getURL('NEXT_PAGE')"
     ><vi-icon name="chevron-next" /></vi-button>
     <vi-button
       v-bind="colorsOpt()"
@@ -50,7 +50,7 @@
       @click="handleNavigation('LAST_PAGE')"
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('LAST_PAGE')"
-      :href="!disableHistoryChange ? null : getURL('LAST_PAGE')"
+      :href="getURL('LAST_PAGE')"
     >⏭</vi-button>
   </vi-button-group>
 </template>
@@ -91,17 +91,10 @@ export default {
       default: false,
     },
     /**
-     * Url para ser composta. ex: exemplo?page=##PAGE##
+     * Adiciona link aos botões da modal. A string `##PAGE##` é alterado para o numero da página. ex: exemplo?page=##PAGE##
      */
     baseURL: {
       default: null,
-    },
-    /**
-     * Por padrão o endereço é alterado usando [History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API), essa prop desabilita esse comportamento colocando o href direto nos botões.
-     */
-    disableHistoryChange: {
-      type: Boolean,
-      default: false,
     },
     /**
      * Total de páginas
@@ -153,15 +146,9 @@ export default {
       return this.value === page;
     },
     getURL(page) {
+      if(this.baseURL) return null;
       const parsedBaseUrl = this.baseURL.replace('##PAGE##', this.getPage(page));
       return `${this.rootUrl}${parsedBaseUrl}`;
-    },
-    changeUrl(pageNumber) {
-      if (this.disableHistoryChange) {
-        window.location.href = this.getURL(pageNumber);
-      } else {
-        history.pushState(null, null, this.getURL(pageNumber));
-      }
     },
     startPage() {
       if (!this.baseURL && this.value <= 1) return;

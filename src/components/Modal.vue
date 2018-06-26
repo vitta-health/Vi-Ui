@@ -44,8 +44,8 @@
             title="Fechar"
             icon="cross"
             light
+            mini
             v-if="!notDismissable"
-            v-
             v-bind="colorsOpt()"
             @click="toggleModal(false)"
           />
@@ -305,7 +305,7 @@ export default {
 ### Exemplo de modal
 
 ```jsx
-<vi-modal primary large-spacing title="Exemplo de modal" title-size="2">
+<vi-modal primary mini title="Exemplo de modal" title-size="2">
 Essa modal inicia aberta.
 </vi-modal>
 ```
