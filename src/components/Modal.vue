@@ -136,7 +136,7 @@ export default {
     */
     value: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   methods: {
@@ -269,7 +269,7 @@ export default {
         transform translate(0, 0) translate3d(0,0,0)
         will-change transform, opacity
         .ViModal__CloseButton
-          opacity 0.6
+          opacity 1
           will-change opacity
 
   &--not-dismissable
@@ -310,14 +310,6 @@ export default {
 <docs>
 
 ### Exemplo de modal
-
-```jsx
-<vi-modal primary mini title="Exemplo de modal" title-size="2">
-Essa modal inicia aberta.
-</vi-modal>
-```
-
-### Exemplo completo modal
 
 Obs: Evite sobrepor modais sempre que possível.
 
