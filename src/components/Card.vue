@@ -33,7 +33,7 @@
       <slot/>
     </div>
     <div v-if="$slots.footer" class="ViCard__Footer ViCard__Section">
-      <!-- @slot Use o slot `footer` para definir o conteúdo no rodapé. -->
+      <!-- @slot Use o slot `footer` para definir o conteúdo no rodapé do card. -->
       <slot
         name="footer"
       />
