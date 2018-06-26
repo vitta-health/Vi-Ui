@@ -66,7 +66,7 @@ export default {
       if (node.data) {
         tabIndex += 1;
         let tabId = `tab${tabIndex}`;
-        if(self.testPath('data.attrs.tab', node)) tabId = node.data.attrs.tab;
+        if(self.testPath('data.attrs.tab', node)) tabId = node.data.attrs.tabid;
 
         tabNode.tag = 'li';
         tabNode.children = [];
@@ -177,13 +177,13 @@ export default {
 <template>
   <vi-wrapper class="ViComponent ViTabsDemo">
       <vi-tabs v-model="tab">
-        <vi-card :title-size="3" tab="tab1" title="Exemplo 1">
+        <vi-card :title-size="3" tabid="tab1" title="Exemplo 1">
           <p>In the beginning, after all, were the words, and they came with a tune. That was how the world was made, how the void was divided, how the lands and the stars and the dreams and the little gods and the animals, how all of them came into the world.</p>
         </vi-card>
-        <vi-card  :title-size="3" tab="tab2" title="Exemplo 2">
+        <vi-card  :title-size="3" tabid="tab2" title="Exemplo 2">
           <p>The great beasts were sung into existence, after the Singer had done with the planets and the hills and the trees and the oceans and the lesser beasts. The cliffs that bound existence were sung, and the hunting grounds, and the dark. Songs remain. They last. The right song can turn an emperor into a laughingstock, can bring down dynasties. A song can last long after the events and the people in it are dust and dreams and gone. That’s the power of songs. There are other things you can do with songs. They do not only make worlds or recreate existence. Fat Charlie Nancy’s father, for example, was simply using them to have what he hoped and expected would be a marvelous night out.</p>
         </vi-card>
-        <vi-card  :title-size="3" tab="tab3" title="Exemplo 3">
+        <vi-card  :title-size="3" tabid="tab3" title="Exemplo 3">
           <p>Before Fat Charlie’s father had come into the bar, the barman had been of the opinion that the whole karaoke evening was going to be an utter bust; but then the little old man had sashayed into the room, walked past the table of several blonde women with the fresh sunburns and smiles of tourists, who were sitting by the little makeshift stage in the corner. He had tipped his hat to them, for he wore a hat, a spotless green fedora, and lemon-yellow gloves, and then he walked over to their table. They giggled.</p>
         </vi-card>
       </vi-tabs>
