@@ -10,7 +10,7 @@
       'ViModal--no-spacing': noSpacing,
       'ViModal--not-dismissable': notDismissable,
     }]"
-    @click.self="toggleModal(false)"
+    @click.self="notDismissable ? false : toggleModal(false)"
   >
     <vi-wrapper
       vertical
@@ -136,12 +136,11 @@ export default {
     */
     value: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   methods: {
     toggleModal(value = false) {
-      if(this.notDismissable) return;
       if (value) {
         this.willBeOpen();
       } else {
@@ -273,7 +272,6 @@ export default {
           will-change opacity
 
   &--not-dismissable
-    cursor default
     .ViModal__CloseButton
       display none
 
@@ -310,6 +308,14 @@ export default {
 <docs>
 
 ### Exemplo de modal
+
+```jsx
+<vi-modal primary mini title="Exemplo de modal" title-size="2">
+Essa modal inicia aberta.
+</vi-modal>
+```
+
+### Exemplo completo modal
 
 Obs: Evite sobrepor modais sempre que possível.
 
