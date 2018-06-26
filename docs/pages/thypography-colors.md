@@ -86,6 +86,10 @@ export default {
           prop: { secondary: true },
           hex: '#1C415E',
         },
+        info: {
+          prop: { info: true },
+          hex: '#1987C5',
+        },
         success: {
           prop: { success: true },
           hex: '#28A478',
@@ -98,13 +102,13 @@ export default {
           prop: { danger: true },
           hex: '#E45151',
         },
-        info: {
-          prop: { info: true },
-          hex: '#1987C5',
-        },
         dark: {
           prop: { dark: true },
           hex: '#55636F',
+        },
+        grey: {
+          prop: { grey: true },
+          hex: '#EAEAEA',
         },
         light: {
           prop: { light: true },

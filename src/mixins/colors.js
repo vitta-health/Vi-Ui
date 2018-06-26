@@ -55,6 +55,13 @@ export default {
       default: false,
     },
     /**
+     * _Cor: _ Define um cinza claro
+     */
+    grey: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * _Cor:_ Define a cor branco
      */
     light: {
