@@ -190,10 +190,17 @@ export default {
     width 100%
 
     & + .ViInput_Wrapper
+      transition all 0.04s ease-in-out
+      box-shadow none
+
       & .ViInput__Input:focus
         border 1px solid $border-color-main-focus
         box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.4)
+        will-change box-shadow
         outline none
+  .ViButton
+    .contentWrapper
+      padding 0 10px
 </style>
 
 <docs>

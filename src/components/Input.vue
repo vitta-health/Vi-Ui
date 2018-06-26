@@ -26,6 +26,7 @@
         :class="{
           'ViInput__Input--validated': validated || forceValidation,
           'ViInput__Input--invalid': invalid,
+          'ViInput__Input--pill': pill,
         }"
         v-bind="{
           autocomplete: autoComplete,
@@ -121,6 +122,13 @@ export default {
     pattern: {
       type: String,
       default: null,
+    },
+    /**
+     * Estilo pílula para formulário
+     */
+    pill: {
+      type: Boolean,
+      default: false,
     },
     /**
     * Número de linhas quando usando textarea
@@ -332,7 +340,7 @@ export default {
   },
   methods: {
     testForm(validity) {
-      if(validity) {
+      if (validity) {
         console.log('validity:', validity);
       } else {
         alert('Valid form!');
@@ -380,7 +388,7 @@ export default {
   },
   methods: {
     testForm(validity) {
-      if(validity) {
+      if (validity) {
         console.log('validity:', validity);
       } else {
         alert('Valid form!');

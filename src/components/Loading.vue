@@ -9,7 +9,7 @@
         'ViLoading--small': small,
         'ViLoading--large': large,
       },
-      colorClass({ border: true })
+      colorClass({ border: true, default: 'primary' })
     ]"
     :style="{
       height: `${getSize}px`,
@@ -112,6 +112,7 @@ export default {
 
 <style lang="stylus">
 @import '../themes/main'
+@import '../themes/input'
 
 .ViComponent.ViLoading
   position relative

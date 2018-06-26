@@ -6,26 +6,28 @@ $border-radius = 0.3em
   z-index 0
 
   &--elevated
-    z-index 1
+    z-index 3
 
   &.flexWrapper:not(.flexWrapper--vertical)
     align-items center
 
   .contentWrapper.ViInput__Input
+    background $input-background-main
     border 1px solid $border-color-main
     border-bottom-width 2px
-    background $input-background-main
+    box-shadow 0
     min-height 40px
     padding 0.5em
     outline none
     text-overflow ellipsis
+    transition all 0.04s ease-in-out
     width 100%
 
     &:focus:not([readonly])
       border-color $border-color-main-focus
       box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.4)
       position relative
-      z-index: 1
+      z-index 1
 
     &--invalid
     &--validated:invalid
@@ -45,6 +47,9 @@ $border-radius = 0.3em
       &.ViButton:last-child
         border-bottom-right-radius $border-radius
         border-top-right-radius $border-radius
+
+      &.ViInput__Input--pill
+        border-radius 20px
 
       &.ViButton
         white-space nowrap

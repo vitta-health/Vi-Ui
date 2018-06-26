@@ -1,10 +1,14 @@
 @import '../themes/fonts.css'
 @import '../themes/colors'
 
-$Roboto = 'Roboto', Arial, 'helvetica neue', sans-serif
+$Montserrat = 'Montserrat', Futura, 'Trebuchet MS', sans-serif
+$Roboto = 'Roboto', Arial, Helvetica, sans-serif
 
 /*! Based on normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
 /*! Also some snippets from bootstrap: https://github.com/twbs/bootstrap/blob/v4-dev/dist/css/bootstrap.css */
+
+html
+  touch-action manipulation
 
 [hidden]
   display none
@@ -34,8 +38,8 @@ $Roboto = 'Roboto', Arial, 'helvetica neue', sans-serif
 .ViComponent
   box-sizing border-box
   color $text-color-main
-  font-family $Roboto
-  font-weight 400
+  font-family $Montserrat
+  font-weight 500
   font-size 16px
   line-height 1.15em
   -webkit-text-size-adjust 100%
@@ -49,6 +53,11 @@ $Roboto = 'Roboto', Arial, 'helvetica neue', sans-serif
     text-decoration underline
     background-color transparent
     color $link-color
+
+  a
+  button
+    user-select none
+    -webkit-tap-highlight-color transparent
 
   b,
   strong
@@ -67,25 +76,56 @@ $Roboto = 'Roboto', Arial, 'helvetica neue', sans-serif
   tr
     font-size 1em
     line-height 1.2em
-    font-weight 400
+    font-weight 500
     margin 0 0 0.67em
     color inherit
 
+    &:last-child
+      margin-bottom 0
+
   h1
-    font-weight 300
-    font-size 2.6em
   h2
-    font-weight 300
-    font-size 2.2em
   h3
-    font-size 1.8em
   h4
-    font-size 1.4em
   h5
-    font-size 1.2em
   h6
-    font-size 1em
-    font-weight 500
+    &:first-child
+      margin-top 0
+
+  h1
+    font-weight 400
+    font-size 2em
+    letter-spacing 0.01em
+    line-height 0.87em
+    margin 0.67em 0
+  h2
+    font-weight 400
+    font-size 1.5em
+    letter-spacing 0.01em
+    line-height 0.87em
+    margin 0.83em 0
+  h3
+    font-size 1.2em
+    letter-spacing 0.03em
+    line-height 0.87em
+    margin 1.00em 0
+  h4
+    font-size 1.05em
+    line-height 0.87em
+    margin 1.33em 0
+  h5
+    font-size 0.86em
+    line-height 0.87em
+    margin 1.67em 0
+  h6
+    font-size 0.75em
+    font-weight 700
+    line-height 0.87em
+    margin 2.33em 0
+
+  p
+    font-family $Roboto
+    font-weight normal
 
   small
     font-size 80%
@@ -93,7 +133,7 @@ $Roboto = 'Roboto', Arial, 'helvetica neue', sans-serif
   hr
     border none
     border-top 1px solid rgba($text-color-main, 0.15)
-    margin 0 0 1em
+    margin 0.67em 0
 
   img
     border-style none
@@ -205,3 +245,21 @@ $Roboto = 'Roboto', Arial, 'helvetica neue', sans-serif
 
   [type="search"]::-webkit-search-decoration
     -webkit-appearance none
+
+
+  ::-webkit-scrollbar
+    width 10px
+    padding 0 3px 0 0
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb
+    background rgba(0,0,0, 0.2)
+    border-radius 10px
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover
+    background rgba(0,0,0, 0.3)
+
+  /* Track */
+  ::-webkit-scrollbar-track
+    background transparent

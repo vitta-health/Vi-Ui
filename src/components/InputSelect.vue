@@ -4,6 +4,7 @@
     vertical
     justify-content="flex-start"
     class="ViComponent ViInput"
+    :class="{ 'ViInput--elevated': isOpen }"
     :style="{ width: componentWidth }"
     :value="false"
   >
@@ -492,7 +493,9 @@ export default {
     .multiselect__select
       z-index 3
       &:focus
-        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.4)
+        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.4), 0 0 0 1px rgba($border-color-main-focus, 0.5)
+        will-change box-shadow
+        transition all 0.04s ease-in-out
         outline none
         &:before
           border-color $border-color-main-focus transparent transparent
@@ -538,8 +541,7 @@ export default {
           position absolute
           top -2px
           width 1.5em
-          transition all 0.06s ease-out
-          transition transform 0.1s ease-out
+          transition all 0.04s ease-out
 
         &:after
           background transparent
@@ -560,13 +562,16 @@ export default {
             border-color $light
             opacity 1
             transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
+            transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+            will-change transform, opacity
 
       &--inderteminate
         .ViInput__MultiselectCheckbox
           &:after
             border-bottom-width 0
             opacity 1
-            transform rotate(90deg) scale(0.4, 0.3) translate(-0.5em)
+            transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+            will-change transform, opacity
 
       &--highlight
       &:focus:not(.multiselect__checkoption)
@@ -575,6 +580,7 @@ export default {
         box-shadow 0 -1px 0 rgba($border-color-main,0.5)
         background rgba($border-color-main,0.4)
         position relative
+        will-change box-shadow
         z-index 1
 
         &:after

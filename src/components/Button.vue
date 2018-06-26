@@ -15,7 +15,8 @@
       colorClass({
         background: !outlined,
         border: outlined,
-        hover: true && !active
+        hover: true && !active,
+        default: defaultColor,
       }),
     ]"
     :href="this.href"
@@ -147,6 +148,7 @@ export default {
 
 <style lang="stylus">
 @import '../themes/main'
+
 .ViComponent.ViButton
   border-width 0.09em
   border-style solid
@@ -202,7 +204,7 @@ export default {
 
   &--large
     font-size 1.61em
-    font-weight 300
+    font-weight 400
     min-height 53px
     padding 0 0.59em
     &.ViButton--pill
@@ -219,7 +221,7 @@ export default {
 ```jsx
 <vi-wrapper mini-spacing align-items="center">
   <vi-button success large>Me aperte</vi-button>
-  <vi-button primary center title="Vitta" icon="vitta" />
+  <vi-button primary title="Vitta" icon="vitta" />
   <vi-button danger>Me aperte</vi-button>
   <vi-button dark small>Me aperte</vi-button>
   <vi-button warning mini>Me aperte</vi-button>
