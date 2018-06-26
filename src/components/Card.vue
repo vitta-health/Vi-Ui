@@ -23,17 +23,17 @@
         :is="titleTag"
         class="ViCard__Title"
       >{{ title }}</component>
-      <!-- @slot  Use slot o `side` que conteúdo ao lado título. -->
+      <!-- @slot  Use o slot `side` que conteúdo ao lado título. -->
       <slot name="side"/>
       <slot name="close"/>
     </vi-wrapper>
     <div class="ViCard__Body ViCard__Section" ref="body">
-      <!-- @slot Use slot o `body` para definir o conteúdo no corpo do card. -->
+      <!-- @slot Use o slot `body` para definir o conteúdo no corpo do card. -->
       <slot name="body"/>
       <slot/>
     </div>
     <div v-if="$slots.footer" class="ViCard__Footer ViCard__Section">
-      <!-- @slot Use slot o `footer` para definir o conteúdo no rodapé. -->
+      <!-- @slot Use o slot `footer` para definir o conteúdo no rodapé. -->
       <slot
         name="footer"
       />
@@ -60,14 +60,14 @@ export default {
       default: false,
     },
     /**
-     * _Espaçamento:_ Define o tamanho pequeno do card.
+     * _Espaçamento:_ Define o espaçamento pequeno do card.
      */
     smallSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Espaçamento:_ Define o maior tamanho do card.
+     * _Espaçamento:_ Define o maior espaçamento do card.
      */
     largeSpacing: {
       type: Boolean,
@@ -143,31 +143,31 @@ $background-card = $isDark ? $colors.dark : $colors.light
     padding 10px 20px
     &:first-child
       padding-top 20px
-    &:last-child 
+    &:last-child
       padding-bottom 20px
 
   &--mini
-    & > .contentWrapper.ViCard__Section 
+    & > .contentWrapper.ViCard__Section
       padding 2.5px 5px
       &:first-child
         padding-top 5px
-      &:last-child 
+      &:last-child
         padding-bottom 5px
 
   &--small
-    & > .contentWrapper.ViCard__Section 
+    & > .contentWrapper.ViCard__Section
       padding 5px 10px
       &:first-child
         padding-top 10px
-      &:last-child 
+      &:last-child
         padding-bottom 10px
 
   &--large
-    & > .contentWrapper.ViCard__Section 
+    & > .contentWrapper.ViCard__Section
       padding 10px 35px
       &:first-child
         padding-top 35px
-      &:last-child 
+      &:last-child
         padding-bottom 35px
 
   &--no-spacing

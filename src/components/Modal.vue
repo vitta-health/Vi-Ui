@@ -31,13 +31,13 @@
       <template
         slot="side"
       >
-        <!-- @slot  Use slot o `side` que conteúdo ao lado título e antes do botão de fechar -->
+        <!-- @slot  Use o slot `side` para inserir elementos entre o título e o botão fechar.l -->
         <slot name="side"/>
       </template>
       <template
         slot="close"
       >
-        <!-- @slot  Use slot o `close` para substituir o botão de fechar. -->
+        <!-- @slot  Use o slot `close` para substituir o botão de fechar. -->
         <slot name="close">
           <vi-button
             class="ViModal__CloseButton"
@@ -54,12 +54,12 @@
       <template
         slot="body"
       >
-        <!-- @slot Use slot o `body` para definir o conteúdo no corpo do modal. -->
+        <!-- @slot Use o slot `body` para definir o conteúdo no corpo do modal. -->
         <slot name="body" />
         <slot/>
       </template>
 
-      <!-- @slot Use slot o `footer` para definir o conteúdo no rodapé. -->
+      <!-- @slot Use o slot `footer` para definir o conteúdo no rodapé. -->
       <template slot="footer">
         <slot name="footer" />
       </template>
@@ -141,12 +141,6 @@ export default {
   },
   methods: {
     toggleModal(value = false) {
-      if (value) {
-        this.willBeOpen();
-      } else {
-        this.willBeClosed();
-      }
-
       this.isOpen = value;
       if (this.value !== value) {
         /**
@@ -157,24 +151,6 @@ export default {
          */
         this.$emit('input', value);
       }
-    },
-    willBeClosed() {
-      /**
-       * Modal vai ser aberta.
-       *
-       * @event before-close
-       * @type {none}
-       */
-      this.$emit('before-close');
-    },
-    willBeOpen() {
-      /**
-       * Modal vai ser fechada.
-       *
-       * @event before-open
-       * @type {none}
-       */
-      this.$emit('before-open');
     },
     escEvent(e) {
       if (e.keyCode === 27) {
