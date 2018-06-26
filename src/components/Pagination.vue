@@ -77,7 +77,7 @@ export default {
       default: 1,
     },
     /**
-     * Define paginação exibe estilo pilula.
+     * Define paginação com estilo pílula.
      */
     pill: {
       type: Boolean,
@@ -129,7 +129,7 @@ export default {
     },
     getPage(newPage) {
       if (!Number(newPage)) return 1;
-      
+
       const countPages = this.totalPages || this.getPagesRange[1];
       switch (newPage) {
         case 'PREVIOUS_PAGE': return this.value <= 1 ? 1 : this.value - 1;

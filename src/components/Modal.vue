@@ -168,6 +168,11 @@ export default {
   },
   methods: {
     toggleModal(value = false) {
+      if (stateModal) {
+        this.willBeOpen();
+      } else {
+        this.willBeClosed();
+      }
       this.isOpen = value;
       if (this.value !== value) {
         /**
@@ -179,23 +184,23 @@ export default {
         this.$emit('input', value);
       }
     },
-    closed() {
+    willBeClosed() {
       /**
        * Modal foi fechada.
        *
-       * @event close
+       * @event before-close
        * @type {none}
        */
-      this.$emit('closed');
+      this.$emit('before-close');
     },
-    open() {
+    willBeOpen() {
       /**
        * Modal foi aberta.
        *
-       * @event open
+       * @event before-open
        * @type {none}
        */
-      this.$emit('open');
+      this.$emit('before-open');
     },
     escEvent(e) {
       if (e.keyCode === 27) {
@@ -219,12 +224,6 @@ export default {
     modalStateHandler(stateModal) {
       this.toggleModal(stateModal);
       if (this.baseURL) this.changeUrl(stateModal);
-
-      if (stateModal) {
-        this.open();
-      } else {
-        this.closed();
-      }
 
       if (stateModal & !this.notDismissable & !this.disableCloseOnESC) {
         this.isEventRegistered = true;
