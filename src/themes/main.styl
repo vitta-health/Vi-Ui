@@ -122,7 +122,7 @@ html
     font-weight 700
     line-height 0.87em
     margin 2.33em 0
-  
+
   p
     font-family $Roboto
     font-weight normal
@@ -245,3 +245,21 @@ html
 
   [type="search"]::-webkit-search-decoration
     -webkit-appearance none
+
+
+  ::-webkit-scrollbar
+    width 10px
+    padding 0 3px 0 0
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb
+    background rgba(0,0,0, 0.2)
+    border-radius 10px
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover
+    background rgba(0,0,0, 0.3)
+
+  /* Track */
+  ::-webkit-scrollbar-track
+    background transparent
