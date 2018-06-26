@@ -142,7 +142,7 @@ export default {
   methods: {
     toggleModal(value = false) {
       if(this.notDismissable) return;
-      if (stateModal) {
+      if (value) {
         this.willBeOpen();
       } else {
         this.willBeClosed();
