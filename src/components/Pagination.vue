@@ -90,7 +90,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    /**
+    /**f
      * Adiciona link aos botões da modal. A string `##PAGE##` é alterado para o numero da página. ex: exemplo?page=##PAGE##
      */
     baseURL: {
@@ -146,7 +146,7 @@ export default {
       return this.value === page;
     },
     getURL(page) {
-      if(this.baseURL) return null;
+      if(!this.baseURL) return null;
       const parsedBaseUrl = this.baseURL.replace('##PAGE##', this.getPage(page));
       return `${this.rootUrl}${parsedBaseUrl}`;
     },
