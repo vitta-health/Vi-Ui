@@ -479,7 +479,7 @@ export default {
     },
     getSelectedItem(val) {
       const line = this.data.map((row) => {
-        if(row.id === val.lines.id) {
+        if (row.id === val.lines.id) {
           row.selected = val.selected;
           return row;
         }

@@ -203,22 +203,22 @@ export default {
       }
     },
     changeUrl(isOpen) {
-      if(isOpen) this.lastPage = window.location.href.replace(this.baseURL, '');
+      if (isOpen) this.lastPage = window.location.href.replace(this.baseURL, '');
       setTimeout(() => {
         const newLocation = isOpen ? `${ this.lastPage }${ this.baseURL }` : this.lastPage;
         history.pushState(null, null, newLocation);
       }, 200);
     },
     startOpen() {
-      if(!this.baseURL) {
-        if(this.value) this.toggleModal(this.value)
+      if (!this.baseURL) {
+        if (this.value) this.toggleModal(this.value)
       } else {
-        if(new RegExp(this.baseURL).test(window.location.href)) this.$emit('input', true);
+        if (new RegExp(this.baseURL).test(window.location.href)) this.$emit('input', true);
       }
     },
     modalStateHandler(stateModal) {
       this.toggleModal(stateModal);
-      if(this.baseURL) this.changeUrl(stateModal);
+      if (this.baseURL) this.changeUrl(stateModal);
 
       if (stateModal) {
         this.open();
@@ -226,10 +226,10 @@ export default {
         this.closed();
       }
 
-      if(stateModal & !this.notDismissable & !this.disableCloseOnESC) {
+      if (stateModal & !this.notDismissable & !this.disableCloseOnESC) {
         this.isEventRegistered = true;
         document.body.addEventListener('keyup', this.escEvent);
-      } else if(!stateModal && this.isEventRegistered) {
+      } else if (!stateModal && this.isEventRegistered) {
         this.isEventRegistered = false;
         document.body.removeEventListener('keyup', this.escEvent);
       }

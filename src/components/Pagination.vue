@@ -128,7 +128,7 @@ export default {
       }
     },
     getPage(newPage) {
-      if(!Number(newPage)) return 1;
+      if (!Number(newPage)) return 1;
       
       const countPages = this.totalPages || this.getPagesRange[1];
       switch (newPage) {
@@ -147,7 +147,7 @@ export default {
          * @type {number}
        */
       this.$emit('input', pageNumber);
-      if(this.baseURL, redirect) this.changeUrl(pageNumber);
+      if (this.baseURL, redirect) this.changeUrl(pageNumber);
     },
     isCurrentPage(page) {
       return this.value === page;
@@ -157,16 +157,16 @@ export default {
       return `${this.rootUrl}${parsedBaseUrl}`;
     },
     changeUrl(pageNumber) {
-      if(this.disableHistoryChange) {
+      if (this.disableHistoryChange) {
         window.location.href = this.getURL(pageNumber);
       } else {
         history.pushState(null, null, this.getURL(pageNumber));
       }
     },
     startPage() {
-      if(!this.baseURL && this.value <= 1) return;
+      if (!this.baseURL && this.value <= 1) return;
       const matchBase = window.location.href.match(this.baseRegEx);
-      if(matchBase) {
+      if (matchBase) {
         const matchNumber = Number(matchBase[0].match(/\d+/)[0]);
         this.handleNavigation(matchNumber, false);
       }
@@ -174,11 +174,11 @@ export default {
   },
   computed: {
     baseRegEx() {
-      if(!this.baseURL) return null;
+      if (!this.baseURL) return null;
       return new RegExp(this.baseURL.replace('##PAGE##', '\\d+'), 'g');
     },
     rootUrl() {
-      if(!this.baseURL && !this.baseRegEx) return window.location.href;
+      if (!this.baseURL && !this.baseRegEx) return window.location.href;
       return window.location.href.replace(this.baseRegEx,'');
     },
     pickDefaultColor() {

@@ -45,7 +45,7 @@ const addChildClassNames = (data, { grid }) => {
       if (prop.includes('col')) {
         className.push(col(prop, data.attrs[prop]));
       }
-      if(prop.includes('order')) {
+      if (prop.includes('order')) {
         className.push(order(prop, data.attrs[prop]));
       }
 
