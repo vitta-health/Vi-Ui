@@ -51,9 +51,8 @@ export default {
   },
   render(createElement) {
     const self = this;
-    const children = this.$slots.default.filter((node) => {
-      const nodeItem = node;
-      if (!nodeItem.tag && !nodeItem.text) return false;
+    const childrens = this.$slots.default.filter((node) => {
+      if (!node.tag && !node.text) return false;
       return true;
     });
 
