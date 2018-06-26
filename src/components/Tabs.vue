@@ -3,93 +3,97 @@ export default {
   name: 'ViTabs',
   data() {
     return {
-      listOfTabs: [],
-      listOfContents: [],
+      actualTab: null,
     }
   },
-  methods: {
-    addRemoveClass(element, classAdd, classRemove) {
-      if (!element.classList.contains(classAdd)) {
-        element.classList.remove(classRemove);
-        element.classList.toggle(classAdd);
-      }
-    },
-    createTabList(createElement, attrs, arrayTabs) {
-      this.listOfTabs = createElement('ul', attrs, arrayTabs);
-      return this.listOfTabs;
-    },
-    createTabContent(createElement, attrs, arrayContent) {
-      this.listOfContents = createElement('div', attrs, arrayContent);
-      return this.listOfContents;
-    },
-    isActiveClass(nodeActive, index, hasActiveTabDefault) {
-      return nodeActive === 'true' || (index === 0 && !hasActiveTabDefault);
+  props: {
+    /**
+     * Controle da aba aberta. Na aba use o atributo `tab` como identificador.
+     * @model
+     */
+    value: {
+      type: String,
+      default: null,
     },
   },
-  render(createElement, context) {
+  methods: {
+    selectTab(tab) {
+      this.actualTab = tab;
+      this.$emit('input', this.actualTab);
+    },
+    isTabActive(tab) {
+      if(!this.actualTab) this.actualTab = tab;
+      return this.actualTab === tab;
+    }
+  },
+  watch: {
+    value(v) {
+      this.actualTab = v;
+    }
+  },
+  mounted() {
+    if(this.value) this.actualTab = this.value;
+  },
+  render(createElement) {
     const self = this;
-    let hasActiveTabDefault = false;
     const childrens = this.$slots.default.filter((node) => {
       const nodeItem = node;
       if (!nodeItem.tag && !nodeItem.text) return false;
-      if (nodeItem.data && hasActiveTabDefault) nodeItem.data.attrs.active = false;
-      if (nodeItem.data && nodeItem.data.attrs.active) hasActiveTabDefault = true;
-      return nodeItem.tag;
+      return true;
     });
 
     const tabsList = [];
-    const tabsContent = childrens.map((node, index) => {
+    const tabsContent = []
+    childrens.map((node, index) => {
       const tabNode = Object.create(node);
       const contentNode = Object.create(node);
 
       if (node.data) {
         const idContent = `vi-tab${index}`;
-        const isTabActive = self.isActiveClass(node.data.attrs.active, index, hasActiveTabDefault);
+        let tabName = `tab${index}`;
+        if(node.data.attrs) {
+          if(node.data.attrs.tab) tabName = node.data.attrs.tab;
+        }
 
         tabNode.tag = 'li';
         tabNode.children = [];
         tabNode.children.push(createElement('a', {
-          attrs: { id: `vi-tab${index}-link` },
-          class: [{
-            'active': isTabActive,
-            'inactive': !isTabActive && !node.data.attrs.active,
-          }],
+          class: [
+            'ViTabs__Link',
+            {
+              'ViTabs__Link--active': self.isTabActive(tabName),
+              'ViTabs__Link--inactive': !self.isTabActive(tabName),
+            }
+          ],
           on: {
-            click: function click(elementClicked) {
-              self.listOfContents.children.forEach((element) => {
-                self.addRemoveClass(element.elm, 'inactive', 'active');
-              });
-
-              self.listOfTabs.children.forEach((element) => {
-                self.addRemoveClass(element.elm.childNodes[0], 'inactive', 'active');
-              });
-
-              self.addRemoveClass(elementClicked.target, 'active', 'inactive');
-              self.addRemoveClass(self.$el.querySelector(`#${idContent}`), 'active', 'inactive');
+            click: (elementClicked) => {
+              self.selectTab(tabName);
             }
           }
         }, [{ text: node.data.attrs.title || node.componentOptions.propsData.title }]));
 
+        contentNode.data.class = [
+          'ViTabs__Tab',
+          {
+            'ViTabs__Tab--active': self.isTabActive(tabName),
+            'ViTabs__Tab--inactive': !self.isTabActive(tabName),
+          }
+        ];
+
         tabsList.push({ ...tabNode });
-
-        contentNode.data.attrs.id = idContent;
-        contentNode.data.class = [{
-          'active': isTabActive,
-          'inactive': !isTabActive && !node.data.attrs.active,
-        }];
-
-        return contentNode;
+        tabsContent.push(contentNode);
       }
-
-      return '';
+      return null;
     });
+
+    const tabsListCreate = createElement('ul', { class: ['ViTabs__List'] }, [tabsList])
 
     return createElement(
       'div', { class: ['ViTabs', 'ViComponent'] },
-      [createElement(
-        'nav', { class: ['ViTabs__List'] },
-        [self.createTabList(createElement, { class: ['TabsList'] }, [tabsList])]
-      ), self.createTabContent(createElement, { class: ['ViTabs__Content'] }, [tabsContent])]
+      [
+        createElement('nav', { class: ['ViTabs__Nav'] }, [tabsListCreate]),
+        createElement('div', { class: ['ViTabs__Content'] }, [tabsContent]),
+      ]
     );
   },
 };
@@ -100,13 +104,13 @@ export default {
 
 .ViComponent.ViTabs
   width 100%
-  .ViTabs__List
-    border-bottom 1px solid lighten($default, 50%)
+  .ViTabs__Nav
+    border-bottom 1px solid rgba(black, 0.1)
     height 49px
     margin-bottom 30px
     position relative
 
-    .TabsList
+    .ViTabs__List
       background-color transparent
       display flex
       height 50px
@@ -123,7 +127,7 @@ export default {
         &:first-child
           padding-left 0
 
-        a
+        .ViTabs__Link
           align-items center
           border-bottom 3px transparent solid
           color $dark
@@ -131,54 +135,71 @@ export default {
           display flex
           height 50px
           text-decoration none
-          transition border-color 0.4s ease-in-out
+          transition border-color 0.1s ease-in-out
           white-space nowrap
 
-          &:hover
+          &:focus
             border-color $primary
-            transition border-color 0.4s ease-in-out
 
-        a.active
-          border-color $primary
-          color $primary
-          font-weight 600
+          &:hover
+            border-color $dark
+            color $dark
+
+          &--active
+            border-color $primary
+            color $primary
+            font-weight 700
 
   .ViTabs__Content
-    .active
-      display block
-
-    .inactive
+    .ViTabs__Tab
       display none
+      &--active
+        display block
 </style>
 
 <docs>
-Card Básico
-```jsx
-  <vi-card title="Componente de abas">
-    <div slot="body">
-      <vi-tabs>
-        <div title="Aba 1" active="true">
-          <div>
-            Teste 1
-            <div>Teste 1.1</div>
-          </div>
-        </div>
-        <div title="Aba 2">
-          <div>Teste 2</div>
-        </div>
-        <div title="Aba 3">
-          <div>Teste 3</div>
-        </div>
+### Exemplo de tabs
+
+```vue
+<template>
+  <vi-wrapper class="ViComponent ViTabsDemo">
+      <vi-tabs v-model="tab">
+        <vi-card :title-size="3" tab="tab1" title="Exemplo 1">
+          <p>In the beginning, after all, were the words, and they came with a tune. That was how the world was made, how the void was divided, how the lands and the stars and the dreams and the little gods and the animals, how all of them came into the world.</p>
+        </vi-card>
+        <vi-card  :title-size="3" tab="tab2" title="Exemplo 2">
+          <p>The great beasts were sung into existence, after the Singer had done with the planets and the hills and the trees and the oceans and the lesser beasts. The cliffs that bound existence were sung, and the hunting grounds, and the dark. Songs remain. They last. The right song can turn an emperor into a laughingstock, can bring down dynasties. A song can last long after the events and the people in it are dust and dreams and gone. That’s the power of songs. There are other things you can do with songs. They do not only make worlds or recreate existence. Fat Charlie Nancy’s father, for example, was simply using them to have what he hoped and expected would be a marvelous night out.</p>
+        </vi-card>
+        <vi-card  :title-size="3" tab="tab3" title="Exemplo 3">
+          <p>Before Fat Charlie’s father had come into the bar, the barman had been of the opinion that the whole karaoke evening was going to be an utter bust; but then the little old man had sashayed into the room, walked past the table of several blonde women with the fresh sunburns and smiles of tourists, who were sitting by the little makeshift stage in the corner. He had tipped his hat to them, for he wore a hat, a spotless green fedora, and lemon-yellow gloves, and then he walked over to their table. They giggled.</p>
+        </vi-card>
       </vi-tabs>
-    </div>
-  </vi-card>
+  </vi-wrapper>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      tab: 'tab2',
+    };
+  },
+};
+</script>
+<style>
+.ViTabsDemo {
+  background: #EAEAEA;
+  padding: 20px;
+}
+</style>
+
 ```
 
 ### Atributos para as abas
 
-| Atributo de colunas | Default | descrição                      |
-|:-------------------:|:-------:|:------------------------------:|
-| title               |         | Define o título da aba         |
-| active              | false   | Define se a aba está ativa     |
+| Atributo de colunas | Default | descrição              |
+|:-------------------:|:-------:|:----------------------:|
+| title               |         | Define o título da aba |
+| tab                 |         | Identificador da aba   |
 
+Obs: Se nenhum identificador `tab` for definido, ele é criado automaticamente.
 </docs>
