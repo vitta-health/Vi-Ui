@@ -52,14 +52,6 @@
 
 <script>
 export default {
-  methods: {
-    getColor(me, key) {
-      console.log(this)
-      console.log(me)
-      console.log(key)
-      return key;
-    },
-  },
   data() {
     return {
       cols: [
