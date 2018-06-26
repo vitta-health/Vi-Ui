@@ -37,14 +37,15 @@
       <template
         slot="close"
       >
-        <!-- @slot  Use slot o `close` que conteúdo ao lado título. O botão de fechar original substituído quando esse slot é utilizado. -->
+        <!-- @slot  Use slot o `close` para modificar o botão de fechar. O botão de fechar original substituído quando esse slot é utilizado. -->
         <slot name="close">
           <vi-button
             class="ViModal__CloseButton"
             title="Fechar"
             icon="cross"
             light
-            small
+            v-if="!notDismissable"
+            v-
             v-bind="colorsOpt()"
             @click="toggleModal(false)"
           />
@@ -80,21 +81,21 @@ export default {
   },
   props: {
     /**
-     * _Tamanho:_ Define o menor espaçamento da modal.
+     * _Espaçamento:_ Define o menor espaçamento da modal.
      */
     miniSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Tamanho:_ Define o tamanho pequeno do modal.
+     * _Espaçamento:_ Define o espaçamento pequeno do modal.
      */
     smallSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Tamanho:_ Define o maior tamanho do modal.
+     * _Espaçamento:_ Define o maior espaçamento do modal.
      */
     largeSpacing: {
       type: Boolean,
@@ -123,37 +124,9 @@ export default {
       validator: size => size >= 1 && size <= 6,
     },
     /**
-     * Url da modal.
-     */
-    baseURL: {
-      type: String,
-      default: null,
-    },
-    /**
      * Impede que usuário feche a modal.
      */
     notDismissable: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-    * Desativa tecla ESC fecha modal. Sempre `true` se `notDismissable` igual `true`.
-    */
-    disableCloseOnESC: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-    * Se `true` ao clicar no background. Sempre `true` se `notDismissable` igual `true`.
-    */
-    disableBackgroundClose: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-    * Esconde botão de fechar modal. Sempre `true` se `notDismissable` igual `true`.
-    */
-    hideCloseButton: {
       type: Boolean,
       default: false,
     },
@@ -168,11 +141,13 @@ export default {
   },
   methods: {
     toggleModal(value = false) {
+      if(this.notDismissable) return;
       if (stateModal) {
         this.willBeOpen();
       } else {
         this.willBeClosed();
       }
+
       this.isOpen = value;
       if (this.value !== value) {
         /**
@@ -207,25 +182,10 @@ export default {
         this.toggleModal();
       }
     },
-    changeUrl(isOpen) {
-      if (isOpen) this.lastPage = window.location.href.replace(this.baseURL, '');
-      setTimeout(() => {
-        const newLocation = isOpen ? `${ this.lastPage }${ this.baseURL }` : this.lastPage;
-        history.pushState(null, null, newLocation);
-      }, 200);
-    },
-    startOpen() {
-      if (!this.baseURL) {
-        if (this.value) this.toggleModal(this.value)
-      } else {
-        if (new RegExp(this.baseURL).test(window.location.href)) this.$emit('input', true);
-      }
-    },
     modalStateHandler(stateModal) {
       this.toggleModal(stateModal);
-      if (this.baseURL) this.changeUrl(stateModal);
 
-      if (stateModal & !this.notDismissable & !this.disableCloseOnESC) {
+      if (stateModal & !this.notDismissable) {
         this.isEventRegistered = true;
         document.body.addEventListener('keyup', this.escEvent);
       } else if (!stateModal && this.isEventRegistered) {
@@ -247,7 +207,7 @@ export default {
     };
   },
   mounted() {
-    this.startOpen();
+    if (this.value) this.toggleModal(true)
   }
 };
 </script>
@@ -364,7 +324,6 @@ Obs: Evite sobrepor modais sempre que possível.
       title-size="2"
       large-spacing
       v-model="firstModalIsOpen"
-      :baseURL="baseURLFirst"
     >
       <div slot="body">
         Exemplo de modal em uso
@@ -377,7 +336,7 @@ Obs: Evite sobrepor modais sempre que possível.
             @click="firstModalIsOpen = false"
           >Fecha</vi-button>
           <vi-button
-            success
+            warning
             @click="secondModalIsOpen = true"
           >Exemplo 2</vi-button>
           <vi-button
@@ -389,8 +348,8 @@ Obs: Evite sobrepor modais sempre que possível.
     </vi-modal>
 
     <vi-modal
-      success
-      title="Sucesso!"
+      warning
+      title="Aviso!"
       width="300px"
       v-model="secondModalIsOpen"
       title-size="2"
@@ -402,7 +361,6 @@ Obs: Evite sobrepor modais sempre que possível.
       title="Modal com scroll"
       width="500px"
       v-model="thirdModalIsOpen"
-      :baseURL="baseURLThird"
       title-size="2"
     >
       <div slot="body">
@@ -453,8 +411,6 @@ export default {
       firstModalIsOpen: false,
       secondModalIsOpen: false,
       thirdModalIsOpen: false,
-      baseURLFirst: '&modal=exemploModal',
-      baseURLThird: '&modal=scrollModal',
     };
   },
 };
