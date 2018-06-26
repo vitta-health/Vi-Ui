@@ -45,7 +45,7 @@ export default {
       this.currentTab = v;
     }
   },
-  mounted() {
+  beforeMount() {
     if(this.value) this.currentTab = this.value;
   },
   render(createElement) {
@@ -62,6 +62,7 @@ export default {
         tabIndex += 1;
         let tabId = `tab${tabIndex}`;
         if(self.testPath('data.attrs.tab', node)) tabId = node.data.attrs.tabid;
+        if(!this.value && tabIndex === 1) this.currentTab = tabId;
 
         tabNode.tag = 'li';
         tabNode.children = [];
