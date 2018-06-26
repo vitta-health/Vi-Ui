@@ -22,7 +22,6 @@ export default {
       this.$emit('input', this.currentTab);
     },
     isTabActive(tab) {
-      if (!this.currentTab) this.currentTab = tab;
       return this.currentTab === tab;
     },
     tabTitle(node, index) {
@@ -51,15 +50,11 @@ export default {
   },
   render(createElement) {
     const self = this;
-    const childrens = this.$slots.default.filter((node) => {
-      if (!node.tag && !node.text) return false;
-      return true;
-    });
-
     let tabIndex = 0;
     const tabsList = [];
     const tabsContent = []
-    childrens.map((node, index) => {
+    this.$slots.default.map((node, index) => {
+      if (!node.tag && !node.text) return null;
       const tabNode = Object.create(node);
       const contentNode = Object.create(node);
 
