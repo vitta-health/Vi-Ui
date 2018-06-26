@@ -31,21 +31,13 @@
       <template
         slot="side"
       >
-<<<<<<< HEAD
-        <!-- @slot  Use slot o `side` que conteúdo ao lado título e antes do botão de fechar. -->
-=======
         <!-- @slot  Use o slot `side` para inserir elementos entre o título e o botão fechar.l -->
->>>>>>> 21c737c2bb851cae557994c58610e2d2e9671db7
         <slot name="side"/>
       </template>
       <template
         slot="close"
       >
-<<<<<<< HEAD
-        <!-- @slot  Use slot o `close` para substituir o botão de fechar. -->
-=======
         <!-- @slot  Use o slot `close` para substituir o botão de fechar. -->
->>>>>>> 21c737c2bb851cae557994c58610e2d2e9671db7
         <slot name="close">
           <vi-button
             class="ViModal__CloseButton"
@@ -62,11 +54,7 @@
       <template
         slot="body"
       >
-<<<<<<< HEAD
-        <!-- @slot Use slot o `body` para definir o conteúdo no corpo da modal. -->
-=======
         <!-- @slot Use o slot `body` para definir o conteúdo no corpo do modal. -->
->>>>>>> 21c737c2bb851cae557994c58610e2d2e9671db7
         <slot name="body" />
         <slot/>
       </template>
