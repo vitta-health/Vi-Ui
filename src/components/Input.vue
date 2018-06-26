@@ -340,7 +340,7 @@ export default {
   },
   methods: {
     testForm(validity) {
-      if(validity) {
+      if (validity) {
         console.log('validity:', validity);
       } else {
         alert('Valid form!');
@@ -388,7 +388,7 @@ export default {
   },
   methods: {
     testForm(validity) {
-      if(validity) {
+      if (validity) {
         console.log('validity:', validity);
       } else {
         alert('Valid form!');

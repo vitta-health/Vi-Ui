@@ -10,7 +10,7 @@
       'ViModal--no-spacing': noSpacing,
       'ViModal--not-dismissable': notDismissable,
     }]"
-    @click.self="toggleModal(false)"
+    @click.self="notDismissable ? false : toggleModal(false)"
   >
     <vi-wrapper
       vertical
@@ -19,7 +19,7 @@
     ><vi-card
       vertical
       v-bind="colorsOpt()"
-      :mini-spacing="miniSpacing"
+      :mini-spacing="smallSpacing"
       :small-spacing="smallSpacing"
       :large-spacing="largeSpacing"
       :no-spacing="noSpacing"
@@ -31,35 +31,47 @@
       <template
         slot="side"
       >
+<<<<<<< HEAD
         <!-- @slot  Use slot o `side` que conteúdo ao lado título e antes do botão de fechar. -->
+=======
+        <!-- @slot  Use o slot `side` para inserir elementos entre o título e o botão fechar.l -->
+>>>>>>> 21c737c2bb851cae557994c58610e2d2e9671db7
         <slot name="side"/>
       </template>
       <template
         slot="close"
       >
+<<<<<<< HEAD
         <!-- @slot  Use slot o `close` para substituir o botão de fechar. -->
+=======
+        <!-- @slot  Use o slot `close` para substituir o botão de fechar. -->
+>>>>>>> 21c737c2bb851cae557994c58610e2d2e9671db7
         <slot name="close">
           <vi-button
-            circle
-            small
-            @click="toggleModal(false)"
-            v-bind="colorsOpt()"
             class="ViModal__CloseButton"
-            default-color="light"
             title="Fechar"
             icon="cross"
+            light
+            mini
+            v-if="!notDismissable"
+            v-bind="colorsOpt()"
+            @click="toggleModal(false)"
           />
         </slot>
       </template>
       <template
         slot="body"
       >
+<<<<<<< HEAD
         <!-- @slot Use slot o `body` para definir o conteúdo no corpo da modal. -->
+=======
+        <!-- @slot Use o slot `body` para definir o conteúdo no corpo do modal. -->
+>>>>>>> 21c737c2bb851cae557994c58610e2d2e9671db7
         <slot name="body" />
         <slot/>
       </template>
 
-      <!-- @slot Use slot o `footer` para definir o conteúdo no rodapé. -->
+      <!-- @slot Use o slot `footer` para definir o conteúdo no rodapé. -->
       <template slot="footer">
         <slot name="footer" />
       </template>
@@ -81,28 +93,28 @@ export default {
   },
   props: {
     /**
-     * _Tamanho:_ Define o menor espaçamento da modal.
+     * _Espaçamento:_ Define o menor espaçamento da modal.
      */
     miniSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Tamanho:_ Define o tamanho pequeno do modal.
+     * _Espaçamento:_ Define o espaçamento pequeno da modal.
      */
     smallSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Tamanho:_ Define o maior tamanho do modal.
+     * _Espaçamento:_ Define o maior espaçamento da modal.
      */
     largeSpacing: {
       type: Boolean,
       default: false,
     },
     /**
-     * _Tamanho:_ Remove paddings do modal.
+     * _Espaçamento:_ Remove espaçamento do modal.
      */
     noSpacing: {
       type: Boolean,
@@ -124,37 +136,9 @@ export default {
       validator: size => size >= 1 && size <= 6,
     },
     /**
-     * Url da modal.
-     */
-    baseURL: {
-      type: String,
-      default: null,
-    },
-    /**
      * Impede que usuário feche a modal.
      */
     notDismissable: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-    * Desativa tecla ESC fecha modal. Sempre `true` se `notDismissable` igual `true`.
-    */
-    disableCloseOnESC: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-    * Se `true` ao clicar no background. Sempre `true` se `notDismissable` igual `true`.
-    */
-    disableBackgroundClose: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-    * Esconde botão de fechar modal. Sempre `true` se `notDismissable` igual `true`.
-    */
-    hideCloseButton: {
       type: Boolean,
       default: false,
     },
@@ -180,57 +164,18 @@ export default {
         this.$emit('input', value);
       }
     },
-    closed() {
-      /**
-       * Modal foi fechada.
-       *
-       * @event close
-       * @type {none}
-       */
-      this.$emit('closed');
-    },
-    open() {
-      /**
-       * Modal foi aberta.
-       *
-       * @event open
-       * @type {none}
-       */
-      this.$emit('open');
-    },
     escEvent(e) {
       if (e.keyCode === 27) {
         this.toggleModal();
       }
     },
-    changeUrl(isOpen) {
-      if(isOpen) this.lastPage = window.location.href.replace(this.baseURL, '');
-      setTimeout(() => {
-        const newLocation = isOpen ? `${ this.lastPage }${ this.baseURL }` : this.lastPage;
-        history.pushState(null, null, newLocation);
-      }, 200);
-    },
-    startOpen() {
-      if(!this.baseURL) {
-        if(this.value) this.toggleModal(this.value)
-      } else {
-        if(new RegExp(this.baseURL).test(window.location.href)) this.$emit('input', true);
-      }
-    },
     modalStateHandler(stateModal) {
       this.toggleModal(stateModal);
-      if(this.baseURL) this.changeUrl(stateModal);
 
-      if (stateModal) {
-        this.open();
-      } else {
-        this.closed();
-      }
-
-      if(stateModal & !this.notDismissable & !this.disableCloseOnESC) {
+      if (stateModal & !this.notDismissable) {
         this.isEventRegistered = true;
         document.body.addEventListener('keyup', this.escEvent);
-      } else if(!stateModal && this.isEventRegistered) {
+      } else if (!stateModal && this.isEventRegistered) {
         this.isEventRegistered = false;
         document.body.removeEventListener('keyup', this.escEvent);
       }
@@ -249,7 +194,7 @@ export default {
     };
   },
   mounted() {
-    this.startOpen();
+    if (this.value) this.toggleModal(true)
   }
 };
 </script>
@@ -258,12 +203,13 @@ export default {
 
 .ViComponent.ViModal
   align-items center
-  background rgba(black, 0.3)
+  background rgba(black, 0.4)
   display flex
   height 0
   justify-content center
   left 0
   opacity 0
+  overflow hidden
   padding 10px
   position fixed
   transition opacity 0.3s ease-in-out 0.4s, height 0s linear 0.7s
@@ -276,8 +222,6 @@ export default {
       padding 2px
     &--small
       padding 5px
-    &--large
-      padding 20px
 
   .ViModal__Wrapper
     backface-visibility hidden
@@ -287,11 +231,11 @@ export default {
     max-height 100%
     max-width 100%
     transform translate(0, -50px)
-    transition transform 0.2s cubic-bezier(.21,1.08,.75,1.31) 0.2s, opacity 0.2s linear 0.1s
+    transition transform 0.4s ease-in-out 0.2s, opacity 0.3s linear 0.1s
     .ViModal__Card  .ViCard__Section
-      transform translate(0, -20px)
       opacity 0
-      transition transform 0.3s ease-in-out 0.3s, opacity 0.3s linear 0.3s
+      transform translate(0, -15px)
+      transition transform 0.3s ease-in-out 0.3s, opacity 0.2s linear 0.3s
 
   &--open
     backface-visibility hidden
@@ -311,21 +255,42 @@ export default {
         opacity 1
         transform translate(0, 0) translate3d(0,0,0)
         will-change transform, opacity
+        .ViModal__CloseButton
+          opacity 1
+          will-change opacity
 
   &--not-dismissable
-    cursor default
     .ViModal__CloseButton
       display none
 
   .ViCard.ViModal__Card
     transition transform 0.2s ease-in-out 0.1s
     max-width 100%
-    max-height 100%
-
+    max-height: calc(100vh - 41px);
+    .ViCard__Header
+      padding-right 35px
+      flex 0
     .ViCard__Body
-      overflow-x hidden
-      overflow-y auto
+      flex 2 2
+      overflow auto
       -webkit-overflow-scrolling touch  /* para chrome e safari mobile */
+
+  .ViModal__CloseButton
+    transition opacity 0.1s linear 0.6s
+    border 0
+    box-shadow 0
+    opacity 0
+    padding 10px
+    position absolute
+    right 0
+    top 0
+    &
+    &:hover
+    &:focus
+      background transparent!important
+      border 0!important
+      box-shadow 0!important
+
 </style>
 
 <docs>
@@ -333,8 +298,8 @@ export default {
 ### Exemplo de modal
 
 ```jsx
-<vi-modal primary large-spacing title="Exemplo de modal" title-size="2">
-<vi-wrapper child-wrapper>Essa moda inicia aberta.</vi-wrapper>
+<vi-modal primary mini title="Exemplo de modal" title-size="2">
+Essa modal inicia aberta.
 </vi-modal>
 ```
 
@@ -352,7 +317,6 @@ Obs: Evite sobrepor modais sempre que possível.
       title-size="2"
       large-spacing
       v-model="firstModalIsOpen"
-      :baseURL="baseURLFirst"
     >
       <div slot="body">
         Exemplo de modal em uso
@@ -365,7 +329,7 @@ Obs: Evite sobrepor modais sempre que possível.
             @click="firstModalIsOpen = false"
           >Fecha</vi-button>
           <vi-button
-            success
+            warning
             @click="secondModalIsOpen = true"
           >Exemplo 2</vi-button>
           <vi-button
@@ -377,8 +341,8 @@ Obs: Evite sobrepor modais sempre que possível.
     </vi-modal>
 
     <vi-modal
-      success
-      title="Sucesso!"
+      warning
+      title="Aviso!"
       width="300px"
       v-model="secondModalIsOpen"
       title-size="2"
@@ -390,11 +354,10 @@ Obs: Evite sobrepor modais sempre que possível.
       title="Modal com scroll"
       width="500px"
       v-model="thirdModalIsOpen"
-      :baseURL="baseURLThird"
       title-size="2"
     >
       <div slot="body">
-        <p>Modais com scroll mantem o footer e o header visíveis para facilitar navegação.
+        <p>Modais com scroll mantem o footer e o header visíveis para facilitar navegação.</p>
         <p>Exemplo:</p>
         <hr/>
         <h3>Chapter One </h3>
@@ -441,8 +404,6 @@ export default {
       firstModalIsOpen: false,
       secondModalIsOpen: false,
       thirdModalIsOpen: false,
-      baseURLFirst: '&modal=exemploModal',
-      baseURLThird: '&modal=scrollModal',
     };
   },
 };
