@@ -10,8 +10,8 @@ npm install --save vue-vi-ui
 
 Ou a CDN:
 ```html static
-https://unpkg.com/vue-vi-ui/dist/vi-ui.min.js
-https://unpkg.com/vue-vi-ui/dist/vi-ui.min.css
+<script src="https://unpkg.com/vue-vi-ui/dist/vi-ui.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-vi-ui/dist/vi-ui.min.css">
 ```
 
 ## Utilização
