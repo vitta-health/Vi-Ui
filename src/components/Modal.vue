@@ -31,7 +31,7 @@
       <template
         slot="side"
       >
-        <!-- @slot  Use o slot `side` para inserir elementos entre o título e o botão fechar.l -->
+        <!-- @slot  Use o slot `side` para inserir elementos entre o título e o botão fechar. -->
         <slot name="side"/>
       </template>
       <template
