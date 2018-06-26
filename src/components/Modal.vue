@@ -37,7 +37,7 @@
       <template
         slot="close"
       >
-        <!-- @slot  Use slot o `close` para modificar o botão de fechar. O botão de fechar original substituído quando esse slot é utilizado. -->
+        <!-- @slot  Use slot o `close` para substituir o botão de fechar. -->
         <slot name="close">
           <vi-button
             class="ViModal__CloseButton"
@@ -54,7 +54,7 @@
       <template
         slot="body"
       >
-        <!-- @slot Use slot o `body` para definir o conteúdo no corpo do card. -->
+        <!-- @slot Use slot o `body` para definir o conteúdo no corpo do modal. -->
         <slot name="body" />
         <slot/>
       </template>
