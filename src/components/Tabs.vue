@@ -37,8 +37,7 @@ export default {
   render(createElement) {
     const self = this;
     const childrens = this.$slots.default.filter((node) => {
-      const nodeItem = node;
-      if (!nodeItem.tag && !nodeItem.text) return false;
+      if (!node.tag && !node.text) return false;
       return true;
     });
 
@@ -49,7 +48,6 @@ export default {
       const contentNode = Object.create(node);
 
       if (node.data) {
-        const idContent = `vi-tab${index}`;
         let tabName = `tab${index}`;
         if(node.data.attrs) {
           if(node.data.attrs.tab) tabName = node.data.attrs.tab;
