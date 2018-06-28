@@ -182,7 +182,7 @@ import { scaleMixin, widthMixin } from '../mixins/sizes';
 import inputMixin from '../mixins/input';
 /**
  * ###### Além das props descritas aqui, usamos a props e eventos do **Vue-Multiselect**.
- * <a target="_blank" href="https://vue-multiselect.js.org/#sub-props" class="ViComponent ViButton ViColor-success--background ViColor-success--hover">Documentação completa do Vue-Multiselect</a><br><br>
+ * [Documentação completa do Vue-Multiselect](https://vue-multiselect.js.org/#sub-props)
  */
 
 export default {

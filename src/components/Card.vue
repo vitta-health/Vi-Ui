@@ -10,7 +10,7 @@
         'ViCard--large': largeSpacing,
         'ViCard--no-spacing': noSpacing,
       },
-      colorClass({ background: true, default: defaultColor }),
+      colorClass({ bg: true, default: defaultColor }),
     ]"
     :style="{ width: componentWidth }"
   >

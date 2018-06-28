@@ -31,8 +31,7 @@ for $key, $val in $colors
 
   .ViComponent .ViColor-{$key}
   .ViComponent.ViColor-{$key}
-    &--background
-      border-color $val
+    &--bg
       background-color $val
       color $text-color
 
@@ -42,10 +41,15 @@ for $key, $val in $colors
       a:hover
         color darken($link-color, 30%)
 
+    &--text
+      color $val
+
     &--border
       border-color $val
+
+    &--border-no-bg
+      border-color $val
       background-color transparent
-      color $val
 
     &--hover:focus:enabled
       box-shadow 0 0 10px rgba($val, 0.5)
@@ -57,3 +61,6 @@ for $key, $val in $colors
       border-color shade($val, 25%)
       color $text-color
       will-change box-shadow
+
+.ViComponent .ViColor-transparent-bg
+  background-color transparent

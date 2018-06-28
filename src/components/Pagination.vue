@@ -140,7 +140,6 @@ export default {
          * @type {number}
        */
       this.$emit('input', pageNumber);
-      if (this.baseURL, redirect) this.changeUrl(pageNumber);
     },
     isCurrentPage(page) {
       return this.value === page;
