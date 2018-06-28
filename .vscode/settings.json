@@ -1,5 +1,6 @@
 {
   "eslint.validate": [
+      "javascript",
       "@vue/airbnb",
       "plugin:vue/strongly-recommended",
       {
