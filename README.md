@@ -23,13 +23,14 @@ Or the CDN:
 
 ```js static
 import 'vue-vi-ui/dist/vi-ui.min.css';
-import { ViButton } from 'vue-vi-ui';
+
+import Vue from 'vue';
+import ViUi from 'vue-vi-ui';
+
+Vue.use(ViUi);
 
 export default {
   name: 'app',
-  components: {
-    ViButton,
-  }
 }
 ```
 
