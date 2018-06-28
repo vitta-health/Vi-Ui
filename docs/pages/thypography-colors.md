@@ -29,7 +29,8 @@
   </vi-table>
   <hr/>
   <h2>Cores</h2>
-  <p>Componentes que apresentam a prop é apenas utilizar as props. Mas no caso se usar as cores em seus próprios componentes, segue a lista de classes disponíveis:</p>
+  <p>A maioria dos componentes possuem props que definem as cores. Nestes casos basta usar a prop.</p>
+  <p>Para utilizar em seus próprios componentes, utilize as classes abaixo:<p>
   <vi-wrapper class="ViComponent ViColorDemo" grid>
     <vi-card
       col="4"
@@ -42,7 +43,7 @@
       :key="key"
     >
       <h3>{{ key }}<br/><small>{{color.hex}}</small></h3>
-      <h4>Clases:</h4>
+      <h4>Classes:</h4>
       <p><small>
       • ViColor-{{ key }}--text<br/>
       • ViColor-{{ key }}--bg<br/>
