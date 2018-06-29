@@ -121,9 +121,8 @@ export default {
       }
     },
     getPage(newPage) {
-      if (!Number(newPage)) return 1;
-
       const countPages = this.totalPages || this.getPagesRange[1];
+      debugger;
       switch (newPage) {
         case 'PREVIOUS_PAGE': return this.value <= 1 ? 1 : this.value - 1;
         case 'NEXT_PAGE': return this.value >= countPages ? countPages : this.value + 1;
@@ -132,13 +131,14 @@ export default {
         default: return newPage;
       }
     },
-    handleNavigation(page, redirect  = true) {
+    handleNavigation(page) {
       const pageNumber = this.getPage(page);
       /**
          * Evento disparado na seleção da página
          * @event input
          * @type {number}
        */
+       debugger;
       this.$emit('input', pageNumber);
     },
     isCurrentPage(page) {
@@ -148,14 +148,6 @@ export default {
       if(!this.baseURL) return null;
       const parsedBaseUrl = this.baseURL.replace('##PAGE##', this.getPage(page));
       return `${this.rootUrl}${parsedBaseUrl}`;
-    },
-    startPage() {
-      if (!this.baseURL && this.value <= 1) return;
-      const matchBase = window.location.href.match(this.baseRegEx);
-      if (matchBase) {
-        const matchNumber = Number(matchBase[0].match(/\d+/)[0]);
-        this.handleNavigation(matchNumber, false);
-      }
     },
   },
   computed: {
@@ -194,9 +186,6 @@ export default {
       }
       return pages;
     },
-  },
-  mounted() {
-    this.startPage();
   },
 };
 </script>
