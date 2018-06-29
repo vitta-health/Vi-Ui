@@ -9,6 +9,7 @@ import ViInputFile from './components/InputFile.vue';
 import ViSelect from './components/InputSelect.vue';
 import ViCheckbox from './components/InputRadioCheckbox.vue';
 import ViLoading from './components/Loading.vue';
+import ViModal from './components/Modal.vue';
 import ViPagination from './components/Pagination.vue';
 import ViTable from './components/Table.vue';
 import ViWrapper from './components/Wrapper.vue';
@@ -28,6 +29,7 @@ const ViUi = {
     Vue.component(ViCheckbox.name, ViCheckbox);
     Vue.component(ViSelect.name, ViSelect);
     Vue.component(ViLoading.name, ViLoading);
+    Vue.component(ViModal.name, ViModal);
     Vue.component(ViPagination.name, ViPagination);
     Vue.component(ViTable.name, ViTable);
     Vue.component(ViTabs.name, ViTabs);

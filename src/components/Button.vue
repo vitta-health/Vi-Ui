@@ -52,6 +52,7 @@
 
 <script>
 import ViWrapper from './Wrapper.vue';
+import ViIcon from './Icon.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
 import positioningMixin from '../mixins/positioning';
@@ -60,6 +61,7 @@ export default {
   name: 'ViButton',
   components: {
     ViWrapper,
+    ViIcon,
   },
   mixins: [scaleMixin, widthMixin, colorsMixin, positioningMixin],
   props: {
