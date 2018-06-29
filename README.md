@@ -2,9 +2,9 @@
   <img src="https://github.com/vitta-health/Vi-Ui/blob/master/docs/layout/components/vi-ui.svg" width="120px">
 </p>
 <h1 align="center">Vi-Ui</h1>
-<h3 align="center">A simple but consistent<br>user interface made on Vue</h1>
 
 ## Install:
+
 
 Using NPM:
 
@@ -23,13 +23,14 @@ Or the CDN:
 
 ```js static
 import 'vue-vi-ui/dist/vi-ui.min.css';
-import { ViButton } from 'vue-vi-ui';
+
+import Vue from 'vue';
+import ViUi from 'vue-vi-ui';
+
+Vue.use(ViUi);
 
 export default {
   name: 'app',
-  components: {
-    ViButton,
-  }
 }
 ```
 

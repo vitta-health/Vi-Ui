@@ -15,21 +15,29 @@ import ViWrapper from './components/Wrapper.vue';
 import ViTooltip from './components/Tooltip.vue';
 import ViTabs from './components/Tabs.vue';
 
-export default {
-  ViAlert,
-  ViButton,
-  ViButtonGroup,
-  ViCard,
-  ViIcon,
-  ViInput,
-  ViDatepicker,
-  ViInputFile,
-  ViCheckbox,
-  ViSelect,
-  ViLoading,
-  ViPagination,
-  ViTable,
-  ViWrapper,
-  ViTooltip,
-  ViTabs,
+const ViUi = {
+  install(Vue, options) {
+    Vue.component(ViAlert.name, ViAlert);
+    Vue.component(ViButton.name, ViButton);
+    Vue.component(ViButtonGroup.name, ViButtonGroup);
+    Vue.component(ViCard.name, ViCard);
+    Vue.component(ViIcon.name, ViIcon);
+    Vue.component(ViInput.name, ViInput);
+    Vue.component(ViDatepicker.name, ViDatepicker);
+    Vue.component(ViInputFile.name, ViInputFile);
+    Vue.component(ViCheckbox.name, ViCheckbox);
+    Vue.component(ViSelect.name, ViSelect);
+    Vue.component(ViLoading.name, ViLoading);
+    Vue.component(ViPagination.name, ViPagination);
+    Vue.component(ViTable.name, ViTable);
+    Vue.component(ViTabs.name, ViTabs);
+    Vue.component(ViTooltip.name, ViTooltip);
+    Vue.component(ViWrapper.name, ViWrapper);
+  }
 };
+
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.use(ViUi)
+}
+
+export default ViUi;

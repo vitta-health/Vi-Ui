@@ -1,8 +1,7 @@
 {
   "eslint.validate": [
       "javascript",
-      "javascriptreact",
-      "airbnb-base",
+      "@vue/airbnb",
       "plugin:vue/strongly-recommended",
       {
         "language": "vue"
