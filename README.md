@@ -2,9 +2,16 @@
   <img src="https://github.com/vitta-health/Vi-Ui/blob/master/docs/layout/components/vi-ui.svg" width="120px">
 </p>
 <h1 align="center">Vi-Ui</h1>
+<p align="center">
+  <a href="https://david-dm.org/vitta-health/Vi-Ui" title="dependencies status"><img src="https://david-dm.org/vitta-health/Vi-Ui/status.svg"/></a>
+  <a href="https://scrutinizer-ci.com/g/vitta-health/Vi-Ui/build-status/master" title="build status"><img src="https://scrutinizer-ci.com/g/vitta-health/Vi-Ui/badges/build.png?b=master"/></a>
+  <a href="https://scrutinizer-ci.com/g/vitta-health/Vi-Ui/?branch=master" title="code quality"><img src="https://scrutinizer-ci.com/g/vitta-health/Vi-Ui/badges/quality-score.png?b=master"/></a>
+  <a href="https://github.com/vitta-health/Vi-Ui/blob/master/LICENSE" title="Licente Mit"><img src="https://img.shields.io/badge/License-MIT-blue.svg"/></a>
+</p>
+
+<h2 align="center"><a href="https://vitta-health.github.io/Vi-Ui/static/docs/">Read the documentation</h2>
 
 ## Install:
-
 
 Using NPM:
 
