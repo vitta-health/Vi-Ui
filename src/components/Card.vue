@@ -10,7 +10,7 @@
         'ViCard--large': largeSpacing,
         'ViCard--no-spacing': noSpacing,
       },
-      colorClass({ background: true, default: defaultColor }),
+      colorClass({ bg: true, default: defaultColor }),
     ]"
     :style="{ width: componentWidth }"
   >
@@ -237,7 +237,7 @@ export default {
           superHeroName: 'Spider-Man',
           birthDate: '08/01/1989',
           age: '(29a e 7m)',
-          avatar: '/assets/img/spider.png'
+          avatar: 'https://github.com/vitta-health/Vi-Ui/blob/master/docs/assets/img/spider.png'
         },
         {
           idHero: 1,
@@ -245,7 +245,7 @@ export default {
           superHeroName: 'Wolverine',
           birthDate: '??/??/1880',
           age: '(128a)',
-          avatar: '/assets/img/wolverine.jpg',
+          avatar: 'https://github.com/vitta-health/Vi-Ui/blob/master/docs/assets/img/wolverine.jpg',
         },
       ],
     }

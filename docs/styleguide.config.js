@@ -10,6 +10,7 @@ module.exports = {
   showUsage: true,
   showCode: true,
   navigation: true,
+  styleguideDir: '../static/docs/',
   require: [
     'babel-polyfill',
     path.join(__dirname, './layout/style.css'),

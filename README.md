@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="https://github.com/vitta-health/Vi-Ui/blob/master/docs/layout/components/vi-ui.svg" width="100px">
-  # Vi-Ui
+  <img src="https://github.com/vitta-health/Vi-Ui/blob/master/docs/layout/components/vi-ui.svg" width="120px">
 </p>
+<h1 align="center">Vi-Ui</h1>
 
 ## Install:
 
@@ -16,10 +16,9 @@ Or the CDN:
 <script src="https://unpkg.com/vue-vi-ui/dist/vi-ui.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-vi-ui/dist/vi-ui.min.css">
 ```
-<h1 align="center">Vi-Ui</h1>
 
 
-## How to use
+## How to use:
 
 ```js static
 import 'vue-vi-ui/dist/vi-ui.min.css';

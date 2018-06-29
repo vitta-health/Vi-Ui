@@ -9,7 +9,7 @@
         'ViLoading--small': small,
         'ViLoading--large': large,
       },
-      colorClass({ border: true, default: 'primary' })
+      colorClass({ 'border-no-bg': true, text: true, default: 'primary' })
     ]"
     :style="{
       height: `${getSize}px`,

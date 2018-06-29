@@ -13,8 +13,10 @@
         'ViButton--active': active,
       },
       colorClass({
-        background: !outlined,
-        border: outlined,
+        bg: !outlined,
+        border: !outlined,
+        'border-no-bg': outlined,
+        text: outlined,
         hover: true && !active,
         default: defaultColor,
       }),
