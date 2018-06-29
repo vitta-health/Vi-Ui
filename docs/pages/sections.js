@@ -11,10 +11,6 @@ const sections = [
     name: 'Documentação',
     components: '../src/components/*.vue',
   },
-  {
-    name: 'Criando mais componentes',
-    content: 'pages/create.md',
-  },
 ];
 
 module.exports = sections;

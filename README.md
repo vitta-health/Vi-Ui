@@ -2,6 +2,9 @@
   <img src="https://github.com/vitta-health/Vi-Ui/blob/master/docs/layout/components/vi-ui.svg" width="120px">
 </p>
 <h1 align="center">Vi-Ui</h1>
+<p align="center">
+![Scrutinizer](https://img.shields.io/scrutinizer/g/filp/whoops.svg)
+</p>
 
 ## Install:
 
