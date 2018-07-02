@@ -9,7 +9,7 @@
   "rules": {
     "import/no-unresolved":  [ "error", "never" ],
     "import/extensions": [ "error", "never" ],
-    "no-underscore-dangle": ["error", "never" ],
+    "no-underscore-dangle": ["error", { "enforceInMethodNames" : false } ],
     "comma-dangle": ["error",  {
       "arrays": "always-multiline",
       "objects": "always-multiline",
