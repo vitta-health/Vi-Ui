@@ -17,7 +17,7 @@ import ViTooltip from './components/Tooltip.vue';
 import ViTabs from './components/Tabs.vue';
 
 const ViUi = {
-  install(Vue, options) {
+  install(Vue) {
     Vue.component(ViAlert.name, ViAlert);
     Vue.component(ViButton.name, ViButton);
     Vue.component(ViButtonGroup.name, ViButtonGroup);
@@ -35,11 +35,11 @@ const ViUi = {
     Vue.component(ViTabs.name, ViTabs);
     Vue.component(ViTooltip.name, ViTooltip);
     Vue.component(ViWrapper.name, ViWrapper);
-  }
+  },
 };
 
 if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(ViUi)
+  window.Vue.use(ViUi);
 }
 
 export default ViUi;

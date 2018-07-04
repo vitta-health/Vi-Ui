@@ -1,16 +1,17 @@
 {
   "extends": [
-    "@vue/airbnb",
+    "airbnb-base",
     "plugin:vue/strongly-recommended"
   ],
   "plugins": [
     "vue"
   ],
   "rules": {
-    "import/no-unresolved":  [ "error", "never" ],
-    "import/extensions": [ "error", "never" ],
-    "no-underscore-dangle": ["error", { "enforceInMethodNames" : false } ],
-    "comma-dangle": ["error",  {
+    "import/no-unresolved": ["error", "never"],
+    "import/extensions": ["error", "never"],
+    "func-names": ["off"],
+    "no-underscore-dangle": ["off"],
+    "comma-dangle": ["error", {
       "arrays": "always-multiline",
       "objects": "always-multiline",
       "imports": "always-multiline",

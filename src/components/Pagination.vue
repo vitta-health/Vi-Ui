@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import ViButtonGroup from './ButtonGroup';
-import ViButton from './Button';
+import ViButtonGroup from './ButtonGroup.vue';
+import ViButton from './Button.vue';
 import colorsMixin from '../mixins/colors';
 
 export default {

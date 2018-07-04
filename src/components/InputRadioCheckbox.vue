@@ -171,7 +171,8 @@ export default {
           border-bottom-width 0.27em
           opacity 1
           transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
-          transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+          transition all 0.04s ease-out, opacity 0.1s ease-out,
+          transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
           will-change transform, opacity
         &:focus
           & + label:before
@@ -181,7 +182,8 @@ export default {
       &:indeterminate
         & + label:after
           opacity 1!important
-          transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+          transition all 0.04s ease-out, opacity 0.1s ease-out,
+          transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
           will-change transform, opacity
 
     &.ViCheckbox__Input--radio

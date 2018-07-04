@@ -68,8 +68,8 @@ export default {
   computed: {
     getSize() {
       if (this.mini) return availableSizes.mini;
-      else if (this.small) return availableSizes.small;
-      else if (this.large) return availableSizes.large;
+      if (this.small) return availableSizes.small;
+      if (this.large) return availableSizes.large;
 
       return availableSizes.medium;
     },
