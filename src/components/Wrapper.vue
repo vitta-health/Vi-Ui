@@ -181,9 +181,12 @@ export default {
 </script>
 
 <style lang="stylus">
-$justify = 'center' 'start' 'end' 'flex-start' 'flex-end' 'left' 'right' 'baseline' 'stretch' 'first baseline' 'last baseline' 'space-between' 'space-around' 'space-evenly' 'inherit' 'initial' 'unset'
+$justify = 'center' 'start' 'end' 'flex-start' 'flex-end' 'left' 'right' 'baseline'
+'stretch' 'first baseline' 'last baseline' 'space-between' 'space-around'
+'space-evenly' 'inherit' 'initial' 'unset'
 
-$align = 'center' 'start' 'end' 'flex-start' 'flex-end' 'self-start' 'self-end' 'baseline' 'stretch' 'first baseline' 'last baseline' 'inherit' 'initial' 'unset'
+$align = 'center' 'start' 'end' 'flex-start' 'flex-end' 'self-start' 'self-end'
+'baseline' 'stretch' 'first baseline''last baseline' 'inherit' 'initial' 'unset'
 
 gridPadding($space, $useMargin = false)
   &.flexWrapper--parent-spacing
@@ -290,7 +293,8 @@ O componente ViWrapper é usado para trabalhar com conjunto de componentes.
 Ele também pode embrulhar os filhos em uma tag caso necessário.
 
 É recomendado não colocar margens diretamente pelo css. Use um wrapper sempre que precisar definir
-um espaçamento entre componentes. As opções de espaçamento  são [mini-spacing|small-spacing|large-spacing|no-spacing].
+um espaçamento entre componentes. As opções de espaçamento  são
+[mini-spacing|small-spacing|large-spacing|no-spacing].
 
 ### Exemplo de wrapper
 
@@ -364,5 +368,4 @@ Medidas (`px`)     |Mini (`<576`)|Small (`>=576`)|Medium (`>=768`)|Large (`>=992
 | order-large         | null    | Ordem coluna se resolução `>= 992px`  |
 | order-jumbo         | null    | Ordem coluna se resolução `>= 1200px` |
 
-Todo filho não posicionado fica na posição 51, qualquer como posição definida
 </docs>

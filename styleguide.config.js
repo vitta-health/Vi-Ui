@@ -1,19 +1,20 @@
 const path = require('path');
-const webpackConfig = require('../webpack.config');
-const sectionsMenu = require('./pages/sections');
+const webpackConfigModule = require('./node_modules/@vue/cli-service/webpack.config.js').module;
+const sectionsMenu = require('./docs-src/pages/sections');
 
 module.exports = {
   title: 'Vi-Ui Documentation',
-  components: '../src/components/[A-Z]*.vue',
+  components: 'src/components/[A-Z]*.vue',
   sortProps: props => props,
-  webpackConfig,
+  webpackConfig: {
+    module: webpackConfigModule,
+  },
   showUsage: true,
   showCode: true,
   navigation: true,
-  styleguideDir: '../static/docs/',
+  styleguideDir: 'docs/',
   require: [
-    'babel-polyfill',
-    path.join(__dirname, './layout/style.css'),
+    path.join(__dirname, './docs-src/layout/style.css'),
   ],
   styleguideComponents: {
     /**
@@ -33,15 +34,16 @@ module.exports = {
     head: {
       links: [{
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Montserrat:400,500,500i,700,700i'
+        href: 'https://fonts.googleapis.com/css?family=Montserrat:400,500,500i,700,700i',
       }],
-      meta: [{
-          name: "viewport",
-          content: "width=device-width,initial-scale=1.0,viewport-fit=cover",
+      meta: [
+        {
+          name: 'viewport',
+          content: 'width=device-width,initial-scale=1.0,viewport-fit=cover',
         },
         {
-          name: "format-detection",
-          content: "telephone=no",
+          name: 'format-detection',
+          content: 'telephone=no',
         },
       ],
     },

@@ -125,9 +125,13 @@ export default {
     show(status) {
       this.showHide(status);
     },
-    'tooltip._isOpen': function (status, me) {
+    'tooltip._isOpen': (status) => {
       this.tooltip._isOpening = status;
     },
+  },
+  mounted() {
+    this.initTooltip();
+    this.showHide(this.show);
   },
   methods: {
     initTooltip() {
@@ -149,10 +153,6 @@ export default {
     justHide() {
       if (this.closeOnClick) this.tooltip.hide();
     },
-  },
-  mounted() {
-    this.initTooltip();
-    this.showHide(this.show);
   },
 };
 </script>

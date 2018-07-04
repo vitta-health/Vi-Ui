@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import ViButton from './Button.vue';
-import ViCard from './Card.vue';
+import ViButton from './Button';
+import ViCard from './Card';
 import colorsMixin from '../mixins/colors';
 import { widthMixin } from '../mixins/sizes';
 
@@ -212,7 +212,7 @@ export default {
   watch: {
     value(v) {
       this.handleValue(v);
-    }
+    },
   },
   computed: {
     timeoutMillisecs() {
@@ -238,7 +238,7 @@ export default {
   transition all 0.25s cubic-bezier(0.87, -0.41, 0.19, 1.44)
 
   &--open
-    will-change transform, opacity 
+    will-change transform, opacity
 
   &--pill
     &.ViCard

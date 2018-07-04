@@ -62,9 +62,9 @@
 
 
 <script>
-import ViWrapper from './Wrapper.vue';
-import ViButton from './Button.vue';
-import ViInputLabel from '../helperComponents/InputLabel.vue';
+import ViWrapper from './Wrapper';
+import ViButton from './Button';
+import ViInputLabel from '../helperComponents/InputLabel';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import inputMixin from '../mixins/input';
 

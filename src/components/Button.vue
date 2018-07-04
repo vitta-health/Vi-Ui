@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import ViWrapper from './Wrapper.vue';
-import ViIcon from './Icon.vue';
+import ViWrapper from './Wrapper';
+import ViIcon from './Icon';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
 import positioningMixin from '../mixins/positioning';

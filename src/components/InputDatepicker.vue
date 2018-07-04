@@ -48,11 +48,12 @@
 </template>
 
 <script>
+import 'v-calendar/lib/v-calendar.min.css';
 import { setupCalendar, DatePicker } from 'v-calendar';
-import ViWrapper from './Wrapper.vue';
+import ViWrapper from './Wrapper';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
-import ViInputLabel from '../helperComponents/InputLabel.vue';
-import ViIcon from './Icon.vue';
+import ViInputLabel from '../helperComponents/InputLabel';
+import ViIcon from './Icon';
 import inputMixin from '../mixins/input';
 
 const FORMATS = {
@@ -171,7 +172,6 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../../node_modules/v-calendar/lib/v-calendar.min.css'
 @import '../themes/main'
 @import '../themes/input'
 

@@ -41,7 +41,7 @@
   </vi-wrapper>
 </template>
 <script>
-import ViWrapper from './Wrapper.vue';
+import ViWrapper from './Wrapper';
 import { widthMixin } from '../mixins/sizes';
 import colorsMixin from '../mixins/colors';
 
@@ -217,7 +217,8 @@ Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
         <vi-wrapper>
           <img class="avatar" :src="character.avatar"/>
           <vi-wrapper vertical child-wrapper>
-            <h4 class="name">{{character.name}}<br /><small>aka {{character.superHeroName}}</small></h4>
+            <h4 class="name">{{character.name}}<br />
+            <small>aka {{character.superHeroName}}</small></h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
             <vi-button success small outlined pill>Avançar!</vi-button>
           </vi-wrapper>
