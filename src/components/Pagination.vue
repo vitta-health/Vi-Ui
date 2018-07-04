@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import ViButtonGroup from './ButtonGroup.vue';
-import ViButton from './Button.vue';
+import ViButtonGroup from './ButtonGroup';
+import ViButton from './Button';
 import colorsMixin from '../mixins/colors';
 
 export default {
@@ -90,10 +90,12 @@ export default {
       type: Boolean,
       default: false,
     },
-    /**f
-     * Adiciona link aos botões da modal. A string `##PAGE##` é alterado para o numero da página. ex: exemplo?page=##PAGE##
+    /**
+     * Adiciona link aos botões da modal. A string `##PAGE##` é alterado
+     * para o numero da página. ex: exemplo?page=##PAGE##
      */
     baseURL: {
+      type: String,
       default: null,
     },
     /**
@@ -122,7 +124,6 @@ export default {
     },
     getPage(newPage) {
       const countPages = this.totalPages || this.getPagesRange[1];
-      debugger;
       switch (newPage) {
         case 'PREVIOUS_PAGE': return this.value <= 1 ? 1 : this.value - 1;
         case 'NEXT_PAGE': return this.value >= countPages ? countPages : this.value + 1;
@@ -138,14 +139,13 @@ export default {
          * @event input
          * @type {number}
        */
-       debugger;
       this.$emit('input', pageNumber);
     },
     isCurrentPage(page) {
       return this.value === page;
     },
     getURL(page) {
-      if(!this.baseURL) return null;
+      if (!this.baseURL) return null;
       const parsedBaseUrl = this.baseURL.replace('##PAGE##', this.getPage(page));
       return `${this.rootUrl}${parsedBaseUrl}`;
     },
@@ -157,7 +157,7 @@ export default {
     },
     rootUrl() {
       if (!this.baseURL && !this.baseRegEx) return window.location.href;
-      return window.location.href.replace(this.baseRegEx,'');
+      return window.location.href.replace(this.baseRegEx, '');
     },
     pickDefaultColor() {
       return this.dots ? 'dark' : 'primary';
