@@ -27,12 +27,16 @@
       <slot name="side"/>
       <slot name="close"/>
     </vi-wrapper>
-    <div class="ViCard__Body ViCard__Section" ref="body">
+    <div
+      class="ViCard__Body ViCard__Section"
+      ref="body">
       <!-- @slot Use o slot `body` para definir o conteúdo no corpo do card. -->
       <slot name="body"/>
       <slot/>
     </div>
-    <div v-if="$slots.footer" class="ViCard__Footer ViCard__Section">
+    <div
+      v-if="$slots.footer"
+      class="ViCard__Footer ViCard__Section">
       <!-- @slot Use o slot `footer` para definir o conteúdo no rodapé do card. -->
       <slot
         name="footer"
@@ -217,7 +221,8 @@ Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
         <vi-wrapper>
           <img class="avatar" :src="character.avatar"/>
           <vi-wrapper vertical child-wrapper>
-            <h4 class="name">{{character.name}}<br /><small>aka {{character.superHeroName}}</small></h4>
+            <h4 class="name">{{character.name}}<br />
+            <small>aka {{character.superHeroName}}</small></h4>
             <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
             <vi-button success small outlined pill>Avançar!</vi-button>
           </vi-wrapper>
@@ -237,7 +242,7 @@ export default {
           superHeroName: 'Spider-Man',
           birthDate: '08/01/1989',
           age: '(29a e 7m)',
-          avatar: 'https://github.com/vitta-health/Vi-Ui/blob/master/docs/assets/img/spider.png'
+          avatar: './assets/img/spider.png'
         },
         {
           idHero: 1,
@@ -245,7 +250,7 @@ export default {
           superHeroName: 'Wolverine',
           birthDate: '??/??/1880',
           age: '(128a)',
-          avatar: 'https://github.com/vitta-health/Vi-Ui/blob/master/docs/assets/img/wolverine.jpg',
+          avatar: './assets/img/wolverine.jpg',
         },
       ],
     }

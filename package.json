@@ -5,7 +5,7 @@
   "main": "/dist/vi-ui.min.js",
   "license": "MIT",
   "private": false,
-  "homepage": "https://styleguide.vitta.me",
+  "homepage": "https://vitta-health.github.io/Vi-Ui/",
   "unpkg": "/dist/vi-ui.min.js",
   "repository": {
     "type": "git",
@@ -20,7 +20,6 @@
     "vue-multiselect": "^2.1.0"
   },
   "devDependencies": {
-    "@vue/eslint-config-airbnb": "^3.0.0-rc.3",
     "autoprefixer": "^8.6.0",
     "autoprefixer-stylus": "^0.14.0",
     "babel-cli": "^6.26.0",
@@ -38,6 +37,7 @@
     "cross-env": "^5.1.6",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-vue": "^4.5.0",
