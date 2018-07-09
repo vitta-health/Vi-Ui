@@ -254,8 +254,11 @@ export default {
     th
       color $light
       background-color $dark
+      font-family $Montserrat
+      font-weight 500
       border-color $dark
       height 38px
+      letter-spacing -0.01em
 
       &:hover
         cursor pointer
