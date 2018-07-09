@@ -364,24 +364,22 @@ export default {
     &:focus
       & + .ViTable__FakeCheckbox
         &:before
-          box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4),
-          0 0 0 0.1em rgba($border-color-main-focus, 0.5)
+          box-shadow 0 0 0 1px $border-color-main-focus
           will-change box-shadow
         &--inverted
           &:before
-            box-shadow inset 0 0 0 0.1em rgba($light, 0.5),
-            0 0 0 0.25em rgba($light, 0.1)
+            box-shadow inset 0 0 0 1px $light
             will-change box-shadow
 
     &:checked
       &:focus
         & + .ViTable__FakeCheckbox
           &:before
-            box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4)
+            box-shadow 0 0 0 1px $border-color-main-focus
             will-change box-shadow
           &--inverted
             &:before
-              box-shadow 0 0 0 0.25em rgba($light, 0.1)
+              box-shadow 0 0 0 1px $light
               will-change box-shadow
 
       & + .ViTable__FakeCheckbox

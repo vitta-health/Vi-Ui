@@ -493,8 +493,7 @@ export default {
     .multiselect__select
       z-index 3
       &:focus
-        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.4),
-        0 0 0 1px rgba($border-color-main-focus, 0.5)
+        box-shadow 0 0 0 1px $border-color-main-focus
         will-change box-shadow
         transition all 0.04s ease-in-out
         outline none

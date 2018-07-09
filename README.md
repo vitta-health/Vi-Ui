@@ -41,6 +41,20 @@ export default {
 }
 ```
 
+### Import the fonts
+
+Vi-Ui is made to use the fonts Montserrat and Source Sans Prop:
+
+```html static
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">
+```
+
+or use the css import (slower):
+
+```css static
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500|Source+Sans+Pro:400,400i,700,700i');
+```
+
 ### Apply the Vi-Ui style
 
 Apply the class `ViComponent` to the body for global or where you want to use the Vi-Ui.

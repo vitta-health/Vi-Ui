@@ -181,12 +181,12 @@ export default {
 </script>
 
 <style lang="stylus">
-$justify = 'center' 'start' 'end' 'flex-start' 'flex-end' 'left' 'right' 'baseline'
-'stretch' 'first baseline' 'last baseline' 'space-between' 'space-around'
-'space-evenly' 'inherit' 'initial' 'unset'
+$justify = 'center', 'start', 'end', 'flex-start', 'flex-end', 'left', 'right', 'baseline',
+           'stretch', 'first baseline', 'last baseline', 'space-between', 'space-around',
+           'space-evenly', 'inherit', 'initial', 'unset'
 
-$align = 'center' 'start' 'end' 'flex-start' 'flex-end' 'self-start' 'self-end'
-'baseline' 'stretch' 'first baseline' 'last baseline' 'inherit' 'initial' 'unset'
+$align = 'center', 'start', 'end', 'flex-start', 'flex-end', 'self-start', 'self-end',
+         'baseline', 'stretch', 'first baseline', 'last baseline', 'inherit', 'initial', 'unset'
 
 gridPadding($space, $useMargin = false)
   &.flexWrapper--parent-spacing
@@ -233,8 +233,6 @@ mediaQueryInterpolator($size, $max = auto)
 
 
 .flexWrapper
-  align-items center
-  justify-content center
   display flex
   flex-grow 1
 
@@ -260,7 +258,6 @@ mediaQueryInterpolator($size, $max = auto)
     gridSizes(true)
 
   &--grid
-    justify-content center
     flex-wrap wrap
     gridSizes()
 

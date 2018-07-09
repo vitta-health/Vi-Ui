@@ -42,7 +42,7 @@
       v-bind="color.prop"
       :key="key"
     >
-      <h3>{{ key }}<br/><small>{{color.hex}}</small></h3>
+      <h3>{{ key }} <small v-if="color.usage">({{color.usage}})</small><br/><small>{{color.hex}}</small></h3>
       <h4>Classes:</h4>
       <p><small>
       • ViColor-{{ key }}--text<br/>
@@ -69,20 +69,34 @@ export default {
         { label:'Letter Spacing' },
       ],
       data: [
-        { tag: 'Default', typeface:'Montserrat', weight:'500', size:'16px', lineHeight: '1.2em', letterSpacing: '0' },
+        { tag: 'Default', typeface:'Source Sans Pro', weight:'400', size:'16px', lineHeight: '1.2em', letterSpacing: '0' },
         { tag: 'H1', typeface:'Montserrat', weight:'400', size:'2em', lineHeight: '0.87em', letterSpacing: '0.01em' },
         { tag: 'H2', typeface:'Montserrat', weight:'400', size:'1.5em', lineHeight: '0.87em', letterSpacing: '0.01em' },
         { tag: 'H3', typeface:'Montserrat', weight:'500', size:'1.2em', lineHeight: '0.87em', letterSpacing: '0.03em' },
         { tag: 'H4', typeface:'Montserrat', weight:'500', size:'1.05em', lineHeight: '0.87em', letterSpacing: '0' },
         { tag: 'H5', typeface:'Montserrat', weight:'500', size:'0.86em', lineHeight: '0.87em', letterSpacing: '0' },
         { tag: 'H6', typeface:'Montserrat', weight:'700', size:'0.75em', lineHeight: '0.87em', letterSpacing: '0' },
-        { tag: 'p', typeface:'Sans-serif', weight:'400', size:'1em', lineHeight: '1.2em', letterSpacing: '0' },
+        { tag: 'button', typeface:'Montserrat', weight:'500', size:'1em', lineHeight: '1.2em', letterSpacing: '-0.01em' },
+        { tag: 'button-large', typeface:'Montserrat', weight:'500', size:'1em', lineHeight: '1.2em', letterSpacing: '-0.02em' },
         { tag: 'code', typeface:'Monospace', weight:'400', size:'1em', lineHeight: '1.2em', letterSpacing: '0' },
       ],
       colors: {
         default: {
           prop: { default: true },
           hex: '#C4CFDA',
+        },
+        grey: {
+          prop: { grey: true },
+          hex: '#EAEAEA',
+        },
+        dark: {
+          prop: { dark: true },
+          hex: '#55636F',
+        },
+        grey: {
+          prop: { grey: true },
+          usage: 'background',
+          hex: '#EAEAEA',
         },
         primary: {
           prop: { primary: true },
@@ -94,7 +108,7 @@ export default {
         },
         info: {
           prop: { info: true },
-          hex: '#1987C5',
+          hex: '#3297E6',
         },
         success: {
           prop: { success: true },
@@ -107,14 +121,6 @@ export default {
         danger: {
           prop: { danger: true },
           hex: '#E45151',
-        },
-        dark: {
-          prop: { dark: true },
-          hex: '#55636F',
-        },
-        grey: {
-          prop: { grey: true },
-          hex: '#EAEAEA',
         },
         light: {
           prop: { light: true },
