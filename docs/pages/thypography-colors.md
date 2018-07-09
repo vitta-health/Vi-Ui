@@ -76,6 +76,7 @@ export default {
         { tag: 'H4', typeface:'Montserrat', weight:'500', size:'1.05em', lineHeight: '0.87em', letterSpacing: '0' },
         { tag: 'H5', typeface:'Montserrat', weight:'500', size:'0.86em', lineHeight: '0.87em', letterSpacing: '0' },
         { tag: 'H6', typeface:'Montserrat', weight:'700', size:'0.75em', lineHeight: '0.87em', letterSpacing: '0' },
+        { tag: 'legend', typeface:'Montserrat', weight:'500', size:'1em', lineHeight: '1.2em', letterSpacing: '-0.01em' },
         { tag: 'button', typeface:'Montserrat', weight:'500', size:'1em', lineHeight: '1.2em', letterSpacing: '-0.01em' },
         { tag: 'button-large', typeface:'Montserrat', weight:'500', size:'1em', lineHeight: '1.2em', letterSpacing: '-0.02em' },
         { tag: 'code', typeface:'Monospace', weight:'400', size:'1em', lineHeight: '1.2em', letterSpacing: '0' },
@@ -84,10 +85,6 @@ export default {
         default: {
           prop: { default: true },
           hex: '#C4CFDA',
-        },
-        grey: {
-          prop: { grey: true },
-          hex: '#EAEAEA',
         },
         dark: {
           prop: { dark: true },
