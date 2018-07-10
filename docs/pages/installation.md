@@ -31,7 +31,7 @@ export default {
 
 ### Importar as fonts
 
-Vi-Ui é feito com as fonts Montserrat and Source Sans Prop:
+Vi-Ui é feito com as fonts Montserrat e Source Sans Pro:
 
 ```html static
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">

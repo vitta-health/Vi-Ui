@@ -43,7 +43,7 @@ export default {
 
 ### Import the fonts
 
-Vi-Ui is made to use the fonts Montserrat and Source Sans Prop:
+Vi-Ui is made to use the fonts Montserrat e Source Sans Pro:
 
 ```html static
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">
