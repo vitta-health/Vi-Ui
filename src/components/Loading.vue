@@ -112,7 +112,6 @@ export default {
 
 <style lang="stylus">
 @import '../themes/main'
-@import '../themes/input'
 
 .ViComponent.ViLoading
   position relative

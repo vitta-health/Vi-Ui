@@ -31,6 +31,8 @@ for $key, $val in $colors
 
   .ViComponent .ViColor-{$key}
   .ViComponent.ViColor-{$key}
+    transition all 0.3s ease-in-out
+
     &--bg
       background-color $val
       color $text-color
@@ -52,15 +54,21 @@ for $key, $val in $colors
       background-color transparent
 
     &--hover:focus:enabled
-      box-shadow 0 0 10px rgba($val, 0.5)
+      box-shadow 0 0 10px rgba($val, 0.5),
+      inset 0 0 0 rgba(0, 0, 0, 0)
       will-change box-shadow
 
     &--hover:hover:enabled
-      box-shadow 0 0 0 rgba($val, 0)
-      background-color shade($val, 20%)
-      border-color shade($val, 25%)
+      box-shadow 0 0 10px rgba($val, 0.5),
+      inset 0 0 0 rgba(0, 0, 0, 0)
+      background-color shade($val, 30%)
+      border-color shade($val, 30%)
       color $text-color
       will-change box-shadow
+
+    &--hover:active:enabled
+      box-shadow 0 0 10px rgba($val, 0.5),
+      inset 0 2px 3px 2px rgba(0, 0, 0, 0.2)
 
 .ViComponent .ViColor-transparent-bg
   background-color transparent

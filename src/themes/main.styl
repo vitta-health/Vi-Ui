@@ -1,8 +1,8 @@
 @import '../themes/fonts.css'
 @import '../themes/colors'
 
-$Montserrat = 'Montserrat', Futura, 'Trebuchet MS', sans-serif
-$Roboto = 'Roboto', Arial, Helvetica, sans-serif
+$Montserrat = 'Montserrat', Verdana, 'Geneva', sans-serif
+$SourceSans = 'Source Sans Pro', Helvetica, Arial, sans-serif
 
 /*! Based on normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
 /*! Also some snippets from bootstrap: https://github.com/twbs/bootstrap/blob/v4-dev/dist/css/bootstrap.css */
@@ -38,8 +38,8 @@ html
 .ViComponent
   box-sizing border-box
   color $text-color-main
-  font-family $Montserrat
-  font-weight 500
+  font-family $SourceSans
+  font-weight 400
   font-size 16px
   line-height 1.15em
   -webkit-text-size-adjust 100%
@@ -76,7 +76,6 @@ html
   tr
     font-size 1em
     line-height 1.2em
-    font-weight 500
     margin 0 0 0.67em
     color inherit
 
@@ -89,6 +88,8 @@ html
   h4
   h5
   h6
+    font-weight 500
+    font-family $Montserrat
     &:first-child
       margin-top 0
 
@@ -122,10 +123,6 @@ html
     font-weight 700
     line-height 0.87em
     margin 2.33em 0
-
-  p
-    font-family $Roboto
-    font-weight normal
 
   small
     font-size 80%
@@ -188,10 +185,11 @@ html
       margin 0
     legend
       border 0
+      font-family $Montserrat
       font-size 1.1em
       margin 0 0 1em
       padding 0 0 0.3em
-      text-transform uppercase
+      letter-spacing: -0.01em
 
   button
   input

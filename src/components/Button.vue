@@ -159,14 +159,17 @@ export default {
   border-radius 0.2em
   cursor pointer
   display inline-flex
+  font-family $Montserrat
+  font-weight 500
   font-size 16px
   height auto
+  letter-spacing -0.01em
   min-height 40px
   outline none
   padding 0 0.61em
   justify-content center
   text-decoration none
-  transition: all 0.04s
+  transition: all 0.2s
 
   &[disabled]
     opacity 0.45
@@ -209,6 +212,7 @@ export default {
   &--large
     font-size 1.61em
     font-weight 400
+    letter-spacing -0.02em
     min-height 53px
     padding 0 0.59em
     &.ViButton--pill

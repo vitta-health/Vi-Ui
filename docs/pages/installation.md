@@ -29,6 +29,20 @@ export default {
 }
 ```
 
+### Importar as fonts
+
+Vi-Ui é feito com as fonts Montserrat e Source Sans Pro:
+
+```html static
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">
+```
+
+O use css import (mais lento):
+
+```css static
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500|Source+Sans+Pro:400,400i,700,700i');
+```
+
 ## Aplicando estilos padrões do Vi-Ui
 
 Aplique os padrões de estilo do Vi-Ui colocando a classe `ViComponent` no body ou o bloco onde eles são desejados. Componentes com exceção do `vi-wrapper` já apresentam esse estilo.

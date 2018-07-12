@@ -235,9 +235,13 @@ export default {
 @import '../themes/main'
 
 .ViComponent.ViAlert
-  transition all 0.25s cubic-bezier(0.87, -0.41, 0.19, 1.44)
+  transition all 0.35s ease-out
+  font-family $Montserrat
+  font-weight 500
+  letter-spacing -0.01em
 
   &--open
+    transition all 0.45s cubic-bezier(0.87, -0.41, 0.19, 1.44)
     will-change transform, opacity
 
   &--pill
@@ -265,10 +269,6 @@ export default {
       transform translate(-50%, 200%) rotateX(180deg)
     &.ViAlert--open
       transform translate(-50%, 0) rotateX(0)
-
-  &--left
-  &--right
-    transition-duration 0.32s
 
   &--left
     left 1em

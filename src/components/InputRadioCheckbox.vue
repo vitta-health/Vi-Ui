@@ -142,12 +142,11 @@ export default {
 
     &.ViCheckbox__Input--invalid + label:before
     &.ViCheckbox__Input--validated:invalid + label:before
-      box-shadow 0px 0px 0px 1px rgba($danger, 1)
+      box-shadow 0 0 0 1px $danger
 
     &:focus
       & + label:before
-        box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4),
-        0 0 0 0.1em rgba($border-color-main-focus, 0.5)
+        box-shadow 0 0 0 1px $border-color-main-focus
         will-change box-shadow
 
     &.ViCheckbox__Input--checkbox
@@ -176,7 +175,7 @@ export default {
           will-change transform, opacity
         &:focus
           & + label:before
-            box-shadow 0 0 0 0.25em rgba($border-color-main-focus, 0.4)
+            box-shadow 0 0 0 1px $border-color-main-focus
 
       &[indeterminate]
       &:indeterminate
