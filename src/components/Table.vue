@@ -9,7 +9,7 @@
       <tr class="ViTable__Row">
         <th
           v-if="checkbox"
-          class="ViTable--not-sortable ViTable__Checkbox">
+          class="ViTable__Col ViTable__Checkbox">
           <div class="ViTable__CheckboxWrapper">
             <input
               ref="checkboxAllSelected"
@@ -23,7 +23,8 @@
           v-for="(column, index) in columns"
           :key="index"
           @click="column.sortable ? onSort(column.id) : null"
-          :class="[{'ViTable--not-sortable': !column.sortable}]">
+          class="ViTable__Col"
+          :class="[{'ViTable__Col--sortable': column.sortable}]">
           <div class="ViTable__InnerHead">
             <div>{{ column.label }}</div>
             <div class="ViTable__Arrows">
@@ -260,14 +261,10 @@ export default {
       height 38px
       letter-spacing -0.01em
 
-      &:hover
+      &.ViTable__Col--sortable
         cursor pointer
-        background-color darken($dark,10%)
-
-  &--not-sortable
-    background-color rgba(0, 0, 0, 0.1) !important
-    &:hover
-      cursor default !important
+        &:hover
+          background-color darken($dark,10%)
 
   td
   th
@@ -307,6 +304,7 @@ export default {
 
   .ViTable__Row
     height 38px
+    background-color rgba(255, 255, 255, 0.5)
 
   .ViTable__Row--selected
     font-weight 700
