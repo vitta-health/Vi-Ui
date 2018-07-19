@@ -25,6 +25,7 @@
       @search-change="searchEvent"
       v-bind="newProps"
       :tabindex="0"
+
     >
       <template
         slot="clear"
@@ -85,10 +86,12 @@
           v-bind="{ option }"
         >
           <template v-if="checkbox">
-            <span class="ViInput__MultiselectCheckbox">{{ option }}</span>
+            <span class="ViInput__MultiselectCheckbox">
+              {{ getOptionLabel(option) }}
+            </span>
           </template>
           <template v-else>
-            {{ option }}
+            {{ getOptionLabel(option) }}
           </template>
         </slot>
       </template>
@@ -684,6 +687,46 @@ export default {
         'widowed',
         'separated',
         'divorced',
+      ];
+    },
+    dataForm() {
+      return JSON.stringify(this._data, null, 2);
+    },
+  },
+};
+</script>
+```
+
+### Select com coleção de objetos
+
+```vue
+<template>
+  <vi-wrapper vertical>
+    <vi-select
+      checkbox
+      label="Estado"
+      v-model="value"
+      :options="estados"
+      :close-on-select="false"
+      option-label="name"
+      track-by="id"
+    />
+    <pre><code>{{ dataForm }}</code></pre>
+  </vi-wrapper>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      value: [{ id: 'MG' }]
+    };
+  },
+  computed: {
+    estados() {
+      return [
+        { id: 'MG', name: 'Minas Gerais' },
+        { id: 'SP', name: 'São Paulo' },
+        { id: 'RJ', name: 'Rio de Janeiro' },
       ];
     },
     dataForm() {
