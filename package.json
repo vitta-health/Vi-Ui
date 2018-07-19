@@ -17,7 +17,8 @@
   "dependencies": {
     "tooltip.js": "^1.2.0",
     "v-calendar": "^0.9.7",
-    "vue-multiselect": "^2.1.0"
+    "vue-multiselect": "^2.1.0",
+    "vuedraggable": "^2.16.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.0",

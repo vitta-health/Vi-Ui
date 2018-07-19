@@ -5,6 +5,7 @@ import ViCard from './components/Card.vue';
 import ViIcon from './components/Icon.vue';
 import ViInput from './components/Input.vue';
 import ViDatepicker from './components/InputDatepicker.vue';
+import ViDragDrop from './components/DragDrop.vue';
 import ViInputFile from './components/InputFile.vue';
 import ViSelect from './components/InputSelect.vue';
 import ViCheckbox from './components/InputRadioCheckbox.vue';
@@ -25,6 +26,7 @@ const ViUi = {
     Vue.component(ViIcon.name, ViIcon);
     Vue.component(ViInput.name, ViInput);
     Vue.component(ViDatepicker.name, ViDatepicker);
+    Vue.component(ViDatepicker.name, ViDragDrop);
     Vue.component(ViInputFile.name, ViInputFile);
     Vue.component(ViCheckbox.name, ViCheckbox);
     Vue.component(ViSelect.name, ViSelect);
