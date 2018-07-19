@@ -71,5 +71,12 @@
     "styleguide:build": "cd docs && npm run styleguide:build",
     "build": "rimraf ./dist && webpack --mode production --progress",
     "postinstall": "node postinstall.js"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/vitta-health/Vi-Ui/issues"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "author": ""
 }
