@@ -1,11 +1,7 @@
 <template>
-  <vi-wrapper
-    vertical>
-    <draggable
-      :list="list">
-      <slot name="elements"/>
-    </draggable>
-  </vi-wrapper>
+  <draggable v-bind="$props">
+    <slot/>
+  </draggable>
 </template>
 <script>
 import draggable from 'vuedraggable';
@@ -16,28 +12,11 @@ import colorsMixin from '../mixins/colors';
 
 export default {
   name: 'ViDragDrop',
-  mixins: [widthMixin, colorsMixin],
+  mixins: [widthMixin, colorsMixin, draggable],
   components: {
     ViWrapper,
     ViCard,
     draggable,
-  },
-  props: {
-    /*
-    * Lista dos elementos
-    */
-    dragList: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  data() {
-    return {
-      list: [],
-    };
-  },
-  mounted() {
-    this.list = this.dragList;
   },
 };
 </script>
@@ -61,14 +40,37 @@ export default {
 ### Drag 'n Drop
 ```vue
 <template>
-  <vi-drag-drop :dragList.sync="pessoas">
-    <vi-card slot="elements" v-for="pessoa in pessoas" @keys="pessoa.nome" light>
-      <div slot="body">{{pessoa.nome}}</div>
-    </vi-card>
-  </vi-drag-drop>
+  <div>
+  <h1>Lista Pessoas</h1>
+    <vi-drag-drop :list="pessoas" :options="{group:'people'}">
+      <div
+        v-for="(pessoa, index) in pessoas"
+        :key="index"
+      light>
+        <div>{{pessoa.nome}}</div>
+      </div>
+    </vi-drag-drop>
+    <h1>Lista Mortos</h1>
+    <vi-drag-drop :list="mortos" :options="{group:'people'}">
+      <div
+      v-for="(pessoa, index) in mortos"
+      :key="index"
+      light>
+        <div>{{pessoa.nome}}</div>
+      </div>
+    </vi-drag-drop>
+  <div>
+    {{pessoas}}
+    {{mortos}}
+  </div>
+  </div>
 </template>
 <script>
+const draggable = require('vuedraggable');
 export default {
+  components: {
+    draggable,
+  },
   data() {
     return {
       pessoas: [
