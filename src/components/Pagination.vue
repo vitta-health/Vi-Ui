@@ -32,8 +32,9 @@
       v-for="(page) in getPages"
       :active="isCurrentPage(page)"
       :default-color="pickDefaultColor"
+      :disabled="disableLink(page)"
       :key="page"
-      :href="getURL(page)"
+      :href="disableLink(page) ? '' : getURL(page)"
     >{{ page }}</vi-button>
     <vi-button
       v-bind="colorsOpt()"
@@ -114,6 +115,12 @@ export default {
     },
   },
   methods: {
+    disableLink(page) {
+      if (this.totalPages) {
+        return page > this.totalPages;
+      }
+      return false;
+    },
     buttonEnabled(button) {
       switch (button) {
         case 'LAST_PAGE': return this.totalPages > 0 && this.value < this.totalPages;
@@ -165,6 +172,9 @@ export default {
     getPagesRange() {
       const middle = Math.ceil(this.totalShowed / 2);
       if (this.value < middle) {
+        return [1, this.totalShowed];
+      }
+      if (this.value === this.totalPages) {
         return [1, this.totalShowed];
       }
       let countPages = 0;
