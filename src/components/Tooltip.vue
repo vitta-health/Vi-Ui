@@ -139,6 +139,7 @@ export default {
           trigger: this.trigger,
           delay: { show: 0, hide: this.delayToClose },
           boundariesElement: 'viewport',
+          html: true,
         });
       }
     },
