@@ -134,7 +134,7 @@
           name="singleLabel"
           slot-scope="scope"
         >
-          {{ scope.option }}
+          {{ getOptionLabel(scope.option) }}
         </slot>
       </template>
       <template slot="beforeList">
