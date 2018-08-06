@@ -97,24 +97,24 @@ export default {
     },
   },
   methods: {
+    changeMensage(target) {
+      const hasMessage = Object.keys(this.customErrorMsg).some((key) => {
+        if (target.validity[key]) {
+          this.errorMsg = this.customErrorMsg[key];
+        }
+        return target.validity[key];
+      });
+
+      if (hasMessage) {
+        target.setCustomValidity(this.errorMsg);
+      } else if (this.errorMsg) {
+        this.errorMsg = '';
+        target.setCustomValidity('');
+      }
+    },
     validate(target) {
       this.validated = true;
       this.invalid = !target.validity.valid;
-      if (this.customErrorMsg) {
-        let customMsg = '';
-        const hasMessage = Object.keys(this.customErrorMsg).some((key) => {
-          if (target.validity[key]) {
-            customMsg = this.customErrorMsg[key];
-          }
-          return target.validity[key];
-        });
-
-        if (hasMessage) {
-          target.setCustomValidity(customMsg);
-        } else {
-          target.setCustomValidity('');
-        }
-      }
 
       /**
        * Evento de validação
@@ -129,6 +129,7 @@ export default {
     return {
       validated: false,
       invalid: false,
+      errorMsg: '',
     };
   },
 };
