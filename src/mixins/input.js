@@ -97,7 +97,7 @@ export default {
     },
   },
   methods: {
-    changeMensage(target) {
+    changeMessage(target) {
       const hasMessage = Object.keys(this.customErrorMsg).some((key) => {
         if (target.validity[key]) {
           this.errorMsg = this.customErrorMsg[key];

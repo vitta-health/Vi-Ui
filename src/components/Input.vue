@@ -147,7 +147,7 @@ export default {
   },
   methods: {
     inputChange(target) {
-      if (this.customErrorMsg) this.changeMensage(target);
+      if (this.customErrorMsg) this.changeMessage(target);
       this.validated = false;
       this.invalid = false;
 
