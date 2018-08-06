@@ -44,8 +44,8 @@
           readOnly,
           rows,
           type: inputType,
-          value,
         }"
+        :value.prop="value"
         :is="fieldType"
       />
       <div
@@ -147,6 +147,7 @@ export default {
   },
   methods: {
     inputChange(target) {
+      if (this.customErrorMsg) this.changeMessage(target);
       this.validated = false;
       this.invalid = false;
 
@@ -170,7 +171,6 @@ export default {
     fieldType() {
       switch (this.type) {
         case 'textarea':
-        case 'select':
           return this.type;
         default:
           return 'input';
