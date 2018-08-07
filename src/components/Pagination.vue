@@ -10,7 +10,7 @@
     :outlined="!dots"
   >
     <vi-button
-      class="BeakPage"
+      class="ViPagination__BeakPage"
       title="Primeira Página"
       v-bind="colorsOpt()"
       v-if="!dots"
@@ -49,7 +49,7 @@
       :href="getURL('NEXT_PAGE')"
     ><vi-icon name="chevron-next" /></vi-button>
     <vi-button
-      class="BeakPage"
+      class="ViPagination__BeakPage"
       v-bind="colorsOpt()"
       v-if="!dots"
       title="Última Página"
@@ -209,7 +209,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.BeakPage
+.ViPagination__BeakPage
   .contentWrapper + .contentWrapper
     margin-left -5px
     
