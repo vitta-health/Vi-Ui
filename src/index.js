@@ -12,9 +12,10 @@ import ViLoading from './components/Loading.vue';
 import ViModal from './components/Modal.vue';
 import ViPagination from './components/Pagination.vue';
 import ViTable from './components/Table.vue';
-import ViWrapper from './components/Wrapper.vue';
-import ViTooltip from './components/Tooltip.vue';
 import ViTabs from './components/Tabs.vue';
+import ViToggleSwitch from './components/ToggleSwitch.vue';
+import ViTooltip from './components/Tooltip.vue';
+import ViWrapper from './components/Wrapper.vue';
 
 const ViUi = {
   install(Vue) {
@@ -33,6 +34,7 @@ const ViUi = {
     Vue.component(ViPagination.name, ViPagination);
     Vue.component(ViTable.name, ViTable);
     Vue.component(ViTabs.name, ViTabs);
+    Vue.component(ViToggleSwitch.name, ViToggleSwitch);
     Vue.component(ViTooltip.name, ViTooltip);
     Vue.component(ViWrapper.name, ViWrapper);
   },
