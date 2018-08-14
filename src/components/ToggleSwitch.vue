@@ -63,7 +63,6 @@ export default {
       this.position = !state ? 0 : 100
     },
     dragging(e) {
-      debugger
       const pos = e.clientX - this.$el.offsetLeft
       const percent = pos / this.width * 100
       this.position = (percent <= 0) ? 0 : ((percent >= 100) ? 100 : percent)
