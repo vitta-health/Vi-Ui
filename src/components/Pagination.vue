@@ -10,6 +10,7 @@
     :outlined="!dots"
   >
     <vi-button
+      class="ViPagination__BeakPage"
       title="Primeira Página"
       v-bind="colorsOpt()"
       v-if="!dots"
@@ -17,7 +18,10 @@
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('FIRST_PAGE')"
       :href="getURL('FIRST_PAGE')"
-    >⏮</vi-button>
+    >
+      <vi-icon name="chevron-prev" />
+      <vi-icon name="chevron-prev" />
+    </vi-button>
     <vi-button
       v-bind="colorsOpt()"
       v-if="!dots"
@@ -45,6 +49,7 @@
       :href="getURL('NEXT_PAGE')"
     ><vi-icon name="chevron-next" /></vi-button>
     <vi-button
+      class="ViPagination__BeakPage"
       v-bind="colorsOpt()"
       v-if="!dots"
       title="Última Página"
@@ -52,7 +57,10 @@
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('LAST_PAGE')"
       :href="getURL('LAST_PAGE')"
-    >⏭</vi-button>
+    >
+      <vi-icon name="chevron-next" />
+      <vi-icon name="chevron-next" />
+    </vi-button>
   </vi-button-group>
 </template>
 
@@ -201,6 +209,10 @@ export default {
 </script>
 
 <style lang="stylus">
+.ViPagination__BeakPage
+  .contentWrapper + .contentWrapper
+    margin-left -5px
+    
 .ViComponent.ViPagination
   &--dots
     &.ViButtonGroup
