@@ -63,7 +63,6 @@ export default {
       this.position = !state ? 0 : 100
     },
     dragging(e) {
-      debugger
       const pos = e.clientX - this.$el.offsetLeft
       const percent = pos / this.width * 100
       this.position = (percent <= 0) ? 0 : ((percent >= 100) ? 100 : percent)
@@ -100,12 +99,16 @@ export default {
 
 <style lang="stylus">
 @import '../themes/main'
+$background-color-off = #fff
+$background-color-on = #72d09c
+$border-color = #eee
+$pin-in-color = #fff
 
 .ViToggleSwitch__Container
   width 80px
   height 40px
-  background #fff
-  border 2px solid #eee
+  background $background-color-off
+  border 2px solid $border-color
   border-radius 200px
   transition background 0.6s
 
@@ -124,16 +127,16 @@ export default {
   .ViToggleSwitch__Draggable
     width 50%
     height 99%
-    background #fff
+    background $pin-in-color
     border-radius 100%
     box-shadow 0 3px 10px 0 rgba(0, 0, 0, 0.3), inset -1px 0px 0px 1px rgba(0, 0, 0, 0.08)
     transform translateX(0%)
     transition transform 0.05s ease-in-out
 
   &--active
-    background #72d09c
+    background $background-color-on
     transition background 0.6s
-    border 2px solid #72d09c
+    border 2px solid $background-color-on
 
 </style>
 
