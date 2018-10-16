@@ -355,7 +355,7 @@ export default {
     },
     filteredOptions() {
       if (!this.searchValue) return this.options;
-      const pattern = new RegExp(this.searchValue);
+      const pattern = new RegExp(this.searchValue, 'i');
       return this.options
         .filter(option => pattern.test(this.customLabel(option, this.optionLabel)));
     },
