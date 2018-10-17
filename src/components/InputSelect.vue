@@ -86,14 +86,12 @@
           name="option"
           v-bind="{ option }"
         >
-          <template v-if="checkbox">
-            <span class="ViInput__MultiselectCheckbox">
-              {{ getOptionLabel(option) }}
-            </span>
-          </template>
-          <template v-else>
+          <span
+            :class="{ 'ViInput__MultiselectCheckbox': checkbox }"
+            :title="getOptionLabel(option)"
+          >
             {{ getOptionLabel(option) }}
-          </template>
+          </span>
         </slot>
       </template>
 
@@ -511,6 +509,9 @@ export default {
         &:before
           border-color $border-color-main-focus transparent transparent
 
+    .multiselect__content
+      width 100%
+
     .multiselect__content-wrapper
       border-color $border-color-main
       border-bottom-width 2px
@@ -532,6 +533,7 @@ export default {
     .multiselect__checkoption
     .multiselect__option
       border-bottom 1px solid rgba($border-color-main, 0.5)
+      @extend .text-truncate
 
       &:after
         font-weight 700
