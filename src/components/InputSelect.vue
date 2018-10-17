@@ -498,6 +498,8 @@ export default {
 
       .multiselect__single
         font-size unset
+        padding 0 15px 0 0
+        @extend .text-truncate
 
     .multiselect__select
       z-index 3
