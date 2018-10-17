@@ -15,6 +15,7 @@
         'ViInput__Multiselect--multiple': multiple,
         'ViInput__Multiselect--pills': pill,
         'ViInput__Multiselect--checkbox': checkbox,
+        'ViInput__Multiselect--select-all-hidden': hideSelectAll,
       }"
       @open="openEvent"
       @tag="tagEvent"
@@ -35,7 +36,7 @@
           name="clear"
           :search="search"
         >
-          <template v-if="checkbox">
+          <template v-if="checkbox && !hideSelectAll">
             <div
               class="ViInput__CheckAll"
               :style="{
@@ -298,6 +299,13 @@ export default {
     value: {
       type: [String, Number, Object, Array],
       default: null,
+    },
+    /**
+     * Se for true, oculta a opção "Marcar todos"
+     */
+    hideSelectAll: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -649,6 +657,10 @@ export default {
       &.multiselect--above
         .multiselect__content
           padding 0 0 38px
+
+    &--select-all-hidden
+      .multiselect__content
+        padding 0
 </style>
 
 
