@@ -7,6 +7,14 @@
     "vue"
   ],
   "rules": {
+    "no-console": ["error", {
+      "allow": ["warn", "error"]
+    }],
+    "max-len": ["error", {
+      "code": 120,
+      "ignoreUrls": true,
+      "ignoreStrings": true
+    }],
     "import/no-unresolved": ["error", "never"],
     "import/extensions": ["error", "never"],
     "func-names": ["off"],

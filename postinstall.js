@@ -27,6 +27,5 @@ console.log('\x1b[96m%s\x1b[0m', `
 
 
                            \x1b[35mMore Info
-                 \x1b[39m[ https://styleguide.vitta.me/ ]\x1b[96m
-           \x1b[39m[ https://vitta-health.github.io/Vi-Ui/ ]\x1b[96m
+            \x1b[39m[ https://vitta-health.github.io/Vi-Ui/ ]\x1b[96m
 `);

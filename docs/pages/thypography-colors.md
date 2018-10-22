@@ -1,4 +1,5 @@
 ------
+
 ```vue noeditor
 <template>
 <vi-wrapper class="ViComponent" vertical>
@@ -30,7 +31,7 @@
   <hr/>
   <h2>Cores</h2>
   <p>A maioria dos componentes possuem props que definem as cores. Nestes casos basta usar a prop.</p>
-  <p>Para utilizar em seus próprios componentes, utilize as classes abaixo:<p>
+  <p>Para utilizar em seus próprios componentes, utilize as classes abaixo:</p>
   <vi-wrapper class="ViComponent ViColorDemo" grid>
     <vi-card
       col="4"

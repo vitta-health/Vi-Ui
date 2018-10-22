@@ -15,11 +15,13 @@
         'ViInput__Multiselect--multiple': multiple,
         'ViInput__Multiselect--pills': pill,
         'ViInput__Multiselect--checkbox': checkbox,
+        'ViInput__Multiselect--select-all-hidden': hideSelectAll,
       }"
       @open="openEvent"
       @tag="tagEvent"
       @close="closeEvent"
       @input="inputEvent"
+      @change="changeEvent"
       @select="selectEvent"
       @remove="removeEvent"
       @search-change="searchEvent"
@@ -35,7 +37,7 @@
           name="clear"
           :search="search"
         >
-          <template v-if="checkbox">
+          <template v-if="checkbox && !hideSelectAll">
             <div
               class="ViInput__CheckAll"
               :style="{
@@ -299,6 +301,13 @@ export default {
       type: [String, Number, Object, Array],
       default: null,
     },
+    /**
+     * Se for true, oculta a opção "Marcar todos"
+     */
+    hideSelectAll: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -355,7 +364,7 @@ export default {
     },
     filteredOptions() {
       if (!this.searchValue) return this.options;
-      const pattern = new RegExp(this.searchValue);
+      const pattern = new RegExp(this.searchValue, 'i');
       return this.options
         .filter(option => pattern.test(this.customLabel(option, this.optionLabel)));
     },
@@ -404,6 +413,9 @@ export default {
     },
     inputEvent(value, id) {
       this.$emit('input', value, id);
+    },
+    changeEvent(value, id) {
+      this.$emit('change', value, id);
     },
     selectEvent(value, id) {
       this.$emit('select', value, id);
@@ -649,6 +661,10 @@ export default {
       &.multiselect--above
         .multiselect__content
           padding 0 0 38px
+
+    &--select-all-hidden
+      .multiselect__content
+        padding 0
 </style>
 
 
