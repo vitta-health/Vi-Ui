@@ -25,9 +25,6 @@ export default {
       return `vi-icon vi-icon-${this.name}`;
     },
   },
-  mounted() {
-    console.warn('Vi-Icon is deprecated since 0.0.22.');
-  },
 };
 </script>
 

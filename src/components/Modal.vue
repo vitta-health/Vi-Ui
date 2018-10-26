@@ -45,6 +45,7 @@
             icon="cross"
             light
             mini
+            type="button"
             v-if="!notDismissable"
             v-bind="colorsOpt()"
             @click="toggleModal(false)"
@@ -109,15 +110,15 @@ export default {
       default: false,
     },
     /**
-    * Texto exibido no título.
-    */
+     * Texto exibido no título.
+     */
     title: {
       type: String,
       default: null,
     },
     /**
      * Tamanho do título de 1 a 6
-    */
+     */
     titleSize: {
       type: [Number, String],
       default: null,
@@ -131,9 +132,9 @@ export default {
       default: false,
     },
     /**
-    * Estado da modal
-    * @model
-    */
+     * Estado da modal
+     * @model
+     */
     value: {
       type: Boolean,
       default: true,
@@ -200,27 +201,29 @@ export default {
   overflow hidden
   padding 10px
   position fixed
-  transition opacity 0.3s ease-in-out 0.4s, height 0s linear 0.7s
   top 0
+  transition opacity 0.3s ease-in-out 0.4s, height 0s linear 0.7s
   width 100vw
   z-index 200
 
   &.ViModal
     &--mini
       padding 2px
+
     &--small
       padding 5px
 
   .ViModal__Wrapper
     backface-visibility hidden
-    transform translate3d(0,0,0)
     flex-grow 0
-    opacity 0
     max-height 100%
     max-width 100%
+    opacity 0
+    transform translate3d(0, 0, 0)
     transform translate(0, -50px)
     transition transform 0.4s ease-in-out 0.2s, opacity 0.3s linear 0.1s
-    .ViModal__Card  .ViCard__Section
+
+    .ViModal__Card .ViCard__Section
       opacity 0
       transform translate(0, -15px)
       transition transform 0.3s ease-in-out 0.3s, opacity 0.2s linear 0.3s
@@ -229,20 +232,22 @@ export default {
     backface-visibility hidden
     height 100vh
     opacity 1
+    transform translate3d(0, 0, 0)
     transition opacity 0.4s ease-in-out
-    transform translate3d(0,0,0)
     will-change opacity
 
     .ViModal__Wrapper
       backface-visibility hidden
       opacity 1
-      transform translate(0, 0) translate3d(0,0,0)
+      transform translate(0, 0) translate3d(0, 0, 0)
       will-change transform, opacity
+
       .ViModal__Card .ViCard__Section
         backface-visibility hidden
         opacity 1
-        transform translate(0, 0) translate3d(0,0,0)
+        transform translate(0, 0) translate3d(0, 0, 0)
         will-change transform, opacity
+
         .ViModal__CloseButton
           opacity 1
           will-change opacity
@@ -252,19 +257,20 @@ export default {
       display none
 
   .ViCard.ViModal__Card
-    transition transform 0.2s ease-in-out 0.1s
+    max-height calc(100vh - 41px)
     max-width 100%
-    max-height: calc(100vh - 41px);
+    transition transform 0.2s ease-in-out 0.1s
+
     .ViCard__Header
-      padding-right 35px
       flex 0
+      padding-right 35px
+
     .ViCard__Body
       flex 2 2
       overflow auto
-      -webkit-overflow-scrolling touch  /* para chrome e safari mobile */
+      -webkit-overflow-scrolling touch /* para chrome e safari mobile */
 
   .ViModal__CloseButton
-    transition opacity 0.1s linear 0.6s
     border 0
     box-shadow 0
     opacity 0
@@ -272,13 +278,12 @@ export default {
     position absolute
     right 0
     top 0
-    &
-    &:hover
-    &:focus
-      background transparent!important
-      border 0!important
-      box-shadow 0!important
+    transition opacity 0.1s linear 0.6s
 
+    &, &:hover, &:focus
+      background transparent !important
+      border 0 !important
+      box-shadow 0 !important
 </style>
 
 <docs>
@@ -407,13 +412,122 @@ Obs: Evite sobrepor modais sempre que possível.
   </div>
 </template>
 <script>
+import ViWrapper from './Wrapper.vue';
+import ViCard from './Card.vue';
+import { scaleMixin, widthMixin } from '../mixins/sizes';
+import colorsMixin from '../mixins/colors';
+
 export default {
+  name: 'ViModal',
+  mixins: [scaleMixin, widthMixin, colorsMixin],
+  components: {
+    ViWrapper,
+    ViCard,
+  },
+  props: {
+    /**
+     * _Espaçamento:_ Define o menor espaçamento da modal.
+     */
+    miniSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Espaçamento:_ Define o espaçamento pequeno da modal.
+     */
+    smallSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Espaçamento:_ Define o maior espaçamento da modal.
+     */
+    largeSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * _Espaçamento:_ Remove espaçamento do modal.
+     */
+    noSpacing: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Texto exibido no título.
+     */
+    title: {
+      type: String,
+      default: null,
+    },
+    /**
+     * Tamanho do título de 1 a 6
+     */
+    titleSize: {
+      type: [Number, String],
+      default: null,
+      validator: size => size >= 1 && size <= 6,
+    },
+    /**
+     * Impede que usuário feche a modal.
+     */
+    notDismissable: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Estado da modal
+     * @model
+     */
+    value: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  methods: {
+    toggleModal(value = false) {
+      this.isOpen = value;
+      if (this.value !== value) {
+        /**
+         * Alteração do estado do componente.
+         *
+         * @event input
+         * @type {boolean}
+         */
+        this.$emit('input', value);
+      }
+    },
+    escEvent(e) {
+      if (e.keyCode === 27) {
+        this.toggleModal();
+      }
+    },
+    modalStateHandler(stateModal) {
+      this.toggleModal(stateModal);
+
+      if (stateModal && !this.notDismissable) {
+        this.isEventRegistered = true;
+        document.body.addEventListener('keyup', this.escEvent);
+      } else if (!stateModal && this.isEventRegistered) {
+        this.isEventRegistered = false;
+        document.body.removeEventListener('keyup', this.escEvent);
+      }
+    },
+  },
+  watch: {
+    value(stateModal) {
+      this.modalStateHandler(stateModal);
+    },
+  },
   data() {
     return {
-      firstModalIsOpen: false,
-      secondModalIsOpen: false,
-      thirdModalIsOpen: false,
+      isOpen: false,
+      isEventRegistered: false,
+      lastPage: '',
     };
+  },
+  mounted() {
+    if (this.value) this.toggleModal(true);
   },
 };
 </script>
