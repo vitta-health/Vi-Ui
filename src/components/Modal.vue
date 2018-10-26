@@ -412,122 +412,13 @@ Obs: Evite sobrepor modais sempre que possível.
   </div>
 </template>
 <script>
-import ViWrapper from './Wrapper.vue';
-import ViCard from './Card.vue';
-import { scaleMixin, widthMixin } from '../mixins/sizes';
-import colorsMixin from '../mixins/colors';
-
 export default {
-  name: 'ViModal',
-  mixins: [scaleMixin, widthMixin, colorsMixin],
-  components: {
-    ViWrapper,
-    ViCard,
-  },
-  props: {
-    /**
-     * _Espaçamento:_ Define o menor espaçamento da modal.
-     */
-    miniSpacing: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * _Espaçamento:_ Define o espaçamento pequeno da modal.
-     */
-    smallSpacing: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * _Espaçamento:_ Define o maior espaçamento da modal.
-     */
-    largeSpacing: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * _Espaçamento:_ Remove espaçamento do modal.
-     */
-    noSpacing: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Texto exibido no título.
-     */
-    title: {
-      type: String,
-      default: null,
-    },
-    /**
-     * Tamanho do título de 1 a 6
-     */
-    titleSize: {
-      type: [Number, String],
-      default: null,
-      validator: size => size >= 1 && size <= 6,
-    },
-    /**
-     * Impede que usuário feche a modal.
-     */
-    notDismissable: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Estado da modal
-     * @model
-     */
-    value: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  methods: {
-    toggleModal(value = false) {
-      this.isOpen = value;
-      if (this.value !== value) {
-        /**
-         * Alteração do estado do componente.
-         *
-         * @event input
-         * @type {boolean}
-         */
-        this.$emit('input', value);
-      }
-    },
-    escEvent(e) {
-      if (e.keyCode === 27) {
-        this.toggleModal();
-      }
-    },
-    modalStateHandler(stateModal) {
-      this.toggleModal(stateModal);
-
-      if (stateModal && !this.notDismissable) {
-        this.isEventRegistered = true;
-        document.body.addEventListener('keyup', this.escEvent);
-      } else if (!stateModal && this.isEventRegistered) {
-        this.isEventRegistered = false;
-        document.body.removeEventListener('keyup', this.escEvent);
-      }
-    },
-  },
-  watch: {
-    value(stateModal) {
-      this.modalStateHandler(stateModal);
-    },
-  },
   data() {
     return {
-      isOpen: false,
-      isEventRegistered: false,
-      lastPage: '',
+      firstModalIsOpen: false,
+      secondModalIsOpen: false,
+      thirdModalIsOpen: false,
     };
-  },
-  mounted() {
-    if (this.value) this.toggleModal(true);
   },
 };
 </script>
