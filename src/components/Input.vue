@@ -20,8 +20,8 @@
       <component
         @valid="validate($event.target)"
         @invalid="validate($event.target)"
-        @input="inputChange($event.target)"
-        @change="inputChange($event.target)"
+        @input="inputChange($event.target, 'change')"
+        @change="inputChange($event.target, 'input')"
         class="ViInput__Input"
         :class="{
           'ViInput__Input--validated': validated || forceValidation,
@@ -146,7 +146,7 @@ export default {
     },
   },
   methods: {
-    inputChange(target) {
+    inputChange(target, type) {
       if (this.customErrorMsg) this.changeMessage(target);
       this.validated = false;
       this.invalid = false;
@@ -158,7 +158,7 @@ export default {
        * @type {string|number|object|array}
        *
        */
-      this.$emit('input', target.value);
+      this.$emit(type, target.value);
     },
   },
   computed: {

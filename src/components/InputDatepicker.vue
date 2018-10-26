@@ -16,7 +16,8 @@
         <vi-icon name="calendar"/>
       </div>
       <v-date-picker
-        @input="inputChange"
+        @input="inputChange($event, 'input')"
+        @change="inputChange($event, 'change')"
         @popover-will-appear.capture="popoverState(true)"
         @popover-will-disappear.capture="popoverState(false)"
         popover-visibility="focus"
@@ -147,7 +148,7 @@ export default {
     popoverState(value) {
       this.isPopoverOpen = value;
     },
-    inputChange(value) {
+    inputChange(value, type) {
       this.validated = false;
       this.invalid = false;
 
@@ -158,7 +159,7 @@ export default {
        * @type {Date|Object|Array}
        *
        */
-      this.$emit('input', value);
+      this.$emit(type, value);
     },
   },
   data() {

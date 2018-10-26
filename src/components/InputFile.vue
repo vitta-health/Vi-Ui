@@ -11,8 +11,8 @@
       ref="input"
       @valid="validate($event.target)"
       @invalid="validate($event.target)"
-      @input="inputChange($event.target)"
-      @change="inputChange($event.target)"
+      @input="inputChange($event.target, 'input')"
+      @change="inputChange($event.target, 'change')"
       class="ViInput__FileInput"
       type="file"
       v-bind="{
@@ -49,6 +49,7 @@
       >
       <vi-button
         primary
+        type="button"
         :disabled="disabled"
         @click="fileTrigger"
         tabindex="-1"
@@ -131,7 +132,7 @@ export default {
     };
   },
   methods: {
-    inputChange(target) {
+    inputChange(target, type) {
       this.validated = false;
       this.invalid = false;
       const value = this.valueHandler(target);
@@ -143,12 +144,11 @@ export default {
        * @type {File}
        *
        */
-      this.$emit('input', value);
+      this.$emit(type, value);
     },
     valueHandler(target) {
       this.totalFiles = target.files.length;
-      this.fileName = this.totalFiles !== 1
-        ? '' : target.value;
+      this.fileName = this.totalFiles !== 1 ? '' : target.value;
 
       return target.files;
     },
@@ -182,22 +182,25 @@ export default {
     bottom -1px
     height 1px
     margin 0
-    overflow hidden
     opacity 0
+    overflow hidden
     padding 0
     position absolute
     right 0
     width 100%
 
     & + .ViInput_Wrapper
-      transition all 0.04s ease-in-out
       box-shadow none
+      transition all 0.04s ease-in-out
 
-      & .ViInput__Input:focus
-        border 1px solid $border-color-main-focus
-        box-shadow 0 0 0 0.2em rgba($border-color-main-focus, 0.4)
-        will-change box-shadow
-        outline none
+      & .ViInput__Input
+        &, &:read-only
+          background #fff
+
+        &:focus
+          border-color $border-color-main-focus
+          outline none
+
   .ViButton
     .contentWrapper
       padding 0 10px

@@ -9,8 +9,8 @@
       ref="input"
       @valid="validate($event.target)"
       @invalid="validate($event.target)"
-      @input="inputChange($event.target)"
-      @change="inputChange($event.target)"
+      @input="inputChange($event.target, 'input')"
+      @change="inputChange($event.target, 'change')"
       class="ViCheckbox__Input"
       :class="{
         'ViCheckbox__Input--validated': validated || forceValidation,
@@ -82,13 +82,10 @@ export default {
     },
   },
   methods: {
-    inputChange(target) {
+    inputChange(target, type) {
       this.validated = false;
       this.invalid = false;
-      const value = typeof this.value === 'boolean'
-        ? target.checked
-        : target.value;
-
+      const value = typeof this.value === 'boolean' ? target.checked : target.value;
       /**
        * Evento de retorno de dados
        *
@@ -96,7 +93,7 @@ export default {
        * @type {string|number|boolean}
        *
        */
-      this.$emit('input', value);
+      this.$emit(type, value);
     },
   },
   computed: {
@@ -115,21 +112,21 @@ export default {
     align-items center
 
   .contentWrapper.ViCheckbox__Input
-    outline none
-    opacity 0
+    cursor pointer
     margin-left 0.5em
+    opacity 0
+    outline none
     position relative
     transform scale(2)
     z-index 1
-    cursor pointer
 
     & + label
       min-height 18px
-      position relative
       padding 0 0 0 1em
+      position relative
       z-index 0
-      &:after
-      &:before
+
+      &:after, &:before
         background $default
         border-radius 0.3em
         content ''
@@ -140,8 +137,7 @@ export default {
         transition all 0.04s ease-out
         width 1.5em
 
-    &.ViCheckbox__Input--invalid + label:before
-    &.ViCheckbox__Input--validated:invalid + label:before
+    &.ViCheckbox__Input--invalid + label:before, &.ViCheckbox__Input--validated:invalid + label:before
       box-shadow 0 0 0 1px $danger
 
     &:focus
@@ -153,50 +149,48 @@ export default {
       & + label:after
         background transparent
         border 0.27em solid $primary
-        border-right-width 0.5em
         border-bottom-width 0
         border-left 0
-        border-top 0
         border-radius 0
+        border-right-width 0.5em
+        border-top 0
         opacity 0
         transform rotate(90deg) scale(0.4, 0.3) translate(-0.5em)
 
-      &[checked]
-      &:checked
+      &[checked], &:checked
         & + label:before
           background $primary
+
         & + label:after
-          border-color $light
           border-bottom-width 0.27em
+          border-color $light
           opacity 1
           transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
-          transition all 0.04s ease-out, opacity 0.1s ease-out,
-          transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+          transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
           will-change transform, opacity
+
         &:focus
           & + label:before
             box-shadow 0 0 0 1px $border-color-main-focus
 
-      &[indeterminate]
-      &:indeterminate
+      &[indeterminate], &:indeterminate
         & + label:after
-          opacity 1!important
-          transition all 0.04s ease-out, opacity 0.1s ease-out,
-          transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+          opacity 1 !important
+          transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
           will-change transform, opacity
 
     &.ViCheckbox__Input--radio
       & + label
         &:after
           display none
+
         &:before
           background $primary
           border 0.75em solid lighten($default, 50%)
           border-radius 1.5em
           transition all 0.06s ease-out, opacity 0.1s ease-out
 
-      &[checked]
-      &:checked
+      &[checked], &:checked
         & + label:before
           border-width 0.35em
 </style>

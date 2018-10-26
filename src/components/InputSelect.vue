@@ -21,6 +21,7 @@
       @tag="tagEvent"
       @close="closeEvent"
       @input="inputEvent"
+      @change="changeEvent"
       @select="selectEvent"
       @remove="removeEvent"
       @search-change="searchEvent"
@@ -410,6 +411,9 @@ export default {
     },
     inputEvent(value, id) {
       this.$emit('input', value, id);
+    },
+    changeEvent(value, id) {
+      this.$emit('change', value, id);
     },
     selectEvent(value, id) {
       this.$emit('select', value, id);
