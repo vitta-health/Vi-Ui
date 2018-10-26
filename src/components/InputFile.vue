@@ -49,6 +49,7 @@
       >
       <vi-button
         primary
+        type="button"
         :disabled="disabled"
         @click="fileTrigger"
         tabindex="-1"
