@@ -14,6 +14,7 @@
       title="Primeira Página"
       v-bind="colorsOpt()"
       v-if="!dots"
+      type="button"
       @click="handleNavigation('FIRST_PAGE')"
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('FIRST_PAGE')"
@@ -25,6 +26,7 @@
     <vi-button
       v-bind="colorsOpt()"
       v-if="!dots"
+      type="button"
       @click="handleNavigation('PREVIOUS_PAGE')"
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('PREVIOUS_PAGE')"
@@ -32,6 +34,7 @@
     ><vi-icon name="chevron-prev" /></vi-button>
     <vi-button
       v-bind="colorsOpt()"
+      type="button"
       @click="handleNavigation(page)"
       v-for="(page) in getPages"
       :active="isCurrentPage(page)"
@@ -42,6 +45,7 @@
     >{{ page }}</vi-button>
     <vi-button
       v-bind="colorsOpt()"
+      type="button"
       v-if="!dots"
       @click="handleNavigation('NEXT_PAGE')"
       :default-color="pickDefaultColor"
@@ -53,6 +57,7 @@
       v-bind="colorsOpt()"
       v-if="!dots"
       title="Última Página"
+      type="button"
       @click="handleNavigation('LAST_PAGE')"
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('LAST_PAGE')"

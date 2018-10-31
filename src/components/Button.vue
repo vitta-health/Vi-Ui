@@ -170,6 +170,7 @@ export default {
   justify-content center
   text-decoration none
   transition: all 0.2s
+  -webkit-appearance none
 
   &[disabled]
     opacity 0.45
