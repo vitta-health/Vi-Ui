@@ -20,8 +20,8 @@
       <component
         @valid="validate($event.target)"
         @invalid="validate($event.target)"
-        @input="inputChange($event.target, 'change')"
-        @change="inputChange($event.target, 'input')"
+        @input="inputChange($event.target, 'input')"
+        @change="inputChange($event.target, 'change')"
         class="ViInput__Input"
         :class="{
           'ViInput__Input--validated': validated || forceValidation,
