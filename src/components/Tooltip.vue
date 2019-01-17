@@ -1,18 +1,19 @@
 <template>
   <div
-    class="ViTooltip"
-    :class="[{
-      'ViTooltip--hideArrow': hideArrow,
-      'ViTooltip--mini': mini,
-      'ViTooltip--small': small,
-      'ViTooltip--large': large }]"
-    @click="justHide()">
+    class='ViTooltip'
+    :class='[classPosition, classSize, classOptions]'
+    @click='showHide'>
     <slot />
+    <div
+      class='Box__Tooltip'>
+      <div
+        class='Tooltip'
+        v-html='content' />
+    </div>
   </div>
 </template>
 
 <script>
-import Tooltip from 'tooltip.js';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 
 export default {
@@ -20,7 +21,15 @@ export default {
   mixins: [scaleMixin, widthMixin],
   data() {
     return {
-      tooltip: {},
+      show: false,
+      classPosition: 'ViTooltip--top',
+      classSize: 'ViTooltip--small',
+      classOptions: {
+        'ViTooltip--dark': this.dark,
+        'ViTooltip--hover': this.hover && !this.click,
+        'ViTooltip--show': this.show,
+        'ViTooltip--hideArrow': this.hideArrow,
+      },
     };
   },
   props: {
@@ -64,7 +73,7 @@ export default {
      */
     hover: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     /**
      * Define o trigger como click
@@ -82,23 +91,9 @@ export default {
       default: null,
     },
     /**
-     * Controla se a tooltip está sendo ou não exibida
+     * Define uma cor escura para a tooltip
      */
-    show: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * Intervalo, em milissegundos, para fechar a tooltip
-     */
-    delayToClose: {
-      type: [String, Number],
-      default: 10,
-    },
-    /**
-     * Permite fechar ao clicar na tooltip
-     */
-    closeOnClick: {
+    dark: {
       type: Boolean,
       default: false,
     },
@@ -113,47 +108,27 @@ export default {
 
       return toolltipPosition;
     },
-    trigger() {
-      let tooltipTrigger = 'hover';
+    size() {
+      let toolltipSize = 'small';
 
-      if (this.click) tooltipTrigger = 'click';
+      if (this.mini) toolltipSize = 'mini';
+      else if (this.large) toolltipSize = 'large';
 
-      return tooltipTrigger;
+      return toolltipSize;
     },
   },
-  watch: {
-    show(status) {
-      this.showHide(status);
-    },
-    'tooltip._isOpen': function (status) {
-      this.tooltip._isOpening = status;
-    },
-  },
+  watch: {},
   methods: {
     initTooltip() {
-      const element = this.$el.children[0];
-      if (element) {
-        this.tooltip = new Tooltip(element, {
-          placement: this.position,
-          title: this.content,
-          trigger: this.trigger,
-          delay: { show: 0, hide: this.delayToClose },
-          boundariesElement: 'viewport',
-          html: true,
-        });
-      }
+      this.classPosition = `ViTooltip--${this.position}`;
+      this.classSize = `ViTooltip--${this.size}`;
     },
-    showHide(status) {
-      if (status) this.tooltip.show();
-      else this.tooltip.hide();
-    },
-    justHide() {
-      if (this.closeOnClick) this.tooltip.hide();
+    showHide() {
+      this.show = !this.show && this.click;
     },
   },
   mounted() {
     this.initTooltip();
-    this.showHide(this.show);
   },
 };
 </script>
@@ -161,108 +136,182 @@ export default {
 <style lang="stylus">
 @import '../themes/main'
 
+animationDuration = .2s
+
 .ViTooltip
   display inline-block
+  position relative
 
-  &--hideArrow
-    .tooltip-arrow
-      visibility hidden
+  .Box__Tooltip
+    height 0
+    opacity 0
+    position absolute
+    visibility hidden
+    transition visibility 0s animationDuration, opacity animationDuration linear, margin animationDuration linear
+    width 350px
+    z-index 50
 
-  &--mini
-    .tooltip
-      font-size 0.8em
-      padding 0.3em 0.5em
-
-  &--small
-    .tooltip
-      font-size 0.8em
-      padding 0.5em 0.8em
-
-  &--large
-    .tooltip
-      font-size 1.2em
-      padding 0.6em 1em
-
-  .tooltip
+  .Tooltip
     background $light
     border-radius 3px
-    box-shadow 0 1px 4px rgba(0,0,0,0.4)
+    box-shadow 0 0 0 1px #e7e8ef
     color $dark
+    display table
     padding 10px
+    position absolute
     text-align center
     z-index 1
 
-  .tooltip-inner
-    max-width 400px
-    white-space: pre-line
-    word-break break-word
+    &::before,
+    &::after
+      content ''
+      background transparent
+      border 10px solid transparent
+      height 0
+      width 0
+      position absolute
+      z-index 5
 
-  .tooltip-arrow
-    border-color $border-color-main
-    border-style solid
-    height 0
-    margin 5px
-    position absolute
-    width 0
+    &::before
+      z-index 6
 
-  .tooltip[x-placement^="top"]
-    top -10px !important
+  &--hover:hover,
+  &--show
+    .Box__Tooltip
+      margin 0
+      visibility visible
+      opacity 1
+      transition opacity animationDuration linear, margin animationDuration linear;
 
-    .tooltip-arrow
-      border-bottom-color transparent
-      border-left-color transparent
-      border-right-color transparent
-      border-width 6px 6px 0 6px
-      bottom -6px
-      left calc(50% - 6px)
-      margin-bottom 0
-      margin-top 0
+  &--top,
+  &--bottom
+    .Box__Tooltip
+      left 50%
+      transform translateX(-50%)
 
-  .tooltip[x-placement^="left"]
-    left -10px !important
+      .Tooltip
+        left 50%
+        transform translateX(-50%)
 
-    .tooltip-arrow
-      border-bottom-color transparent
-      border-right-color transparent
-      border-top-color transparent
-      border-width 6px 0 6px 6px
-      right -6px
-      top calc(50% - 6px)
-      margin-left 0
-      margin-right 0
+        &::before,
+        &::after
+          left calc(50% \- 10px)
 
-  .tooltip[x-placement^="right"]
-    left 10px !important
+  &--top
+    .Box__Tooltip
+      bottom 100%
+      margin-bottom -5px
 
-    .tooltip-arrow
-      border-bottom-color transparent
-      border-left-color transparent
-      border-top-color transparent
-      border-width 6px 6px 6px 0
-      left -6px
-      margin-left 0
-      margin-right 0
-      top calc(50% - 6px)
+      .Tooltip
+        bottom calc(100% \+ 12px)
 
-  .tooltip[x-placement^="bottom"]
-    top 10px !important
+        &::before
+          border-top-color $light
+          top calc(100% \- 2px)
 
-    .tooltip-arrow
-      border-left-color transparent
-      border-right-color transparent
-      border-top-color transparent
-      border-width 0 6px 6px 6px
-      left calc(50% - 6px)
-      margin-bottom 0
-      margin-top 0
-      top -6px
+        &::after
+          border-top-color #e7e8ef
+          top 100%
+
+  &--bottom
+    .Box__Tooltip
+      top 100%
+      margin-top -5px
+
+      .Tooltip
+        top calc(100% \+ 12px)
+
+        &::before
+          border-bottom-color $light
+          bottom calc(100% \- 2px)
+
+        &::after
+          border-bottom-color #e7e8ef
+          bottom 100%
+
+  &--left,
+  &--right
+    .Box__Tooltip
+      top 50%
+      transform translateY(-50%)
+
+      .Tooltip
+        top 50%
+        transform translateY(-50%)
+
+        &::before,
+        &::after
+          top calc(50% \- 10px)
+
+  &--left
+    .Box__Tooltip
+      right 100%
+      margin-right -5px
+
+      .Tooltip
+        right 15px
+
+        &::before
+          border-left-color $light
+          left calc(100% \- 2px)
+
+        &::after
+          border-left-color #e7e8ef
+          left 100%
+
+  &--right
+    .Box__Tooltip
+      left 100%
+      margin-right 5px
+
+      .Tooltip
+        left 15px
+
+        &::before
+          border-right-color $light
+          right calc(100% \- 2px)
+
+        &::after
+          border-right-color #e7e8ef
+          right 100%
+
+  &--mini
+    .Tooltip
+      font-size 0.8em
+      padding 0.3em 0.7em
+
+  &--small
+    .Tooltip
+      font-size 1em
+      padding 0.5em 0.8em
+
+  &--large
+    .Tooltip
+      font-size 1.2em
+      padding 0.6em 1em
+
+  &--dark
+    .Tooltip
+      background $dark
+      box-shadow 0 0 0 1px $dark
+      color $light
+
+      &::before,
+      &::after
+        border-top-color $dark
+
+  &--hideArrow
+    .Tooltip
+      &::before,
+      &::after
+        visibility hidden
 </style>
 
 <docs>
 Tooltip com botão:
 
 ```jsx
-<vi-tooltip top click close-on-click content="Aqui vem a dica!">
+<vi-tooltip top click content="<strong>Conteúdo:</strong><br>Aqui vem a dica!">
   <vi-button primary>Clique aqui</vi-button>
 </vi-tooltip>
 ```
@@ -271,10 +320,10 @@ Tooltip com span:
 
 ```jsx
 <vi-wrapper grid class="ViComponent" justify-content="space-around">
-  <vi-tooltip top hover mini content="Esta dica tem tamanho pequeno!">
+  <vi-tooltip dark mini hideArrow content="Esta dica tem tamanho pequeno!">
     <span>Passe o mouse</span>
   </vi-tooltip>
-  <vi-tooltip top hover large content="Já essa outra é maior!">
+  <vi-tooltip right hover large content="Já essa outra é maior!">
     <span>Passe o mouse</span>
   </vi-tooltip>
   <vi-tooltip top hover content="Esse demora 1 segundo pra fechar!" delay-to-close="1000">
