@@ -128,6 +128,9 @@ export default {
     'tooltip._isOpen': function (status) {
       this.tooltip._isOpening = status;
     },
+    content(value) {
+      this.tooltip.updateTitleContent(value);
+    },
   },
   methods: {
     initTooltip() {
