@@ -1,7 +1,14 @@
 <template>
   <div
     class='ViTooltip'
-    :class='[classPosition, classSize, classOptions]'
+    :class="[
+      classPosition,
+      classSize, {
+        'ViTooltip--dark': dark,
+        'ViTooltip--hover': hover && !click,
+        'ViTooltip--show': visible,
+        'ViTooltip--hideArrow': hideArrow,
+    }]"
     @click='showHide'>
     <slot />
     <div
@@ -21,15 +28,10 @@ export default {
   mixins: [scaleMixin, widthMixin],
   data() {
     return {
-      show: false,
+      visible: false,
       classPosition: 'ViTooltip--top',
       classSize: 'ViTooltip--small',
-      classOptions: {
-        'ViTooltip--dark': this.dark,
-        'ViTooltip--hover': this.hover && !this.click,
-        'ViTooltip--show': this.show,
-        'ViTooltip--hideArrow': this.hideArrow,
-      },
+      tooltip: null,
     };
   },
   props: {
@@ -91,23 +93,35 @@ export default {
       default: null,
     },
     /**
+     * Define o conteúdo da tooltip
+     */
+    show: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Define uma cor escura para a tooltip
      */
     dark: {
       type: Boolean,
       default: false,
     },
+    /**
+     * [Obsoleto] Intervalo, em milissegundos, para fechar a tooltip
+     */
+    delayToClose: {
+      type: [String, Number],
+      default: 10,
+    },
+    /**
+     * [Obsoleto] Permite fechar ao clicar na tooltip
+     */
+    closeOnClick: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
-    position() {
-      let toolltipPosition = 'top';
-
-      if (this.right) toolltipPosition = 'right';
-      else if (this.bottom) toolltipPosition = 'bottom';
-      else if (this.left) toolltipPosition = 'left';
-
-      return toolltipPosition;
-    },
     size() {
       let toolltipSize = 'small';
 
@@ -117,18 +131,62 @@ export default {
       return toolltipSize;
     },
   },
-  watch: {},
   methods: {
-    initTooltip() {
-      this.classPosition = `ViTooltip--${this.position}`;
-      this.classSize = `ViTooltip--${this.size}`;
+    getPosition() {
+      let toolltipPosition = 'top';
+
+      if (this.right) toolltipPosition = 'right';
+      else if (this.bottom) toolltipPosition = 'bottom';
+      else if (this.left) toolltipPosition = 'left';
+
+      return this.verifyEdgeLimit(toolltipPosition);
+    },
+    reposition() {
+      this.classPosition = `ViTooltip--${this.getPosition()}`;
     },
     showHide() {
-      this.show = !this.show && this.click;
+      this.verifyEdgeLimit();
+      this.visible = !this.visible && this.click;
+    },
+    topToggle() {
+      const offsetTop = this.$el.offsetTop - this.tooltip.clientHeight - 15;
+      return offsetTop > window.scrollY ? 'top' : 'bottom';
+    },
+    rightToggle() {
+      const offsetRight = this.$el.offsetLeft + this.$el.clientWidth + this.tooltip.clientWidth + 20;
+      return offsetRight < window.scrollX + window.innerWidth ? 'right' : 'left';
+    },
+    bottomToggle() {
+      const offsetBottom = this.$el.offsetTop + this.$el.clientHeight + this.tooltip.clientHeight + 25;
+      return offsetBottom < window.scrollY + window.innerHeight ? 'bottom' : 'top';
+    },
+    leftToggle() {
+      const offsetLeft = this.$el.offsetLeft - this.tooltip.clientWidth;
+      return offsetLeft > window.scrollX ? 'left' : 'right';
+    },
+    verifyEdgeLimit(positionSelected = 'top') {
+      return this[`${positionSelected}Toggle`]();
+    },
+    initTooltip() {
+      this.classPosition = `ViTooltip--${this.getPosition()}`;
+      this.classSize = `ViTooltip--${this.size}`;
     },
   },
+  created() {
+    window.addEventListener('scroll', this.reposition);
+    window.addEventListener('resize', this.reposition);
+
+    if (this.delayToClose) {
+      console.warn('[deprecated] A "delayToClose" prop will no longer be used');
+    }
+
+    if (this.closeOnClick) {
+      console.warn('[deprecated] A "closeOnClick" prop will no longer be used');
+    }
+  },
   mounted() {
-    this.initTooltip();
+    this.tooltip = this.$el.querySelector('.Tooltip');
+    setTimeout(() => this.initTooltip(), 50);
   },
 };
 </script>
@@ -176,7 +234,7 @@ animationDuration = .2s
       z-index 6
 
   &--hover:hover,
-  &--show
+  &--show.ViTooltip
     .Box__Tooltip
       margin 0
       visibility visible
@@ -262,7 +320,7 @@ animationDuration = .2s
   &--right
     .Box__Tooltip
       left 100%
-      margin-right 5px
+      margin-left -5px
 
       .Tooltip
         left 15px
@@ -305,13 +363,14 @@ animationDuration = .2s
       &::before,
       &::after
         visibility hidden
+
 </style>
 
 <docs>
 Tooltip com botão:
 
 ```jsx
-<vi-tooltip top click content="<strong>Conteúdo:</strong><br>Aqui vem a dica!">
+<vi-tooltip top click content="<strong>Conteúdo:</strong>Aqui vem a dica!Aqui vem a dica!Aqui vem a dica!Aqui vem a dica!Aqui vem a dica!">
   <vi-button primary>Clique aqui</vi-button>
 </vi-tooltip>
 ```
@@ -326,10 +385,10 @@ Tooltip com span:
   <vi-tooltip right hover large content="Já essa outra é maior!">
     <span>Passe o mouse</span>
   </vi-tooltip>
-  <vi-tooltip top hover content="Esse demora 1 segundo pra fechar!" delay-to-close="1000">
+  <vi-tooltip left hover content="Esse demora 1 segundo pra fechar!" delay-to-close="1000">
     <span>Passe o mouse</span>
   </vi-tooltip>
-  <vi-tooltip top hover content="Esse possui um texto bem grande para que seja possível ver como
+  <vi-tooltip bottom hover content="Esse possui um texto bem grande para que seja possível ver como
     fica a renderização em casos onde a dica possui um texto bem grande.">
     <span>Passe o mouse</span>
   </vi-tooltip>
