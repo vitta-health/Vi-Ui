@@ -64,9 +64,12 @@ export default {
     dragging(e) {
       const pos = e.clientX - this.$el.offsetLeft;
       const percent = pos / this.width * 100;
-      this.position = (percent <= 0) ? 0 : ((percent >= 100) ? 100 : percent);
+
+      if (percent <= 0) this.position = 0;
+      else if (percent >= 100) this.position = 100;
+      else this.position = percent;
     },
-    dragStart(e) {
+    dragStart() {
       window.addEventListener('mousemove', this.dragging);
       window.addEventListener('mouseup', this.dragStop);
     },
@@ -78,13 +81,13 @@ export default {
     },
     emit() {
       this.$emit('input', this.state);
-    }
+    },
   },
   computed: {
     style() {
       return {
         transform: `translateX(${this.pos_percentage})`
-      }
+      };
     },
     pos_percentage() {
       return `${this.position / this.width * 100}%`;
