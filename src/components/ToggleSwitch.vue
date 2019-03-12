@@ -86,7 +86,7 @@ export default {
   computed: {
     style() {
       return {
-        transform: `translateX(${this.pos_percentage})`
+        transform: `translateX(${this.pos_percentage})`,
       };
     },
     pos_percentage() {
