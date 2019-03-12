@@ -7,7 +7,7 @@
 
 <script>
 /**
- * @todo Alterar desenhos dos ícones.
+ * @deprecated since 0.0.22
  */
 export default {
   name: 'ViIcon',
@@ -112,23 +112,23 @@ export default {};
 </script>
 
 <style>
-  .ViIconWrapperDemo {
-    flex-flow: row wrap;
-  }
+.ViIconWrapperDemo {
+  flex-flow: row wrap;
+}
 
-  .ViIconDemo {
-    width: 90px;
-    height: 90px;
-    display: block;
-    text-align: center;
-    margin: 0 0 20px;
-  }
+.ViIconDemo {
+  width: 90px;
+  height: 90px;
+  display: block;
+  text-align: center;
+  margin: 0 0 20px;
+}
 
-  .vi-icon  {
-    color: '#5AC2A0';
-    margin: 0 auto 10px;
-    display: block;
-  }
+.vi-icon {
+  color: '#5AC2A0';
+  margin: 0 auto 10px;
+  display: block;
+}
 </style>
 ```
 

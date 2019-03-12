@@ -14,6 +14,7 @@
       title="Primeira Página"
       v-bind="colorsOpt()"
       v-if="!dots"
+      type="button"
       @click="handleNavigation('FIRST_PAGE')"
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('FIRST_PAGE')"
@@ -25,6 +26,7 @@
     <vi-button
       v-bind="colorsOpt()"
       v-if="!dots"
+      type="button"
       @click="handleNavigation('PREVIOUS_PAGE')"
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('PREVIOUS_PAGE')"
@@ -32,6 +34,7 @@
     ><vi-icon name="chevron-prev" /></vi-button>
     <vi-button
       v-bind="colorsOpt()"
+      type="button"
       @click="handleNavigation(page)"
       v-for="(page) in getPages"
       :active="isCurrentPage(page)"
@@ -42,6 +45,7 @@
     >{{ page }}</vi-button>
     <vi-button
       v-bind="colorsOpt()"
+      type="button"
       v-if="!dots"
       @click="handleNavigation('NEXT_PAGE')"
       :default-color="pickDefaultColor"
@@ -53,6 +57,7 @@
       v-bind="colorsOpt()"
       v-if="!dots"
       title="Última Página"
+      type="button"
       @click="handleNavigation('LAST_PAGE')"
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('LAST_PAGE')"
@@ -131,28 +136,36 @@ export default {
     },
     buttonEnabled(button) {
       switch (button) {
-        case 'LAST_PAGE': return this.totalPages > 0 && this.value < this.totalPages;
-        case 'NEXT_PAGE': return this.value < this.totalPages || this.totalPages === 0;
+        case 'LAST_PAGE':
+          return this.totalPages > 0 && this.value < this.totalPages;
+        case 'NEXT_PAGE':
+          return this.value < this.totalPages || this.totalPages === 0;
         case 'FIRST_PAGE':
-        default: return this.value > 1;
+        default:
+          return this.value > 1;
       }
     },
     getPage(newPage) {
       const countPages = this.totalPages || this.getPagesRange[1];
       switch (newPage) {
-        case 'PREVIOUS_PAGE': return this.value <= 1 ? 1 : this.value - 1;
-        case 'NEXT_PAGE': return this.value >= countPages ? countPages : this.value + 1;
-        case 'FIRST_PAGE': return 1;
-        case 'LAST_PAGE': return countPages;
-        default: return newPage;
+        case 'PREVIOUS_PAGE':
+          return this.value <= 1 ? 1 : this.value - 1;
+        case 'NEXT_PAGE':
+          return this.value >= countPages ? countPages : this.value + 1;
+        case 'FIRST_PAGE':
+          return 1;
+        case 'LAST_PAGE':
+          return countPages;
+        default:
+          return newPage;
       }
     },
     handleNavigation(page) {
       const pageNumber = this.getPage(page);
       /**
-         * Evento disparado na seleção da página
-         * @event input
-         * @type {number}
+       * Evento disparado na seleção da página
+       * @event input
+       * @type {number}
        */
       this.$emit('input', pageNumber);
     },
@@ -191,8 +204,8 @@ export default {
       let last = this.totalShowed + diff;
       countPages = this.totalPages || last;
       if (last > countPages) {
-        first -= (last - countPages);
-        last -= (last - countPages);
+        first -= last - countPages;
+        last -= last - countPages;
       }
       return [first, last];
     },
@@ -218,27 +231,25 @@ export default {
     &.ViButtonGroup
       align-items center
       height 20px
+
       .ViButton
-        &
-        &:first-child
-        &:last-child
-          width 0
-          height 0
-          min-width 0
-          min-height 0
-          padding 0
-          margin 0 0.5em
-          overflow hidden
-          white-space nowrap
-          border-width 0.4em
+        &, &:first-child, &:last-child
           border-radius 100px
-          transition all 0.1s ease-out
+          border-width 0.4em
+          height 0
+          margin 0 0.5em
+          min-height 0
+          min-width 0
           opacity 0.45
+          overflow hidden
+          padding 0
+          transition all 0.1s ease-out
+          white-space nowrap
+          width 0
 
           &.ViButton--active
-            opacity 1
             border-width 0.5em
-
+            opacity 1
 </style>
 
 <docs>
@@ -279,7 +290,6 @@ export default {
     };
   }
 };
-
 </script>
 ```
 </docs>

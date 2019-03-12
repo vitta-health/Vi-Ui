@@ -15,11 +15,13 @@
         'ViInput__Multiselect--multiple': multiple,
         'ViInput__Multiselect--pills': pill,
         'ViInput__Multiselect--checkbox': checkbox,
+        'ViInput__Multiselect--select-all-hidden': hideSelectAll,
       }"
       @open="openEvent"
       @tag="tagEvent"
       @close="closeEvent"
       @input="inputEvent"
+      @change="changeEvent"
       @select="selectEvent"
       @remove="removeEvent"
       @search-change="searchEvent"
@@ -35,7 +37,7 @@
           name="clear"
           :search="search"
         >
-          <template v-if="checkbox">
+          <template v-if="checkbox && !hideSelectAll">
             <div
               class="ViInput__CheckAll"
               :style="{
@@ -85,14 +87,12 @@
           name="option"
           v-bind="{ option }"
         >
-          <template v-if="checkbox">
-            <span class="ViInput__MultiselectCheckbox">
-              {{ getOptionLabel(option) }}
-            </span>
-          </template>
-          <template v-else>
+          <span
+            :class="{ 'ViInput__MultiselectCheckbox': checkbox }"
+            :title="getOptionLabel(option)"
+          >
             {{ getOptionLabel(option) }}
-          </template>
+          </span>
         </slot>
       </template>
 
@@ -299,6 +299,13 @@ export default {
       type: [String, Number, Object, Array],
       default: null,
     },
+    /**
+     * Se for true, oculta a opção "Marcar todos"
+     */
+    hideSelectAll: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -355,7 +362,7 @@ export default {
     },
     filteredOptions() {
       if (!this.searchValue) return this.options;
-      const pattern = new RegExp(this.searchValue);
+      const pattern = new RegExp(this.searchValue, 'i');
       return this.options
         .filter(option => pattern.test(this.customLabel(option, this.optionLabel)));
     },
@@ -404,6 +411,9 @@ export default {
     },
     inputEvent(value, id) {
       this.$emit('input', value, id);
+    },
+    changeEvent(value, id) {
+      this.$emit('change', value, id);
     },
     selectEvent(value, id) {
       this.$emit('select', value, id);
@@ -492,6 +502,8 @@ export default {
 
       .multiselect__single
         font-size unset
+        padding 0 15px 0 0
+        @extend .text-truncate
 
     .multiselect__select
       z-index 3
@@ -502,6 +514,9 @@ export default {
         outline none
         &:before
           border-color $border-color-main-focus transparent transparent
+
+    .multiselect__content
+      width 100%
 
     .multiselect__content-wrapper
       border-color $border-color-main
@@ -524,6 +539,7 @@ export default {
     .multiselect__checkoption
     .multiselect__option
       border-bottom 1px solid rgba($border-color-main, 0.5)
+      @extend .text-truncate
 
       &:after
         font-weight 700
@@ -649,6 +665,10 @@ export default {
       &.multiselect--above
         .multiselect__content
           padding 0 0 38px
+
+    &--select-all-hidden
+      .multiselect__content
+        padding 0
 </style>
 
 

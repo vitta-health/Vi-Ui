@@ -14,12 +14,14 @@
           'ViToggleSwitch__Container--active': isChecked,
         }
       ]"
-      @click.self="onClick">
+      @click.self="onClick"
+    >
       <div
         class="ViToggleSwitch__Draggable"
         @mousedown.prevent="dragStart"
         @click.self="onClick"
-        :style="style" />
+        :style="style"
+      />
     </div>
   </vi-wrapper>
 </template>
@@ -63,11 +65,10 @@ export default {
     },
     dragging(e) {
       const pos = e.clientX - this.$el.offsetLeft;
-      const percent = pos / this.width * 100;
-
-      if (percent <= 0) this.position = 0;
-      else if (percent >= 100) this.position = 100;
-      else this.position = percent;
+      let percent = pos / this.width * 100;
+      percent = percent <= 0 ? 0 : percent;
+      percent = percent > 100 ? 100 : percent;
+      this.position = percent;
     },
     dragStart() {
       window.addEventListener('mousemove', this.dragging);
@@ -104,45 +105,44 @@ export default {
 
 <style lang="stylus">
 @import '../themes/main'
+
 $background-color-off = #fff
-$background-color-on = #72d09c
 $border-color = #eee
 $pin-in-color = #fff
 
 .ViToggleSwitch__Container
-  width 80px
-  height 40px
-  background $background-color-off
+  background $success
   border 2px solid $border-color
   border-radius 200px
+  height 40px
   transition background 0.6s
+  width 80px
 
   &--mini
-    width 40px
     height 20px
+    width 40px
 
   &--small
-    width 60px
     height 30px
+    width 60px
 
   &--large
-    width 104px
     height 52px
+    width 104px
 
   .ViToggleSwitch__Draggable
-    width 50%
-    height 99%
     background $pin-in-color
     border-radius 100%
     box-shadow 0 3px 10px 0 rgba(0, 0, 0, 0.3), inset -1px 0px 0px 1px rgba(0, 0, 0, 0.08)
+    height 99%
     transform translateX(0%)
     transition transform 0.05s ease-in-out
+    width 50%
 
   &--active
     background $background-color-on
-    transition background 0.6s
     border 2px solid $background-color-on
-
+    transition background 0.6s
 </style>
 
 <docs>
