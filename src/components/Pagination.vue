@@ -212,7 +212,7 @@ export default {
 .ViPagination__BeakPage
   .contentWrapper + .contentWrapper
     margin-left -5px
-    
+
 .ViComponent.ViPagination
   &--dots
     &.ViButtonGroup

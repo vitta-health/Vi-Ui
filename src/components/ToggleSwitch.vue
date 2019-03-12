@@ -11,7 +11,7 @@
           'ViToggleSwitch__Container--mini': mini,
           'ViToggleSwitch__Container--small': small,
           'ViToggleSwitch__Container--large': large,
-          'ViToggleSwitch__Container--active': state,
+          'ViToggleSwitch__Container--active': isChecked,
         }
       ]"
       @click.self="onClick">
@@ -19,8 +19,7 @@
         class="ViToggleSwitch__Draggable"
         @mousedown.prevent="dragStart"
         @click.self="onClick"
-        :style="style">
-      </div>
+        :style="style" />
     </div>
   </vi-wrapper>
 </template>
@@ -89,6 +88,9 @@ export default {
     },
     pos_percentage() {
       return `${this.position / this.width * 100}%`
+    },
+    isChecked() {
+      return this.state || this.value === true;
     },
   },
   mounted() {
