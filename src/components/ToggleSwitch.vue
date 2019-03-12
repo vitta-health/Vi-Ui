@@ -11,7 +11,7 @@
           'ViToggleSwitch__Container--mini': mini,
           'ViToggleSwitch__Container--small': small,
           'ViToggleSwitch__Container--large': large,
-          'ViToggleSwitch__Container--active': state,
+          'ViToggleSwitch__Container--active': isChecked,
         }
       ]"
       @click.self="onClick"
@@ -92,6 +92,9 @@ export default {
     },
     pos_percentage() {
       return `${this.position / this.width * 100}%`;
+    },
+    isChecked() {
+      return this.state || this.value === true;
     },
   },
   mounted() {
