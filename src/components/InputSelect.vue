@@ -71,6 +71,7 @@
           :toggle="toggle"
         >
           <div
+            v-show="!loading"
             tabindex="0"
             class="multiselect__select"
             @keydown.enter.prevent.stop="toggle"
