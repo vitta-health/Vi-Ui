@@ -16,6 +16,7 @@ import ViTabs from './components/Tabs.vue';
 import ViToggleSwitch from './components/ToggleSwitch.vue';
 import ViTooltip from './components/Tooltip.vue';
 import ViWrapper from './components/Wrapper.vue';
+import ViBadge from './components/Badge';
 
 const ViUi = {
   install(Vue) {
@@ -37,6 +38,7 @@ const ViUi = {
     Vue.component(ViToggleSwitch.name, ViToggleSwitch);
     Vue.component(ViTooltip.name, ViTooltip);
     Vue.component(ViWrapper.name, ViWrapper);
+    Vue.component(ViBadge.name, ViBadge);
   },
 };
 
