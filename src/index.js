@@ -16,7 +16,7 @@ import ViTabs from './components/Tabs.vue';
 import ViToggleSwitch from './components/ToggleSwitch.vue';
 import ViTooltip from './components/Tooltip.vue';
 import ViWrapper from './components/Wrapper.vue';
-import ViBadge from './components/Badge';
+import ViBadge from './components/Badge.vue';
 
 const ViUi = {
   install(Vue) {

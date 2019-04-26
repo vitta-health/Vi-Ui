@@ -1,6 +1,7 @@
 <template>
   <div class="ViComponent ViBadge">
-    <div class="ViBadge__Badge" 
+    <div
+      class="ViBadge__Badge"
       :class="[
         {
           'ViBadge__Badge--square': square,
@@ -79,7 +80,7 @@ export default {
       default: false,
     },
   },
-}
+};
 </script>
 
 <style lang="stylus">
@@ -106,7 +107,7 @@ export default {
     top -11px
     transition 0.3s cubic-bezier(0.25, 0.8, 0.5, 1)
     width 22px
-    
+
     &--opened
       opacity 1
 
@@ -122,28 +123,28 @@ export default {
       font-size 12px
       height 21px
       width 21px
-    
+
     &--large
       font-size 16px
       height 24px
       width 24px
-    
+
     &--left
       left -25px
-    
+
     &--bottom
       bottom -10px
       top auto
-    
+
     &--over
       border 2px solid #FFFFFF
       font-size 85%
       right -10px
       top -10px
-      
+
       &.ViBadge__Badge--left
         left -10px
-      
+
       &.ViBadge__Badge--bottom
         top auto
 </style>
