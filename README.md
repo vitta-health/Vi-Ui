@@ -7,7 +7,7 @@
   <a href="https://github.com/vitta-health/Vi-Ui/blob/master/LICENSE" title="Licente Mit"><img src="https://img.shields.io/badge/License-MIT-blue.svg"/></a>
 </p>
 
-<h2 align="center"><a href="https://vitta-health.github.io/Vi-Ui/">Read the documentation</h2>
+<h2 align="center"><a href="https://vitta-health.github.io/Vi-Ui/">Read the documentation</a></h2>
 
 ## Install:
 
@@ -56,3 +56,7 @@ or use the css import (slower):
 ### Apply the Vi-Ui style
 
 Apply the class `ViComponent` to the body for global or where you want to use the Vi-Ui.
+
+### Visual Code extension
+
+You can use the <a href="https://vitta-health.github.io/Vi-Ui/">viui-vscode</a> extension to get some snippets and autocomplete when developing something with Vi-Ui.
