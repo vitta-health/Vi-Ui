@@ -10,6 +10,8 @@
           'ViBadge__Badge--large': large,
           'ViBadge__Badge--left': left,
           'ViBadge__Badge--bottom': bottom,
+          'ViBadge__Badge--inline': inline,
+          'ViBadge__Badge--pill': pill,
           'ViBadge__Badge--over': over,
           'ViBadge__Badge--opened': value,
         },
@@ -79,6 +81,20 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Alinhar badge inline.
+     */
+    inline: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Alinhar badge inline com formato pill.
+     */
+    pill: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
@@ -86,11 +102,12 @@ export default {
 <style lang="stylus">
 @import '../themes/main'
 
-.ViBadge
+.ViComponent.ViBadge
   display inline-block
+  font-size inherit
   position relative
 
-  &__Badge
+  .ViBadge__Badge
     align-items center
     border 1px solid
     border-radius 50%
@@ -128,6 +145,20 @@ export default {
       font-size 16px
       height 24px
       width 24px
+    
+    &--inline
+      border-radius .25rem
+      display inline-block
+      font-size 75%
+      height auto
+      line-height 1
+      padding .25em .4em .3em
+      position initial
+      width auto
+
+    &--pill
+      border-radius 1rem
+      @extends .ViComponent.ViBadge .ViBadge__Badge--inline
 
     &--left
       left -25px
@@ -199,5 +230,16 @@ export default {
   },
 };
 </script>
+```
+
+### Inline / Pill
+
+Somente as props de cores fazem sentido junto com inline ou pill.
+
+```jsx
+<vi-wrapper vertical>
+  <h1>Teste <vi-badge danger inline><div slot="badge">novo</div></vi-badge></h1>
+  <p><vi-badge info pill><div slot="badge">novo</div></vi-badge> Teste</p>
+</vi-wrapper>
 ```
 </docs>
