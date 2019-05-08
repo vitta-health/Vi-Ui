@@ -145,7 +145,7 @@ export default {
       font-size 16px
       height 24px
       width 24px
-    
+
     &--inline
       border-radius .25rem
       display inline-block
