@@ -59,4 +59,4 @@ Apply the class `ViComponent` to the body for global or where you want to use th
 
 ### Visual Code extension
 
-You can use the <a href="https://vitta-health.github.io/Vi-Ui/">viui-vscode</a> extension to get some snippets and autocomplete when developing something with Vi-Ui.
+You can use the <a href="https://github.com/pablovieiras/viui-vscode">viui-vscode</a> extension to get some snippets and autocomplete when developing something with Vi-Ui.
