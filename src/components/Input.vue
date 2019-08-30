@@ -59,12 +59,12 @@
   </vi-wrapper>
 </template>
 
-
 <script>
 import ViWrapper from './Wrapper.vue';
 import { scaleMixin, widthMixin } from '../mixins/sizes';
 import ViInputLabel from '../helperComponents/InputLabel.vue';
 import inputMixin from '../mixins/input';
+
 export default {
   name: 'ViInput',
   components: {
@@ -116,8 +116,8 @@ export default {
       type: [String, Number],
       default: null,
     },
-     /**
-     * _Validação:_ Intervalo numérico minimo 
+    /**
+     * _Validação:_ Intervalo numérico minimo
      */
     step: {
       type: Number,
