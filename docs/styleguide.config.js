@@ -7,9 +7,9 @@ module.exports = {
   components: '../src/components/[A-Z]*.vue',
   sortProps: props => props,
   webpackConfig,
-  showUsage: true,
-  showCode: true,
-  navigation: true,
+  usageMode: 'expand',
+  exampleMode: 'expand',
+  pagePerSection: true,
   styleguideDir: '../static/docs/',
   require: [
     'babel-polyfill',
