@@ -1,0 +1,10 @@
+>= .5%
+last 2 versions
+not dead
+Chrome >= 48
+Firefox >= 43
+Edge >= 12
+Explorer >= 9
+iOS >= 9
+Safari >= 9
+Android >= 4.4

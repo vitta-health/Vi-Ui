@@ -13,7 +13,7 @@
         'ViAlert--bottom': !inline && bottom,
         'ViAlert--inline': inline,
         'ViAlert--pill': pill,
-      }
+      },
     ]"
     v-bind="colorsOpt()"
     @mouseover.native="stopTimer(true)"
@@ -22,36 +22,21 @@
     tag="span"
     small-spacing
   >
-    <vi-wrapper
-      tag="span"
-      small-spacing
-      justify-content="space-between"
-      align-items="center"
-    >
-      <vi-wrapper
-        tag="span"
-        small-spacing
-        child-wrapper
-        justify-content="start"
-        align-items="center"
-      >
-        <vi-icon
-          v-if="icon"
-          class= "ViAlert__ContentIcon"
-          :name="icon"
-        />
+    <vi-wrapper tag="span" small-spacing justify-content="space-between" align-items="center">
+      <vi-wrapper tag="span" small-spacing child-wrapper justify-content="start" align-items="center">
+        <vi-icon v-if="icon" class="ViAlert__ContentIcon" :name="icon" />
         <slot />
       </vi-wrapper>
       <vi-button
         small
         v-bind="colorsOpt()"
         title="Fechar"
-        class= "ViAlert__Close"
+        class="ViAlert__Close"
         :circle="pill"
         @click="startToggle"
         v-if="!notDismissable"
       >
-        <vi-icon name="cross"/>
+        <vi-icon name="cross" />
       </vi-button>
     </vi-wrapper>
   </vi-card>
@@ -235,10 +220,10 @@ export default {
 @import '../themes/main'
 
 .ViComponent.ViAlert
-  transition all 0.35s ease-out
   font-family $Montserrat
   font-weight 500
   letter-spacing -0.01em
+  transition all 0.35s ease-out
 
   &--open
     transition all 0.45s cubic-bezier(0.87, -0.41, 0.19, 1.44)
@@ -252,8 +237,7 @@ export default {
     &.ViAlert--closed
       display none
 
-  &--top
-  &--bottom
+  &--top, &--bottom
     backface-visibility hidden
     position fixed
     z-index 400
@@ -261,34 +245,43 @@ export default {
   &--center
     left 50%
     transform-origin 10% center
+
     &.ViAlert--top
       top 1em
       transform translate(-50%, -200%) rotateX(180deg)
+
     &.ViAlert--bottom
       bottom 1em
       transform translate(-50%, 200%) rotateX(180deg)
+
     &.ViAlert--open
       transform translate(-50%, 0) rotateX(0)
 
   &--left
     left 1em
-    transform-origin center 10%
     transform translate(-200%, 0) rotateY(180deg)
+    transform-origin center 10%
+
     &.ViAlert--top
       top 1em
+
     &.ViAlert--bottom
       bottom 1em
+
     &.ViAlert--open
       transform translate(0, 0) rotateY(0)
 
   &--right
     right 1em
-    transform-origin center 10%
     transform translate(200%, 0) rotateY(180deg)
+    transform-origin center 10%
+
     &.ViAlert--top
       top 1em
+
     &.ViAlert--bottom
       bottom 1em
+
     &.ViAlert--open
       transform translate(0, 0) rotateY(0)
 
@@ -299,8 +292,7 @@ export default {
     .contentWrapper
       align-items center
 
-  .ViAlert__ContentIcon
-  .ViAlert__ContentIcon
+  .ViAlert__ContentIcon, .ViAlert__ContentIcon
     opacity 0.5
 </style>
 

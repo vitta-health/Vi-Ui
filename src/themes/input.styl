@@ -16,8 +16,8 @@ $border-radius = 0.3em
     border 1px solid $border-color-main
     border-bottom-width 2px
     min-height 40px
-    padding 0.5em
     outline none
+    padding 0.5em
     text-overflow ellipsis
     transition all 0.2s ease-in-out
     width 100%
@@ -33,8 +33,7 @@ $border-radius = 0.3em
       position relative
       z-index 1
 
-    &--invalid
-    &--validated:invalid
+    &--invalid, &--validated:invalid
       border-color $danger
       outline none
 
@@ -59,13 +58,15 @@ $border-radius = 0.3em
         white-space nowrap
 
       &.ViInput__Slot
+        align-items center
         background rgba($border-color-main, 0.1)
         border 1px solid $border-color-main
         border-bottom-width 2px
         display flex
-        align-items center
         padding 0.6em
+
         &--prefix
           border-right 0
+
         &--suffix
           border-left 0

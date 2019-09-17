@@ -1,4 +1,4 @@
-------
+---
 
 ## Instalação:
 
@@ -9,9 +9,10 @@ npm install --save vue-vi-ui
 ```
 
 Ou a CDN:
+
 ```html static
 <script src="https://unpkg.com/vue-vi-ui/dist/vi-ui.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/vue-vi-ui/dist/vi-ui.min.css">
+<link rel="stylesheet" href="https://unpkg.com/vue-vi-ui/dist/vi-ui.min.css" />
 ```
 
 ## Utilização
@@ -26,7 +27,7 @@ Vue.use(ViUi);
 
 export default {
   name: 'app',
-}
+};
 ```
 
 ### Importar as fonts
@@ -34,7 +35,10 @@ export default {
 Vi-Ui é feito com as fonts Montserrat e Source Sans Pro:
 
 ```html static
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Source+Sans+Pro:400,400i,700,700i"
+  rel="stylesheet"
+/>
 ```
 
 O use css import (mais lento):

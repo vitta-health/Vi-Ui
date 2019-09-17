@@ -78,19 +78,19 @@ export default {
     .ViButton
       min-width 3.4em
       text-decoration none
+
       &:not(.ViButton--active)
+        background transparent
         border-color #9AA2B4
         border-left-width 0
-        background transparent
-        color: #333
-        box-shadow: none
+        box-shadow none
+        color #333
 
-        &[disabled]:hover
-        &[disabled]:focus
-          border-color #9AA2B4
+        &[disabled]:hover, &[disabled]:focus
           background inherit
-          color: inherit
-          box-shadow: inherit
+          border-color #9AA2B4
+          box-shadow inherit
+          color inherit
 
         &:first-child
           border-left-width 0.09em

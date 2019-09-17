@@ -1,8 +1,5 @@
 <template>
-  <span
-    aria-hidden="true"
-    :class="icon"
-  />
+  <span aria-hidden="true" :class="icon" />
 </template>
 
 <script>

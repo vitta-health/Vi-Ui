@@ -53,7 +53,7 @@ export default {
     let tabIndex = 0;
     const tabsList = [];
     const tabsContent = [];
-    this.$slots.default.map((node) => {
+    this.$slots.default.map(node => {
       if (!node.tag && !node.text) return null;
       const tabNode = Object.create(node);
       const contentNode = Object.create(node);
@@ -66,20 +66,26 @@ export default {
 
         tabNode.tag = 'li';
         tabNode.children = [];
-        tabNode.children.push(createElement('a', {
-          class: [
-            'ViTabs__Link',
+        tabNode.children.push(
+          createElement(
+            'a',
             {
-              'ViTabs__Link--active': self.isTabActive(tabId),
-              'ViTabs__Link--inactive': !self.isTabActive(tabId),
+              class: [
+                'ViTabs__Link',
+                {
+                  'ViTabs__Link--active': self.isTabActive(tabId),
+                  'ViTabs__Link--inactive': !self.isTabActive(tabId),
+                },
+              ],
+              on: {
+                click: () => {
+                  self.selectTab(tabId);
+                },
+              },
             },
-          ],
-          on: {
-            click: () => {
-              self.selectTab(tabId);
-            },
-          },
-        }, [{ text: self.tabTitle(node, tabIndex) }]));
+            [{ text: self.tabTitle(node, tabIndex) }],
+          ),
+        );
 
         contentNode.data.class = [
           'ViTabs__Tab',
@@ -97,13 +103,10 @@ export default {
 
     const tabsListCreate = createElement('ul', { class: ['ViTabs__List'] }, [tabsList]);
 
-    return createElement(
-      'div', { class: ['ViTabs', 'ViComponent'] },
-      [
-        createElement('nav', { class: ['ViTabs__Nav'] }, [tabsListCreate]),
-        createElement('div', { class: ['ViTabs__Content'] }, [tabsContent]),
-      ]
-    );
+    return createElement('div', { class: ['ViTabs', 'ViComponent'] }, [
+      createElement('nav', { class: ['ViTabs__Nav'] }, [tabsListCreate]),
+      createElement('div', { class: ['ViTabs__Content'] }, [tabsContent]),
+    ]);
   },
 };
 </script>
@@ -113,6 +116,7 @@ export default {
 
 .ViComponent.ViTabs
   width 100%
+
   .ViTabs__Nav
     border-bottom 1px solid rgba(black, 0.1)
     height 49px
@@ -162,6 +166,7 @@ export default {
   .ViTabs__Content
     .ViTabs__Tab
       display none
+
       &--active
         display block
 </style>
@@ -172,33 +177,35 @@ export default {
 ```vue
 <template>
   <vi-wrapper class="ViComponent ViTabsDemo">
-      <vi-tabs v-model="tab">
-        <vi-card :title-size="3" tabid="tab1" title="Exemplo 1">
-          <p>In the beginning, after all, were the words, and they came with a tune.
-          That was how the world was made, how the void was divided, how the lands and
-          he stars and the dreams and the little gods and the animals, how all of them
-          came into the world.</p>
-        </vi-card>
-        <vi-card  :title-size="3" tabid="tab2" title="Exemplo 2">
-          <p>The great beasts were sung into existence, after the Singer had done with
-          the planets and the hills and the trees and the oceans and the lesser beasts.
-          The cliffs that bound existence were sung, and the hunting grounds, and the dark.
-          Songs remain. They last. The right song can turn an emperor into a laughingstock,
-          can bring down dynasties. A song can last long after the events and the people in
-          it are dust and dreams and gone. That’s the power of songs. There are other things
-          you can do with songs. They do not only make worlds or recreate existence. Fat
-          Charlie Nancy’s father, for example, was simply using them to have what he
-          hoped and expected would be a marvelous night out.</p>
-        </vi-card>
-        <vi-card  :title-size="3" tabid="tab3" title="Exemplo 3">
-          <p>Before Fat Charlie’s father had come into the bar, the barman had been of the opinion
-          that the whole karaoke evening was going to be an utter bust; but then the little old man
-          had sashayed into the room, walked past the table of several blonde women with the fresh
-          sunburns and smiles of tourists, who were sitting by the little makeshift stage in the
-          corner. He had tipped his hat to them, for he wore a hat, a spotless green fedora, and
-          lemon-yellow gloves, and then he walked over to their table. They giggled.</p>
-        </vi-card>
-      </vi-tabs>
+    <vi-tabs v-model="tab">
+      <vi-card :title-size="3" tabid="tab1" title="Exemplo 1">
+        <p>
+          In the beginning, after all, were the words, and they came with a tune. That was how the world was made, how
+          the void was divided, how the lands and he stars and the dreams and the little gods and the animals, how all
+          of them came into the world.
+        </p>
+      </vi-card>
+      <vi-card :title-size="3" tabid="tab2" title="Exemplo 2">
+        <p>
+          The great beasts were sung into existence, after the Singer had done with the planets and the hills and the
+          trees and the oceans and the lesser beasts. The cliffs that bound existence were sung, and the hunting
+          grounds, and the dark. Songs remain. They last. The right song can turn an emperor into a laughingstock, can
+          bring down dynasties. A song can last long after the events and the people in it are dust and dreams and gone.
+          That’s the power of songs. There are other things you can do with songs. They do not only make worlds or
+          recreate existence. Fat Charlie Nancy’s father, for example, was simply using them to have what he hoped and
+          expected would be a marvelous night out.
+        </p>
+      </vi-card>
+      <vi-card :title-size="3" tabid="tab3" title="Exemplo 3">
+        <p>
+          Before Fat Charlie’s father had come into the bar, the barman had been of the opinion that the whole karaoke
+          evening was going to be an utter bust; but then the little old man had sashayed into the room, walked past the
+          table of several blonde women with the fresh sunburns and smiles of tourists, who were sitting by the little
+          makeshift stage in the corner. He had tipped his hat to them, for he wore a hat, a spotless green fedora, and
+          lemon-yellow gloves, and then he walked over to their table. They giggled.
+        </p>
+      </vi-card>
+    </vi-tabs>
   </vi-wrapper>
 </template>
 <script>
@@ -212,7 +219,7 @@ export default {
 </script>
 <style>
 .ViTabsDemo {
-  background: #EAEAEA;
+  background: #eaeaea;
   padding: 20px;
 }
 </style>

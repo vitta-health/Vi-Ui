@@ -7,13 +7,10 @@
     :class="{ 'ViInput--elevated': isPopoverOpen }"
     :style="{ width: componentWidth }"
   >
-    <vi-input-label v-bind="{ for: id, label, instruction }"/>
-    <vi-wrapper
-      no-spacing
-      class="ViInput_Wrapper"
-    >
+    <vi-input-label v-bind="{ for: id, label, instruction }" />
+    <vi-wrapper no-spacing class="ViInput_Wrapper">
       <div class="ViInput__Slot ViInput__Slot--prefix">
-        <vi-icon name="calendar"/>
+        <vi-icon name="calendar" />
       </div>
       <v-date-picker
         @input="inputChange($event, 'input')"
@@ -32,7 +29,7 @@
             {
               'ViInput__Input--validated': validated || forceValidation,
               'ViInput__Input--invalid': invalid,
-            }
+            },
           ],
           placeholder: placeholder,
         }"
@@ -202,7 +199,7 @@ export default {
     dataForm() {
       return JSON.stringify(this._data, null, 2);
     },
-  }
+  },
 };
 </script>
 ```

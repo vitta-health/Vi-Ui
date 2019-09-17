@@ -1,12 +1,16 @@
 <template>
   <div
     class="ViTooltip"
-    :class="[{
-      'ViTooltip--hideArrow': hideArrow,
-      'ViTooltip--mini': mini,
-      'ViTooltip--small': small,
-      'ViTooltip--large': large }]"
-    @click="justHide()">
+    :class="[
+      {
+        'ViTooltip--hideArrow': hideArrow,
+        'ViTooltip--mini': mini,
+        'ViTooltip--small': small,
+        'ViTooltip--large': large,
+      },
+    ]"
+    @click="justHide()"
+  >
     <slot />
   </div>
 </template>
@@ -125,7 +129,7 @@ export default {
     show(status) {
       this.showHide(status);
     },
-    'tooltip._isOpen': function (status) {
+    'tooltip._isOpen': function(status) {
       this.tooltip._isOpening = status;
     },
     content(value) {
@@ -189,7 +193,7 @@ export default {
   .tooltip
     background $light
     border-radius 3px
-    box-shadow 0 1px 4px rgba(0,0,0,0.4)
+    box-shadow 0 1px 4px rgba(0, 0, 0, 0.4)
     color $dark
     padding 10px
     text-align center
@@ -197,7 +201,7 @@ export default {
 
   .tooltip-inner
     max-width 400px
-    white-space: pre-line
+    white-space pre-line
     word-break break-word
 
   .tooltip-arrow
@@ -208,7 +212,7 @@ export default {
     position absolute
     width 0
 
-  .tooltip[x-placement^="top"]
+  .tooltip[x-placement^='top']
     top -10px !important
 
     .tooltip-arrow
@@ -221,7 +225,7 @@ export default {
       margin-bottom 0
       margin-top 0
 
-  .tooltip[x-placement^="left"]
+  .tooltip[x-placement^='left']
     left -10px !important
 
     .tooltip-arrow
@@ -229,12 +233,12 @@ export default {
       border-right-color transparent
       border-top-color transparent
       border-width 6px 0 6px 6px
-      right -6px
-      top calc(50% - 6px)
       margin-left 0
       margin-right 0
+      right -6px
+      top calc(50% - 6px)
 
-  .tooltip[x-placement^="right"]
+  .tooltip[x-placement^='right']
     left 10px !important
 
     .tooltip-arrow
@@ -247,7 +251,7 @@ export default {
       margin-right 0
       top calc(50% - 6px)
 
-  .tooltip[x-placement^="bottom"]
+  .tooltip[x-placement^='bottom']
     top 10px !important
 
     .tooltip-arrow

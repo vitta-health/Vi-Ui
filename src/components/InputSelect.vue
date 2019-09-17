@@ -8,7 +8,7 @@
     :style="{ width: componentWidth }"
     :value="false"
   >
-    <vi-input-label v-bind="{ for: id, label, instruction }"/>
+    <vi-input-label v-bind="{ for: id, label, instruction }" />
     <multiselect
       class="ViInput__Multiselect"
       :class="{
@@ -27,16 +27,9 @@
       @search-change="searchEvent"
       v-bind="newProps"
       :tabindex="0"
-
     >
-      <template
-        slot="clear"
-        slot-scope="{ search }"
-      >
-        <slot
-          name="clear"
-          :search="search"
-        >
+      <template slot="clear" slot-scope="{ search }">
+        <slot name="clear" :search="search">
           <template v-if="checkbox && !hideSelectAll">
             <div
               class="ViInput__CheckAll"
@@ -47,7 +40,7 @@
               <span
                 tabindex="1"
                 class="multiselect__checkoption"
-                :class=" {
+                :class="{
                   'multiselect__checkoption--selected': isAllChecked,
                   'multiselect__checkoption--inderteminate': isSomeCheckedButNotAll,
                 }"
@@ -62,14 +55,8 @@
           </template>
         </slot>
       </template>
-      <template
-        slot="caret"
-        slot-scope="{ toggle }"
-      >
-        <slot
-          name="caret"
-          :toggle="toggle"
-        >
+      <template slot="caret" slot-scope="{ toggle }">
+        <slot name="caret" :toggle="toggle">
           <div
             v-show="!loading"
             tabindex="0"
@@ -80,31 +67,15 @@
           />
         </slot>
       </template>
-      <template
-        slot="option"
-        slot-scope="{ option }"
-      >
-        <slot
-          name="option"
-          v-bind="{ option }"
-        >
-          <span
-            :class="{ 'ViInput__MultiselectCheckbox': checkbox }"
-            :title="getOptionLabel(option)"
-          >
+      <template slot="option" slot-scope="{ option }">
+        <slot name="option" v-bind="{ option }">
+          <span :class="{ ViInput__MultiselectCheckbox: checkbox }" :title="getOptionLabel(option)">
             {{ getOptionLabel(option) }}
           </span>
         </slot>
       </template>
-
-      <template
-        slot="tag"
-        slot-scope="{ option, search, remove }"
-      >
-        <slot
-          name="tag"
-          v-bind="{ option, search, remove }"
-        >
+      <template slot="tag" slot-scope="{ option, search, remove }">
+        <slot name="tag" v-bind="{ option, search, remove }">
           <template v-if="pill">
             <span class="multiselect__tag">
               <span>{{ getOptionLabel(option) }}</span>
@@ -119,23 +90,15 @@
           </template>
           <template
             @close="closeEvent"
-            v-else-if="getOptionLabel(value[0]) === getOptionLabel(option)
-            && (!isOpen && searchable || !searchable)"
+            v-else-if="getOptionLabel(value[0]) === getOptionLabel(option) && ((!isOpen && searchable) || !searchable)"
           >
             {{ totalValueLabel }}
           </template>
         </slot>
       </template>
-
-      <template
-        slot="singleLabel"
-        slot-scope="scope"
-      >
-        <slot
-          name="singleLabel"
-          slot-scope="scope"
-        >
-          {{ getOptionLabel(scope.option) }}
+      <template slot="singleLabel" slot-scope="{ option }">
+        <slot name="singleLabel" v-bind="{ option }">
+          {{ getOptionLabel(option) }}
         </slot>
       </template>
       <template slot="beforeList">
@@ -144,27 +107,17 @@
       <template slot="afterList">
         <slot name="afterList" />
       </template>
-      <template
-        slot="limit"
-        v-if="internalValue && internalValue.length > limit"
-      >
+      <template slot="limit" v-if="internalValue && internalValue.length > limit">
         <slot name="limit">
-          <strong
-            class="multiselect__strong"
-            v-text="limitText(internalValue.length - limit)"
-          />
+          <strong class="multiselect__strong" v-text="limitText(internalValue.length - limit)" />
         </slot>
       </template>
       <template slot="noResult">
         <slot name="noResult">Nenhum resultado disponível</slot>
       </template>
-      <template
-        slot="maxElements"
-        v-if="multiple && max === internalValue.length"
-      >
+      <template slot="maxElements" v-if="multiple && max === internalValue.length">
         <slot name="maxElements">
-          Maximo de {{ max }} opções selecionadas.
-          Remova uma opção selecionada para escolher outra opção.
+          Maximo de {{ max }} opções selecionadas. Remova uma opção selecionada para escolher outra opção.
         </slot>
       </template>
       <template slot="placeholder">
@@ -173,10 +126,8 @@
         </slot>
       </template>
     </multiselect>
-
   </vi-wrapper>
 </template>
-
 
 <script>
 import Multiselect from 'vue-multiselect';
@@ -317,9 +268,7 @@ export default {
   },
   computed: {
     optionsWidthString() {
-      return Number.isNaN(this.optionsWidth - 0)
-        ? this.optionsWidth
-        : `${this.optionsWidth}px`;
+      return Number.isNaN(this.optionsWidth - 0) ? this.optionsWidth : `${this.optionsWidth}px`;
     },
     totalValueLabel() {
       return this.selectClosedLabel.replace('##NUMBER##', this.totalValue);
@@ -339,23 +288,17 @@ export default {
     },
     isAllChecked() {
       if (!this.value || !this.filteredOptions) return false;
-      return this.filteredOptions
-        .every(option => this.containValue(option, this.value));
+      return this.filteredOptions.every(option => this.containValue(option, this.value));
     },
     isSomeCheckedButNotAll() {
       if (!this.value || !this.filteredOptions || this.isAllChecked) return false;
-      return this.filteredOptions
-        .some(option => this.containValue(option, this.value));
+      return this.filteredOptions.some(option => this.containValue(option, this.value));
     },
     checkAllLabelComp() {
       if (this.searchValue) {
-        return this.isAllChecked
-          ? this.uncheckSelectionLabel
-          : this.checkSelectionLabel;
+        return this.isAllChecked ? this.uncheckSelectionLabel : this.checkSelectionLabel;
       }
-      return this.isAllChecked
-        ? this.uncheckAllLabel
-        : this.checkAllLabel;
+      return this.isAllChecked ? this.uncheckAllLabel : this.checkAllLabel;
     },
     totalValue() {
       if (!this.value) return 0;
@@ -364,8 +307,7 @@ export default {
     filteredOptions() {
       if (!this.searchValue) return this.options;
       const pattern = new RegExp(this.searchValue, 'i');
-      return this.options
-        .filter(option => pattern.test(this.customLabel(option, this.optionLabel)));
+      return this.options.filter(option => pattern.test(this.customLabel(option, this.optionLabel)));
     },
   },
   methods: {
@@ -376,27 +318,23 @@ export default {
     },
     setWidthOptions() {
       if (!this.isOpen) return;
-      this.optionsWidth = this.$el
-        .getElementsByClassName('multiselect__element')[0]
-        .clientWidth;
+      this.optionsWidth = this.$el.getElementsByClassName('multiselect__element')[0].clientWidth;
     },
     selectAll() {
       let newValue = this.value || [];
 
       if (this.isAllChecked) {
-        newValue = newValue
-          .filter(option => !this.containValue(option, this.filteredOptions));
+        newValue = newValue.filter(option => !this.containValue(option, this.filteredOptions));
       } else {
         const uniqueValues = [...newValue];
-        this.filteredOptions.map((option) => {
+        this.filteredOptions.map(option => {
           if (!this.containValue(option, uniqueValues)) {
             uniqueValues.push(option);
           }
           return null;
         });
 
-        newValue = uniqueValues
-          .filter(option => this.containValue(option, this.filteredOptions));
+        newValue = uniqueValues.filter(option => this.containValue(option, this.filteredOptions));
       }
 
       this.$emit('input', newValue);
@@ -467,7 +405,7 @@ export default {
     &--multiple
       .multiselect__tags
         &-wrap
-          float:left
+          float left
 
         .multiselect__tag
           background $primary
@@ -475,15 +413,15 @@ export default {
 
           &-icon
             border-radius 30px
+
             &:after
               color rgba($text-color-main, 0.5)
 
-            &:focus
-            &:hover
+            &:focus, &:hover
               background darken($primary, 30%)
 
               &:after
-                color: $light
+                color $light
 
     &--multiple
       &--pill
@@ -491,15 +429,15 @@ export default {
           padding 0.55em 0.55em 0
 
     .multiselect__input
-      padding-left 0
       margin-top -1px
+      padding-left 0
 
     .multiselect__tags
       border 1px solid $border-color-main
       border-bottom-width 2px
       min-height 40px
-      padding 0.7em 1em 0
       outline none
+      padding 0.7em 1em 0
 
       .multiselect__single
         font-size unset
@@ -508,11 +446,13 @@ export default {
 
     .multiselect__select
       z-index 3
+
       &:focus
         box-shadow 0 0 0 1px $border-color-main-focus
-        will-change box-shadow
-        transition all 0.04s ease-in-out
         outline none
+        transition all 0.04s ease-in-out
+        will-change box-shadow
+
         &:before
           border-color $border-color-main-focus transparent transparent
 
@@ -520,39 +460,37 @@ export default {
       width 100%
 
     .multiselect__content-wrapper
-      border-color $border-color-main
       border-bottom-width 2px
+      border-color $border-color-main
       border-radius 0
       z-index 1
 
     .multiselect__checkoption
+      cursor pointer
       display block
-      padding 12px
-      min-height 40px
       line-height 16px
+      min-height 40px
+      padding 12px
+      position relative
       text-decoration none
       text-transform none
       vertical-align middle
-      position relative
-      cursor pointer
       white-space nowrap
 
-    .multiselect__checkoption
-    .multiselect__option
+    .multiselect__checkoption, .multiselect__option
       border-bottom 1px solid rgba($border-color-main, 0.5)
       @extend .text-truncate
 
       &:after
-        font-weight 700
         color rgba($text-color-main, 0.4)
+        font-weight 700
 
       .ViInput__MultiselectCheckbox
-        position relative
         padding 0 0 0 2.2em
+        position relative
         z-index 0
 
-        &:after
-        &:before
+        &:after, &:before
           background $default
           border-radius 0.3em
           content ''
@@ -560,30 +498,31 @@ export default {
           left 0
           position absolute
           top -2px
-          width 1.5em
           transition all 0.04s ease-out
+          width 1.5em
 
         &:after
           background transparent
           border 0.27em solid $primary
-          border-right-width 0.5em
           border-left 0
-          border-top 0
           border-radius 0
+          border-right-width 0.5em
+          border-top 0
           opacity 0
           transform rotate(90deg) scale(0.4, 0.3) translate(-0.5em)
 
       &--selected
         background none
+
         .ViInput__MultiselectCheckbox
           &:before
             background $primary
+
           &:after
             border-color $light
             opacity 1
             transform rotate(40deg) scale(0.3, 0.6) translate(-0.2em, -0.15em)
-            transition all 0.04s ease-out, opacity 0.1s ease-out,
-            transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+            transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
             will-change transform, opacity
 
       &--inderteminate
@@ -591,16 +530,13 @@ export default {
           &:after
             border-bottom-width 0
             opacity 1
-            transition all 0.04s ease-out, opacity 0.1s ease-out,
-            transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
+            transition all 0.04s ease-out, opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28)
             will-change transform, opacity
 
-      &--highlight
-      &:focus:not(.multiselect__checkoption)
-      &:hover:not(.multiselect__checkoption)
+      &--highlight, &:focus:not(.multiselect__checkoption), &:hover:not(.multiselect__checkoption)
+        background rgba($border-color-main, 0.4)
+        box-shadow 0 -1px 0 rgba($border-color-main, 0.5)
         color $border-color-main-focus
-        box-shadow 0 -1px 0 rgba($border-color-main,0.5)
-        background rgba($border-color-main,0.4)
         position relative
         will-change box-shadow
         z-index 1
@@ -617,6 +553,7 @@ export default {
       z-index 2
 
       .multiselect__checkoption
+        background $light
         border none
         border-bottom 1px solid rgba($border-color-main, 0.5)
         display flex
@@ -625,18 +562,16 @@ export default {
         justify-content space-between
         left 1px
         min-height 0
+        opacity 0
+        overflow hidden
         padding 0 12px
         position absolute
         top 39px
-        width 100%
-        opacity 0
-        overflow hidden
         transition all 0.06s ease-out
-        background $light
+        width 100%
 
         .ViInput__MultiselectCheckbox
-          &:before
-          &:after
+          &:before, &:after
             top -5px
 
       .ViInput__Total
@@ -657,7 +592,7 @@ export default {
           top -39px
 
     &--checkbox
-      .multiselect__single
+      .multiselect__single, .multiselect__tag
         display none
 
       .multiselect__content
@@ -671,7 +606,6 @@ export default {
       .multiselect__content
         padding 0
 </style>
-
 
 <docs>
 ### Select básico
@@ -739,7 +673,7 @@ export default {
 export default {
   data() {
     return {
-      value: [{ id: 'MG' }]
+      value: [{ id: 'MG' }],
     };
   },
   computed: {

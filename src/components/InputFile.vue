@@ -6,7 +6,7 @@
     class="ViComponent ViInput ViInputFile"
     :style="{ width: componentWidth }"
   >
-    <vi-input-label v-bind="{ for: id, label, instruction }"/>
+    <vi-input-label v-bind="{ for: id, label, instruction }" />
     <input
       ref="input"
       @valid="validate($event.target)"
@@ -27,11 +27,8 @@
         required,
         readOnly,
       }"
-    >
-    <vi-wrapper
-      no-spacing
-      class="ViInput_Wrapper"
-    >
+    />
+    <vi-wrapper no-spacing class="ViInput_Wrapper">
       <input
         class="ViInput__Input"
         :class="{
@@ -46,21 +43,13 @@
         }"
         @click="fileTrigger"
         tabindex="-1"
-      >
-      <vi-button
-        primary
-        type="button"
-        :disabled="disabled"
-        @click="fileTrigger"
-        tabindex="-1"
-      >
+      />
+      <vi-button primary type="button" :disabled="disabled" @click="fileTrigger" tabindex="-1">
         {{ buttonDesciption }}
       </vi-button>
     </vi-wrapper>
   </vi-wrapper>
-
 </template>
-
 
 <script>
 import ViWrapper from './Wrapper.vue';

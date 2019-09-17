@@ -9,25 +9,20 @@
         'ViLoading--small': small,
         'ViLoading--large': large,
       },
-      colorClass({ 'border-no-bg': true, text: true, default: 'primary' })
+      colorClass({ 'border-no-bg': true, text: true, default: 'primary' }),
     ]"
     :style="{
       height: `${getSize}px`,
       width: `${getSize}px`,
     }"
   >
-    <canvas
-      class="ViLoading__Canvas"
-      ref="canvas"
-      :height="`${getSize}px`"
-      :width="`${getSize}px`"
-    />
+    <canvas class="ViLoading__Canvas" ref="canvas" :height="`${getSize}px`" :width="`${getSize}px`" />
     <span
       class="ViLoading__Value"
       ref="text"
       :style="{
         borderWidth: `${borderSize}px`,
-        fontSize: `${(getSize / 3.4)}px`,
+        fontSize: `${getSize / 3.4}px`,
       }"
     >
       {{ percentValueStr }}
@@ -74,7 +69,7 @@ export default {
       return availableSizes.medium;
     },
     borderSize() {
-      return this.getSize * 0.10;
+      return this.getSize * 0.1;
     },
     hasPercent() {
       return this.percentValue !== null;
@@ -92,8 +87,8 @@ export default {
     paintCanvas(perc) {
       const context = this.$refs.canvas.getContext('2d');
       const nperc = this.hasPercent ? perc : defaultPercent;
-      const radius = ((nperc * radiusEnd) / 100) + offSetRadius;
-      const sizeBorderLess = (this.getSize / 2) - (this.borderSize / 2);
+      const radius = (nperc * radiusEnd) / 100 + offSetRadius;
+      const sizeBorderLess = this.getSize / 2 - this.borderSize / 2;
       const size = this.getSize / 2;
 
       context.beginPath();
@@ -142,15 +137,12 @@ export default {
     width 100%
     z-index 0
 
+@keyframes spin
+  0%
+    transform rotate(0)
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+  100%
+    transform rotate(360deg)
 </style>
 
 <docs>

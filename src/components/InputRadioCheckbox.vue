@@ -30,11 +30,10 @@
         value,
         indeterminate: !isChecked && indeterminate,
       }"
-    >
-    <vi-input-label v-bind="{ for: id, label: label||'', instruction }"/>
+    />
+    <vi-input-label v-bind="{ for: id, label: label || '', instruction }" />
   </vi-wrapper>
 </template>
-
 
 <script>
 import ViWrapper from './Wrapper.vue';
@@ -200,22 +199,11 @@ export default {
 
 ```vue
 <template>
-  <vi-wrapper
-    vertical
-    class="ViComponent"
-  >
+  <vi-wrapper vertical class="ViComponent">
     <vi-checkbox label="Exemplo de Checkbox" v-model="isChecked" />
     <hr />
-    <vi-checkbox
-      radio
-      label="Is checkbox checked?"
-      :checked="isChecked"
-      @input="isChecked = true" />
-    <vi-checkbox
-      radio
-      label="Is checkbox NOT checked?"
-      :checked="!isChecked"
-      @input="isChecked = false" />
+    <vi-checkbox radio label="Is checkbox checked?" :checked="isChecked" @input="isChecked = true" />
+    <vi-checkbox radio label="Is checkbox NOT checked?" :checked="!isChecked" @input="isChecked = false" />
     <pre><code>{{ dataForm }}</code></pre>
   </vi-wrapper>
 </template>
