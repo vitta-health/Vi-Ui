@@ -1,4 +1,4 @@
-import colors from "../themes/colorsList";
+import colors from '../themes/colorsList';
 
 /**
  * @mixin
@@ -10,63 +10,63 @@ export default {
      */
     primary: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * _Cor:_ Define a cor secundaria
      */
     secondary: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * _Cor:_ Define a cor de successo
      */
     success: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * _Cor:_ Define a cor de alerta
      */
     warning: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * _Cor:_ Define a cor de erro
      */
     danger: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * _Cor:_ Define cor a variante da cor padrão
      */
     info: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * _Cor:_ Define um cinza escuro
      */
     dark: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * _Cor: _ Define um cinza claro
      */
     grey: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * _Cor:_ Define a cor branco
      */
     light: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * @ignore Essa prop é apenas um helper para componentes que dependem de outros componentes.
@@ -75,22 +75,22 @@ export default {
      */
     defaultColor: {
       type: String,
-      default: "default"
-    }
+      default: 'default',
+    },
   },
   methods: {
     colorClass(args = {}) {
-      let colorName = args.default || "default";
+      let colorName = args.default || 'default';
       Object.keys(colors).some(color => {
         if (this[color]) colorName = color;
         return this[color];
       });
 
       const variations = Object.keys(args)
-        .filter(arg => args[arg] && arg !== "default")
+        .filter(arg => args[arg] && arg !== 'default')
         .map(arg => `ViColor-${colorName}--${arg}`);
 
-      return variations.join(" ");
+      return variations.join(' ');
     },
     colorsOpt() {
       const newPros = {};
@@ -98,6 +98,6 @@ export default {
         if (this[color]) newPros[color] = this.$props[color];
       });
       return newPros;
-    }
-  }
+    },
+  },
 };
