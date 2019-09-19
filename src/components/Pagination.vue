@@ -31,8 +31,9 @@
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('PREVIOUS_PAGE')"
       :href="getURL('PREVIOUS_PAGE')"
-      ><vi-icon name="chevron-prev"
-    /></vi-button>
+    >
+      <vi-icon name="chevron-prev" />
+    </vi-button>
     <vi-button
       v-bind="colorsOpt()"
       type="button"
@@ -43,8 +44,9 @@
       :disabled="disableLink(page)"
       :key="page"
       :href="disableLink(page) ? '' : getURL(page)"
-      >{{ page }}</vi-button
     >
+      {{ page }}
+    </vi-button>
     <vi-button
       v-bind="colorsOpt()"
       type="button"
@@ -53,8 +55,9 @@
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('NEXT_PAGE')"
       :href="getURL('NEXT_PAGE')"
-      ><vi-icon name="chevron-next"
-    /></vi-button>
+    >
+      <vi-icon name="chevron-next" />
+    </vi-button>
     <vi-button
       class="ViPagination__BeakPage"
       v-bind="colorsOpt()"

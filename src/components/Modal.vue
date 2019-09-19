@@ -56,8 +56,9 @@
         <!-- @slot Use o slot `footer` para definir o conteúdo no rodapé. -->
         <template slot="footer">
           <slot name="footer" />
-        </template> </vi-card
-    ></vi-wrapper>
+        </template>
+      </vi-card>
+    </vi-wrapper>
   </div>
 </template>
 <script>

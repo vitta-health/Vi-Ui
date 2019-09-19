@@ -1,6 +1,6 @@
 <template>
-  <label :for="id" class="ViInput__Label" v-if="label !== null"
-    >{{ label }}
+  <label :for="id" class="ViInput__Label" v-if="label !== null">
+    {{ label }}
     <small v-if="instruction" class="ViInput__Instruction">{{ instruction }}</small>
   </label>
 </template>
