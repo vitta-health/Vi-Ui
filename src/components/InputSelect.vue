@@ -117,7 +117,7 @@
       </template>
       <template slot="maxElements" v-if="multiple && max === internalValue.length">
         <slot name="maxElements">
-          Maximo de {{ max }} opções selecionadas. Remova uma opção selecionada para escolher outra opção.
+          Máximo de {{ max }} opções selecionadas. Remova uma opção selecionada para escolher outra opção.
         </slot>
       </template>
       <template slot="placeholder">
