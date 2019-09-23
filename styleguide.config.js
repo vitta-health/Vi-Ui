@@ -10,7 +10,7 @@ module.exports = {
   assetsDir: 'docs/assets/',
   sections: [
     {
-      name: 'Instalação e Utilizacao',
+      name: 'Instalação e Utilização',
       content: 'docs/pages/installation.md',
     },
     {
