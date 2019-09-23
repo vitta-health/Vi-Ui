@@ -10,15 +10,15 @@ module.exports = {
   assetsDir: 'docs/assets/',
   sections: [
     {
-      name: 'instalacao_e_utilizacao',
+      name: 'Instalação e Utilizacao',
       content: 'docs/pages/installation.md',
     },
     {
-      name: 'tipografia_e_cores',
+      name: 'Tipografia e Cores',
       content: 'docs/pages/thypography-colors.md',
     },
     {
-      name: 'documentacao',
+      name: 'Documentação',
       components: 'src/components/*.vue',
       sectionDepth: 2,
     },
