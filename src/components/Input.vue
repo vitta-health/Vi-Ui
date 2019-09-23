@@ -111,7 +111,7 @@ export default {
      * _Validação:_ Intervalo numérico minimo
      */
     step: {
-      type: [String, Number],
+      type: [Number],
       default: 1,
     },
     /**

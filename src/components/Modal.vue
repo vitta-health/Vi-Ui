@@ -14,8 +14,8 @@
     ]"
     @click.self="notDismissable ? false : toggleModal(false)"
   >
-    <vi-wrapper vertical class="ViModal__Wrapper" justify-content="stretch"
-      ><vi-card
+    <vi-wrapper vertical class="ViModal__Wrapper" justify-content="stretch">
+      <vi-card
         vertical
         v-bind="colorsOpt()"
         :mini-spacing="smallSpacing"
@@ -385,8 +385,9 @@ Obs: Evite sobrepor modais sempre que possível.
               firstModalIsOpen = true;
               thirdModalIsOpen = false;
             "
-            >Exemplo 1</vi-button
           >
+            Exemplo 1
+          </vi-button>
         </vi-wrapper>
       </div>
     </vi-modal>
