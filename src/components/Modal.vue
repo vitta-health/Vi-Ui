@@ -312,8 +312,9 @@ Obs: Evite sobrepor modais sempre que possível.
               firstModalIsOpen = false;
               thirdModalIsOpen = true;
             "
-            >Exemplo 3</vi-button
           >
+            Exemplo 3
+          </vi-button>
         </vi-wrapper>
       </div>
     </vi-modal>
