@@ -28,10 +28,7 @@
     :title="title"
     @click="onClick"
   >
-    <span
-      class="sr-only"
-      v-if="title"
-    >{{ title }}</span>
+    <span class="sr-only" v-if="title">{{ title }}</span>
     <vi-wrapper
       tag="span"
       :justify-content="justifyContent || 'center'"
@@ -40,11 +37,7 @@
       small-spacing
       child-wrapper
     >
-      <vi-icon
-        v-if="icon"
-        class= "ViAlert__ContentIcon"
-        :name="icon"
-      />
+      <vi-icon v-if="icon" class="ViAlert__ContentIcon" :name="icon" />
       <slot />
     </vi-wrapper>
   </component>
@@ -154,27 +147,27 @@ export default {
 @import '../themes/main'
 
 .ViComponent.ViButton
-  border-width 0.09em
-  border-style solid
   border-radius 0.2em
+  border-style solid
+  border-width 0.09em
   cursor pointer
   display inline-flex
   font-family $Montserrat
-  font-weight 500
   font-size 16px
+  font-weight 500
   height auto
+  justify-content center
   letter-spacing -0.01em
   min-height 40px
   outline none
   padding 0 0.61em
-  justify-content center
   text-decoration none
-  transition: all 0.2s
+  transition all 0.2s
   -webkit-appearance none
 
   &[disabled]
-    opacity 0.45
     cursor default
+    opacity 0.45
 
   .ViLoading
     margin -4px 0
@@ -195,17 +188,20 @@ export default {
     letter-spacing 0.5px
     min-height 21px
     padding 0 0.59em
+
     &.ViButton--pill
       padding 0 1em
+
     &.ViButton--circle
       height 21px
       padding 0
       width 21px
 
   &--small
-    min-height auto
     font-size 12px
+    min-height auto
     min-height 30px
+
     &.ViButton--circle
       height 30px
       width 30px
@@ -216,8 +212,10 @@ export default {
     letter-spacing -0.02em
     min-height 53px
     padding 0 0.59em
+
     &.ViButton--pill
       padding 0 1em
+
     &.ViButton--circle
       height 53px
       padding 0
@@ -262,11 +260,11 @@ export default {
 
 ```vue
 <template>
-    <div class="ViComponent">
-      <p><vi-button @click="pushButton">+1</vi-button></p>
-      <hr />
-      <p>Contando: {{ numClicks }}</p>
-    </div>
+  <div class="ViComponent">
+    <p><vi-button @click="pushButton">+1</vi-button></p>
+    <hr />
+    <p>Contando: {{ numClicks }}</p>
+  </div>
 </template>
 <script>
 export default {

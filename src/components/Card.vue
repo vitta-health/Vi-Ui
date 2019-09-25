@@ -14,33 +14,20 @@
     ]"
     :style="{ width: componentWidth }"
   >
-    <vi-wrapper
-      justify-content="space-between"
-      class="ViCard__Header ViCard__Section"
-    >
-      <component
-        v-if="title"
-        :is="titleTag"
-        class="ViCard__Title"
-      >{{ title }}</component>
+    <vi-wrapper justify-content="space-between" class="ViCard__Header ViCard__Section">
+      <component v-if="title" :is="titleTag" class="ViCard__Title">{{ title }}</component>
       <!-- @slot  Use o slot `side` que conteúdo ao lado título. -->
-      <slot name="side"/>
-      <slot name="close"/>
+      <slot name="side" />
+      <slot name="close" />
     </vi-wrapper>
-    <div
-      class="ViCard__Body ViCard__Section"
-      ref="body">
+    <div class="ViCard__Body ViCard__Section" ref="body">
       <!-- @slot Use o slot `body` para definir o conteúdo no corpo do card. -->
-      <slot name="body"/>
-      <slot/>
+      <slot name="body" />
+      <slot />
     </div>
-    <div
-      v-if="$slots.footer"
-      class="ViCard__Footer ViCard__Section">
+    <div v-if="$slots.footer" class="ViCard__Footer ViCard__Section">
       <!-- @slot Use o slot `footer` para definir o conteúdo no rodapé do card. -->
-      <slot
-        name="footer"
-      />
+      <slot name="footer" />
     </div>
   </vi-wrapper>
 </template>
@@ -92,25 +79,25 @@ export default {
       default: 'section',
     },
     /**
-    * Texto exibido no título.
-    */
+     * Texto exibido no título.
+     */
     title: {
       type: String,
       default: null,
     },
     /**
-    * Tamanho do título de 1 a 6.
-    */
+     * Tamanho do título de 1 a 6.
+     */
     titleSize: {
       type: [Number, String],
       default: null,
       validator: size => size >= 1 && size <= 6,
     },
     /**
-    * @ignore Essa prop é apenas um helper para outros componentes que dependem do card. Deixar ela
-    * exposta vai causar mais confusão que instruir como dever ser utilizado as props de cores.
-    * O usuário final precisa apenas usar o nome das cores como prop.
-    */
+     * @ignore Essa prop é apenas um helper para outros componentes que dependem do card. Deixar ela
+     * exposta vai causar mais confusão que instruir como dever ser utilizado as props de cores.
+     * O usuário final precisa apenas usar o nome das cores como prop.
+     */
     defaultColor: {
       type: String,
       default: 'light',
@@ -129,7 +116,7 @@ export default {
 
 .ViComponent.ViCard
   border-radius 0.3em
-  box-shadow 0 5px 9px 0 rgba(0,0,0,0.08)
+  box-shadow 0 5px 9px 0 rgba(0, 0, 0, 0.08)
   width 100%
 
   ../../.flexWrapper--grid
@@ -142,40 +129,46 @@ export default {
   & > .contentWrapper.ViCard__Section
     margin 0
     padding 10px 20px
+
     &:first-child
       padding-top 20px
+
     &:last-child
       padding-bottom 20px
 
   &--mini
     & > .contentWrapper.ViCard__Section
       padding 2.5px 5px
+
       &:first-child
         padding-top 5px
+
       &:last-child
         padding-bottom 5px
 
   &--small
     & > .contentWrapper.ViCard__Section
       padding 5px 10px
+
       &:first-child
         padding-top 10px
+
       &:last-child
         padding-bottom 10px
 
   &--large
     & > .contentWrapper.ViCard__Section
       padding 10px 35px
+
       &:first-child
         padding-top 35px
+
       &:last-child
         padding-bottom 35px
 
   &--no-spacing
     & > .contentWrapper.ViCard__Section
-      &
-      &:first-child
-      &:last-child
+      &, &:first-child, &:last-child
         padding 0
 </style>
 
@@ -209,21 +202,17 @@ Pra trabalhar com um conjunto de cards use o [ViWrapper](#Wrapper).
 
 ```vue
 <template>
-  <vi-wrapper
-    grid
-    class="ViComponent greyBox"
-  >
-    <vi-card
-      v-for="character in characters"
-      :key="character.idHero"
-    >
+  <vi-wrapper grid class="ViComponent greyBox">
+    <vi-card v-for="character in characters" :key="character.idHero">
       <div slot="body">
         <vi-wrapper>
-          <img class="avatar" :src="character.avatar"/>
+          <img class="avatar" :src="character.avatar" />
           <vi-wrapper vertical child-wrapper>
-            <h4 class="name">{{character.name}}<br />
-            <small>aka {{character.superHeroName}}</small></h4>
-            <p class="birth-day">{{character.birthDate}} {{character.age}}</p>
+            <h4 class="name">
+              {{ character.name }}<br />
+              <small>aka {{ character.superHeroName }}</small>
+            </h4>
+            <p class="birth-day">{{ character.birthDate }} {{ character.age }}</p>
             <vi-button success small outlined pill>Avançar!</vi-button>
           </vi-wrapper>
         </vi-wrapper>
@@ -242,7 +231,7 @@ export default {
           superHeroName: 'Spider-Man',
           birthDate: '08/01/1989',
           age: '(29a e 7m)',
-          avatar: './assets/img/spider.png'
+          avatar: './img/spider.png',
         },
         {
           idHero: 1,
@@ -250,32 +239,33 @@ export default {
           superHeroName: 'Wolverine',
           birthDate: '??/??/1880',
           age: '(128a)',
-          avatar: './assets/img/wolverine.jpg',
+          avatar: './img/wolverine.jpg',
         },
       ],
-    }
-  }
-}
+    };
+  },
+};
 </script>
+
 <style>
-  .greyBox{
-    background: #EAEAEA;
-    padding: 30px;
-  }
-  .avatar {
-    border-radius: 100px;
-    height: 100px;
-    width: 100px;
-  }
-  .name {
-    font-size: 1em;
-    font-weight: 700;
-    margin: 0 0 6px;
-  }
-  .birth-day {
-    font-size: 0.9;
-    color: rgba(0, 0, 0, 0.6);
-  }
+.greyBox {
+  background: #eaeaea;
+  padding: 30px;
+}
+.avatar {
+  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+}
+.name {
+  font-size: 1em;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+.birth-day {
+  font-size: 0.9;
+  color: rgba(0, 0, 0, 0.6);
+}
 </style>
 ```
 </docs>

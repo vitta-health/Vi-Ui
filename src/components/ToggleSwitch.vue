@@ -1,9 +1,5 @@
 <template>
-  <vi-wrapper
-    mini-spacing
-    justify-content="flex-start"
-    class="ViComponent ViToggleSwitch"
-  >
+  <vi-wrapper mini-spacing justify-content="flex-start" class="ViComponent ViToggleSwitch">
     <div
       class="ViToggleSwitch__Container"
       :class="[
@@ -12,20 +8,14 @@
           'ViToggleSwitch__Container--small': small,
           'ViToggleSwitch__Container--large': large,
           'ViToggleSwitch__Container--active': isChecked,
-        }
+        },
       ]"
       @click.self="onClick"
     >
-      <div
-        class="ViToggleSwitch__Draggable"
-        @mousedown.prevent="dragStart"
-        @click.self="onClick"
-        :style="style"
-      />
+      <div class="ViToggleSwitch__Draggable" @mousedown.prevent="dragStart" @click.self="onClick" :style="style" />
     </div>
   </vi-wrapper>
 </template>
-
 
 <script>
 import ViWrapper from './Wrapper.vue';
@@ -65,7 +55,7 @@ export default {
     },
     dragging(e) {
       const pos = e.clientX - this.$el.offsetLeft;
-      let percent = pos / this.width * 100;
+      let percent = (pos / this.width) * 100;
       percent = percent <= 0 ? 0 : percent;
       percent = percent > 100 ? 100 : percent;
       this.position = percent;
@@ -91,7 +81,7 @@ export default {
       };
     },
     pos_percentage() {
-      return `${this.position / this.width * 100}%`;
+      return `${(this.position / this.width) * 100}%`;
     },
     isChecked() {
       return this.state || this.value === true;
@@ -133,9 +123,9 @@ $pin-in-color = #fff
   .ViToggleSwitch__Draggable
     background $pin-in-color
     border-radius 100%
-    box-shadow 0 3px 10px 0 rgba(0, 0, 0, 0.3), inset -1px 0px 0px 1px rgba(0, 0, 0, 0.08)
+    box-shadow 0 3px 10px 0 rgba(0, 0, 0, 0.3), inset -1px 0 0 1px rgba(0, 0, 0, 0.08)
     height 99%
-    transform translateX(0%)
+    transform translateX(0)
     transition transform 0.05s ease-in-out
     width 50%
 
@@ -150,10 +140,7 @@ $pin-in-color = #fff
 
 ```vue
 <template>
-  <vi-wrapper
-    vertical
-    class="ViComponent"
-  >
+  <vi-wrapper vertical class="ViComponent">
     <vi-toggle-switch v-model="stateNormal" />
     <vi-toggle-switch large v-model="stateLarge" />
     <vi-toggle-switch small v-model="stateSmall" />
@@ -166,6 +153,7 @@ $pin-in-color = #fff
     </code></pre>
   </vi-wrapper>
 </template>
+
 <script>
 export default {
   data() {
@@ -175,9 +163,8 @@ export default {
       stateSmall: true,
       stateMini: true,
     };
-  }
+  },
 };
 </script>
 ```
-
 </docs>

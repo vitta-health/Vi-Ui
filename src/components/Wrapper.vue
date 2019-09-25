@@ -41,7 +41,7 @@ const addChildClassNames = (data, { grid }) => {
     if (!data.attrs) return className;
     const attrs = Object.keys(data.attrs);
 
-    attrs.map((prop) => {
+    attrs.map(prop => {
       if (prop.includes('col')) {
         className.push(col(prop, data.attrs[prop]));
       }
@@ -152,13 +152,13 @@ export default {
     },
   },
   render(createElement, context) {
-    const children = context.children.filter((node) => {
+    const children = context.children.filter(node => {
       if (!node.tag && !node.text) return false;
       return node.tag || node.text.replace(/[\s\n]/g, '');
     });
     if (children.length === 0) return null;
     const { props } = context;
-    const iteratedChildren = children.map((node) => {
+    const iteratedChildren = children.map(node => {
       if (props.childWrapper || props.grid) {
         const newProps = {
           class: addChildClassNames(node.data, props),
@@ -181,25 +181,24 @@ export default {
 </script>
 
 <style lang="stylus">
-$justify = 'center', 'start', 'end', 'flex-start', 'flex-end', 'left', 'right', 'baseline',
-           'stretch', 'first baseline', 'last baseline', 'space-between', 'space-around',
-           'space-evenly', 'inherit', 'initial', 'unset'
-
-$align = 'center', 'start', 'end', 'flex-start', 'flex-end', 'self-start', 'self-end',
-         'baseline', 'stretch', 'first baseline', 'last baseline', 'inherit', 'initial', 'unset'
+$justify = 'center', 'start', 'end', 'flex-start', 'flex-end', 'left', 'right', 'baseline', 'stretch', 'first baseline', 'last baseline', 'space-between', 'space-around', 'space-evenly', 'inherit', 'initial', 'unset'
+$align = 'center', 'start', 'end', 'flex-start', 'flex-end', 'self-start', 'self-end', 'baseline', 'stretch', 'first baseline', 'last baseline', 'inherit', 'initial', 'unset'
 
 gridPadding($space, $useMargin = false)
   &.flexWrapper--parent-spacing
     padding $space * 2
 
-  if $useMargin
+  if ($useMargin)
     & > .contentWrapper
       margin 0 0 0 $space * 2
+
       &:first-child
         margin-left 0
+
     &.flexWrapper--vertical
       & > .contentWrapper
         margin 0 0 $space * 2
+
         &:last-child
           margin-bottom 0
   else
@@ -209,28 +208,34 @@ gridPadding($space, $useMargin = false)
 
 gridSizes($useMargin = false)
   gridPadding(10px, $useMargin)
+
   &.flexWrapper--mini
     gridPadding(2px, $useMargin)
+
   &.flexWrapper--small
     gridPadding(5px, $useMargin)
+
   &.flexWrapper--large
     gridPadding(20px, $useMargin)
+
   &.flexWrapper--jumbo
     gridPadding(40px, $useMargin)
+
   &.flexWrapper--no-spacing
     gridPadding(0, false)
 
 mediaQueryInterpolator($size, $max = auto)
   & > .contentWrapper
-    for $i in 0..12
+    for $i in 0 .. 12
       $v = $i || 12
+
       &.col{$size}--size{$i || '-default'}
         flex $v 1 ($v * 8.3333%)
-        max-width: ($v * 8.3333%);
-    for $i in 0..50
+        max-width ($v * 8.3333%)
+
+    for $i in 0 .. 50
       &.order{$size}--pos{$i}
         order $i
-
 
 .flexWrapper
   display flex
@@ -242,16 +247,18 @@ mediaQueryInterpolator($size, $max = auto)
 
   &--inverted
     flex-direction row-reverse
+
     &^[0]--vertical
       flex-direction column-reverse
 
   &--justify-content
     for $val in $justify
-      &-{replace(' ','-', $val)}
+      &-{replace(' ', '-', $val)}
         justify-content unquote($val)
+
   &--align-items
     for $val in $align
-      &-{replace(' ','-', $val)}
+      &-{replace(' ', '-', $val)}
         align-items unquote($val)
 
   &--not-grid
@@ -262,8 +269,8 @@ mediaQueryInterpolator($size, $max = auto)
     gridSizes()
 
     & > .contentWrapper
-      order 51
       flex-grow 1
+      order 51
 
     &^[0]--no-wrap
       flex-wrap nowrap

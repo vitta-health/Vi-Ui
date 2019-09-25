@@ -6,15 +6,9 @@
     class="ViComponent ViInput"
     :style="{ width: componentWidth }"
   >
-    <vi-input-label v-bind="{ for: id, label, instruction }"/>
-    <vi-wrapper
-      no-spacing
-      class="ViInput_Wrapper"
-    >
-      <div
-        v-if="hasPrefix"
-        class="ViInput__Slot ViInput__Slot--prefix"
-      >
+    <vi-input-label v-bind="{ for: id, label, instruction }" />
+    <vi-wrapper no-spacing class="ViInput_Wrapper">
+      <div v-if="hasPrefix" class="ViInput__Slot ViInput__Slot--prefix">
         <slot name="prefix" />
       </div>
       <component
@@ -49,10 +43,7 @@
         :value.prop="value"
         :is="fieldType"
       />
-      <div
-        v-if="hasSuffix"
-        class="ViInput__Slot ViInput__Slot--suffix"
-      >
+      <div v-if="hasSuffix" class="ViInput__Slot ViInput__Slot--suffix">
         <slot name="suffix" />
       </div>
     </vi-wrapper>
@@ -138,8 +129,8 @@ export default {
       default: false,
     },
     /**
-    * Número de linhas quando usando textarea
-    */
+     * Número de linhas quando usando textarea
+     */
     rows: {
       type: [String, Number],
       default: null,
@@ -205,8 +196,8 @@ export default {
 
 ```jsx
 <vi-input type="number" min="0" step="1">
-  <template slot="prefix">R$</template>
-  <template slot="suffix">,00</template>
+  <span slot="prefix">R$</span>
+  <span slot="suffix">,00</span>
 </vi-input>
 ```
 
@@ -218,27 +209,12 @@ Para utilizá-los em conjunto, como em formulários, utilize o [ViWrapper](#Wrap
 ```vue
 <template>
   <form class="ViComponent">
-    <vi-wrapper
-      vertical
-      tag="fieldset"
-    >
+    <vi-wrapper vertical tag="fieldset">
       <legend><vi-icon name="person" /> About you</legend>
-      <vi-input
-        label="Name"
-        auto-complete="name"
-        v-model="name"
-      />
-      <vi-input
-        label="Bio"
-        type="textarea"
-        rows="6"
-        v-model="profileDescription"
-      />
+      <vi-input label="Name" auto-complete="name" v-model="name" />
+      <vi-input label="Bio" type="textarea" rows="6" v-model="profileDescription" />
     </vi-wrapper>
-    <vi-wrapper
-      vertical
-      tag="fieldset"
-    >
+    <vi-wrapper vertical tag="fieldset">
       <legend><vi-icon name="question" /> Relationship Status</legend>
       <vi-checkbox
         radio
@@ -278,7 +254,7 @@ export default {
     dataForm() {
       return JSON.stringify(this._data, null, 2);
     },
-  }
+  },
 };
 </script>
 ```
@@ -292,10 +268,7 @@ export default {
     @invalid.capture="testForm($event.target.validity)"
     class="ViComponent"
   >
-    <vi-wrapper
-      vertical
-      tag="fieldset"
-    >
+    <vi-wrapper vertical tag="fieldset">
       <legend><vi-icon name="padlock" /> Login</legend>
       <vi-input
         label="Email"
@@ -306,31 +279,12 @@ export default {
         auto-complete="email"
         placeholder="exemple@gmail.com"
       />
-      <vi-input
-        label="Password"
-        required
-        instruction="(Required)"
-        v-model="password"
-        type="password"
-        min-length="4"
-      />
-      <vi-input
-        label="Você é um robo?"
-        required
-        pattern="[Nn]ão"
-        instruction="(responda: Não)"
-        v-model="robot"
-      />
+      <vi-input label="Password" required instruction="(Required)" v-model="password" type="password" min-length="4" />
+      <vi-input label="Você é um robo?" required pattern="[Nn]ão" instruction="(responda: Não)" v-model="robot" />
     </vi-wrapper>
-    <vi-wrapper
-      justify-content="left"
-    >
+    <vi-wrapper justify-content="left">
       <vi-button type="submit" success>Try!</vi-button>
-      <vi-checkbox
-        required
-        label="I read the EULA"
-        v-model="terms"
-      />
+      <vi-checkbox required label="I read the EULA" v-model="terms" />
     </vi-wrapper>
   </form>
 </template>
@@ -367,16 +321,8 @@ Você pode ver as opções de validação [aqui](https://html.spec.whatwg.org/mu
     @invalid.capture="testForm($event.target.validity)"
     class="ViComponent"
   >
-    <vi-wrapper
-      justify-content="space-between"
-    >
-      <vi-input
-        placeholder="Email"
-        required
-        v-model="email"
-        type="email"
-        :customErrorMsg="customErrorMsg"
-      />
+    <vi-wrapper justify-content="space-between">
+      <vi-input placeholder="Email" required v-model="email" type="email" :customErrorMsg="customErrorMsg" />
       <vi-button type="submit" success>Try!</vi-button>
     </vi-wrapper>
   </form>
@@ -389,7 +335,7 @@ export default {
       customErrorMsg: {
         typeMismatch: 'Isso não é um email',
         valueMissing: 'Preecha o email',
-      }
+      },
     };
   },
   methods: {

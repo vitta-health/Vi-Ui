@@ -24,9 +24,9 @@
         }),
       ]"
     >
-      <slot name="badge"/>
+      <slot name="badge" />
     </div>
-    <slot/>
+    <slot />
   </div>
 </template>
 
@@ -147,18 +147,18 @@ export default {
       width 24px
 
     &--inline
-      border-radius .25rem
+      border-radius 0.25rem
       display inline-block
       font-size 75%
       height auto
       line-height 1
-      padding .25em .4em .3em
+      padding 0.25em 0.4em 0.3em
       position initial
       width auto
 
     &--pill
       border-radius 1rem
-      @extends .ViComponent.ViBadge .ViBadge__Badge--inline
+      @extend .ViComponent.ViBadge .ViBadge__Badge--inline
 
     &--left
       left -25px
@@ -204,9 +204,9 @@ export default {
 export default {};
 </script>
 <style>
-  .icon {
-    font-size: 3em;
-  }
+.icon {
+  font-size: 3em;
+}
 </style>
 ```
 
@@ -215,9 +215,7 @@ export default {};
 ```vue
 <template>
   <vi-badge primary v-model="isOpen">
-    <div slot="badge">
-      1
-    </div>
+    <div slot="badge">1</div>
     <vi-button primary @click="isOpen = !isOpen">Clique aqui</vi-button>
   </vi-badge>
 </template>

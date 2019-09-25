@@ -38,8 +38,8 @@ export default {
       },
     },
     /**
-    * Nome do campo (usa o mesmo que `id` se não definido)
-    */
+     * Nome do campo (usa o mesmo que `id` se não definido)
+     */
     name: {
       type: String,
       default: null,
@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     changeMessage(target) {
-      const hasMessage = Object.keys(this.customErrorMsg).some((key) => {
+      const hasMessage = Object.keys(this.customErrorMsg).some(key => {
         if (target.validity[key]) {
           this.errorMsg = this.customErrorMsg[key];
         }

@@ -13,8 +13,8 @@ export default {
       default: false,
     },
     /**
-    * _Cor:_ Define a cor secundaria
-    */
+     * _Cor:_ Define a cor secundaria
+     */
     secondary: {
       type: Boolean,
       default: false,
@@ -69,10 +69,10 @@ export default {
       default: false,
     },
     /**
-    * @ignore Essa prop é apenas um helper para componentes que dependem de outros componentes.
-    * Deixar ela exposta vai causar mais confusão que instruir como dever ser utilizado as props
-    * de cores. O usuário final precisa apenas usar o nome das cores como prop.
-    */
+     * @ignore Essa prop é apenas um helper para componentes que dependem de outros componentes.
+     * Deixar ela exposta vai causar mais confusão que instruir como dever ser utilizado as props
+     * de cores. O usuário final precisa apenas usar o nome das cores como prop.
+     */
     defaultColor: {
       type: String,
       default: 'default',
@@ -81,7 +81,7 @@ export default {
   methods: {
     colorClass(args = {}) {
       let colorName = args.default || 'default';
-      Object.keys(colors).some((color) => {
+      Object.keys(colors).some(color => {
         if (this[color]) colorName = color;
         return this[color];
       });
@@ -94,10 +94,9 @@ export default {
     },
     colorsOpt() {
       const newPros = {};
-      Object.keys(colors)
-        .forEach((color) => {
-          if (this[color]) newPros[color] = this.$props[color];
-        });
+      Object.keys(colors).forEach(color => {
+        if (this[color]) newPros[color] = this.$props[color];
+      });
       return newPros;
     },
   },

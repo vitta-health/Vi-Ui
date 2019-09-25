@@ -4,7 +4,7 @@
       'ViPagination',
       {
         'ViPagination--dots': dots,
-      }
+      },
     ]"
     :pill="!dots && pill"
     :outlined="!dots"
@@ -31,18 +31,22 @@
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('PREVIOUS_PAGE')"
       :href="getURL('PREVIOUS_PAGE')"
-    ><vi-icon name="chevron-prev" /></vi-button>
+    >
+      <vi-icon name="chevron-prev" />
+    </vi-button>
     <vi-button
       v-bind="colorsOpt()"
       type="button"
       @click="handleNavigation(page)"
-      v-for="(page) in getPages"
+      v-for="page in getPages"
       :active="isCurrentPage(page)"
       :default-color="pickDefaultColor"
       :disabled="disableLink(page)"
       :key="page"
       :href="disableLink(page) ? '' : getURL(page)"
-    >{{ page }}</vi-button>
+    >
+      {{ page }}
+    </vi-button>
     <vi-button
       v-bind="colorsOpt()"
       type="button"
@@ -51,7 +55,9 @@
       :default-color="pickDefaultColor"
       :disabled="!buttonEnabled('NEXT_PAGE')"
       :href="getURL('NEXT_PAGE')"
-    ><vi-icon name="chevron-next" /></vi-button>
+    >
+      <vi-icon name="chevron-next" />
+    </vi-button>
     <vi-button
       class="ViPagination__BeakPage"
       v-bind="colorsOpt()"
@@ -259,14 +265,8 @@ export default {
 <template>
   <vi-wrapper id="pagination" class="ViComponent" vertical>
     <h4>Normal</h4>
-  <vi-pagination
-      pill
-    :baseURL="baseURL"
-    :totalPages="totalPages"
-    :totalShowed="totalShowed"
-      v-model="currentPage"
-    />
-    <hr/>
+    <vi-pagination pill :baseURL="baseURL" :totalPages="totalPages" :totalShowed="totalShowed" v-model="currentPage" />
+    <hr />
     <h4>Dot</h4>
     <vi-pagination
       dots
@@ -274,7 +274,11 @@ export default {
       :value="currentPage >= 5 ? 5 : currentPage"
       :totalPages="5"
       :totalShowed="5"
-      @input="(value) => { this.currentPage = value; }"
+      @input="
+        value => {
+          this.currentPage = value;
+        }
+      "
     />
   </vi-wrapper>
 </template>
@@ -284,11 +288,11 @@ export default {
   data() {
     return {
       currentPage: 1,
-      baseURL:'&page=##PAGE##',
+      baseURL: '&page=##PAGE##',
       totalPages: 10,
-      totalShowed: 5
+      totalShowed: 5,
     };
-  }
+  },
 };
 </script>
 ```
