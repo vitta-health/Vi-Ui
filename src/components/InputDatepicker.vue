@@ -17,7 +17,7 @@
         @change="inputChange($event, 'change')"
         @popover-will-appear.capture="popoverState(true)"
         @popover-will-disappear.capture="popoverState(false)"
-        popover-visibility="focus"
+        :popover-visibility="datePickerVisibility"
         tint-color="#3581BC"
         :disabled-dates="disabledDates"
         :formats="formats"
@@ -32,6 +32,7 @@
             },
           ],
           placeholder: placeholder,
+          disabled: disabled
         }"
         :is-double-paned="doublePanel"
         :is-required="required"
@@ -92,6 +93,13 @@ export default {
       default: null,
     },
     /**
+     * Define se o datepicker deve ficar desabilitado
+     */
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * _Validação:_ Data mínima no valor do campo
      */
     min: {
@@ -139,6 +147,9 @@ export default {
     defineMode() {
       if (this.multipe) return 'multiple';
       return this.ranged ? 'range' : 'single';
+    },
+    datePickerVisibility() {
+      return this.disabled ? 'none' : 'focus';
     },
   },
   methods: {
