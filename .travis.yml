@@ -1,0 +1,26 @@
+# CI pipeline for the Vi-Ui live demo
+#
+# We're currently assessing the possibility of hosting this live demo
+# in our own cloud infrastructure.
+# An alternative is using Netlify's hosting service, but I believe an
+# S3 static-site bucket will do just as well.
+
+language: node_js
+node_js:
+  - "10"
+
+jobs:
+  include:
+    - stage: test
+      script:
+        - echo "This is just a test"
+
+    - stage: build
+      script:
+        - echo "This is the build phase"
+        - yarn build
+
+    - stage: deploy
+      script:
+        - echo "This is the deploy stage"
+
