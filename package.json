@@ -6,7 +6,7 @@
   "module": "src/index.js",
   "license": "MIT",
   "private": false,
-  "homepage": "https://vitta-health.github.io/Vi-Ui/",
+  "homepage": "https://viui.dev/",
   "unpkg": "/dist/vi-ui.min.js",
   "repository": {
     "type": "git",
@@ -48,7 +48,7 @@
     "url": "https://github.com/vitta-health/Vi-Ui/issues"
   },
   "directories": {
-    "doc": "docs"
+    "doc": "docsSrc"
   },
   "author": ""
 }

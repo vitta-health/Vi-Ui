@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/vitta-health/Vi-Ui/master/docs/layout/components/vi-ui.svg?sanitize=true" width="120px">
+  <img src="https://raw.githubusercontent.com/vitta-health/Vi-Ui/master/docs/assets/vi-ui.svg?sanitize=true" width="120px">
 </p>
 <h1 align="center">Vi-Ui</h1>
 <p align="center">
@@ -60,3 +60,7 @@ Apply the class `ViComponent` to the body for global or where you want to use th
 ### Visual Code extension
 
 You can use the <a href="https://github.com/pablovieiras/viui-vscode">viui-vscode</a> extension to get some snippets and autocomplete when developing something with Vi-Ui.
+
+### Contribution, Feature Resquests and Bug Report
+
+See our <a href="https://github.com/vitta-health/Vi-Ui/issues">issues page</a>.
