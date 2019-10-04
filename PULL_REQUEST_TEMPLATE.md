@@ -1,7 +1,3 @@
-| Type  | Env Vars Change |
-| :---: | :---: |
-| Feature/Fix/Chore/Test/Release/ | Yes/No |
-
 > ⚠️  NOTE: use notes like this to emphasize something about the PR. This could
 > include other PRs this PR is built on top of; new or removed environment
 > variables; reasons for why the PR is on hold; or anything else you would like
