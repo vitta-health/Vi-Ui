@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/vitta-health/Vi-Ui/master/docs/assets/vi-ui.svg?sanitize=true" width="120px">
+  <img src="https://raw.githubusercontent.com/vitta-health/Vi-Ui/master/docsSrc/assets/vi-ui.svg?sanitize=true" width="120px">
 </p>
 <h1 align="center">Vi-Ui</h1>
 <p align="center">
