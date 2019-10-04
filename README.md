@@ -1,10 +1,11 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/vitta-health/Vi-Ui/master/docs/layout/components/vi-ui.svg?sanitize=true" width="120px">
+  <img src="https://raw.githubusercontent.com/vitta-health/Vi-Ui/master/docsSrc/assets/vi-ui.svg?sanitize=true" width="120px">
 </p>
 <h1 align="center">Vi-Ui</h1>
 <p align="center">
   <a href="https://david-dm.org/vitta-health/Vi-Ui" title="dependencies status"><img src="https://david-dm.org/vitta-health/Vi-Ui/status.svg"/></a>
   <a href="https://github.com/vitta-health/Vi-Ui/blob/master/LICENSE" title="Licente Mit"><img src="https://img.shields.io/badge/License-MIT-blue.svg"/></a>
+  <a href="https://travis-ci.org/vitta-health/Vi-Ui" title="Travis CI"><img src="https://travis-ci.org/vitta-health/Vi-Ui.svg?branch=master"/></a>
 </p>
 
 <h2 align="center"><a href="https://vitta-health.github.io/Vi-Ui/">Read the documentation</a></h2>
@@ -60,3 +61,7 @@ Apply the class `ViComponent` to the body for global or where you want to use th
 ### Visual Code extension
 
 You can use the <a href="https://github.com/pablovieiras/viui-vscode">viui-vscode</a> extension to get some snippets and autocomplete when developing something with Vi-Ui.
+
+### Contribution, Feature Resquests and Bug Report
+
+See our <a href="https://github.com/vitta-health/Vi-Ui/issues">issues page</a>.

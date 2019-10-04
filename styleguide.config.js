@@ -6,8 +6,8 @@ module.exports = {
   pagePerSection: true,
   usageMode: 'expand',
   exampleMode: 'expand',
-  styleguideDir: 'static/',
-  assetsDir: 'docs/assets/',
+  styleguideDir: 'docs/',
+  assetsDir: 'docsSrc/assets/',
   sections: [
     {
       name: 'Instalação e Utilização',
