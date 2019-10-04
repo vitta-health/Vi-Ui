@@ -12,7 +12,12 @@
       ]"
       @click.self="onClick"
     >
-      <div class="ViToggleSwitch__Draggable" @mousedown.prevent="dragStart" @click.self="onClick" :style="style" />
+      <div
+        class="ViToggleSwitch__Draggable"
+        @mousedown.prevent="dragStart"
+        @click.self="onClick"
+        :style="style"
+      />
     </div>
   </vi-wrapper>
 </template>
@@ -96,13 +101,11 @@ export default {
 <style lang="stylus">
 @import '../themes/main'
 
-$background-color-off = #fff
-$border-color = #eee
+$background-color-off = #eee
 $pin-in-color = #fff
 
 .ViToggleSwitch__Container
-  background $success
-  border 2px solid $border-color
+  background $background-color-off
   border-radius 200px
   height 40px
   transition background 0.6s
@@ -126,12 +129,11 @@ $pin-in-color = #fff
     box-shadow 0 3px 10px 0 rgba(0, 0, 0, 0.3), inset -1px 0 0 1px rgba(0, 0, 0, 0.08)
     height 99%
     transform translateX(0)
-    transition transform 0.05s ease-in-out
+    transition transform 0.15s ease-in-out
     width 50%
 
   &--active
-    background $background-color-on
-    border 2px solid $background-color-on
+    background $success
     transition background 0.6s
 </style>
 
