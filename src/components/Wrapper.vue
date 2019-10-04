@@ -152,7 +152,7 @@ export default {
     },
   },
   render(createElement, context) {
-    const children = context.children.filter(node => {
+    const children = (context.children || []).filter(node => {
       if (!node.tag && !node.text) return false;
       return node.tag || node.text.replace(/[\s\n]/g, '');
     });
