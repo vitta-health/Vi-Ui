@@ -318,7 +318,10 @@ export default {
     },
     setWidthOptions() {
       if (!this.isOpen) return;
-      this.optionsWidth = this.$el.getElementsByClassName('multiselect__element')[0].clientWidth;
+      const elements = this.$el.getElementsByClassName('multiselect__element');
+      if (elements.length > 0) {
+          this.optionsWidth = elements[0].clientWidth;
+      }
     },
     selectAll() {
       let newValue = this.value || [];
