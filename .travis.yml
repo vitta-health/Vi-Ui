@@ -20,7 +20,13 @@ jobs:
         - echo "This is the build phase"
         - yarn build
 
-    - stage: deploy
-      script:
-        - echo "This is the deploy stage"
+deploy:
+  provider: pages
+  skip_cleanup: true
+  fqdn: viui.dev    # FQDN stands for Fully Qualified Domain Name
+  commiter_from_gh: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: master
 
