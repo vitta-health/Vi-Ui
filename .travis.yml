@@ -1,0 +1,32 @@
+# CI pipeline for the Vi-Ui live demo
+#
+# We're currently assessing the possibility of hosting this live demo
+# in our own cloud infrastructure.
+# An alternative is using Netlify's hosting service, but I believe an
+# S3 static-site bucket will do just as well.
+
+language: node_js
+node_js:
+  - "10"
+
+jobs:
+  include:
+    - stage: test
+      script:
+        - echo "This is just a test"
+
+    - stage: build
+      script:
+        - echo "This is the build phase"
+        - yarn build
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  fqdn: viui.dev    # FQDN stands for Fully Qualified Domain Name
+  commiter_from_gh: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: master
+
