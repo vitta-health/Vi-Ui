@@ -1,44 +1,24 @@
-import ViAlert from './components/Alert.vue';
-import ViButton from './components/Button.vue';
-import ViButtonGroup from './components/ButtonGroup.vue';
-import ViCard from './components/Card.vue';
-import ViIcon from './components/Icon.vue';
-import ViInput from './components/Input.vue';
-import ViDatepicker from './components/InputDatepicker.vue';
-import ViInputFile from './components/InputFile.vue';
-import ViSelect from './components/InputSelect.vue';
-import ViCheckbox from './components/InputRadioCheckbox.vue';
-import ViLoading from './components/Loading.vue';
-import ViModal from './components/Modal.vue';
-import ViPagination from './components/Pagination.vue';
-import ViTable from './components/Table.vue';
-import ViTabs from './components/Tabs.vue';
-import ViToggleSwitch from './components/ToggleSwitch.vue';
-import ViTooltip from './components/Tooltip.vue';
-import ViWrapper from './components/Wrapper.vue';
-import ViBadge from './components/Badge.vue';
+import * as components from './components';
 
 const ViUi = {
-  install(Vue) {
-    Vue.component(ViAlert.name, ViAlert);
-    Vue.component(ViButton.name, ViButton);
-    Vue.component(ViButtonGroup.name, ViButtonGroup);
-    Vue.component(ViCard.name, ViCard);
-    Vue.component(ViIcon.name, ViIcon);
-    Vue.component(ViInput.name, ViInput);
-    Vue.component(ViDatepicker.name, ViDatepicker);
-    Vue.component(ViInputFile.name, ViInputFile);
-    Vue.component(ViCheckbox.name, ViCheckbox);
-    Vue.component(ViSelect.name, ViSelect);
-    Vue.component(ViLoading.name, ViLoading);
-    Vue.component(ViModal.name, ViModal);
-    Vue.component(ViPagination.name, ViPagination);
-    Vue.component(ViTable.name, ViTable);
-    Vue.component(ViTabs.name, ViTabs);
-    Vue.component(ViToggleSwitch.name, ViToggleSwitch);
-    Vue.component(ViTooltip.name, ViTooltip);
-    Vue.component(ViWrapper.name, ViWrapper);
-    Vue.component(ViBadge.name, ViBadge);
+  /**
+   * Método responsável por registrar o framework no Vue
+   * @param Vue -> instância do Vue em qual o framework será instalado
+   * @param Options -> Configurações que poderão ser utilizadas na instalação do framework.
+   *  Ex.: A La-carte components e configurações de tema via JS.
+   */
+  install(Vue, Options) {
+
+    // Instalando os componentes do Framework na instância Vue
+    Object.keys(components).forEach(component => {
+      let componentName = components[component].name;
+      // Registrando o componente. Aqui seria interessante fazer a utilização do "A La-Carte componente", o componente
+      // só sera registrado caso esteja na lista de componentes informado em Options.
+      Vue.component(componentName, components[component]);
+    })
+
+    // Abaixo fica livre para instalar Vue.directive, Vue.filter e etc.
+
   },
 };
 
