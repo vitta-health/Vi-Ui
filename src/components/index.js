@@ -1,4 +1,4 @@
-// Exportando todos os componentes que estarão disponíveis no framework
+// Exporting all component available in Vi-Ui
 export * from './Alert';
 export * from './Badge';
 export * from './Button';

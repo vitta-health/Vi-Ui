@@ -2,22 +2,24 @@ import * as components from './components';
 
 const ViUi = {
   /**
-   * Método responsável por registrar o framework no Vue
-   * @param Vue -> instância do Vue em qual o framework será instalado
-   * @param Options -> Configurações que poderão ser utilizadas na instalação do framework.
-   *  Ex.: A La-carte components e configurações de tema via JS.
+   *
+   * Method responsible for register Vi-Ui on VueJS
+   * @param Vue -> Vue install for Vi-Ui register
+   * @param Options -> Additional configuration that can be use on Vi-ui register
+   *  Eg.: A La-carte components and theme configuration with JS.
    */
   install(Vue, Options) {
 
-    // Instalando os componentes do Framework na instância Vue
+
+    // Get all Vi-Ui components and install them.
     Object.keys(components).forEach(component => {
       let componentName = components[component].name;
-      // Registrando o componente. Aqui seria interessante fazer a utilização do "A La-Carte componente", o componente
-      // só sera registrado caso esteja na lista de componentes informado em Options.
+      // Registering the component.
+      // Here is a interesting place to do dinamic register. Register a component only if it was specified on Options.
       Vue.component(componentName, components[component]);
     })
 
-    // Abaixo fica livre para instalar Vue.directive, Vue.filter e etc.
+    // Below can be register Vue.directive, Vue.filter and etc, following the above code.
 
   },
 };
