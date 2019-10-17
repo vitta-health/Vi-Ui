@@ -1,44 +1,26 @@
-import ViAlert from './components/Alert.vue';
-import ViButton from './components/Button.vue';
-import ViButtonGroup from './components/ButtonGroup.vue';
-import ViCard from './components/Card.vue';
-import ViIcon from './components/Icon.vue';
-import ViInput from './components/Input.vue';
-import ViDatepicker from './components/InputDatepicker.vue';
-import ViInputFile from './components/InputFile.vue';
-import ViSelect from './components/InputSelect.vue';
-import ViCheckbox from './components/InputRadioCheckbox.vue';
-import ViLoading from './components/Loading.vue';
-import ViModal from './components/Modal.vue';
-import ViPagination from './components/Pagination.vue';
-import ViTable from './components/Table.vue';
-import ViTabs from './components/Tabs.vue';
-import ViToggleSwitch from './components/ToggleSwitch.vue';
-import ViTooltip from './components/Tooltip.vue';
-import ViWrapper from './components/Wrapper.vue';
-import ViBadge from './components/Badge.vue';
+import * as components from './components';
 
 const ViUi = {
-  install(Vue) {
-    Vue.component(ViAlert.name, ViAlert);
-    Vue.component(ViButton.name, ViButton);
-    Vue.component(ViButtonGroup.name, ViButtonGroup);
-    Vue.component(ViCard.name, ViCard);
-    Vue.component(ViIcon.name, ViIcon);
-    Vue.component(ViInput.name, ViInput);
-    Vue.component(ViDatepicker.name, ViDatepicker);
-    Vue.component(ViInputFile.name, ViInputFile);
-    Vue.component(ViCheckbox.name, ViCheckbox);
-    Vue.component(ViSelect.name, ViSelect);
-    Vue.component(ViLoading.name, ViLoading);
-    Vue.component(ViModal.name, ViModal);
-    Vue.component(ViPagination.name, ViPagination);
-    Vue.component(ViTable.name, ViTable);
-    Vue.component(ViTabs.name, ViTabs);
-    Vue.component(ViToggleSwitch.name, ViToggleSwitch);
-    Vue.component(ViTooltip.name, ViTooltip);
-    Vue.component(ViWrapper.name, ViWrapper);
-    Vue.component(ViBadge.name, ViBadge);
+  /**
+   *
+   * Method responsible for register Vi-Ui on VueJS
+   * @param Vue -> Vue install for Vi-Ui register
+   * @param Options -> Additional configuration that can be use on Vi-ui register
+   *  Eg.: A La-carte components and theme configuration with JS.
+   */
+  install(Vue, Options) {
+
+
+    // Get all Vi-Ui components and install them.
+    Object.keys(components).forEach(component => {
+      let componentName = components[component].name;
+      // Registering the component.
+      // Here is a interesting place to do dinamic register. Register a component only if it was specified on Options.
+      Vue.component(componentName, components[component]);
+    })
+
+    // Below can be register Vue.directive, Vue.filter and etc, following the above code.
+
   },
 };
 
