@@ -19,14 +19,13 @@ jobs:
       script:
         - echo "This is the build phase"
         - yarn build
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  fqdn: viui.dev    # FQDN stands for Fully Qualified Domain Name
-  commiter_from_gh: true
-  github_token: $GITHUB_TOKEN
-  keep_history: true
-  on:
-    branch: master
-
+        - yarn run styleguide:build
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        commiter_from_gh: true
+        github_token: $GITHUB_TOKEN
+        on:
+          branch: master
+        target_branch: gh-pages
+        local_dir: docs
