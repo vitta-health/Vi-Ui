@@ -11,11 +11,11 @@ module.exports = {
   sections: [
     {
       name: 'Instalação e Utilização',
-      content: 'docs/pages/installation.md',
+      content: 'docsSrc/pages/installation.md',
     },
     {
       name: 'Tipografia e Cores',
-      content: 'docs/pages/thypography-colors.md',
+      content: 'docsSrc/pages/thypography-colors.md',
     },
     {
       name: 'Documentação',
