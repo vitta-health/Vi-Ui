@@ -443,11 +443,11 @@ A forma mais simples de utilizar o ViTable é apenas definir as colunas e dados 
           { id: 'email', label: 'E-mail' },
         ],
         data: [
-          { id: 1, name: 'Amanda', email: 'amanda@vitta.com.br' },
-          { id: 2, name: 'Beth', email: 'beth@vitta.com.br' },
-          { id: 3, name: 'Cleusa', email: 'cleusa@vitta.com.br' },
-          { id: 4, name: 'Darlene', email: 'darlene@vitta.com.br' },
-          { id: 5, name: 'Eleonora', email: 'eleonora@vitta.com.br' },
+          { id: 1, name: 'Amanda', email: 'amanda@example.com' },
+          { id: 2, name: 'Beth', email: 'beth@example.com' },
+          { id: 3, name: 'Cleusa', email: 'cleusa@example.com' },
+          { id: 4, name: 'Darlene', email: 'darlene@example.com' },
+          { id: 5, name: 'Eleonora', email: 'eleonora@example.com' },
         ],
       };
     },
@@ -477,11 +477,11 @@ Veja no exemplo abaixo como personalizar a renderização da coluna e-mail.
           { id: 'email', label: 'E-mail' },
         ],
         data: [
-          { id: 1, name: 'Amanda', email: 'amanda@vitta.com.br' },
-          { id: 2, name: 'Beth', email: 'beth@vitta.com.br' },
-          { id: 3, name: 'Cleusa', email: 'cleusa@vitta.com.br' },
-          { id: 4, name: 'Darlene', email: 'darlene@vitta.com.br' },
-          { id: 5, name: 'Eleonora', email: 'eleonora@vitta.com.br' },
+          { id: 1, name: 'Amanda', email: 'amanda@example.com' },
+          { id: 2, name: 'Beth', email: 'beth@example.com' },
+          { id: 3, name: 'Cleusa', email: 'cleusa@example.com' },
+          { id: 4, name: 'Darlene', email: 'darlene@example.com' },
+          { id: 5, name: 'Eleonora', email: 'eleonora@example.com' },
         ],
       };
     },
