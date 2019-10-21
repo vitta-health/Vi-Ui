@@ -69,7 +69,13 @@
             <span class="ViTable__FakeCheckbox" />
           </div>
         </td>
-        <slot :item="item" />
+        <slot :item="item">
+          <td v-for="(column, index) in columns" :key="index">
+            <slot :name="`column-${column.id}`" v-bind:item="item">
+              {{ item[column.id] }}
+            </slot>
+          </td>
+        </slot>
       </tr>
     </tbody>
   </table>
@@ -415,10 +421,76 @@ export default {
 </style>
 
 <docs>
-### Basic Table
+### Tabela Básica
 
-Para alinhar o conteúdo das células da coluna em uma direção,
-adicione [center|right] como uma propriedade na coluna.
+A forma mais simples de utilizar o ViTable é apenas definir as colunas e dados que devem ser exibidos:
+
+> Dica: Para alinhar o conteúdo das células da coluna em uma direção,
+> adicione [center|right] como uma propriedade na coluna.
+
+```vue
+<template>
+  <vi-table :columns="columns" :items="data" />
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        columns: [
+          { id: 'id', label: 'ID' },
+          { id: 'name', label: 'Name' },
+          { id: 'email', label: 'E-mail' },
+        ],
+        data: [
+          { id: 1, name: 'Amanda', email: 'amanda@example.com' },
+          { id: 2, name: 'Beth', email: 'beth@example.com' },
+          { id: 3, name: 'Cleusa', email: 'cleusa@example.com' },
+          { id: 4, name: 'Darlene', email: 'darlene@example.com' },
+          { id: 5, name: 'Eleonora', email: 'eleonora@example.com' },
+        ],
+      };
+    },
+  };
+</script>
+```
+
+É possível personalizar a renderização de cada coluna utilizando um slot com o identificador da coluna.
+Veja no exemplo abaixo como personalizar a renderização da coluna e-mail.
+
+```vue
+<template>
+  <vi-table :columns="columns" :items="data">
+    <template v-slot:column-email="{ item }" >
+      <a :href="'mailto:' + item.email">{{ item.email }}</a>
+    </template>
+  </vi-table>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        columns: [
+          { id: 'id', label: 'ID' },
+          { id: 'name', label: 'Name' },
+          { id: 'email', label: 'E-mail' },
+        ],
+        data: [
+          { id: 1, name: 'Amanda', email: 'amanda@example.com' },
+          { id: 2, name: 'Beth', email: 'beth@example.com' },
+          { id: 3, name: 'Cleusa', email: 'cleusa@example.com' },
+          { id: 4, name: 'Darlene', email: 'darlene@example.com' },
+          { id: 5, name: 'Eleonora', email: 'eleonora@example.com' },
+        ],
+      };
+    },
+  };
+</script>
+```
+
+### Tabela Completa
+Também é possível utilizar as demais funcionalidades do componente com um pouco mais de código, incluindo total controle da renderização de cada linha.
 
 ```vue
 <template>
@@ -435,8 +507,8 @@ adicione [center|right] como uma propriedade na coluna.
   >
     <template slot-scope="{ item }">
       <td center>{{ item.id }}</td>
-      <td>{{ item.name }}</td>
-      <td>{{ item.company }}</td>
+      <td :style="{ color: 'green' }">{{ item.name }}</td>
+      <td right>{{ item.company }}</td>
     </template>
     <template slot="tfoot">
       <td center>Sum</td>
