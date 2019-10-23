@@ -21,11 +21,17 @@ jobs:
         - yarn build
         - yarn run styleguide:build
       deploy:
-        provider: pages
-        skip_cleanup: true
-        commiter_from_gh: true
-        github_token: $GITHUB_TOKEN
-        on:
-          branch: master
-        target_branch: gh-pages
-        local_dir: docs
+        - provider: pages
+          skip_cleanup: true
+          commiter_from_gh: true
+          github_token: $GITHUB_TOKEN
+          on:
+            tags: true
+          target_branch: gh-pages
+          local_dir: docs
+        - provider: npm
+          skip_cleanup: true
+          email: $NPM_EMAIL
+          api_key: $NPM_TOKEN
+          on:
+            tags: true
