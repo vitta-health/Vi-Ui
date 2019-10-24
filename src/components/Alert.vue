@@ -21,6 +21,7 @@
     default-color="default"
     tag="span"
     small-spacing
+    :width="componentWidth"
   >
     <vi-wrapper tag="span" small-spacing justify-content="space-between" align-items="center">
       <vi-wrapper tag="span" small-spacing child-wrapper justify-content="start" align-items="center">
@@ -45,6 +46,8 @@
 <script>
 import ViButton from './Button.vue';
 import ViCard from './Card.vue';
+import ViWrapper from './Wrapper';
+import ViIcon from './Icon';
 import colorsMixin from '../mixins/colors';
 import { widthMixin } from '../mixins/sizes';
 
@@ -55,6 +58,8 @@ export default {
   components: {
     ViCard,
     ViButton,
+    ViWrapper,
+    ViIcon,
   },
   mixins: [colorsMixin, widthMixin],
   props: {
@@ -128,13 +133,7 @@ export default {
   methods: {
     startToggle() {
       if (!this.notDismissable) {
-        /**
-         * evento de click
-         *
-         * @event click
-         * @type {none}
-         */
-        this.$emit('click');
+        this.$emit('close');
         this.toggle();
       }
     },
@@ -157,7 +156,7 @@ export default {
        * @event close
        * @type {none}
        */
-      this.$emit('closed');
+      this.$emit('close');
     },
     open() {
       /**
@@ -186,7 +185,7 @@ export default {
     startTimer(mouseState) {
       this.isOver = mouseState;
       if (timer) clearTimeout(timer);
-      if (this.timeoutMillisecs) {
+      if (this.timeoutMillisecs && !this.notDismissable) {
         timer = setTimeout(() => {
           this.isOpen = false;
           this.$emit('input', false);
