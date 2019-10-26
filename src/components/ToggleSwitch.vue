@@ -12,12 +12,7 @@
       ]"
       @click.self="onClick"
     >
-      <div
-        class="ViToggleSwitch__Draggable"
-        @mousedown.prevent="dragStart"
-        @click.self="onClick"
-        :style="style"
-      />
+      <div class="ViToggleSwitch__Draggable" @mousedown.prevent="dragStart" @click.self="onClick" :style="style" />
     </div>
   </vi-wrapper>
 </template>
@@ -35,7 +30,6 @@ export default {
   data() {
     return {
       width: 100,
-      state: false,
       position: 0,
     };
   },
@@ -46,16 +40,15 @@ export default {
      */
     value: {
       type: Boolean,
-      default: null,
+      default: false,
     },
   },
   methods: {
     onClick() {
-      this.toggle(!this.state);
-      this.emit();
+      this.toggle(!this.value);
+      this.emit(!this.value);
     },
     toggle(state) {
-      this.state = state;
       this.position = !state ? 0 : 100;
     },
     dragging(e) {
@@ -73,10 +66,10 @@ export default {
       window.removeEventListener('mousemove', this.dragging);
       window.removeEventListener('mouseup', this.dragStop);
       this.toggle(this.position >= 50);
-      this.emit();
+      this.emit(this.position >= 50);
     },
-    emit() {
-      this.$emit('input', this.state);
+    emit(state) {
+      this.$emit('input', state);
     },
   },
   computed: {
@@ -89,7 +82,7 @@ export default {
       return `${(this.position / this.width) * 100}%`;
     },
     isChecked() {
-      return this.state || this.value === true;
+      return this.value;
     },
   },
   mounted() {

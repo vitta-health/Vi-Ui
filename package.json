@@ -20,7 +20,8 @@
     "styleguide": "vue-cli-service styleguidist",
     "styleguide:build": "vue-cli-service styleguidist:build",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch --verbose=true",
+    "coverage": "jest --collect-coverage"
   },
   "peerDependencies": {
     "vue": "^2.6.5"
