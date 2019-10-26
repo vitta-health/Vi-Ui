@@ -13,13 +13,13 @@ jobs:
   include:
     - stage: test
       script:
-        - yarn test
+        - npm run test
 
     - stage: build
       script:
         - echo "This is the build phase"
-        - yarn build
-        - yarn run styleguide:build
+        - npm run build
+        - npm run styleguide:build
       deploy:
         provider: pages
         skip_cleanup: true
