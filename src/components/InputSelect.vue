@@ -133,7 +133,7 @@
 import Multiselect from 'vue-multiselect';
 import ViWrapper from './Wrapper.vue';
 import ViInputLabel from '../helperComponents/InputLabel.vue';
-import { scaleMixin, widthMixin } from '../mixins/sizes';
+import { widthMixin } from '../mixins/sizes';
 import inputMixin from '../mixins/input';
 /**
  * ###### Além das props descritas aqui, usamos a props e eventos do **Vue-Multiselect**.
@@ -148,7 +148,7 @@ export default {
     ViWrapper,
     ViInputLabel,
   },
-  mixins: [scaleMixin, widthMixin, inputMixin],
+  mixins: [widthMixin, inputMixin],
   props: {
     /**
      * Substitui label do Vue-Multisect.
@@ -320,7 +320,7 @@ export default {
       if (!this.isOpen) return;
       const elements = this.$el.getElementsByClassName('multiselect__element');
       if (elements.length > 0) {
-          this.optionsWidth = elements[0].clientWidth;
+        this.optionsWidth = elements[0].clientWidth;
       }
     },
     selectAll() {

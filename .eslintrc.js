@@ -10,4 +10,7 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
+  rules: {
+    'no-unused-vars': 'warn',
+  },
 };
