@@ -23,6 +23,7 @@ jobs:
       deploy:
         provider: pages
         skip_cleanup: true
+        fqdn: viui.dev
         commiter_from_gh: true
         github_token: $GITHUB_TOKEN
         on:
