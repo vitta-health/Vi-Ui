@@ -22,7 +22,7 @@
     "test": "jest",
     "test:watch": "jest --watch --verbose=true",
     "coverage": "jest --collect-coverage",
-    "coverage:collect": "codecov -t $CODECOV_TOKEN"
+    "coverage:collect": "codecov"
   },
   "peerDependencies": {
     "vue": "^2.6.5"
