@@ -6,6 +6,7 @@
   <a href="https://david-dm.org/vitta-health/Vi-Ui" title="dependencies status"><img src="https://david-dm.org/vitta-health/Vi-Ui/status.svg"/></a>
   <a href="https://github.com/vitta-health/Vi-Ui/blob/master/LICENSE" title="Licente Mit"><img src="https://img.shields.io/badge/License-MIT-blue.svg"/></a>
   <a href="https://travis-ci.org/vitta-health/Vi-Ui" title="Travis CI"><img src="https://travis-ci.org/vitta-health/Vi-Ui.svg?branch=master"/></a>
+  <a href="https://codecov.io/gh/vitta-health/Vi-Ui/branch/master/" title="Codecov"><img src="https://codecov.io/gh/vitta-health/Vi-Ui/branch/master/graph/badge.svg"/></a>
 </p>
 
 <h2 align="center"><a href="https://vitta-health.github.io/Vi-Ui/">Read the documentation</a></h2>
