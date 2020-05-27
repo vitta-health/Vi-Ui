@@ -147,6 +147,7 @@ export default {
 @import '../themes/main'
 
 .ViComponent.ViButton
+  align-items center
   border-radius 0.2em
   border-style solid
   border-width 0.09em
