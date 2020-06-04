@@ -22,12 +22,18 @@ jobs:
         - npm run build
         - npm run styleguide:build
       deploy:
-        provider: pages
-        skip_cleanup: true
-        fqdn: viui.dev
-        commiter_from_gh: true
-        github_token: $GITHUB_TOKEN
-        on:
-          branch: master
-        target_branch: gh-pages
-        local_dir: docs
+        - provider: pages
+          skip_cleanup: true
+          fqdn: viui.dev
+          commiter_from_gh: true
+          github_token: $GITHUB_TOKEN
+          on:
+            branch: master
+          target_branch: gh-pages
+          local_dir: docs
+        - provider: npm
+          email: ti@vitta.me
+          skip_cleanup: true
+          api_key: $VITTA_KEY_NPM
+          on:
+            branch: master
