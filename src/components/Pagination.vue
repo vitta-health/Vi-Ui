@@ -10,7 +10,7 @@
     :outlined="!dots"
   >
     <vi-button
-      class="ViPagination__BeakPage"
+      class="ViPagination__BeakPage ViPagination__FirstPage"
       title="Primeira Página"
       v-bind="colorsOpt()"
       v-if="!dots"
@@ -24,6 +24,7 @@
       <vi-icon name="chevron-prev" />
     </vi-button>
     <vi-button
+      class="ViPagination__PreviousPage"
       v-bind="colorsOpt()"
       v-if="!dots"
       type="button"
@@ -35,6 +36,8 @@
       <vi-icon name="chevron-prev" />
     </vi-button>
     <vi-button
+      class="ViPagination__Page"
+      :data-page="page"
       v-bind="colorsOpt()"
       type="button"
       @click="handleNavigation(page)"
@@ -48,6 +51,7 @@
       {{ page }}
     </vi-button>
     <vi-button
+      class="ViPagination__NextPage"
       v-bind="colorsOpt()"
       type="button"
       v-if="!dots"
@@ -59,7 +63,7 @@
       <vi-icon name="chevron-next" />
     </vi-button>
     <vi-button
-      class="ViPagination__BeakPage"
+      class="ViPagination__BeakPage ViPagination__LastPage"
       v-bind="colorsOpt()"
       v-if="!dots"
       title="Última Página"
@@ -78,6 +82,7 @@
 <script>
 import ViButtonGroup from './ButtonGroup.vue';
 import ViButton from './Button.vue';
+import ViIcon from './Icon.vue';
 import colorsMixin from '../mixins/colors';
 
 export default {
@@ -85,6 +90,7 @@ export default {
   components: {
     ViButtonGroup,
     ViButton,
+    ViIcon,
   },
   mixins: [colorsMixin],
   props: {
@@ -180,18 +186,13 @@ export default {
     },
     getURL(page) {
       if (!this.baseURL) return null;
-      const parsedBaseUrl = this.baseURL.replace('##PAGE##', this.getPage(page));
-      return `${this.rootUrl}${parsedBaseUrl}`;
+      return this.baseURL.replace('##PAGE##', this.getPage(page));
     },
   },
   computed: {
     baseRegEx() {
       if (!this.baseURL) return null;
       return new RegExp(this.baseURL.replace('##PAGE##', '\\d+'), 'g');
-    },
-    rootUrl() {
-      if (!this.baseURL && !this.baseRegEx) return window.location.href;
-      return window.location.href.replace(this.baseRegEx, '');
     },
     pickDefaultColor() {
       return this.dots ? 'dark' : 'primary';
@@ -216,9 +217,9 @@ export default {
       return [first, last];
     },
     getPages() {
-      const [first, last] = this.getPagesRange;
+      const pagesRange = this.getPagesRange;
       const pages = [];
-      for (let i = first; i <= last; i += 1) {
+      for (let i = pagesRange[0]; i <= pagesRange[1]; i += 1) {
         pages.push(i);
       }
       return pages;
