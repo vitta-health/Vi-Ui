@@ -28,6 +28,7 @@ jobs:
           commiter_from_gh: true
           github_token: $GITHUB_TOKEN
           on:
+            branch: master
             tags: true
           target_branch: gh-pages
           local_dir: docs
@@ -36,4 +37,5 @@ jobs:
           email: $NPM_EMAIL
           api_key: $NPM_TOKEN
           on:
+            branch: master
             tags: true
