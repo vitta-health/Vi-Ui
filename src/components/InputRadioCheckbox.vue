@@ -37,7 +37,7 @@
 
 <script>
 import ViWrapper from './Wrapper.vue';
-import { scaleMixin, widthMixin } from '../mixins/sizes';
+import { widthMixin } from '../mixins/sizes';
 import ViInputLabel from '../helperComponents/InputLabel.vue';
 import inputMixin from '../mixins/input';
 
@@ -47,7 +47,7 @@ export default {
     ViWrapper,
     ViInputLabel,
   },
-  mixins: [scaleMixin, widthMixin, inputMixin],
+  mixins: [widthMixin, inputMixin],
   props: {
     /**
      * Define tipo para radio button
@@ -84,15 +84,13 @@ export default {
     inputChange(target, type) {
       this.validated = false;
       this.invalid = false;
-      const value = typeof this.value === 'boolean' ? target.checked : target.value;
       /**
        * Evento de retorno de dados
        *
        * @event input
-       * @type {string|number|boolean}
-       *
+       * @type {boolean}
        */
-      this.$emit(type, value);
+      this.$emit(type, target.checked);
     },
   },
   computed: {
