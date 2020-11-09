@@ -32,7 +32,7 @@
             },
           ],
           placeholder: placeholder,
-          disabled: disabled
+          disabled: disabled,
         }"
         :is-double-paned="doublePanel"
         :is-required="required"

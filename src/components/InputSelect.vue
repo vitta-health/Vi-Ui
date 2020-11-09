@@ -320,7 +320,7 @@ export default {
       if (!this.isOpen) return;
       const elements = this.$el.getElementsByClassName('multiselect__element');
       if (elements.length > 0) {
-          this.optionsWidth = elements[0].clientWidth;
+        this.optionsWidth = elements[0].clientWidth;
       }
     },
     selectAll() {
