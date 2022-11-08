@@ -38,7 +38,7 @@
     "@types/jest": "^24.0.19",
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-prettier": "^5.0.0",
     "@vue/test-utils": "^1.0.0-beta.29",
     "babel-core": "^7.0.0-bridge.0",
@@ -53,7 +53,7 @@
     "prettier": "^1.18.2",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
-    "vue-cli-plugin-styleguidist": "^3.22.3",
+    "vue-cli-plugin-styleguidist": "^4.45.1",
     "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.10"
   },
